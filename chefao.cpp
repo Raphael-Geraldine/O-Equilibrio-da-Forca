@@ -1,13 +1,3 @@
-namespace Personagens
-{
-    class Tie
-    {
-        private:
-            short int vida;
-            short int forca;
+#include "chefao.h"
 
-        public:
-            Tie (short int v=100, short int f = 80);
-            ~Tie ();
-    };
-}
+//empty test
