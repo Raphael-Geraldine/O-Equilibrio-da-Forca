@@ -9,13 +9,14 @@ namespace TrabalhoJogo++
             class Plataforma : public Obstaculo
             {
                 private:
+                    float largura;
                     int altura;
 
                 public:
                     Plataforma();
                     ~Plataforma();
                     void executar();
-                    void salvar;
+                    void salvar();
                     void obstaculizar(Jogador* p);
             };
         }

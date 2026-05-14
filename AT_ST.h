@@ -6,15 +6,16 @@ namespace TrabalhoJogo++
     {
         namespace Personagens
         {
-            class Inimigo3 : public Inimigo
+            class AT_ST : public Inimigo
             {
                 private:
+                    const short int altura;
                     short int vida;
                     short int forca;
 
                 public:
-                    Inimigo3 (short int v=100, short int f = 80);
-                    ~Inimigo3 ();
+                    AT_ST (short int v=100, short int f = 80);
+                    ~AT_ST ();
                     void executar();
                     void danificar(Jogador* p);
                     void salva();
@@ -22,6 +23,7 @@ namespace TrabalhoJogo++
                     short int calculaRaio();
                     void soltarRaio();
                     void enfurecer();
+                    void mover();
             };
         }
     }

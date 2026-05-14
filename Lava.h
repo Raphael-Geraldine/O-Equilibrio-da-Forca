@@ -15,7 +15,7 @@ namespace TrabalhoJogo++
                     Lava();
                     ~Lava();
                     void executar();
-                    void salvar;
+                    void salvar();
                     void obstaculizar (Jogador* p);
             };
         }

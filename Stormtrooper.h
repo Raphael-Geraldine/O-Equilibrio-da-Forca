@@ -6,19 +6,20 @@ namespace TrabalhoJogo++
     {
         namespace Personagens
         {
-            class Inimigo1 : public Inimigo
+            class Stormtrooper : public Inimigo
             {
                 private:
                     short int vida;
                     float raio;
 
                 public:
-                    Inimigo1 ();
-                    ~Inimigo1 ();
+                    Stormtrooper ();
+                    ~Stormtrooper ();
                     void executar();
                     void danificar(Jogador* p);
                     void salva();
                     void atirar();
+                    void mover();
                     void operator++(int);
             };
         }

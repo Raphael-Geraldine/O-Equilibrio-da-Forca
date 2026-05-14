@@ -6,16 +6,19 @@ namespace TrabalhoJogo++
     {
         namespace Obstaculo
         {
-            class Fogo : public Obstaculo
+            class Gelo : public Obstaculo
             {
                 private:
+                    short int danosidade;
                     float largura;
 
                 public:
-                    Fogo();
-                    ~Fogo();
+                    Gelo();
+                    ~Gelo();
+                    void desacelerar();
                     void executar();
-                    void salvar;
+                    void salvar();
+                    void salvarDataBuffer();
                     void obstaculizar(Jogador* p);
             };
         }
