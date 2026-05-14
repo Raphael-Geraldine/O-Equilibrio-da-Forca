@@ -6,7 +6,7 @@ namespace TrabalhoJogo++
     {
         namespace Personagens
         {
-            class K_250 : public Inimigo
+            class K_2SO : public Inimigo
             {
                 private:
                     short int vida;
@@ -14,8 +14,8 @@ namespace TrabalhoJogo++
                     float tamanho;
 
                 public:
-                    K_250 ();
-                    ~K_250 ();
+                    K_2SO ();
+                    ~K_2SO ();
                     void executar();
                     void danificar(Jogador* p);
                     void salvar();
