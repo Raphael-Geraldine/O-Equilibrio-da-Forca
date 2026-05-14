@@ -4,14 +4,16 @@ namespace TrabalhoJogo++
 {
     namespace Fase
     {
-        class Guerra_dos_Clones : public Fase
+        class Hoth : public Fase
         {
             private:
-                const int maxInimigosMedios;
+                const int maxChefoes;
 
             protected:
-                void criarInimigosMedios();
+                void criarChefoes();
                 void criarObstaculosMedios();
+                void criarProjeteis();
+
         };
     }
 }

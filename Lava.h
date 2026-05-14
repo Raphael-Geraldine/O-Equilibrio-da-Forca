@@ -9,6 +9,7 @@ namespace TrabalhoJogo++
             class Lava : public Obstaculo
             {
                 private:
+                    float largura;
                     short int danosidade;
 
                 public:

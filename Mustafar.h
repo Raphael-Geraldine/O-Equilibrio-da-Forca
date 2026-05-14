@@ -4,16 +4,14 @@ namespace TrabalhoJogo++
 {
     namespace Fase
     {
-        class Ordem_66 : public Fase
+        class Mustafar : public Fase
         {
             private:
-                const int maxChefoes;
+                const int maxInimigosMedios;
 
             protected:
-                void criarChefoes();
+                void criarInimigosMedios();
                 void criarObstaculosMedios();
-                void criarProjeteis();
-
         };
     }
 }
