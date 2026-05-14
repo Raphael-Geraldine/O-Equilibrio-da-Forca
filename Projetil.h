@@ -8,12 +8,13 @@ namespace TrabalhoJogo++
         {
             protected:
                 bool ativo;
+                short int dano;
 
             public:
-                Projetil();
+                Projetil(short int d);
                 ~Projetil();
-                void executar;
-                void salvar;
+                void executar();
+                void salvar();
         };
     }
 }

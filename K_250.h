@@ -10,6 +10,7 @@ namespace TrabalhoJogo++
             {
                 private:
                     short int vida;
+                    const short int dano;
                     float tamanho;
 
                 public:
@@ -17,8 +18,9 @@ namespace TrabalhoJogo++
                     ~K_250 ();
                     void executar();
                     void danificar(Jogador* p);
-                    void salva();
+                    void salvar();
                     void mover();
+                    //void operator++(int);
             };
         }
     }

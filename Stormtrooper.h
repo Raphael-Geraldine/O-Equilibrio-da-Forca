@@ -17,10 +17,9 @@ namespace TrabalhoJogo++
                     ~Stormtrooper ();
                     void executar();
                     void danificar(Jogador* p);
-                    void salva();
+                    void salvar();
                     void atirar();
                     void mover();
-                    void operator++(int);
             };
         }
     }

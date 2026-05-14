@@ -10,6 +10,7 @@ namespace TrabalhoJogo++
             {
                 private:
                     const short int altura;
+                    short int dano;
                     short int vida;
                     short int forca;
 
@@ -18,7 +19,7 @@ namespace TrabalhoJogo++
                     ~AT_ST ();
                     void executar();
                     void danificar(Jogador* p);
-                    void salva();
+                    void salvar();
                     void recuperarVida();
                     short int calculaRaio();
                     void soltarRaio();

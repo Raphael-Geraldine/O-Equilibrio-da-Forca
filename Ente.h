@@ -12,7 +12,7 @@ namespace TrabalhoJogo++
         public:
             Ente();
             virtual ~Ente();
-            virtual void executar() = 0;
+            virtual void executar() = 0
             void desenhar();
             void staticSetGG(Gerenciador_Grafico* pG);
     };
