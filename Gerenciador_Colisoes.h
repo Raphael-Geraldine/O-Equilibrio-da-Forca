@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TrabalhoJogo++
+namespace TrabalhoJogo
 {
     namespace Gerenciadores
     {

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace TrabalhoJogo++
+namespace TrabalhoJogo
 {
     class O_Equilibrio_da_Forca
     {

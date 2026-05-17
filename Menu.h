@@ -1,16 +1,34 @@
 #pragma once
+#include <vector>
+#include <string>
+using namespace std;
 
-namespace TrabalhoJogo++
+#include <SFML/graphics.hpp>
+
+namespace TrabalhoJogo 
+{ 
+    namespace Gerenciadores 
+    { 
+        class Gerenciador_Grafico;
+    }
+}
+
+namespace TrabalhoJogo
 {
-    class Menu : public Ente
+    class Menu /*: public Ente*/
     {
         private:
-            O_Equilibrio_da_Forca* pJogo;
+            //O_Equilibrio_da_Forca* pJogo;
+            vector<string> fases;
+            vector<string>::iterator faseEscolhida;
+            int qntdJogadores;
+            TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* gGraf;
 
         public:
             Menu();
             ~Menu();
             void executar();
+            bool CliqueNoTexto(sf::RenderWindow& janela, sf::Text& text);
 
     };
 }

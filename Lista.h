@@ -3,7 +3,7 @@
 //ATENÇÃO!!!
 //Template, implementar nesse .h 
 
-namespace TrabalhoJogo++
+namespace TrabalhoJogo
 {
     namespace Lista
     {
