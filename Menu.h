@@ -28,7 +28,7 @@ namespace TrabalhoJogo
             Menu();
             ~Menu();
             void executar();
-            bool CliqueNoTexto(sf::RenderWindow& janela, sf::Text& text);
+            bool CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text);
 
     };
 }

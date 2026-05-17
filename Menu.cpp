@@ -35,7 +35,7 @@ void TrabalhoJogo::Menu::executar()
     gGraf->desenharMenu(this);
 }
 
-bool TrabalhoJogo::Menu::CliqueNoTexto(sf::RenderWindow& janela, sf::Text& text)
+bool TrabalhoJogo::Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
 {
     sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
     if (text.getGlobalBounds().contains(mousePosition))

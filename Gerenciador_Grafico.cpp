@@ -99,11 +99,11 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
         janela.draw(textRules);
         janela.display();
 
-        pM->CliqueNoTexto(janela,textIniciar);
-        pM->CliqueNoTexto(janela,textRank);
-        pM->CliqueNoTexto(janela,textLoad);
-        pM->CliqueNoTexto(janela,textFase);
-        pM->CliqueNoTexto(janela,textPlayers);
-        pM->CliqueNoTexto(janela,textRules);
+        pM->CliqueDeRedirecionamento(janela,textIniciar);
+        pM->CliqueDeRedirecionamento(janela,textRank);
+        pM->CliqueDeRedirecionamento(janela,textLoad);
+        pM->CliqueDeRedirecionamento(janela,textFase); //falta implementar o clique específico
+        pM->CliqueDeRedirecionamento(janela,textPlayers); //falta implementar o clique específico
+        pM->CliqueDeRedirecionamento(janela,textRules);
     }
 }
