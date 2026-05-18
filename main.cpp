@@ -1,10 +1,6 @@
 #include <iostream>
 using namespace std;
 
-#include "Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
-using namespace Gerenciadores;
-
 #include "Menu.h"
 using namespace TrabalhoJogo;
 
