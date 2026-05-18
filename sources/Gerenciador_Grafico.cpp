@@ -1,19 +1,20 @@
-#define MENUINICIALPNG "/Users/samurai_Bacon/Downloads/OEquillibrioDaForca/fundos/MenuInicial.png"
-//#define MENUINICIALPNG "MenuInicial.png"
+#define MENUINICIALPNG "../images/MenuInicial.png"
+#define ANAKINPNG "../images/Anakin.png"
+#define FONTE "../fonts/PressStart2P.ttf"
 
-#define ANAKINPNG "/Users/samurai_Bacon/Downloads/OEquillibrioDaForca/fundos/Anakin.png"
-//#define ANAKINPNG "Anakin.png"
-
-#define FONTE "/Users/samurai_Bacon/Downloads/OEquillibrioDaForca/fontes/PressStart2P.ttf"
-//#define FONTE "PressStart2P.ttf"
+/*
+#define MENUINICIALPNG "MenuInicial.png"
+#define ANAKINPNG "Anakin.png"
+#define FONTE "PressStart2P.ttf"
+*/
 
 #include <iostream>
 using namespace std;
 
-#include "Menu.h"
+#include "../headers/Menu.h"
 using namespace TrabalhoJogo;
 
-#include "Gerenciador_Grafico.h"
+#include "../headers/Gerenciador_Grafico.h"
 #include <SFML/graphics.hpp>
 
 TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::Gerenciador_Grafico()

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "Menu.h"
+#include "../headers/Menu.h"
 using namespace TrabalhoJogo;
 
 int main()

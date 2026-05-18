@@ -3,10 +3,10 @@
 #include <string>
 using namespace std;
 
-#include "Menu.h"
+#include "../headers/Menu.h"
 #include <SFML/graphics.hpp>
 
-#include "Gerenciador_Grafico.h"
+#include "../headers/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
