@@ -9,6 +9,8 @@
 */
 
 #include <iostream>
+#include <string>
+#include <list>
 using namespace std;
 
 #include "../headers/Menu.h"
@@ -16,21 +18,47 @@ using namespace TrabalhoJogo;
 
 #include "../headers/Gerenciador_Grafico.h"
 #include <SFML/graphics.hpp>
+#include <stdlib.h>
 
 TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::Gerenciador_Grafico()
 {
-
+    textOptions.clear();
+    menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
 }
 TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::~Gerenciador_Grafico()
 {
-
+    textOptions.clear();
 }
 
 //void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharEnte (Ente* pE)
 
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement(sf::Font& fonteMenu)
+{
+    list<string>::iterator it = menuOptions.begin();
+    int i = 0, posY = 200;
+    while (it != menuOptions.end())
+    {
+        sf::Text text(*it, fonteMenu, 30);
+        sf::FloatRect bounds = text.getLocalBounds();
+        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+        text.setPosition(640,posY);
+        textOptions.push_back(text);
+        i++;
+        posY+=70;
+        it++;
+    }
+}
+
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
+{
+    for (int i=0; i<textOptions.size();i++)
+        janela.draw(textOptions[i]);
+}
+
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
 {
     sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
+    janela.setFramerateLimit (120);
 
     if (!texturaFundo.loadFromFile(MENUINICIALPNG))
     {
@@ -51,7 +79,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
     }
     anakin.setScale(0.5,0.5);
     anakin.setPosition(50,170);
-    
+
     sf::Font fonteMenu;
     if (!fonteMenu.loadFromFile(FONTE))
     {
@@ -62,23 +90,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
         //cout<<"tudo ok com a fonte"<<endl;
     }
 
-    sf::Text textIniciar("Iniciar o jogo", fonteMenu, 30);
-    textIniciar.setPosition(400,200);
-
-    sf::Text textRank("Ver o ranking", fonteMenu, 30);
-    textRank.setPosition(420,270);
-
-    sf::Text textLoad("Carregar o jogo", fonteMenu, 30);
-    textLoad.setPosition(390,340);
-
-    sf::Text textFase("Fase 1: Mustafar", fonteMenu, 30);
-    textFase.setPosition(385,410);
-
-    sf::Text textPlayers("1 jogador", fonteMenu, 30);
-    textPlayers.setPosition(460,480);
-
-    sf::Text textRules("Como jogar?", fonteMenu, 30);
-    textRules.setPosition(440,550);
+    menuTextPlacement(fonteMenu);
 
     while (janela.isOpen())
     {
@@ -92,19 +104,16 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
         janela.clear(sf::Color::Black);
         janela.draw(fundo);
         janela.draw(anakin);
-        janela.draw(textIniciar);
-        janela.draw(textRank);
-        janela.draw(textLoad);
-        janela.draw(textFase);
-        janela.draw(textPlayers);
-        janela.draw(textRules);
+
+        desenharTextoMenu (janela);
+        
         janela.display();
 
-        pM->CliqueDeRedirecionamento(janela,textIniciar);
-        pM->CliqueDeRedirecionamento(janela,textRank);
-        pM->CliqueDeRedirecionamento(janela,textLoad);
-        pM->CliqueDeRedirecionamento(janela,textFase); //falta implementar o clique específico
-        pM->CliqueDeRedirecionamento(janela,textPlayers); //falta implementar o clique específico
-        pM->CliqueDeRedirecionamento(janela,textRules);
+        pM->CliqueDeRedirecionamento(janela,textOptions[0]);
+        pM->CliqueDeRedirecionamento(janela,textOptions[1]);
+        pM->CliqueDeRedirecionamento(janela,textOptions[2]);
+        pM->CliqueDeRedirecionamento(janela,textOptions[3]); //falta implementar o clique específico
+        pM->CliqueDeRedirecionamento(janela,textOptions[4]); //falta implementar o clique específico
+        pM->CliqueDeRedirecionamento(janela,textOptions[5]);
     }
 }

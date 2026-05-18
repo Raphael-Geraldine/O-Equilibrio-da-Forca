@@ -1,4 +1,10 @@
 #pragma once
+
+#include <string>
+#include <list>
+#include <vector>
+using namespace std;
+
 #include <SFML/graphics.hpp>
 
 namespace TrabalhoJogo
@@ -26,13 +32,18 @@ namespace TrabalhoJogo
                 sf::Text textLoad;
                 sf::Text textFase;
                 sf::Text textPlayers;
-                sf::Text textRules;       
+                sf::Text textRules;
+
+                list<string> menuOptions;
+                vector<sf::Text> textOptions;       
             
             public:
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
                 //void desenharEnte (Ente* pE);
                 void desenharMenu (Menu* pM);
+                void menuTextPlacement(sf::Font& fonteMenu);
+                void desenharTextoMenu (sf::RenderWindow & janela);
         };
     }
 }
