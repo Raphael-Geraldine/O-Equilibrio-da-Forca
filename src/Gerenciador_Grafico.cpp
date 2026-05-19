@@ -1,6 +1,6 @@
-#define MENUINICIALPNG "../images/MenuInicial.png"
-#define ANAKINPNG "../images/Anakin.png"
-#define FONTE "../fonts/PressStart2P.ttf"
+#define MENUINICIALPNG "../assets/images/MenuInicial.png"
+#define ANAKINPNG "../assets/images/Anakin.png"
+#define FONTE "../assets/fonts/PressStart2P.ttf"
 
 /*
 #define MENUINICIALPNG "MenuInicial.png"
@@ -13,10 +13,11 @@
 #include <list>
 using namespace std;
 
-#include "../headers/Menu.h"
+#include "../include/Menu.h"
 using namespace TrabalhoJogo;
 
-#include "../headers/Gerenciador_Grafico.h"
+#include "../include/Gerenciador_Grafico.h"
+
 #include <SFML/graphics.hpp>
 #include <stdlib.h>
 
