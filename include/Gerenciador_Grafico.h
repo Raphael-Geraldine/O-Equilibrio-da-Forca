@@ -9,7 +9,7 @@ using namespace std;
 
 namespace TrabalhoJogo
 {
-    class Menu /*: public Ente*/; 
+    class Menu; 
 }
 
 namespace TrabalhoJogo
@@ -24,6 +24,8 @@ namespace TrabalhoJogo
                 sf::Texture texturaFundo; 
                 sf::Sprite fundo;
 
+                sf::Font fonteMenu;
+
                 sf::Texture texturaAnakin;
                 sf::Sprite anakin;
 
@@ -35,14 +37,17 @@ namespace TrabalhoJogo
                 sf::Text textRules;
 
                 list<string> menuOptions;
-                vector<sf::Text> textOptions;       
+                vector<sf::Text> textOptions;
+                static short int optionSelected;   
             
             public:
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
                 //void desenharEnte (Ente* pE);
-                void desenharMenu (Menu* pM);
-                void menuTextPlacement(sf::Font& fonteMenu);
+                void loadMenu(Menu* pM);
+                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
+                void window(Menu* pM);
+                void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
         };
     }

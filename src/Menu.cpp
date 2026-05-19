@@ -32,7 +32,7 @@ void TrabalhoJogo::Menu::executar()
 {
     gGraf=new Gerenciador_Grafico();
     
-    gGraf->desenharMenu(this);
+    gGraf->window(this);
 }
 
 bool TrabalhoJogo::Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)

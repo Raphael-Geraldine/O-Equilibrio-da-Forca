@@ -21,6 +21,8 @@ using namespace TrabalhoJogo;
 #include <SFML/graphics.hpp>
 #include <stdlib.h>
 
+short int TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::optionSelected(-1);
+
 TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::Gerenciador_Grafico()
 {
     textOptions.clear();
@@ -33,7 +35,7 @@ TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::~Gerenciador_Grafico()
 
 //void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharEnte (Ente* pE)
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement(sf::Font& fonteMenu)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
 {
     list<string>::iterator it = menuOptions.begin();
     int i = 0, posY = 200;
@@ -56,11 +58,8 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::Re
         janela.draw(textOptions[i]);
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::loadMenu (Menu* pM)
 {
-    sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
-    janela.setFramerateLimit (120);
-
     if (!texturaFundo.loadFromFile(MENUINICIALPNG))
     {
         cerr << "Erro de carregamento do Plano de Fundo do Menu Inicial" << endl;
@@ -81,7 +80,6 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
     anakin.setScale(0.5,0.5);
     anakin.setPosition(50,170);
 
-    sf::Font fonteMenu;
     if (!fonteMenu.loadFromFile(FONTE))
     {
         cerr << "Erro de carregamento da Fonte no Menu" << endl;
@@ -91,7 +89,38 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
         //cout<<"tudo ok com a fonte"<<endl;
     }
 
-    menuTextPlacement(fonteMenu);
+    menuTextPlacement();
+}
+
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
+{
+    janela.draw(fundo);
+    janela.draw(anakin);
+
+    desenharTextoMenu (janela);
+        
+    janela.display();
+
+    if (pM->CliqueDeRedirecionamento(janela,textOptions[0]))
+        optionSelected=0;
+    if (pM->CliqueDeRedirecionamento(janela,textOptions[1]))
+        optionSelected=1;
+    if (pM->CliqueDeRedirecionamento(janela,textOptions[2]))
+        optionSelected=2;
+    if (pM->CliqueDeRedirecionamento(janela,textOptions[3]))
+        optionSelected=3; //falta implementar o clique específico
+    if (pM->CliqueDeRedirecionamento(janela,textOptions[4]))
+        optionSelected=4; //falta implementar o clique específico
+    if (pM->CliqueDeRedirecionamento(janela,textOptions[5]))
+        optionSelected=5;
+}
+
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM /*, classes que serão desenhadas imagino*/)
+{
+    sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
+    janela.setFramerateLimit (120);
+
+    loadMenu(pM);
 
     while (janela.isOpen())
     {
@@ -103,18 +132,38 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM)
         }
 
         janela.clear(sf::Color::Black);
-        janela.draw(fundo);
-        janela.draw(anakin);
-
-        desenharTextoMenu (janela);
         
-        janela.display();
-
-        pM->CliqueDeRedirecionamento(janela,textOptions[0]);
-        pM->CliqueDeRedirecionamento(janela,textOptions[1]);
-        pM->CliqueDeRedirecionamento(janela,textOptions[2]);
-        pM->CliqueDeRedirecionamento(janela,textOptions[3]); //falta implementar o clique específico
-        pM->CliqueDeRedirecionamento(janela,textOptions[4]); //falta implementar o clique específico
-        pM->CliqueDeRedirecionamento(janela,textOptions[5]);
+        if (optionSelected == -1)
+            desenharMenu (pM,janela);
+        if (optionSelected == 0)
+        {
+            cout<<"Play page"<<endl;
+            optionSelected = -1; //temp, just to make it works
+        }
+        if (optionSelected == 1)
+        {
+            cout<<"Rank page"<<endl;
+            optionSelected = -1; //temp, just to make it works
+        }
+        if (optionSelected == 2)
+        {
+            cout<<"load atribute"<<endl;
+            optionSelected = -1; //temp, just to make it works
+        }
+        if (optionSelected == 3)
+        {
+            cout<<"change text, level"<<endl;
+            optionSelected = -1; //temp, just to make it works
+        }
+        if (optionSelected == 4)
+        {
+            cout<<"change text player"<<endl;
+            optionSelected = -1; //temp, just to make it works
+        }
+        if (optionSelected == 5)
+        {
+            cout<<"How to play, page"<<endl;
+            optionSelected = -1; //temp, just to make it works
+        }
     }
 }

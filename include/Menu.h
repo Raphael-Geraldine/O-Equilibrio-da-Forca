@@ -13,12 +13,15 @@ namespace TrabalhoJogo
     }
 }
 
+#include"../include/Ente.h"
+using namespace TrabalhoJogo;
+
 namespace TrabalhoJogo
 {
-    class Menu /*: public Ente*/
+    class Menu : public Ente
     {
         private:
-            //O_Equilibrio_da_Forca* pJogo;
+            //Principal* pJogo;
             vector<string> fases;
             vector<string>::iterator faseEscolhida;
             int qntdJogadores;

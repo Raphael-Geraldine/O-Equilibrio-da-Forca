@@ -2,18 +2,27 @@
 
 namespace TrabalhoJogo
 {
+    namespace Gerenciadores
+    {
+        class Gerenciador_Grafico;
+    }
+}
+
+namespace TrabalhoJogo
+{
     class Ente
     {
         protected:
+            static int cont;
             int id;
-            static Gerenciador_Grafico* pGG;
-            Figura* pFig;
+            static TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pGG;
+            //Figura* pFig;
 
         public:
             Ente();
             virtual ~Ente();
-            virtual void executar() = 0
+            virtual void executar() = 0;
             void desenhar();
-            void staticSetGG(Gerenciador_Grafico* pG);
+            void staticSetGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pG);
     };
 }
