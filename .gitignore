@@ -1,9 +1,12 @@
-# Executáveis
+# Build e Executáveis
+build/
 main
 *.out
+*.exe
+*.o
 
-# Pastas do VS Code (configurações locais)
+# Pastas do VS Code
 .vscode/
 
-# Arquivos temporários do macOS
+# tmp files
 .DS_Store
