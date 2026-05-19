@@ -1,0 +1,9 @@
+# Executáveis
+main
+*.out
+
+# Pastas do VS Code (configurações locais)
+.vscode/
+
+# Arquivos temporários do macOS
+.DS_Store
