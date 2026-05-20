@@ -9,6 +9,10 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
+#include "../include/Entidade.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
@@ -40,5 +44,5 @@ void TrabalhoJogo::Principal::executar()
     
     anakin = new Jogador();
     mustafar = new Mustafar();
-    gG->window(menu,static_cast<Fase*>(mustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
+    gG->window(menu,static_cast<Fase*>(mustafar),static_cast<Entidade*>(anakin)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

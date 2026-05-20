@@ -16,6 +16,11 @@ namespace TrabalhoJogo
     {
         class Fase;
     }
+
+    namespace Entidades
+    {
+        class Entidade;
+    }
 }
 
 namespace TrabalhoJogo
@@ -24,6 +29,7 @@ namespace TrabalhoJogo
     {
 
         using Fase = TrabalhoJogo::Fases::Fase;
+        using Entidade = TrabalhoJogo::Entidades::Entidade;
 
         class Gerenciador_Grafico
         {
@@ -53,14 +59,14 @@ namespace TrabalhoJogo
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
 
-                void window(Menu* pM, Fase* pF);
+                void window(Menu* pM, Fase* pF, Entidade* pEnt);
                 
                 void loadMenu(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);
 
-                void desenharFase(Fase* pF, sf::RenderWindow & janela);
+                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
                 void posicionarEnte(Ente* pE);
                 void desenharEnte (Ente* pE);
         };

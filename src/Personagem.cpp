@@ -18,3 +18,8 @@ void TrabalhoJogo::Entidades::Personagens::Personagem::salvarDataBuffer()
 {
     
 }
+
+void TrabalhoJogo::Entidades::Personagens::Personagem::gravity()
+{
+    y-=0.3;
+}

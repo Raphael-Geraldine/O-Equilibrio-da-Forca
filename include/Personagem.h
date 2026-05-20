@@ -4,6 +4,8 @@
 using namespace TrabalhoJogo;
 using namespace Entidades;
 
+#include <SFML/graphics.hpp>
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -19,6 +21,8 @@ namespace TrabalhoJogo
                     Personagem();
                     ~Personagem();
                     void salvarDataBuffer();
+                    void gravity();
+                    virtual sf::Sprite getDrawData() = 0;
                     virtual void executar() = 0;
                     virtual void salvar() = 0;
                     virtual void mover() = 0;
