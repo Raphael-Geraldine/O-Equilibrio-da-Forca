@@ -13,21 +13,7 @@ short int TrabalhoJogo::Fases::Fase::cont(0);
 
 TrabalhoJogo::Fases::Fase::Fase(): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++)
 {
-    if (nFase == 0)
-    {
-        if (!texturaFundo.loadFromFile(MUSTAFARPNG))
-        {
-            cerr << "Erro de carregamento do Plano de Fundo de Mustafar" << endl;
-        }
-        else
-        {
-            fundo.setTexture(texturaFundo); 
-        }
-    }
-    else
-    {
-        cout<<"nao existe ainda"<<endl;
-    }
+    criarCenario();
 }
 TrabalhoJogo::Fases::Fase::~Fase()
 {
@@ -47,10 +33,33 @@ void TrabalhoJogo::Fases::Fase::criarPlataformas()
 }
 void TrabalhoJogo::Fases::Fase::criarCenario()
 {
-
+    ground.setSize(sf::Vector2f(1280,15));
+    ground.setFillColor(sf::Color::Green);
+    ground.setPosition(0, 710);
+    
+    if (nFase == 0)
+    {
+        if (!texturaFundo.loadFromFile(MUSTAFARPNG))
+        {
+            cerr << "Erro de carregamento do Plano de Fundo de Mustafar" << endl;
+        }
+        else
+        {
+            fundo.setTexture(texturaFundo); 
+        }
+    }
+    else
+    {
+        cout<<"nao existe ainda"<<endl;
+    }
 }
 
 sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
 {
     return fundo;
+}
+
+sf::RectangleShape TrabalhoJogo::Fases::Fase::getGround()
+{
+    return ground;
 }

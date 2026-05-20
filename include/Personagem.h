@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../include/Entidade.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -15,9 +19,9 @@ namespace TrabalhoJogo
                     Personagem();
                     ~Personagem();
                     void salvarDataBuffer();
-                    virtual void executar() = 0
-                    virtual void salvar() = 0
-                    virtual void mover() = 0
+                    virtual void executar() = 0;
+                    virtual void salvar() = 0;
+                    virtual void mover() = 0;
             };
         }
     }

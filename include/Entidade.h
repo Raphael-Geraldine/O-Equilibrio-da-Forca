@@ -1,5 +1,8 @@
 #pragma once
 
+#include"../include/Ente.h"
+using namespace TrabalhoJogo;
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -9,7 +12,7 @@ namespace TrabalhoJogo
             protected:
                 int x;
                 int y;
-                ostream buffer;
+                //ostream buffer;
             
             protected:
                 Entidade();
@@ -17,8 +20,8 @@ namespace TrabalhoJogo
                 void salvarDataBuffer();
 
             public:
-                virtual void executar = 0
-                virtual void salvar = 0
+                virtual void executar() = 0;
+                virtual void salvar() = 0;
         };
     }
 }

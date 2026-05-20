@@ -20,6 +20,7 @@ namespace TrabalhoJogo
                 const int maxInimigosFaceis;
                 sf::Texture texturaFundo; 
                 sf::Sprite fundo;
+                sf::RectangleShape ground;
 
             protected:
                 void criarInimigosFaceis();
@@ -33,6 +34,7 @@ namespace TrabalhoJogo
                 ~Fase();
                 virtual void executar();
                 sf::Sprite getFundo();
+                sf::RectangleShape getGround();
         };
     }
 }

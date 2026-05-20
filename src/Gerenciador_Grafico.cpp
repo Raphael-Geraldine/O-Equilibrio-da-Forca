@@ -196,5 +196,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela)
 {
     janela.draw(pF->getFundo());
+    janela.draw(pF->getGround());
+
     janela.display();
 }
