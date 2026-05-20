@@ -14,7 +14,13 @@
 using namespace std;
 
 #include "../include/Menu.h"
+#include "../include/Ente.h"
 using namespace TrabalhoJogo;
+
+#include "../include/Fase.h"
+#include "../include/Mustafar.h"
+using namespace TrabalhoJogo;
+using namespace Fases;
 
 #include "../include/Gerenciador_Grafico.h"
 
@@ -28,12 +34,11 @@ TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::Gerenciador_Grafico()
     textOptions.clear();
     menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
 }
+
 TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::~Gerenciador_Grafico()
 {
     textOptions.clear();
 }
-
-//void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharEnte (Ente* pE)
 
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
 {
@@ -55,7 +60,20 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
 {
     for (int i=0; i<textOptions.size();i++)
+    {
         janela.draw(textOptions[i]);
+
+        sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
+        if (textOptions[i].getGlobalBounds().contains(mousePosition))
+        {
+            sf::Color hover(255,255,255,170);
+            textOptions[i].setFillColor(hover);
+        }
+        else
+        {
+            textOptions[i].setFillColor(sf::Color::White);
+        }
+    }
 }
 
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::loadMenu (Menu* pM)
@@ -115,7 +133,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, s
         optionSelected=5;
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM /*, classes que serão desenhadas imagino*/)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF /*, classes que serão desenhadas imagino*/)
 {
     sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
     janela.setFramerateLimit (120);
@@ -137,8 +155,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM /*, class
             desenharMenu (pM,janela);
         if (optionSelected == 0)
         {
-            cout<<"Play page"<<endl;
-            optionSelected = -1; //temp, just to make it works
+            desenharFase(pF,janela);
         }
         if (optionSelected == 1)
         {
@@ -166,4 +183,18 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM /*, class
             optionSelected = -1; //temp, just to make it works
         }
     }
+}
+
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharEnte (Ente* pE)
+{
+
+}
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
+{
+
+}
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela)
+{
+    janela.draw(pF->getFundo());
+    janela.display();
 }

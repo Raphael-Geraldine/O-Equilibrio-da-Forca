@@ -17,11 +17,12 @@ namespace TrabalhoJogo
         }
     }*/
 
-    /*namespace Fase 
+    namespace Fases 
     { 
+        class Fase;
         class Mustafar;
-        class Hoth;
-    }*/
+        //class Hoth;
+    }
 }
 
 namespace TrabalhoJogo
@@ -31,10 +32,11 @@ namespace TrabalhoJogo
         private:
             TrabalhoJogo::Menu* menu;
             TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* gG;
-            //Jogador anakin;
-            //Jogador obiWan;
-            //Mustafar mustafar;
-            //Hoth hoth;
+            TrabalhoJogo::Fases::Fase* pF;
+            //TrabalhoJogo::Entidades::Personagens::Jogador anakin;
+            //TrabalhoJogo::Entidades::Personagens::Jogador obiWan;
+            //TrabalhoJogo::Fase::Mustafar mustafar;
+            //TrabalhoJogo::Fase::Hoth hoth;
 
         public:
             Principal();

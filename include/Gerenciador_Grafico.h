@@ -9,13 +9,22 @@ using namespace std;
 
 namespace TrabalhoJogo
 {
-    class Menu; 
+    class Menu;
+    class Ente;
+
+    namespace Fases
+    {
+        class Fase;
+    }
 }
 
 namespace TrabalhoJogo
 {
     namespace Gerenciadores
     {
+
+        using Fase = TrabalhoJogo::Fases::Fase;
+
         class Gerenciador_Grafico
         {
             private:
@@ -43,12 +52,17 @@ namespace TrabalhoJogo
             public:
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
-                //void desenharEnte (Ente* pE);
+
+                void window(Menu* pM, Fase* pF);
+                
                 void loadMenu(Menu* pM);
-                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
-                void window(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
+                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
+
+                void desenharFase(Fase* pF, sf::RenderWindow & janela);
+                void posicionarEnte(Ente* pE);
+                void desenharEnte (Ente* pE);
         };
     }
 }

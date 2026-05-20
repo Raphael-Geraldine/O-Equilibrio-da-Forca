@@ -30,29 +30,20 @@ TrabalhoJogo::Menu::~Menu()
 
 void TrabalhoJogo::Menu::executar()
 {
-    gGraf=new Gerenciador_Grafico();
+    //gGraf=new Gerenciador_Grafico();
     
-    gGraf->window(this);
+    //gGraf->window(this);
 }
 
 bool TrabalhoJogo::Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
 {
     sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
-    if (text.getGlobalBounds().contains(mousePosition))
+    if (text.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        sf::Color hover(255,255,255,170);
-        text.setFillColor(hover);
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            sf::Time timer = sf::milliseconds(100);
-            sf::sleep(timer);
-            cout<<"Redirecionando para: "<<static_cast<string>(text.getString())<<endl;
-            return 1;
-        }
-    }
-    else
-    {
-        text.setFillColor(sf::Color::White);
+        sf::Time timer = sf::milliseconds(300);
+        sf::sleep(timer);
+        cout<<"Redirecionando para: "<<static_cast<string>(text.getString())<<endl;
+        return 1;
     }
     return 0;
 }

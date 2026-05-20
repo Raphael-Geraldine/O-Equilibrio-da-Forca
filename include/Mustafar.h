@@ -1,17 +1,26 @@
 #pragma once
 
+#include "../include/Fase.h"
+using namespace TrabalhoJogo;
+using namespace Fases;
+
 namespace TrabalhoJogo
 {
-    namespace Fase
+    namespace Fases
     {
         class Mustafar : public Fase
         {
             private:
+                const int minInimigosMedios;
                 const int maxInimigosMedios;
 
             protected:
-                void criarInimigosMedios();
-                void criarObstaculosMedios();
+                void criarInimigos(); //Médios
+                void criarObstaculos(); //Médios
+
+            public:
+                Mustafar();
+                ~Mustafar();
         };
     }
 }
