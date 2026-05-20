@@ -7,17 +7,23 @@
 #include <iostream>
 using namespace std;
 
+#include "../include/Jogador.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Personagens;
+
 #include <SFML/graphics.hpp>
 
 short int TrabalhoJogo::Fases::Fase::cont(0);
 
-TrabalhoJogo::Fases::Fase::Fase(): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++)
+TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC()
 {
     criarCenario();
+    gC = new Gerenciador_Colisoes(pJ);
 }
 TrabalhoJogo::Fases::Fase::~Fase()
 {
-
+    delete(gC);
 }
 void TrabalhoJogo::Fases::Fase::executar()
 {
@@ -56,6 +62,7 @@ void TrabalhoJogo::Fases::Fase::criarCenario()
 
 sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
 {
+    gC->executar();
     return fundo;
 }
 

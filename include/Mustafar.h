@@ -4,6 +4,11 @@
 using namespace TrabalhoJogo;
 using namespace Fases;
 
+#include "../include/Jogador.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Personagens;
+
 namespace TrabalhoJogo
 {
     namespace Fases
@@ -19,7 +24,7 @@ namespace TrabalhoJogo
                 void criarObstaculos(); //Médios
 
             public:
-                Mustafar();
+                Mustafar(Jogador* pJ); //parâmetro temp enquanto não há a lista
                 ~Mustafar();
         };
     }

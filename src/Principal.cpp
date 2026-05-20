@@ -43,6 +43,6 @@ void TrabalhoJogo::Principal::executar()
     gG=new Gerenciador_Grafico();
     
     anakin = new Jogador();
-    mustafar = new Mustafar();
+    mustafar = new Mustafar(anakin);
     gG->window(menu,static_cast<Fase*>(mustafar),static_cast<Entidade*>(anakin)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

@@ -1,5 +1,14 @@
 #pragma once
 
+#include "../include/Jogador.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Personagens;
+
+#include "../include/Gerenciador_Colisoes.h"
+using namespace TrabalhoJogo;
+using namespace Gerenciadores;
+
 #include "../include/Ente.h"
 using namespace TrabalhoJogo;
 
@@ -12,10 +21,10 @@ namespace TrabalhoJogo
         class Fase : public Ente
         {
             protected:
-                static short int cont;
+                static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
                 short int nFase;
                 //ListaEntidades lista_ents;
-                //Gerenciador_Colisoes GC;
+                Gerenciador_Colisoes* gC;
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;
                 sf::Texture texturaFundo; 
@@ -30,7 +39,7 @@ namespace TrabalhoJogo
                 void criarCenario();
             
             public:
-                Fase();
+                Fase(Jogador* pJ);
                 ~Fase();
                 virtual void executar();
                 sf::Sprite getFundo();
