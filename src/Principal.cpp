@@ -4,10 +4,10 @@ using namespace std;
 #include "../include/Menu.h"
 using namespace TrabalhoJogo;
 
-//#include "../include/Jogador.h"
-//using namespace TrabalhoJogo;
-//using namespace Entidades;
-//using namespace Personagens;
+#include "../include/Jogador.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Personagens;
 
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
@@ -37,7 +37,8 @@ void TrabalhoJogo::Principal::executar()
 {
     menu=new Menu();
     gG=new Gerenciador_Grafico();
+    
+    anakin = new Jogador();
     mustafar = new Mustafar();
-
-    gG->window(menu,static_cast<Fase*>(mustafar));
+    gG->window(menu,static_cast<Fase*>(mustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
 }
