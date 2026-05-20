@@ -10,3 +10,5 @@ main
 
 # tmp files
 .DS_Store
+
+.gitignore
