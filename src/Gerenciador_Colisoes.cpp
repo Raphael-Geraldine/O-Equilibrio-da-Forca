@@ -27,7 +27,8 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
 }
 const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
-    
+    //TODO
+    return false; //just to preventing a warning
 }
 void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
 {
