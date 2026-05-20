@@ -9,13 +9,13 @@ namespace TrabalhoJogo
         class Gerenciador_Grafico;
     }
 
-    /*namespace Entidades 
+    namespace Entidades 
     { 
         namespace Personagens
         {
             class Jogador;
         }
-    }*/
+    }
 
     namespace Fases 
     { 
@@ -32,11 +32,10 @@ namespace TrabalhoJogo
         private:
             TrabalhoJogo::Menu* menu;
             TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* gG;
-            TrabalhoJogo::Fases::Fase* pF;
-            //TrabalhoJogo::Entidades::Personagens::Jogador anakin;
-            //TrabalhoJogo::Entidades::Personagens::Jogador obiWan;
-            //TrabalhoJogo::Fase::Mustafar mustafar;
-            //TrabalhoJogo::Fase::Hoth hoth;
+            TrabalhoJogo::Entidades::Personagens::Jogador* anakin;
+            TrabalhoJogo::Entidades::Personagens::Jogador* obiWan;
+            TrabalhoJogo::Fases::Mustafar* mustafar;
+            //TrabalhoJogo::Fases::Hoth* hoth;
 
         public:
             Principal();

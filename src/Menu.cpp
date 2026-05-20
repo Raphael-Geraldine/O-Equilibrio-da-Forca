@@ -3,14 +3,17 @@
 #include <string>
 using namespace std;
 
-#include "../include/Menu.h"
-#include <SFML/graphics.hpp>
+#include "../include/Principal.h"
+using namespace TrabalhoJogo;
 
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
-TrabalhoJogo::Menu::Menu(): gGraf(), qntdJogadores(1)
+#include "../include/Menu.h"
+#include <SFML/graphics.hpp>
+
+TrabalhoJogo::Menu::Menu(): gGraf(), qntdJogadores(1), pJogo()
 {
     fases.clear();
     fases.push_back("Mustafar");

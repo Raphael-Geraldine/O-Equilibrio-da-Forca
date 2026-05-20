@@ -21,7 +21,7 @@ using namespace Fases;
 
 #include "../include/Principal.h"
 
-TrabalhoJogo::Principal::Principal(): gG(), menu(), pF()
+TrabalhoJogo::Principal::Principal(): gG(), menu(), anakin(), obiWan(), mustafar()
 {
     executar();
 }
@@ -30,20 +30,14 @@ TrabalhoJogo::Principal::~Principal()
 {
     delete(menu);
     delete(gG);
-    delete(pF);
+    delete(mustafar);
 }
 
 void TrabalhoJogo::Principal::executar()
 {
     menu=new Menu();
     gG=new Gerenciador_Grafico();
-    pF = new Mustafar();
+    mustafar = new Mustafar();
 
-    gG->window(menu,pF);
-    /*
-    while (!(menu->CliqueDeRedirecionamento()))
-    {
-        cout<<"algo"<<endl;
-    }
-    cout<<"ei"<<endl;*/
+    gG->window(menu,static_cast<Fase*>(mustafar));
 }

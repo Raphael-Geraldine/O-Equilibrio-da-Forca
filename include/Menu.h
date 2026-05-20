@@ -11,6 +11,8 @@ namespace TrabalhoJogo
     { 
         class Gerenciador_Grafico;
     }
+
+    class Principal;
 }
 
 #include"../include/Ente.h"
@@ -21,7 +23,7 @@ namespace TrabalhoJogo
     class Menu : public Ente
     {
         private:
-            //Principal* pJogo;
+            Principal* pJogo;
             vector<string> fases;
             vector<string>::iterator faseEscolhida;
             int qntdJogadores;
