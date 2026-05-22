@@ -63,7 +63,10 @@ void TrabalhoJogo::Fases::Fase::criarCenario()
 sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
 {
     pJog->mover();
-    gC->executar();
+    bool g = gC->executar();
+    cout<< g <<endl;
+    if (g)
+        pJog->gravity();
     return fundo;
 }
 

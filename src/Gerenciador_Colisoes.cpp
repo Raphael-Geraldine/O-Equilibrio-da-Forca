@@ -23,6 +23,7 @@ TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::~Gerenciador_Colisoes()
 bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamotodas as verificações necessárias
+    //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
     return caracterOutOfBounds(static_cast<Entidade*>(pAnakin));
 }
 const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
@@ -49,14 +50,14 @@ bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::caracterOutOfBounds(Enti
     if(playerPosition.top <= 0)
         pe->y+=2;
     if(playerPosition.top + playerPosition.height >= 710)
-    {
         pe->y-=2;
-        return 1;
-    }
     if(playerPosition.left <= 0)
         pe->x+=2;
     if(playerPosition.left + playerPosition.width >= 1280)
         pe->x-=2;
+    
+    if(playerPosition.top + playerPosition.height < 708)
+        return 1;
     return 0;
 }
 

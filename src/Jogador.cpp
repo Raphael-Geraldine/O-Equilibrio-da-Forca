@@ -55,7 +55,7 @@ void TrabalhoJogo::Entidades::Personagens::Jogador::salvar()
 }
 void TrabalhoJogo::Entidades::Personagens::Jogador::mover()
 {
-    gravity();
+    //gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         y-=2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
