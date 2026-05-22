@@ -27,7 +27,6 @@ namespace TrabalhoJogo
                 void tratarColisoesJogsObstaculos();
                 void tratarColisoesJogsInimigos();
                 void tratarColisoesJogsProjeteis();
-                void caracterOutOfBounds(Entidade* pe);
 
             public:
                 Gerenciador_Colisoes(Jogador* pJ);
@@ -40,7 +39,8 @@ namespace TrabalhoJogo
                 //void setJog1 (Jogador* pJ);
                 //void setJog2 (Jogador* pJ);
 
-                void executar();
+                bool executar();
+                bool caracterOutOfBounds(Entidade* pe);
         };
     }
 }

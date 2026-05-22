@@ -20,10 +20,10 @@ TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
+bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamotodas as verificações necessárias
-    caracterOutOfBounds(static_cast<Entidade*>(pAnakin));
+    return caracterOutOfBounds(static_cast<Entidade*>(pAnakin));
 }
 const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
@@ -42,9 +42,22 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsProjet
 {
     
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
+bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
-    //IMPLEMENTAR AQUI A LÓGICA PARA NÃO SAIR DA TELA
+    sf::FloatRect playerPosition = pe->getBounds();
+    
+    if(playerPosition.top <= 0)
+        pe->y+=2;
+    if(playerPosition.top + playerPosition.height >= 710)
+    {
+        pe->y-=2;
+        return 1;
+    }
+    if(playerPosition.left <= 0)
+        pe->x+=2;
+    if(playerPosition.left + playerPosition.width >= 1280)
+        pe->x-=2;
+    return 0;
 }
 
 /* void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::incluirInimigo(Inimigo* pi)

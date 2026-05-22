@@ -23,7 +23,7 @@ namespace TrabalhoJogo
             protected:
                 static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
                 short int nFase;
-                //ListaEntidades lista_ents;
+                Jogador* pJog; //é pra virar isso depois: ListaEntidades lista_ents;
                 Gerenciador_Colisoes* gC;
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;

@@ -55,7 +55,7 @@ void TrabalhoJogo::Entidades::Personagens::Jogador::salvar()
 }
 void TrabalhoJogo::Entidades::Personagens::Jogador::mover()
 {
-    //gravity();
+    gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         y-=2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -65,6 +65,11 @@ void TrabalhoJogo::Entidades::Personagens::Jogador::mover()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         x-=2;
     playerSkin.setPosition(x,y);
+}
+
+sf::FloatRect TrabalhoJogo::Entidades::Personagens::Jogador::getBounds() const
+{
+    return playerSkin.getGlobalBounds();
 }
 
 /*void TrabalhoJogo::Entidades::Personagens::Jogador::colidirInimigo(Inimigo* pIn)

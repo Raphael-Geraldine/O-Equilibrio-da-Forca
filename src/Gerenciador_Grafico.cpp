@@ -201,8 +201,6 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, s
 {
     //janela.setMouseCursorVisible(false);
 
-    pEnt->mover();
-
     janela.draw(pF->getFundo());
     janela.draw(pF->getGround());
     janela.draw(pEnt->getDrawData());

@@ -11,7 +11,7 @@ namespace TrabalhoJogo
     {
         class Entidade : public Ente
         {
-            protected:
+            public: //deve ser protected e ter get!!! está assim para testar
                 int x;
                 int y;
                 //ostream buffer;
@@ -26,6 +26,7 @@ namespace TrabalhoJogo
                 virtual void salvar() = 0;
                 virtual void mover() = 0; //lembrar que apenas personagens movem!
                 virtual sf::Sprite getDrawData() = 0;
+                virtual sf::FloatRect getBounds() const = 0;
         };
     }
 }

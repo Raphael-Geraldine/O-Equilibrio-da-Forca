@@ -25,6 +25,7 @@ namespace TrabalhoJogo
                     ~Jogador();
                     //void colidirInimigo(Inimigo* pIn);
                     //void colidirObstaculo(Obstaculo* pOb);
+                    sf::FloatRect getBounds() const;
                     sf::Sprite getDrawData();
                     void executar();
                     void salvar();

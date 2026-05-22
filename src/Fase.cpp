@@ -16,7 +16,7 @@ using namespace Personagens;
 
 short int TrabalhoJogo::Fases::Fase::cont(0);
 
-TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC()
+TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pJog(pJ)
 {
     criarCenario();
     gC = new Gerenciador_Colisoes(pJ);
@@ -62,6 +62,7 @@ void TrabalhoJogo::Fases::Fase::criarCenario()
 
 sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
 {
+    pJog->mover();
     gC->executar();
     return fundo;
 }
