@@ -4,7 +4,7 @@
 using namespace TrabalhoJogo;
 using namespace Entidades;
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
 {

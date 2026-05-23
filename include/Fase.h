@@ -12,7 +12,7 @@ using namespace Gerenciadores;
 #include "../include/Ente.h"
 using namespace TrabalhoJogo;
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
 {

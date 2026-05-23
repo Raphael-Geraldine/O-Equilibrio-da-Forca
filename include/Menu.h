@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo 
 { 

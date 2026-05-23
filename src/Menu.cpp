@@ -11,7 +11,7 @@ using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
 #include "../include/Menu.h"
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 TrabalhoJogo::Menu::Menu(): gGraf(), qntdJogadores(1), pJogo()
 {

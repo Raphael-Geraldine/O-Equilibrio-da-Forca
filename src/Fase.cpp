@@ -12,7 +12,7 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 short int TrabalhoJogo::Fases::Fase::cont(0);
 

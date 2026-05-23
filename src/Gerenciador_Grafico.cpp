@@ -28,7 +28,7 @@ using namespace Entidades;
 
 #include "../include/Gerenciador_Grafico.h"
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
 short int TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::optionSelected(-1);

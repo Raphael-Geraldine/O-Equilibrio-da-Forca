@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
 {
