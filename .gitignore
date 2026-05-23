@@ -1,6 +1,7 @@
 # Build e Executáveis
 build/
 main
+OEquilibriodaForca
 *.out
 *.exe
 *.o
