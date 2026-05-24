@@ -29,7 +29,7 @@ namespace TrabalhoJogo
                 void tratarColisoesJogsProjeteis();
 
             public:
-                Gerenciador_Colisoes(Jogador* pJ);
+                Gerenciador_Colisoes(Jogador* pJ = nullptr);
                 ~Gerenciador_Colisoes();
                 //void incluirInimigo(Inimigo* pi);
                 //void incluirObstaculo(Obstaculo* po);
