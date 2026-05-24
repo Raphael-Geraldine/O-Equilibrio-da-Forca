@@ -39,7 +39,7 @@ namespace TrabalhoJogo
                 void criarCenario();
             
             public:
-                Fase(Jogador* pJ);
+                Fase(Jogador* pJ = nullptr);
                 ~Fase();
                 virtual void executar();
                 sf::Sprite getFundo();

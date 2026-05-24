@@ -31,9 +31,9 @@ namespace TrabalhoJogo
             public:
                 Gerenciador_Colisoes(Jogador* pJ = nullptr);
                 ~Gerenciador_Colisoes();
-                //void incluirInimigo(Inimigo* pi);
-                //void incluirObstaculo(Obstaculo* po);
-                //void incluirProjetil(Projetil* pj);
+                //void incluirInimigo(Inimigo* pI);
+                //void incluirObstaculo(Obstaculo* pO);
+                //void incluirProjetil(Projetil* pJ);
 
                 //por enquanto estará na construtora
                 //void setJog1 (Jogador* pJ);
