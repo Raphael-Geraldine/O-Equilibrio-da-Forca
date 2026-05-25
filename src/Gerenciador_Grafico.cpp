@@ -26,6 +26,11 @@ using namespace Fases;
 using namespace TrabalhoJogo;
 using namespace Entidades;
 
+#include "../include/Plataforma.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Obstaculos;
+
 #include "../include/Gerenciador_Grafico.h"
 
 #include <SFML/Graphics.hpp>
@@ -137,7 +142,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, s
         optionSelected=5;
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt /*, classes que serão desenhadas imagino*/)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat /*, classes que serão desenhadas imagino*/)
 {
     sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
     janela.setFramerateLimit (120);
@@ -159,7 +164,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF
             desenharMenu (pM,janela);
         if (optionSelected == 0)
         {
-            desenharFase(pF,janela,pEnt);
+            desenharFase(pF,janela,pEnt, pPlat);
         }
         if (optionSelected == 1)
         {
@@ -197,13 +202,14 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat)
 {
     //janela.setMouseCursorVisible(false);
 
     janela.draw(pF->getFundo());
     janela.draw(pF->getGround());
     janela.draw(pEnt->getDrawData());
+    janela.draw(pPlat->getDrawData());
 
     janela.display();
 }

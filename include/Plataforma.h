@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+using namespace std;
+
 #include "../include/Obstaculo.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
@@ -19,16 +22,22 @@ namespace TrabalhoJogo
             class Plataforma : public Obstaculo
             {
                 private:
+                    static short int cont;
+                    static vector<sf::Vector2i> platPositions;
+                    short int platID;
                     float largura;
-                    int altura;
+                    sf::Texture platTexture;
+                    sf::Sprite platSkin;
 
                 public:
-                    Plataforma(float l=0.0f, int a=0);
+                    Plataforma(float l=0.0f);
                     ~Plataforma();
                     void executar();
                     void salvar();
                     void mover();
                     void obstaculizar(Jogador* p);
+                    sf::Sprite getDrawData();
+                    sf::FloatRect getBounds() const;
             };
         }
     }

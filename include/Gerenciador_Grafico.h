@@ -20,6 +20,11 @@ namespace TrabalhoJogo
     namespace Entidades
     {
         class Entidade;
+
+        namespace Obstaculos
+        {
+            class Plataforma;
+        }
     }
 }
 
@@ -59,14 +64,14 @@ namespace TrabalhoJogo
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
 
-                void window(Menu* pM, Fase* pF, Entidade* pEnt);
+                void window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat);
                 
                 void loadMenu(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);
 
-                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
+                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat);
                 void posicionarEnte(Ente* pE);
                 void desenharEnte (Ente* pE);
         };
