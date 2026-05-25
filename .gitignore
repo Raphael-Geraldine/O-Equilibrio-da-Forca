@@ -1,4 +1,13 @@
+# Build e Executáveis
 build/
-.vscode/
+main
+OEquilibriodaForca
+*.out
 *.exe
 *.o
+
+# Pastas do VS Code
+.vscode/
+
+# tmp files
+.DS_Store

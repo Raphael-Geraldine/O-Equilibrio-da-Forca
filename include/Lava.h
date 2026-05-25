@@ -4,7 +4,7 @@ namespace TrabalhoJogo
 {
     namespace Entidades
     {
-        namespace Obstaculo
+        namespace Obstaculos
         {
             class Lava : public Obstaculo
             {

@@ -5,17 +5,32 @@
 #include <vector>
 using namespace std;
 
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
 {
-    class Menu /*: public Ente*/; 
+    class Menu;
+    class Ente;
+
+    namespace Fases
+    {
+        class Fase;
+    }
+
+    namespace Entidades
+    {
+        class Entidade;
+    }
 }
 
 namespace TrabalhoJogo
 {
     namespace Gerenciadores
     {
+
+        using Fase = TrabalhoJogo::Fases::Fase;
+        using Entidade = TrabalhoJogo::Entidades::Entidade;
+
         class Gerenciador_Grafico
         {
             private:
@@ -23,6 +38,8 @@ namespace TrabalhoJogo
 
                 sf::Texture texturaFundo; 
                 sf::Sprite fundo;
+
+                sf::Font fonteMenu;
 
                 sf::Texture texturaAnakin;
                 sf::Sprite anakin;
@@ -35,15 +52,23 @@ namespace TrabalhoJogo
                 sf::Text textRules;
 
                 list<string> menuOptions;
-                vector<sf::Text> textOptions;       
+                vector<sf::Text> textOptions;
+                static short int optionSelected;   
             
             public:
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
-                //void desenharEnte (Ente* pE);
-                void desenharMenu (Menu* pM);
-                void menuTextPlacement(sf::Font& fonteMenu);
+
+                void window(Menu* pM, Fase* pF, Entidade* pEnt);
+                
+                void loadMenu(Menu* pM);
+                void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
+                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
+
+                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
+                void posicionarEnte(Ente* pE);
+                void desenharEnte (Ente* pE);
         };
     }
 }
