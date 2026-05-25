@@ -1,3 +1,9 @@
+#define PLATPNG "../assets/images/Plataforma.png"
+
+#include <vector>
+#include <iostream>
+using namespace std;
+
 #include "../include/Jogador.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
@@ -5,9 +11,28 @@ using namespace Personagens;
 
 #include "../include/Plataforma.h"
 
-TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l, int a): largura(l), altura(a)
+short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
+vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{480,480},{270,270},{360,360},{540,540},{144,144}};
+
+TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l), platID(cont++)
 {
     danoso=false;
+
+    if (!platTexture.loadFromFile(PLATPNG))
+    {
+        cerr << "Erro de carregamento do PNG da Plataforms" << endl;
+    }
+    else
+    {
+        platSkin.setTexture(platTexture); 
+    }
+    
+    platSkin.setScale(0.3,0.3);
+
+    x=(platPositions[platID]).x;
+    y=(platPositions[platID]).y;
+
+    platSkin.setPosition(x,y);
 }
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::~Plataforma()
 {}
@@ -19,3 +44,11 @@ void TrabalhoJogo::Entidades::Obstaculos::Plataforma::mover()
 {}
 void TrabalhoJogo::Entidades::Obstaculos::Plataforma::obstaculizar(Jogador* p)
 {}
+sf::Sprite TrabalhoJogo::Entidades::Obstaculos::Plataforma::getDrawData()
+{   
+    return platSkin;
+}
+sf::FloatRect TrabalhoJogo::Entidades::Obstaculos::Plataforma::getBounds() const
+{
+    return platSkin.getGlobalBounds();
+}
