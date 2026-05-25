@@ -25,24 +25,24 @@ using namespace Fases;
 
 #include "../include/Principal.h"
 
-TrabalhoJogo::Principal::Principal(): gG(), menu(), anakin(), obiWan(), mustafar()
+TrabalhoJogo::Principal::Principal(): pGG(), pMenu(), pAnakin(), pObiWan(), pMustafar()
 {
     executar();
 }
 
 TrabalhoJogo::Principal::~Principal()
 {
-    delete(menu);
-    delete(gG);
-    delete(mustafar);
+    delete(pMenu);
+    delete(pGG);
+    delete(pMustafar);
 }
 
 void TrabalhoJogo::Principal::executar()
 {
-    menu=new Menu();
-    gG=new Gerenciador_Grafico();
+    pMenu=new Menu();
+    pGG=new Gerenciador_Grafico();
     
-    anakin = new Jogador();
-    mustafar = new Mustafar(anakin);
-    gG->window(menu,static_cast<Fase*>(mustafar),static_cast<Entidade*>(anakin)); //depois vai precisar passar uma lista de fases e entidades!!!
+    pAnakin = new Jogador();
+    pMustafar = new Mustafar(pAnakin);
+    pGG->window(menu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

@@ -30,11 +30,11 @@ namespace TrabalhoJogo
     class Principal
     {
         private:
-            TrabalhoJogo::Menu* menu;
-            TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* gG;
-            TrabalhoJogo::Entidades::Personagens::Jogador* anakin;
-            TrabalhoJogo::Entidades::Personagens::Jogador* obiWan;
-            TrabalhoJogo::Fases::Mustafar* mustafar;
+            TrabalhoJogo::Menu* pMenu;
+            TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pGG;
+            TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
+            TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
+            TrabalhoJogo::Fases::Mustafar* pMustafar;
             //TrabalhoJogo::Fases::Hoth* hoth;
 
         public:
