@@ -44,5 +44,5 @@ void TrabalhoJogo::Principal::executar()
     
     pAnakin = new Jogador();
     pMustafar = new Mustafar(pAnakin);
-    pGG->window(menu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin)); //depois vai precisar passar uma lista de fases e entidades!!!
+    pGG->window(pMenu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin)); //depois vai precisar passar uma lista de fases e entidades!!!
 }
