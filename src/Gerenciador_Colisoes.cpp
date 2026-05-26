@@ -30,18 +30,15 @@ bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
 
-    verificarColisao(static_cast<Entidade*>(pAnakin),static_cast<Entidade*>(pPlat));
+    if(verificarColisao(static_cast<Entidade*>(pAnakin),static_cast<Entidade*>(pPlat)))
+        tratarColisoesJogsObstaculos();
 
     return caracterOutOfBounds(static_cast<Entidade*>(pAnakin));
 }
 const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
     if ((pe1->getBounds()).intersects(pe2->getBounds()))
-    {
-        cout<<"colisão"<<endl;
         return true;
-    }
-    cout<<"birl"<<endl;
     return false;
 }
 void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
