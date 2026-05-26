@@ -2,12 +2,6 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
-/*
-#define MENUINICIALPNG "MenuInicial.png"
-#define ANAKINPNG "Anakin.png"
-#define FONTE "PressStart2P.ttf"
-*/
-
 #include <iostream>
 #include <string>
 #include <list>
@@ -211,18 +205,5 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, s
     janela.draw(pF->getPlataforma());
     janela.draw(pEnt->getDrawData());
     
-
-    
-    //debug hitbox plataforma
-    sf::RectangleShape hitboxVisual(sf::Vector2f(11.0f, 6.0f));
-    hitboxVisual.setPosition(270.0f, 270.0f);
-    hitboxVisual.setFillColor(sf::Color::Transparent);
-    hitboxVisual.setOutlineColor(sf::Color::Red);
-    hitboxVisual.setOutlineThickness(1.0f);
-    janela.draw(hitboxVisual);
-
-
-
-
     janela.display();
 }

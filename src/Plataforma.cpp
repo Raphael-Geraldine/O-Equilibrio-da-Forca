@@ -17,7 +17,8 @@ vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositi
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l), platID(cont++)
 {
     danoso=false;
-
+    
+    platSkin.setOrigin(0.0f,0.0f);
     platSkin.setScale(0.3,0.3);
     
     if (!platTexture.loadFromFile(PLATPNG))
@@ -33,9 +34,6 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l)
     y=(platPositions[platID]).y;
 
     platSkin.setPosition(x,y);
-
-    cout<<x<<endl;
-    cout<<y<<endl;
 }
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::~Plataforma()
 {}
@@ -53,5 +51,5 @@ sf::Sprite TrabalhoJogo::Entidades::Obstaculos::Plataforma::getDrawData()
 }
 sf::FloatRect TrabalhoJogo::Entidades::Obstaculos::Plataforma::getBounds() const
 {
-    return sf::FloatRect(x, y, 11.0f, 6.0f);
+    return platSkin.getGlobalBounds();
 }

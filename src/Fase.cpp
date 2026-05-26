@@ -1,7 +1,5 @@
 #define MUSTAFARPNG "../assets/images/Mustafar.png"
 
-//#define MUSTAFARPNG "mustafar.png"
-
 #include "../include/Fase.h"
 
 #include <iostream>
