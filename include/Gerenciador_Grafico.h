@@ -64,14 +64,14 @@ namespace TrabalhoJogo
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
 
-                void window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat,Entidades::Obstaculos::Plataforma* pPlat2);
+                void window(Menu* pM, Fase* pF, Entidade* pEnt);
                 
                 void loadMenu(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);
 
-                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat,Entidades::Obstaculos::Plataforma* pPlat2);
+                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
                 void posicionarEnte(Ente* pE);
                 void desenharEnte (Ente* pE);
         };

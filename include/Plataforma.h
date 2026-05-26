@@ -28,6 +28,7 @@ namespace TrabalhoJogo
                     float largura;
                     sf::Texture platTexture;
                     sf::Sprite platSkin;
+                    sf::IntRect platSize;
 
                 public:
                     Plataforma(float l=0.0f);

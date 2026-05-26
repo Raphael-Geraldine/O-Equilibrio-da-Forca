@@ -9,6 +9,11 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
+#include "../include/Plataforma.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Obstaculos;
+
 namespace TrabalhoJogo
 {
     namespace Gerenciadores
@@ -21,6 +26,7 @@ namespace TrabalhoJogo
                 //set<Projetil*> LPs;
                 Jogador* pAnakin;
                 Jogador* pObiWan;
+                Plataforma* pPlat;
 
             private:
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
@@ -29,7 +35,7 @@ namespace TrabalhoJogo
                 void tratarColisoesJogsProjeteis();
 
             public:
-                Gerenciador_Colisoes(Jogador* pJ = nullptr);
+                Gerenciador_Colisoes(Jogador* pJ = nullptr, Plataforma* pP = nullptr);
                 ~Gerenciador_Colisoes();
                 //void incluirInimigo(Inimigo* pI);
                 //void incluirObstaculo(Obstaculo* pO);

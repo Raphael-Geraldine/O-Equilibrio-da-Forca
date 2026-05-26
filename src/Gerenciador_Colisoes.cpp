@@ -7,14 +7,19 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
+#include "../include/Plataforma.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Obstaculos;
+
 #include <iostream>
 using namespace std;
 
 #include "../include/Gerenciador_Colisoes.h"
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ)
+TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ, Plataforma* pP): pAnakin(pJ), pPlat(pP)
 {
-    pAnakin=pJ;
+
 }
 TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
@@ -22,14 +27,22 @@ TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::~Gerenciador_Colisoes()
 }
 bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
 {
-    //estou sempre caindo aqui, portanto aqui chamotodas as verificações necessárias
+    //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
+
+    verificarColisao(static_cast<Entidade*>(pAnakin),static_cast<Entidade*>(pPlat));
+
     return caracterOutOfBounds(static_cast<Entidade*>(pAnakin));
 }
 const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
-    //TODO
-    return false; //just to preventing a warning
+    if ((pe1->getBounds()).intersects(pe2->getBounds()))
+    {
+        cout<<"colisão"<<endl;
+        return true;
+    }
+    cout<<"birl"<<endl;
+    return false;
 }
 void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
 {

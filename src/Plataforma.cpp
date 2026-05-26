@@ -12,12 +12,14 @@ using namespace Personagens;
 #include "../include/Plataforma.h"
 
 short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
-vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{480,480},{270,270},{360,360},{540,540},{144,144}};
+vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{270,270},{480,480},{360,360},{540,540},{144,144}};
 
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l), platID(cont++)
 {
     danoso=false;
 
+    platSkin.setScale(0.3,0.3);
+    
     if (!platTexture.loadFromFile(PLATPNG))
     {
         cerr << "Erro de carregamento do PNG da Plataforms" << endl;
@@ -26,13 +28,14 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l)
     {
         platSkin.setTexture(platTexture); 
     }
-    
-    platSkin.setScale(0.3,0.3);
 
     x=(platPositions[platID]).x;
     y=(platPositions[platID]).y;
 
     platSkin.setPosition(x,y);
+
+    cout<<x<<endl;
+    cout<<y<<endl;
 }
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::~Plataforma()
 {}
@@ -50,5 +53,5 @@ sf::Sprite TrabalhoJogo::Entidades::Obstaculos::Plataforma::getDrawData()
 }
 sf::FloatRect TrabalhoJogo::Entidades::Obstaculos::Plataforma::getBounds() const
 {
-    return platSkin.getGlobalBounds();
+    return sf::FloatRect(x, y, 11.0f, 6.0f);
 }
