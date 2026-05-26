@@ -41,6 +41,7 @@ namespace TrabalhoJogo
             TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
             TrabalhoJogo::Fases::Mustafar* pMustafar;
             TrabalhoJogo::Entidades::Obstaculos::Plataforma* pPlat;
+            TrabalhoJogo::Entidades::Obstaculos::Plataforma* pPlat2;
             //TrabalhoJogo::Fases::Hoth* hoth;
 
         public:

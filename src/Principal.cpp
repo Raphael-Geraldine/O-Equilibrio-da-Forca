@@ -30,7 +30,7 @@ using namespace Obstaculos;
 
 #include "../include/Principal.h"
 
-TrabalhoJogo::Principal::Principal(): pGG(), pMenu(), pAnakin(), pObiWan(), pMustafar(), pPlat()
+TrabalhoJogo::Principal::Principal(): pGG(), pMenu(), pAnakin(), pObiWan(), pMustafar(), pPlat(), pPlat2()
 {
     executar();
 }
@@ -41,6 +41,7 @@ TrabalhoJogo::Principal::~Principal()
     delete(pGG);
     delete(pMustafar);
     delete(pPlat);
+    delete(pPlat2);
 }
 
 void TrabalhoJogo::Principal::executar()
@@ -51,5 +52,6 @@ void TrabalhoJogo::Principal::executar()
     pAnakin = new Jogador();
     pMustafar = new Mustafar(pAnakin);
     pPlat = new Plataforma();
-    pGG->window(pMenu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin),pPlat); //depois vai precisar passar uma lista de fases e entidades!!!
+    pPlat2 = new Plataforma();
+    pGG->window(pMenu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin),pPlat,pPlat2); //depois vai precisar passar uma lista de fases e entidades!!!
 }

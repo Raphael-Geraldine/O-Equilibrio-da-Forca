@@ -142,7 +142,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, s
         optionSelected=5;
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat /*, classes que serão desenhadas imagino*/)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat, Entidades::Obstaculos::Plataforma* pPlat2 /*, classes que serão desenhadas imagino*/)
 {
     sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
     janela.setFramerateLimit (120);
@@ -164,7 +164,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF
             desenharMenu (pM,janela);
         if (optionSelected == 0)
         {
-            desenharFase(pF,janela,pEnt, pPlat);
+            desenharFase(pF,janela,pEnt, pPlat,pPlat2);
         }
         if (optionSelected == 1)
         {
@@ -202,7 +202,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat,Entidades::Obstaculos::Plataforma* pPlat2)
 {
     //janela.setMouseCursorVisible(false);
 
@@ -210,6 +210,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, s
     janela.draw(pF->getGround());
     janela.draw(pEnt->getDrawData());
     janela.draw(pPlat->getDrawData());
+    janela.draw(pPlat2->getDrawData());
 
     janela.display();
 }
