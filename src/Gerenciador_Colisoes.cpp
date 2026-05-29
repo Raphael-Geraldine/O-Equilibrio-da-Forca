@@ -43,6 +43,34 @@ const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(E
 }
 void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
 {
+    sf::FloatRect playerBounds = pAnakin->getBounds();
+    sf::FloatRect platBounds = pPlat->getBounds();
+
+    if (1)
+    {}
+    
+    if (((pAnakin->x + playerBounds.width) > pPlat->x) && ((pAnakin->x - playerBounds.width) < (pPlat->x + platBounds.width)))
+    {
+        bool rightLeft = 0;
+        if ((pAnakin->x - playerBounds.width) > (pPlat->x + (platBounds.width / 2.0f)))
+            rightLeft=1;
+
+        if (rightLeft)
+            pAnakin->x += 2;
+        else
+            pAnakin->x -= 2;
+    }
+   
+    if (((pAnakin->y + playerBounds.height) > pPlat->y) && ((pAnakin->y - playerBounds.height) < (pPlat->y + platBounds.height)))
+    {
+        bool upDown = 0;
+        if ((pAnakin->y + playerBounds.height) > (pPlat->y))
+            upDown=1;
+        if (upDown)
+            pAnakin->y -= 2;
+        else
+            pAnakin->y += 2;
+    }
     
 }
 void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsInimigos()

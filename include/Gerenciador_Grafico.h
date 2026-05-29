@@ -7,6 +7,9 @@ using namespace std;
 
 #include <SFML/Graphics.hpp>
 
+
+//Dá pra usar um tal de drawable, mais simples q o Sprite (assim tá ok, mas o outro é perfeccionismo)
+
 namespace TrabalhoJogo
 {
     class Menu;
