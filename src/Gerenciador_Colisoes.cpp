@@ -41,7 +41,7 @@ const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(E
         return true;
     return false;
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
+void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos() //AQUI NÃO ESTÁ FUNCIONANDO
 {
     
     sf::FloatRect playerBounds = pAnakin->getBounds();
