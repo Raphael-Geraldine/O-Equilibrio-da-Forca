@@ -77,6 +77,7 @@ namespace TrabalhoJogo
                 void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
                 void posicionarEnte(Ente* pE);
                 void desenharEnte (Ente* pE);
+                void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
         };
     }
 }

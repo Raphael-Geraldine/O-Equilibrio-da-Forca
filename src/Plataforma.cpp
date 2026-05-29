@@ -18,9 +18,8 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l)
 {
     danoso=false;
     
-    platSkin.setOrigin(0.0f,0.0f);
     platSkin.setScale(0.3,0.3);
-    
+
     if (!platTexture.loadFromFile(PLATPNG))
     {
         cerr << "Erro de carregamento do PNG da Plataforms" << endl;
@@ -29,6 +28,9 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l)
     {
         platSkin.setTexture(platTexture); 
     }
+
+    sf::FloatRect bounds = platSkin.getLocalBounds();
+    platSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     x=(platPositions[platID]).x;
     y=(platPositions[platID]).y;
