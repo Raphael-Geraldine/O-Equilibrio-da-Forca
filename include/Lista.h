@@ -47,9 +47,6 @@ namespace TrabalhoJogo
             Lista();
             ~Lista();
             
-            // Poderiam ser privados?
-            Elemento<TE>* getPrimeiro() const;
-            Elemento<TE>* getUltimo() const; 
             size_t getTamanho() const;
             
             // Inspiração na implementação do Burda, 
