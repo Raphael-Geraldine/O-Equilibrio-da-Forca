@@ -60,6 +60,7 @@ namespace TrabalhoJogo
             void remover(TL* pinfo);
 
             void incluir(TL* p);
+            void percorrer();
             void limpar();  
         };
 
@@ -294,6 +295,23 @@ namespace TrabalhoJogo
             delete pAtual;
 
             cout << "Elemento " << info << "removido da lista." << endl;
+        }
+
+        template <class TL>
+        void Lista<TL>::percorrer() 
+        {
+            Elemento<TL>* pAux = NULL;
+
+            while(pPrimeiro != NULL) 
+            {
+                cout << "Elemento " << pAux->getInfo() << "na lista." << endl;
+                pAux = pPrimeiro->getElProx();
+                delete pPrimeiro;
+                pPrimeiro = pAux;
+            }
+
+            pUltimo = NULL;
+            tamanhoLista = 0;
         }
     } 
 } 

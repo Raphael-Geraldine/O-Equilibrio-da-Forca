@@ -42,7 +42,7 @@ size_t ListaEntidades::getTamanho()
 
 void ListaEntidades::percorrer() 
 {
-    // À implementar.
+    LEs.percorrer();
 }
 
 Entidades::Entidade* ListaEntidades::operator[](int indice) 
