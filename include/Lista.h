@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream> 
+using namespace std;
+
 // A lista permite uma vista de alto nível, inclusive com operador
 // para lidar como vector. Cabe ao elemento, classe aninhada, tratar
 // de conhecer o próximo para garantir que a lista opere como simplesmente
@@ -54,7 +57,7 @@ namespace TrabalhoJogo
             TL* operator[](int indice);
 
             void remover(int id);
-            void remover(TE* pinfo);
+            void remover(TL* pinfo);
 
             void incluir(TL* p);
             void limpar();  
@@ -82,15 +85,16 @@ Lista<TL>::Elemento<TE>::~Elemento() {
 
 template <class TL>
 template <class TE>
-
-void Lista<TL>::Elemento<TE>::setElProx(Elemento<TE>* pE) () { 
+void Lista<TL>::Elemento<TE>::setElProx(Elemento<TE>* pE) { 
     pProx = pE; 
 }
 
 template <class TL>
 template <class TE>
 
-Elemento<TE>* Lista<TL>::Elemento<TE>::getElProx() const { 
+typename Lista<TL>::template Elemento<TE>* 
+Lista<TL>::Elemento<TE>::getElProx() const 
+{ 
     return pProx; 
 }
 
@@ -109,7 +113,8 @@ void Lista<TL>::Elemento<TE>::incluir(TE* p)
 template <class TL>
 template <class TE>
 
-TE* Lista<TL>::Elemento<TE>::getInfo() const { 
+TE* Lista<TL>::Elemento<TE>::getInfo() const 
+{ 
     return pInfo; 
 }
 
@@ -129,18 +134,6 @@ Lista<TL>::~Lista()
     pPrimeiro = NULL;
     pAnterior = NULL;
     tamanho = -1;
-}
-
-template <class TL>
-Elemento<TL>* Lista<TL>::getPrimeiro() const
-{
-    return pPrimeiro;
-}
-
-template <class TL>
-Elemento<TL>* Lista<TL>::getUltimo() const
-{
-    return pUltimo;
 }
 
 template <class TL>
