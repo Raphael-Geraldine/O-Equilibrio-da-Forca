@@ -23,14 +23,9 @@ using namespace Gerenciadores;
 using namespace TrabalhoJogo;
 using namespace Fases;
 
-#include "../include/Plataforma.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Obstaculos;
-
 #include "../include/Principal.h"
 
-TrabalhoJogo::Principal::Principal(): pGG(), pMenu(), pAnakin(), pObiWan(), pMustafar(), pPlat()
+TrabalhoJogo::Principal::Principal(): pGG(), pMenu(), pAnakin(), pObiWan(), pMustafar()
 {
     executar();
 }
@@ -40,7 +35,6 @@ TrabalhoJogo::Principal::~Principal()
     delete(pMenu);
     delete(pGG);
     delete(pMustafar);
-    delete(pPlat);
 }
 
 void TrabalhoJogo::Principal::executar()
@@ -50,6 +44,5 @@ void TrabalhoJogo::Principal::executar()
     
     pAnakin = new Jogador();
     pMustafar = new Mustafar(pAnakin);
-    pPlat = new Plataforma();
-    pGG->window(pMenu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin),pPlat); //depois vai precisar passar uma lista de fases e entidades!!!
+    pGG->window(pMenu,static_cast<Fase*>(pMustafar),static_cast<Entidade*>(pAnakin)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

@@ -12,6 +12,11 @@ using namespace Gerenciadores;
 #include "../include/Ente.h"
 using namespace TrabalhoJogo;
 
+#include "../include/Plataforma.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Obstaculos;
+
 #include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
@@ -23,7 +28,10 @@ namespace TrabalhoJogo
             protected:
                 static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
                 short int nFase;
+
                 Jogador* pJog; //é pra virar isso depois: ListaEntidades lista_ents;
+                Plataforma* pPlat;
+
                 Gerenciador_Colisoes* gC;
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;
@@ -44,6 +52,7 @@ namespace TrabalhoJogo
                 virtual void executar();
                 sf::Sprite getFundo();
                 sf::RectangleShape getGround();
+                sf::Sprite getPlataforma();
         };
     }
 }

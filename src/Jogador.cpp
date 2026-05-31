@@ -16,8 +16,6 @@ TrabalhoJogo::Entidades::Personagens::Jogador::Jogador(): playerID(cont++)
 {
     playerSkin.setScale(0.17,0.17);
 
-    sf::FloatRect bounds = playerSkin.getLocalBounds();
-    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     x=20;
     y=570;
     playerSkin.setPosition(x,y);
@@ -42,6 +40,9 @@ sf::Sprite TrabalhoJogo::Entidades::Personagens::Jogador::getDrawData()
     }
     else
         cout<<"Vai ser ObiWan"<<endl;
+
+    sf::FloatRect bounds = playerSkin.getLocalBounds();
+    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     
     return playerSkin;
 }

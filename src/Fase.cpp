@@ -1,7 +1,5 @@
 #define MUSTAFARPNG "../assets/images/Mustafar.png"
 
-//#define MUSTAFARPNG "mustafar.png"
-
 #include "../include/Fase.h"
 
 #include <iostream>
@@ -12,18 +10,24 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
+#include "../include/Plataforma.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Obstaculos;
+
 #include <SFML/Graphics.hpp>
 
 short int TrabalhoJogo::Fases::Fase::cont(0);
 
-TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pJog(pJ)
+TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pJog(pJ), pPlat()
 {
     criarCenario();
-    gC = new Gerenciador_Colisoes(pJ);
+    gC = new Gerenciador_Colisoes(pJ, pPlat);
 }
 TrabalhoJogo::Fases::Fase::~Fase()
 {
     delete(gC);
+    delete (pPlat);
 }
 void TrabalhoJogo::Fases::Fase::executar()
 {
@@ -58,6 +62,8 @@ void TrabalhoJogo::Fases::Fase::criarCenario()
     {
         cout<<"nao existe ainda"<<endl;
     }
+
+    pPlat = new Plataforma();
 }
 
 sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
@@ -72,4 +78,9 @@ sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
 sf::RectangleShape TrabalhoJogo::Fases::Fase::getGround()
 {
     return ground;
+}
+
+sf::Sprite TrabalhoJogo::Fases::Fase::getPlataforma()
+{
+    return pPlat->getDrawData();
 }

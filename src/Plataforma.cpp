@@ -12,11 +12,13 @@ using namespace Personagens;
 #include "../include/Plataforma.h"
 
 short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
-vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{480,480},{270,270},{360,360},{540,540},{144,144}};
+vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{270,270},{480,480},{360,360},{540,540},{144,144}};
 
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l), platID(cont++)
 {
     danoso=false;
+    
+    platSkin.setScale(0.3,0.3);
 
     if (!platTexture.loadFromFile(PLATPNG))
     {
@@ -26,8 +28,9 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l)
     {
         platSkin.setTexture(platTexture); 
     }
-    
-    platSkin.setScale(0.3,0.3);
+
+    sf::FloatRect bounds = platSkin.getLocalBounds();
+    platSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     x=(platPositions[platID]).x;
     y=(platPositions[platID]).y;

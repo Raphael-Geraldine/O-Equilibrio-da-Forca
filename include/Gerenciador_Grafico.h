@@ -7,6 +7,9 @@ using namespace std;
 
 #include <SFML/Graphics.hpp>
 
+
+//Dá pra usar um tal de drawable, mais simples q o Sprite (assim tá ok, mas o outro é perfeccionismo)
+
 namespace TrabalhoJogo
 {
     class Menu;
@@ -64,16 +67,17 @@ namespace TrabalhoJogo
                 Gerenciador_Grafico();
                 ~Gerenciador_Grafico();
 
-                void window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat);
+                void window(Menu* pM, Fase* pF, Entidade* pEnt);
                 
                 void loadMenu(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);
 
-                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat);
+                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
                 void posicionarEnte(Ente* pE);
                 void desenharEnte (Ente* pE);
+                void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
         };
     }
 }

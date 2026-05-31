@@ -15,11 +15,6 @@ namespace TrabalhoJogo
         {
             class Jogador;
         }
-
-        namespace Obstaculos
-        {
-            class Plataforma;
-        }
     }
 
     namespace Fases 
@@ -40,7 +35,6 @@ namespace TrabalhoJogo
             TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
             TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
             TrabalhoJogo::Fases::Mustafar* pMustafar;
-            TrabalhoJogo::Entidades::Obstaculos::Plataforma* pPlat;
             //TrabalhoJogo::Fases::Hoth* hoth;
 
         public:

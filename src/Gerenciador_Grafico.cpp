@@ -2,12 +2,6 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
-/*
-#define MENUINICIALPNG "MenuInicial.png"
-#define ANAKINPNG "Anakin.png"
-#define FONTE "PressStart2P.ttf"
-*/
-
 #include <iostream>
 #include <string>
 #include <list>
@@ -142,7 +136,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, s
         optionSelected=5;
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat /*, classes que serão desenhadas imagino*/)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt /*, classes que serão desenhadas imagino*/)
 {
     sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
     janela.setFramerateLimit (120);
@@ -164,7 +158,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF
             desenharMenu (pM,janela);
         if (optionSelected == 0)
         {
-            desenharFase(pF,janela,pEnt, pPlat);
+            desenharFase(pF,janela,pEnt);
         }
         if (optionSelected == 1)
         {
@@ -202,14 +196,36 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt, Entidades::Obstaculos::Plataforma* pPlat)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt)
 {
     //janela.setMouseCursorVisible(false);
 
     janela.draw(pF->getFundo());
     janela.draw(pF->getGround());
+    janela.draw(pF->getPlataforma());
     janela.draw(pEnt->getDrawData());
-    janela.draw(pPlat->getDrawData());
 
+    desenharOrigem(janela, pF->getPlataforma());
+    desenharOrigem(janela, pEnt->getDrawData());
+    
     janela.display();
+}
+
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
+    sf::FloatRect bounds = sprite.getGlobalBounds();
+    sf::RectangleShape hitbox(sf::Vector2f(bounds.width, bounds.height));
+    
+    hitbox.setPosition(bounds.left, bounds.top);
+    hitbox.setFillColor(sf::Color::Transparent);
+    hitbox.setOutlineColor(sf::Color::Red);
+    hitbox.setOutlineThickness(1.f);
+    
+    float raio = 4.f;
+    sf::CircleShape ponto(raio);
+    ponto.setFillColor(sf::Color::Red);
+    ponto.setOrigin(raio, raio);
+    ponto.setPosition(sprite.getPosition());
+    
+    window.draw(hitbox);
+    window.draw(ponto);
 }
