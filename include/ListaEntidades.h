@@ -5,7 +5,7 @@
 
 namespace TrabalhoJogo
 {
-    namespace Lista
+    namespace Listas
     {
         class ListaEntidades
         {
@@ -15,8 +15,17 @@ namespace TrabalhoJogo
             public:
                 ListaEntidades();
                 ~ListaEntidades();
-                void incluir(Entidade* pE);
+
+                void incluir(Entidades::Entidade* pE);
+                void remover(Entidades::Entidade* pE);
+                void remover(size_t indice);
+                size_t getTamanho();
                 void percorrer();
+
+                // Também inspirada na implementação do Burda, 
+                // vide vídeo 8 da playlist Tutorial Jogo SFM,
+                // como no header "Lista.h", naturalmente.
+                Entidades::Entidade* operator[](int indice);
         };
     }
 }
