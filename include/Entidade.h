@@ -11,7 +11,7 @@ namespace TrabalhoJogo
     {
         class Entidade : public Ente
         {
-            public: //deve ser protected e ter get!!! está assim para testar
+            protected: //deve ser protected e ter get!!! está assim para testar
                 int x;
                 int y;
                 //ostream buffer;
@@ -22,6 +22,13 @@ namespace TrabalhoJogo
                 void salvarDataBuffer();
 
             public:
+                // Parâmetros remetem a vetores unitários.
+                // Para evitar uso de "this" nesse caso.
+                void setX(int i);
+                int getX() const;
+                void setY(int j);
+                int getY() const;
+                
                 virtual void executar() = 0;
                 virtual void salvar() = 0;
                 virtual void mover() = 0; //lembrar que apenas personagens movem!

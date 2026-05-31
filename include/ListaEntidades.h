@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Lista.h"
+
 namespace TrabalhoJogo
 {
     namespace Lista
