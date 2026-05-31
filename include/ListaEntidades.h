@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Lista.h"
+#include "Entidade.h"
 
 namespace TrabalhoJogo
 {
@@ -9,7 +10,7 @@ namespace TrabalhoJogo
         class ListaEntidades
         {
             private:
-                Lista<Entidade> LEs;
+                Lista<Entidades::Entidade> LEs;
 
             public:
                 ListaEntidades();

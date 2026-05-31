@@ -295,5 +295,5 @@ namespace TrabalhoJogo
 
             cout << "Elemento " << info << "removido da lista." << endl;
         }
-    } using namespace Listas;
-} using namespace TrabalhoJogo;
+    } 
+} 
