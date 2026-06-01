@@ -16,7 +16,7 @@ namespace TrabalhoJogo
                     ID identificador;
 
                 public:
-                    Personagem(ID identificador = personagem);
+                    Personagem();
                     ~Personagem();
                     void salvarDataBuffer();
                     void gravity();

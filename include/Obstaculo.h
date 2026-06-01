@@ -15,10 +15,9 @@ namespace TrabalhoJogo
             {
                 protected:
                     bool danoso;
-                    ID identificador;
 
                 public:
-                    Obstaculo(ID identificador = obstaculo);
+                    Obstaculo();
                     ~Obstaculo();
                     void salvarDataBuffer();
                     virtual void executar() = 0;

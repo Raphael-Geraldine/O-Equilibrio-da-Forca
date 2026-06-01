@@ -8,13 +8,14 @@ namespace TrabalhoJogo
     namespace Entidades
     {
         // Descoberta de enum e, naturalmente, implementação
-        // inspirada no vídeo 2 do canal do Burda.
+        // inspirada no vídeo 4 do canal do Burda.
 
         enum ID 
         {
             empty = 0,
             obstaculo,
             personagem,
+            projetil
         };
 
         class Entidade : public Ente
