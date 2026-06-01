@@ -28,10 +28,11 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataform
     sf::FloatRect playerBounds = pJog->getBounds();
     sf::FloatRect platBounds = pPlat->getBounds();
     
-    const int RECUO_COLISAO = 20;
+    const int RECUO_COLISAO_SUP = 2;
+    const int RECUO_COLISAO_LAT = 2;
 
-    if (((pJog->getX()) > (pPlat->getX() - platBounds.width)) 
-       && ((pJog->getX()) < (pPlat->getX() + platBounds.width)))
+    if (((pJog->getX() - playerBounds.width) > (pPlat->getX() - platBounds.width)) 
+       && ((pJog->getX() + playerBounds.width) < (pPlat->getX() + platBounds.width)))
     {
         bool upDown = false;
 
@@ -39,24 +40,24 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataform
             upDown=true;
 
         if (upDown)
-            pJog->setY(pJog->getY() - RECUO_COLISAO);
+            pJog->setY(pJog->getY() - RECUO_COLISAO_SUP);
         
         else
-            pJog->setY(pJog->getY() + RECUO_COLISAO);        
+            pJog->setY(pJog->getY() + RECUO_COLISAO_SUP);        
     }
    
     else     
     {
         bool rightLeft = false;
         
-        if ((pJog->getX() - playerBounds.width) > (pPlat->getX() + platBounds.width / 2.0f))
+        if ((pJog->getX() + playerBounds.width) > (pPlat->getX() + platBounds.width / 2.0f))
             rightLeft = true;
 
         if (rightLeft)
-            pJog->setX(pJog->getX() + RECUO_COLISAO);
+            pJog->setX(pJog->getX() + RECUO_COLISAO_LAT);
 
         else
-            pJog->setX(pJog->getX() - RECUO_COLISAO);
+            pJog->setX(pJog->getX() - RECUO_COLISAO_LAT);
     }
     
 }
