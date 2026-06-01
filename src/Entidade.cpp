@@ -4,7 +4,7 @@
 using namespace TrabalhoJogo;
 using namespace Entidades;
 
-Entidade::Entidade(): Ente(), x(0), y(0)
+Entidade::Entidade(ID identificador = empty): Ente(), x(0), y(0), id(identificador)
 {}
 
 Entidade::~Entidade()
@@ -36,4 +36,9 @@ void Entidade::setY(int j)
 int Entidade::getY() const 
 {
     return y;
+}
+
+int Entidade::getID() const
+{
+    return id;
 }

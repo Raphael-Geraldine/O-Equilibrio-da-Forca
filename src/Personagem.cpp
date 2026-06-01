@@ -14,6 +14,19 @@ Personagem::~Personagem()
     
 }
 
+/*
+void Personagem::atualizarPosicao() 
+{
+    dt = relogio.getElapsedTime().asSeconds();
+    float ds = velFinal.x * dt;
+    if (paraEsquerda) {
+        ds *= -1;
+    }
+
+    corpo.move(ds, 0.0f);
+}
+*/
+
 void Personagem::salvarDataBuffer()
 {
     
