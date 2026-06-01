@@ -4,14 +4,7 @@
 using namespace std;
 
 #include "../include/Obstaculo.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Obstaculos;
-
 #include "../include/Jogador.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Personagens;
 
 namespace TrabalhoJogo
 {

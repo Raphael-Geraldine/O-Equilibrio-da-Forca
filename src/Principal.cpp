@@ -1,26 +1,19 @@
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 #include "../include/Menu.h"
-using namespace TrabalhoJogo;
-
+#include "../include/Entidade.h"
 #include "../include/Jogador.h"
+#include "../include/Gerenciador_Grafico.h"
+#include "../include/Fase.h"
+#include "../include/Mustafar.h"
+
 using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
-
-#include "../include/Entidade.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-
-#include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
 using namespace Gerenciadores;
-
-#include "../include/Fase.h"
-#include "../include/Mustafar.h"
-//#include "../include/Hoth.h"
-using namespace TrabalhoJogo;
 using namespace Fases;
 
 #include "../include/Principal.h"

@@ -1,25 +1,27 @@
 #include "../include/Gerenciador_Grafico.h"
+#include "../include/Ente.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
-#include "../include/Ente.h"
-
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
-int TrabalhoJogo::Ente::cont(0);
 
-TrabalhoJogo::Ente::Ente(): id(cont++)
+int Ente::cont(0);
+
+Ente::Ente(): id(cont++)
 {}
 
-TrabalhoJogo::Ente::~Ente()
+Ente::~Ente()
 {}
 
-void TrabalhoJogo::Ente::desenhar()
+void Ente::desenhar()
 {
     cout<<id<<endl;
 }
-void TrabalhoJogo::Ente::staticSetGG(Gerenciador_Grafico* pG)
+void staticSetGG(Gerenciador_Grafico* pG)
 {
     cout<<"ok"<<endl;
 }

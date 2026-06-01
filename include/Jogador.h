@@ -1,9 +1,6 @@
 #pragma once
 
 #include "../include/Personagem.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Personagens;
 
 namespace TrabalhoJogo
 {

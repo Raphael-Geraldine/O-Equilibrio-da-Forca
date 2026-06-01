@@ -1,7 +1,9 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
 
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 #include "../include/Personagem.h"
 using namespace TrabalhoJogo;
@@ -10,9 +12,9 @@ using namespace Personagens;
 
 #include "../include/Jogador.h"
 
-short int TrabalhoJogo::Entidades::Personagens::Jogador::cont(0);
+short int Jogador::cont(0);
 
-TrabalhoJogo::Entidades::Personagens::Jogador::Jogador(): playerID(cont++)
+Jogador::Jogador(): playerID(cont++)
 {
     playerSkin.setScale(0.17,0.17);
 
@@ -21,11 +23,11 @@ TrabalhoJogo::Entidades::Personagens::Jogador::Jogador(): playerID(cont++)
     playerSkin.setPosition(x,y);
 }
 
-TrabalhoJogo::Entidades::Personagens::Jogador::~Jogador()
+Jogador::~Jogador()
 {
 
 }
-sf::Sprite TrabalhoJogo::Entidades::Personagens::Jogador::getDrawData()
+sf::Sprite Jogador::getDrawData()
 {
     if (!playerID)
     {
@@ -46,16 +48,16 @@ sf::Sprite TrabalhoJogo::Entidades::Personagens::Jogador::getDrawData()
     
     return playerSkin;
 }
-void TrabalhoJogo::Entidades::Personagens::Jogador::executar()
+void Jogador::executar()
 {
     mover();
     gravity(); // Temporário
 }
-void TrabalhoJogo::Entidades::Personagens::Jogador::salvar()
+void Jogador::salvar()
 {
     
 }
-void TrabalhoJogo::Entidades::Personagens::Jogador::mover()
+void Jogador::mover()
 {
     //gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -74,11 +76,11 @@ sf::FloatRect TrabalhoJogo::Entidades::Personagens::Jogador::getBounds() const
     return playerSkin.getGlobalBounds();
 }
 
-/*void TrabalhoJogo::Entidades::Personagens::Jogador::colidirInimigo(Inimigo* pIn)
+/*void Jogador::colidirInimigo(Inimigo* pIn)
 {
 
 }
-void TrabalhoJogo::Entidades::Personagens::Jogador::colidirObstaculo(Obstaculo* pOb)
+void Jogador::colidirObstaculo(Obstaculo* pOb)
 {
 
 }*/

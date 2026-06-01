@@ -4,51 +4,47 @@
 
 // Sem inclusão repetida de string e list (do .h)
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 #include "../include/Menu.h"
 #include "../include/Ente.h"
-using namespace TrabalhoJogo;
-
 #include "../include/Fase.h"
 #include "../include/Mustafar.h"
+#include "../include/Entidade.h"
+#include "../include/Plataforma.h"
+#include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Fases;
-
-#include "../include/Entidade.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-
-#include "../include/Plataforma.h"
-using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Obstaculos;
+using namespace Gerenciadores;
 
-#include "../include/Gerenciador_Grafico.h"
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
-short int TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::optionSelected(-1);
+short int Gerenciador_Grafico::optionSelected(-1);
 
-Gerenciador_Grafico* TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::pGrafico = nullptr;
+Gerenciador_Grafico* Gerenciador_Grafico::pGrafico = nullptr;
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::Gerenciador_Grafico()
+Gerenciador_Grafico::Gerenciador_Grafico()
 {
     textOptions.clear();
     menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
 }
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::~Gerenciador_Grafico()
+Gerenciador_Grafico::~Gerenciador_Grafico()
 {
     textOptions.clear();
 }
 
-Gerenciador_Grafico* TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()
+Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 {
     if (pGrafico == nullptr) 
     {
-        return new TrabalhoJogo::Gerenciadores::Gerenciador_Grafico();
+        return new Gerenciador_Grafico();
     }
 
     else 
@@ -57,7 +53,7 @@ Gerenciador_Grafico* TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenc
     }
 }
 // Sem iterador i
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
+void Gerenciador_Grafico::menuTextPlacement()
 {
     textOptions.clear();
     list<string>::iterator it = menuOptions.begin();
@@ -76,7 +72,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
     }
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
+void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
 {
     // Chamada fora do loop.
     sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela)); 
@@ -97,7 +93,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::Re
     }
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::loadMenu (Menu* pM)
+void Gerenciador_Grafico::loadMenu (Menu* pM)
 {
     if (!texturaFundo.loadFromFile(MENUINICIALPNG))
     {
@@ -131,7 +127,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::loadMenu (Menu* pM)
     menuTextPlacement();
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
+void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
 {
     janela.draw(fundo);
     janela.draw(anakin);
@@ -154,7 +150,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, s
         optionSelected=5;
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF)
+void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
 {
     // Usei ao invés de duplicar "sf::RenderWindow janela;"
     janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
@@ -207,15 +203,15 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF
     }
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharEnte (Ente* pE)
+void Gerenciador_Grafico::desenharEnte (Ente* pE)
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
+void Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
+void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
 {
     //janela.setMouseCursorVisible(false);
 
@@ -242,7 +238,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, s
     janela.display();
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
+void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
     sf::FloatRect bounds = sprite.getGlobalBounds();
     sf::RectangleShape hitbox(sf::Vector2f(bounds.width, bounds.height));
     

@@ -1,39 +1,39 @@
 #include "limits.h"
 #include"../include/Ente.h"
-using namespace TrabalhoJogo;
-
 #include "../include/Entidade.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
 
-TrabalhoJogo::Entidades::Entidade::Entidade(): Ente(), x(0), y(0)
+Entidade::Entidade(): Ente(), x(0), y(0)
 {}
 
-TrabalhoJogo::Entidades::Entidade::~Entidade()
+Entidade::~Entidade()
 {
     x = INT_MIN;
     y = INT_MIN;
 }
 
-void TrabalhoJogo::Entidades::Entidade::salvarDataBuffer()
+void Entidade::salvarDataBuffer()
 {
     
 }
 
-void TrabalhoJogo::Entidades::Entidade::setX(int i) 
+void Entidade::setX(int i) 
 {
     x = i;
 }
 
-int TrabalhoJogo::Entidades::Entidade::getX() const
+int Entidade::getX() const
 {
     return x;
 }
 
-void TrabalhoJogo::Entidades::Entidade::setY(int j) 
+void Entidade::setY(int j) 
 {
     y = j;
 }
 
-int TrabalhoJogo::Entidades::Entidade::getY() const 
+int Entidade::getY() const 
 {
     return y;
 }

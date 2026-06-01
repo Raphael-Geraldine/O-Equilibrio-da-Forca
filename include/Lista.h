@@ -1,7 +1,9 @@
 #pragma once
 
 #include <iostream> 
-using namespace std;
+using std::cerr;
+using std::cout;
+using std::endl;
 
 // A lista permite uma vista de alto nível, inclusive com operador
 // para lidar como vector. Cabe ao elemento, classe aninhada, tratar
@@ -13,7 +15,6 @@ namespace TrabalhoJogo
     namespace Listas
     {
         // Lista template simplesmente encadeada.
-
         template <class TL>
         class Lista
         {
@@ -37,11 +38,11 @@ namespace TrabalhoJogo
                         TE* getInfo() const;   
 
                 };
-        
-        private:
-            Elemento<TL>* pPrimeiro;
-            Elemento<TL>* pUltimo;
-            size_t tamanhoLista;
+
+                private:
+                    Elemento<TL>* pPrimeiro;
+                    Elemento<TL>* pUltimo;
+                    size_t tamanhoLista;
 
         public:
             Lista();

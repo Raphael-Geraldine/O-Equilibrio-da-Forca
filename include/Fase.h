@@ -1,25 +1,10 @@
 #pragma once
 
 #include "../include/ListaEntidades.h"
-using namespace TrabalhoJogo;
-using namespace Listas;
-
 #include "../include/Jogador.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Personagens;
-
 #include "../include/Gerenciador_Colisoes.h"
-using namespace TrabalhoJogo;
-using namespace Gerenciadores;
-
 #include "../include/Ente.h"
-using namespace TrabalhoJogo;
-
 #include "../include/Plataforma.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Obstaculos;
 
 #include <SFML/Graphics.hpp>
 
@@ -34,11 +19,13 @@ namespace TrabalhoJogo
                 short int nFase;
 
                 Listas::ListaEntidades listaEntidades;
-                Plataforma* pPlat;
+                Entidades::Obstaculos::Plataforma* pPlat;
 
-                Gerenciador_Colisoes* gC;
+                Gerenciadores::Gerenciador_Colisoes* gC;
+
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;
+                
                 sf::Texture texturaFundo; 
                 sf::Sprite fundo;
                 sf::RectangleShape ground;

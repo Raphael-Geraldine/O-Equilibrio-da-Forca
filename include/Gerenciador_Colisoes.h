@@ -1,18 +1,15 @@
 #pragma once
 
 #include "../include/Entidade.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-
 #include "../include/Jogador.h"
-using namespace TrabalhoJogo;
+#include "../include/Plataforma.h"
 using namespace Entidades;
 using namespace Personagens;
-
-#include "../include/Plataforma.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
 using namespace Obstaculos;
+
+#pragma once
+
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
 {

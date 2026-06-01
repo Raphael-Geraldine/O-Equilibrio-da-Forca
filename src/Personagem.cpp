@@ -1,25 +1,25 @@
 #include "../include/Entidade.h"
+#include "../include/Personagem.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
+using namespace Personagens;
 
-#include "../include/Personagem.h"
-
-TrabalhoJogo::Entidades::Personagens::Personagem::Personagem(): Entidade(), num_vidas(0)
+Personagem::Personagem(): Entidade(), num_vidas(0)
 {
 
 }
 
-TrabalhoJogo::Entidades::Personagens::Personagem::~Personagem()
-{
-    
-}
-
-void TrabalhoJogo::Entidades::Personagens::Personagem::salvarDataBuffer()
+Personagem::~Personagem()
 {
     
 }
 
-void TrabalhoJogo::Entidades::Personagens::Personagem::gravity()
+void Personagem::salvarDataBuffer()
+{
+    
+}
+
+void Personagem::gravity()
 {
     y+=1;
 }

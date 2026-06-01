@@ -35,10 +35,6 @@ namespace TrabalhoJogo
 {
     namespace Gerenciadores
     {
-
-        using Fase = TrabalhoJogo::Fases::Fase;
-        using Entidade = TrabalhoJogo::Entidades::Entidade;
-
         class Gerenciador_Grafico
         {
             private:
@@ -62,17 +58,17 @@ namespace TrabalhoJogo
                 list<string> menuOptions;
                 vector<sf::Text> textOptions;
                 static short int optionSelected;  
-                static Gerenciador_Grafico* pGrafico;
+                static Gerenciador_Grafico* pGrafico; // static Singleton* Instance();
 
-            private:
+            protected:
                 // Padrão de projeto Singleton 
                 // (conhecido pelos vídeos do canal Gege++)
-                Gerenciador_Grafico(); 
+                Gerenciador_Grafico();  // Singleton();
             
             public:
                 
                 ~Gerenciador_Grafico();
-                static Gerenciador_Grafico* getGerenciadorGrafico();
+                static Gerenciador_Grafico* getGerenciadorGrafico(); // static Singleton* _instance;
 
                 void window(Menu* pM, Fase* pF);
                 

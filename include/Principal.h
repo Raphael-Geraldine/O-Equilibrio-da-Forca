@@ -1,8 +1,6 @@
 #pragma once
 
 #include "../include/ListaEntidades.h"
-using namespace TrabalhoJogo;
-using namespace Listas;
 
 namespace TrabalhoJogo 
 { 

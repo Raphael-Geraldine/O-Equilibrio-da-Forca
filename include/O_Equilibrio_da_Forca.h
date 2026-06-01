@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Jogador.h"
+
 namespace TrabalhoJogo
 {
     class O_Equilibrio_da_Forca

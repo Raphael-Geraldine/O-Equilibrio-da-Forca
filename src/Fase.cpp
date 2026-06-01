@@ -1,57 +1,56 @@
 #define MUSTAFARPNG "../assets/images/Mustafar.png"
 
 #include "../include/Fase.h"
-
-#include <iostream>
-using namespace std;
-
 #include "../include/Jogador.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-using namespace Personagens;
-
 #include "../include/Plataforma.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Obstaculos;
+using namespace Fases;
+using namespace Gerenciadores;
 
 #include <SFML/Graphics.hpp>
 
-short int TrabalhoJogo::Fases::Fase::cont(0);
+#include <iostream>
+using std::cout;
+using std::cerr;
+using std::endl;
 
-TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pPlat()
+short int Fase::cont(0);
+
+Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pPlat()
 {
     criarCenario();
     gC = new Gerenciador_Colisoes(pJ, pPlat);
 }
-TrabalhoJogo::Fases::Fase::~Fase()
+Fase::~Fase()
 {
     delete(gC);
     delete (pPlat);
 }
 
-void TrabalhoJogo::Fases::Fase::incluirEntidade(Entidades::Entidade* pE) 
+void Fase::incluirEntidade(Entidade* pE) 
 {
     listaEntidades.incluir(pE);
 }
 
-Listas::ListaEntidades* TrabalhoJogo::Fases::Fase::getListaEntidades() 
+Listas::ListaEntidades* Fase::getListaEntidades() 
 {
     return &listaEntidades;
 }
-void TrabalhoJogo::Fases::Fase::executar()
+void Fase::executar()
 {
 
 }
-void TrabalhoJogo::Fases::Fase::criarInimigosFaceis()
+void Fase::criarInimigosFaceis()
 {
 
 }
-void TrabalhoJogo::Fases::Fase::criarPlataformas()
+void Fase::criarPlataformas()
 {
 
 }
-void TrabalhoJogo::Fases::Fase::criarCenario()
+void Fase::criarCenario()
 {
     ground.setSize(sf::Vector2f(1280,15));
     ground.setFillColor(sf::Color::Green);
@@ -76,7 +75,7 @@ void TrabalhoJogo::Fases::Fase::criarCenario()
     pPlat = new Plataforma();
 }
 
-sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
+sf::Sprite Fase::getFundo()
 {
     //listaEntidades.executar();
     //bool g = gC->executar();
@@ -86,12 +85,12 @@ sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
     return fundo;
 }
 
-sf::RectangleShape TrabalhoJogo::Fases::Fase::getGround()
+sf::RectangleShape Fase::getGround()
 {
     return ground;
 }
 
-sf::Sprite TrabalhoJogo::Fases::Fase::getPlataforma()
+sf::Sprite Fase::getPlataforma()
 {
     return pPlat->getDrawData();
 }

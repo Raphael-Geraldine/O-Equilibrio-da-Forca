@@ -1,19 +1,21 @@
-#include <iostream>
 #include <vector>
 #include <string>
 using namespace std;
 
-#include "../include/Principal.h"
-using namespace TrabalhoJogo;
+#include <iostream>
+using std::cout;
+using std::cerr;
+using std::endl;
 
+#include "../include/Principal.h"
 #include "../include/Gerenciador_Grafico.h"
+#include "../include/Menu.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
-#include "../include/Menu.h"
 #include <SFML/Graphics.hpp>
 
-TrabalhoJogo::Menu::Menu(): gGraf(), qntdJogadores(1), pJogo()
+Menu::Menu(): gGraf(), qntdJogadores(1), pJogo()
 {
     fases.clear();
     fases.push_back("Mustafar");
@@ -23,7 +25,7 @@ TrabalhoJogo::Menu::Menu(): gGraf(), qntdJogadores(1), pJogo()
     executar();
 }
 
-TrabalhoJogo::Menu::~Menu()
+Menu::~Menu()
 {
     fases.clear();
     faseEscolhida=fases.end();
@@ -31,14 +33,14 @@ TrabalhoJogo::Menu::~Menu()
     delete(gGraf);
 }
 
-void TrabalhoJogo::Menu::executar()
+void Menu::executar()
 {
     //gGraf=new Gerenciador_Grafico();
     
     //gGraf->window(this);
 }
 
-bool TrabalhoJogo::Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
+bool Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
 {
     sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
     if (text.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left))

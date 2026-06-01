@@ -1,10 +1,12 @@
 #include "../include/Obstaculo.h"
+using namespace TrabalhoJogo;
+using namespace Obstaculos;
 
-TrabalhoJogo::Entidades::Obstaculos::Obstaculo::Obstaculo(): danoso(false)
+Obstaculo::Obstaculo(): danoso(false)
 {}
 
-TrabalhoJogo::Entidades::Obstaculos::Obstaculo::~Obstaculo()
+Obstaculo::~Obstaculo()
 {}
 
-void TrabalhoJogo::Entidades::Obstaculos::Obstaculo::salvarDataBuffer()
+void Obstaculo::salvarDataBuffer()
 {}

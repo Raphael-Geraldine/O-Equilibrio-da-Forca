@@ -2,6 +2,11 @@
 using namespace TrabalhoJogo; 
 using namespace Listas;
 
+#include <iostream> 
+using std::cout;
+using std::cerr;
+using std::endl;
+
 ListaEntidades::ListaEntidades() 
 {}
 

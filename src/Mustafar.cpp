@@ -1,31 +1,28 @@
+#include "../include/Mustafar.h"
 #include "../include/Fase.h"
-using namespace TrabalhoJogo;
-using namespace Fases;
-
 #include "../include/Jogador.h"
 using namespace TrabalhoJogo;
+using namespace Fases;
 using namespace Entidades;
 using namespace Personagens;
 
-#include "../include/Mustafar.h"
-
-TrabalhoJogo::Fases::Mustafar::Mustafar(): minInimigosMedios(3), maxInimigosMedios(10)
+Mustafar::Mustafar(): minInimigosMedios(3), maxInimigosMedios(10)
 {
     criarObstaculos();
     criarInimigos();
 }
 
-TrabalhoJogo::Fases::Mustafar::~Mustafar()
+Mustafar::~Mustafar()
 {
     
 }
 
-void TrabalhoJogo::Fases::Mustafar::criarInimigos()
+void Mustafar::criarInimigos()
 {
     
 }
 
-void TrabalhoJogo::Fases::Mustafar::criarObstaculos()
+void Mustafar::criarObstaculos()
 {
     
 }

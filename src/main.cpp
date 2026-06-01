@@ -1,5 +1,7 @@
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 #include "../include/Principal.h"
 using namespace TrabalhoJogo;

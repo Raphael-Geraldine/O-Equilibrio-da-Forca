@@ -1,31 +1,28 @@
 #include "../include/Entidade.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-
 #include "../include/Jogador.h"
+#include "../include/Plataforma.h"
+#include "../include/Gerenciador_Colisoes.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
-
-#include "../include/Plataforma.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
 using namespace Obstaculos;
+using namespace Gerenciadores;
 
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
-#include "../include/Gerenciador_Colisoes.h"
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ, Plataforma* pP): 
+Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ, Plataforma* pP): 
     pAnakin(pJ), 
     pPlat(pP)
 {}
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::~Gerenciador_Colisoes()
+Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {}
 
-bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
+bool Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
@@ -35,13 +32,13 @@ bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
 
     return caracterOutOfBounds(static_cast<Entidade*>(pAnakin));
 }
-const bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
+const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
     if ((pe1->getBounds()).intersects(pe2->getBounds()))
         return true;
     return false;
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstaculos() //AQUI NÃO ESTÁ FUNCIONANDO
+void Gerenciador_Colisoes::tratarColisoesJogsObstaculos() //AQUI NÃO ESTÁ FUNCIONANDO
 {
     
     sf::FloatRect playerBounds = pAnakin->getBounds();
@@ -78,15 +75,15 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstac
     }
     
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsInimigos()
+void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
 {
     
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
+void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 {
     
 }
-bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
+bool Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
     sf::FloatRect playerPosition = pe->getBounds();
     

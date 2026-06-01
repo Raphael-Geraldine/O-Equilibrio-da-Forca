@@ -1,9 +1,6 @@
 #pragma once
 
 #include "../include/Entidade.h"
-using namespace TrabalhoJogo;
-using namespace Entidades;
-
 #include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
