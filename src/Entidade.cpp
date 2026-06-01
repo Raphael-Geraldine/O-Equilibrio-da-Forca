@@ -4,7 +4,7 @@
 using namespace TrabalhoJogo;
 using namespace Entidades;
 
-Entidade::Entidade(ID identificador = empty): Ente(), x(0), y(0), id(identificador)
+Entidade::Entidade(ID identificador): Ente(), x(0), y(0), id(identificador)
 {}
 
 Entidade::~Entidade()
