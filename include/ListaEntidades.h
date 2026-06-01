@@ -19,13 +19,16 @@ namespace TrabalhoJogo
                 void incluir(Entidades::Entidade* pE);
                 void remover(Entidades::Entidade* pE);
                 void remover(size_t indice);
-                size_t getTamanho();
-                void percorrer();
+                size_t getTamanho() const;
 
                 // Também inspirada na implementação do Burda, 
                 // vide vídeo 8 da playlist Tutorial Jogo SFM,
                 // como no header "Lista.h", naturalmente.
                 Entidades::Entidade* operator[](int indice);
+
+                void limpar();
+                void percorrer(); // Lista elemento por elemento (template).
+                void executar(); // Chama executar de cada Entidade.
         };
     }
 }

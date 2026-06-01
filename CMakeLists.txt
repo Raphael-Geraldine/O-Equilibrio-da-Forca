@@ -10,6 +10,7 @@ find_package(SFML 2.6 COMPONENTS system window graphics audio network REQUIRED)
 # 1. LISTA DE ARQUIVOS FONTE (.cpp)
 # Guardamos todos os arquivos numa variável para o CMakeLists ficar organizado
 set(SRC_FILES
+    src/ListaEntidades.cpp
     src/Ente.cpp
     src/Entidade.cpp
     src/Fase.cpp

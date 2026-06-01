@@ -24,7 +24,7 @@ namespace TrabalhoJogo
                 void criarObstaculos(); //Médios
 
             public:
-                Mustafar(Jogador* pJ); //parâmetro temp enquanto não há a lista
+                Mustafar();
                 ~Mustafar();
         };
     }

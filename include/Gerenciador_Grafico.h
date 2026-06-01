@@ -61,20 +61,27 @@ namespace TrabalhoJogo
 
                 list<string> menuOptions;
                 vector<sf::Text> textOptions;
-                static short int optionSelected;   
+                static short int optionSelected;  
+                static Gerenciador_Grafico* pGrafico;
+
+            private:
+                // Padrão de projeto Singleton 
+                // (conhecido pelos vídeos do canal Gege++)
+                Gerenciador_Grafico(); 
             
             public:
-                Gerenciador_Grafico();
+                
                 ~Gerenciador_Grafico();
+                static Gerenciador_Grafico* getGerenciadorGrafico();
 
-                void window(Menu* pM, Fase* pF, Entidade* pEnt);
+                void window(Menu* pM, Fase* pF);
                 
                 void loadMenu(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);
 
-                void desenharFase(Fase* pF, sf::RenderWindow & janela, Entidade* pEnt);
+                void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void posicionarEnte(Ente* pE);
                 void desenharEnte (Ente* pE);
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão

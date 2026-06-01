@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../include/ListaEntidades.h"
+using namespace TrabalhoJogo;
+using namespace Listas;
+
 namespace TrabalhoJogo 
 { 
     class Menu;
@@ -32,10 +36,13 @@ namespace TrabalhoJogo
         private:
             TrabalhoJogo::Menu* pMenu;
             TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pGG;
-            TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
-            TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
+            TrabalhoJogo::Listas::ListaEntidades LEntidades;
+            // TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
+            // TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
             TrabalhoJogo::Fases::Mustafar* pMustafar;
             //TrabalhoJogo::Fases::Hoth* hoth;
+
+            TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
 
         public:
             Principal();

@@ -17,14 +17,14 @@ using namespace std;
 
 #include "../include/Gerenciador_Colisoes.h"
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ, Plataforma* pP): pAnakin(pJ), pPlat(pP)
-{
+TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ, Plataforma* pP): 
+    pAnakin(pJ), 
+    pPlat(pP)
+{}
 
-}
 TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::~Gerenciador_Colisoes()
-{
+{}
 
-}
 bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
@@ -49,18 +49,18 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstac
     
     if 
     (
-        ((pAnakin->x) > (pPlat->x - platBounds.width))
+        ((pAnakin->getX()) > (pPlat->getX() - platBounds.width))
         &&
-        ((pAnakin->x) < (pPlat->x + platBounds.width))
+        ((pAnakin->getX()) < (pPlat->getX() + platBounds.width))
     )
     {
         bool upDown = 0;
-        if ((pAnakin->y - playerBounds.height) < (pPlat->y - platBounds.height))
+        if ((pAnakin->getY() - playerBounds.height) < (pPlat->getY() - platBounds.height))
             upDown=1;  
         if (upDown)
-            pAnakin->y -= 2;
+            pAnakin->setY(pAnakin->getY() - 2);
         else
-            pAnakin->y += 2;        
+            pAnakin->setY(pAnakin->getY() + 2);        
     }
    
     else     
@@ -68,13 +68,13 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::tratarColisoesJogsObstac
         cout<<"oi 2"<<endl;
         
         bool rightLeft = 0;
-        if ((pAnakin->x - playerBounds.width) > (pPlat->x + (platBounds.width / 2.0f)))
+        if ((pAnakin->getX() - playerBounds.width) > (pPlat->getX() + (platBounds.width / 2.0f)))
             rightLeft=1;
 
         if (rightLeft)
-            pAnakin->x += 2;
+            pAnakin->setX(pAnakin->getX() + 2);
         else
-            pAnakin->x -= 2;
+            pAnakin->setX(pAnakin->getX() - 2);
     }
     
 }
@@ -91,13 +91,13 @@ bool TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::caracterOutOfBounds(Enti
     sf::FloatRect playerPosition = pe->getBounds();
     
     if(playerPosition.top <= 0)
-        pe->y+=2;
+        pe->setY(pe->getY() + 2);
     if(playerPosition.top + playerPosition.height >= 710)
-        pe->y-=2;
+        pe->setY(pe->getY() - 2);
     if(playerPosition.left <= 0)
-        pe->x+=2;
+        pe->setX(pe->getX() + 2);
     if(playerPosition.left + playerPosition.width >= 1280)
-        pe->x-=2;
+        pe->setX(pe->getX() - 2);
     
     if(playerPosition.top + playerPosition.height < 708)
         return 1;

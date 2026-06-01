@@ -9,7 +9,7 @@ using namespace Personagens;
 
 #include "../include/Mustafar.h"
 
-TrabalhoJogo::Fases::Mustafar::Mustafar(Jogador* pJ): Fase(pJ), minInimigosMedios(3), maxInimigosMedios(10)
+TrabalhoJogo::Fases::Mustafar::Mustafar(): minInimigosMedios(3), maxInimigosMedios(10)
 {
     criarObstaculos();
     criarInimigos();

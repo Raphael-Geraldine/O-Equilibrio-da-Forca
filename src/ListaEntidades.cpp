@@ -1,5 +1,3 @@
-#pragma once
-
 #include "../include/ListaEntidades.h"
 using namespace TrabalhoJogo; 
 using namespace Listas;
@@ -8,6 +6,11 @@ ListaEntidades::ListaEntidades()
 {}
 
 ListaEntidades::~ListaEntidades() 
+{
+    limpar();
+}
+
+void ListaEntidades::limpar()
 {
     LEs.limpar();
 }
@@ -35,17 +38,28 @@ void ListaEntidades::remover(size_t indice)
     LEs.remover(indice);
 }
 
-size_t ListaEntidades::getTamanho() 
+size_t ListaEntidades::getTamanho() const
 {
-    LEs.getTamanho();
-}
-
-void ListaEntidades::percorrer() 
-{
-    LEs.percorrer();
+    return LEs.getTamanho();
 }
 
 Entidades::Entidade* ListaEntidades::operator[](int indice) 
 {
     return LEs[indice];
+}
+
+// Lista elemento por elemento (template).
+void ListaEntidades::percorrer() 
+{
+    LEs.percorrer();
+}
+
+// Chama executar de cada Entidade.
+void ListaEntidades::executar() 
+{
+    int tamanho = static_cast<int>(getTamanho());
+    for (int i = 0; i < tamanho; i++)
+    {
+        LEs[i]->executar();
+    }
 }

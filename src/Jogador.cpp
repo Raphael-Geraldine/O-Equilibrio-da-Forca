@@ -48,7 +48,8 @@ sf::Sprite TrabalhoJogo::Entidades::Personagens::Jogador::getDrawData()
 }
 void TrabalhoJogo::Entidades::Personagens::Jogador::executar()
 {
-    
+    mover();
+    gravity(); // Temporário
 }
 void TrabalhoJogo::Entidades::Personagens::Jogador::salvar()
 {

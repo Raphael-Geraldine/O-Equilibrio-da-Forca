@@ -19,7 +19,7 @@ using namespace Obstaculos;
 
 short int TrabalhoJogo::Fases::Fase::cont(0);
 
-TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pJog(pJ), pPlat()
+TrabalhoJogo::Fases::Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pPlat()
 {
     criarCenario();
     gC = new Gerenciador_Colisoes(pJ, pPlat);
@@ -28,6 +28,16 @@ TrabalhoJogo::Fases::Fase::~Fase()
 {
     delete(gC);
     delete (pPlat);
+}
+
+void TrabalhoJogo::Fases::Fase::incluirEntidade(Entidades::Entidade* pE) 
+{
+    listaEntidades.incluir(pE);
+}
+
+Listas::ListaEntidades* TrabalhoJogo::Fases::Fase::getListaEntidades() 
+{
+    return &listaEntidades;
 }
 void TrabalhoJogo::Fases::Fase::executar()
 {
@@ -68,10 +78,11 @@ void TrabalhoJogo::Fases::Fase::criarCenario()
 
 sf::Sprite TrabalhoJogo::Fases::Fase::getFundo()
 {
-    pJog->mover();
-    bool g = gC->executar();
-    if (g)
-        pJog->gravity();
+    //listaEntidades.executar();
+    //bool g = gC->executar();
+    //Em jogador por or:
+    // if (g)
+    //    pJog->gravity();
     return fundo;
 }
 

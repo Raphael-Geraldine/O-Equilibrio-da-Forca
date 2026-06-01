@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../include/ListaEntidades.h"
+using namespace TrabalhoJogo;
+using namespace Listas;
+
 #include "../include/Jogador.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
@@ -29,7 +33,7 @@ namespace TrabalhoJogo
                 static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
                 short int nFase;
 
-                Jogador* pJog; //é pra virar isso depois: ListaEntidades lista_ents;
+                Listas::ListaEntidades listaEntidades;
                 Plataforma* pPlat;
 
                 Gerenciador_Colisoes* gC;
@@ -49,6 +53,10 @@ namespace TrabalhoJogo
             public:
                 Fase(Jogador* pJ = nullptr);
                 ~Fase();
+
+                void incluirEntidade (Entidades::Entidade* pE);
+                Listas::ListaEntidades* getListaEntidades();
+
                 virtual void executar();
                 sf::Sprite getFundo();
                 sf::RectangleShape getGround();

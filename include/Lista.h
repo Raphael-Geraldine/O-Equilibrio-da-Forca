@@ -74,14 +74,16 @@ namespace TrabalhoJogo
         template <class TL>
         template <class TE>
 
-        Lista<TL>::Elemento<TE>::~Elemento() { 
+        Lista<TL>::Elemento<TE>::~Elemento() 
+        { 
             pProx = NULL;
             pInfo = NULL; 
         }
 
         template <class TL>
         template <class TE>
-        void Lista<TL>::Elemento<TE>::setElProx(Elemento<TE>* pE) { 
+        void Lista<TL>::Elemento<TE>::setElProx(Elemento<TE>* pE) 
+        { 
             pProx = pE; 
         }
 
@@ -120,7 +122,7 @@ namespace TrabalhoJogo
         template <class TL>
         Lista<TL>::Lista():  
             pPrimeiro (NULL),
-            pAnterior (NULL),
+            pUltimo (NULL),
             tamanhoLista (0)
         {}
 
@@ -129,8 +131,8 @@ namespace TrabalhoJogo
         {
             limpar();
             pPrimeiro = NULL;
-            pAnterior = NULL;
-            tamanho = -1;
+            pUltimo = NULL;
+            tamanhoLista = -1;
         }
 
         template <class TL>
@@ -156,7 +158,7 @@ namespace TrabalhoJogo
 
                 else 
                 {
-                    getUltimo()->setElProx(pAux);
+                    pUltimo->setElProx(pAux);
                     pUltimo = pAux;
                 }
 
@@ -211,7 +213,7 @@ namespace TrabalhoJogo
             if (indice < 0 || indice >= tamanhoLista)
             {
                 cerr << "Indice fora dos limites da lista. " << endl;
-                return NULL;
+                return;
             }
 
             Elemento<TL>* pAnte = NULL;
@@ -240,7 +242,7 @@ namespace TrabalhoJogo
 
             else 
             {
-                pAnte->setElProx(pAtual->getProx());
+                pAnte->setElProx(pAtual->getElProx());
             }
 
             tamanhoLista--;
@@ -260,7 +262,7 @@ namespace TrabalhoJogo
 
             TL* info = pAtual->getInfo();
 
-            while (pAtual != NULL && pAux->getInfo() != pinfo)
+            while (pAtual != NULL && pAtual->getInfo() != pinfo)
             {
                 pAnte = pAtual;
                 pAtual = pAnte->getElProx();
@@ -285,13 +287,13 @@ namespace TrabalhoJogo
 
             else 
             {
-                pAnte->setElProx(pAtual->getProx());
+                pAnte->setElProx(pAtual->getElProx());
             }
 
             tamanhoLista--;
             delete pAtual;
 
-            cout << "Elemento " << info << "removido da lista." << endl;
+            cout << "Elemento " << pAtual->getInfo() << "removido da lista." << endl;
         }
 
         template <class TL>
@@ -303,12 +305,7 @@ namespace TrabalhoJogo
             {
                 cout << "Elemento " << pAux->getInfo() << "na lista." << endl;
                 pAux = pPrimeiro->getElProx();
-                delete pPrimeiro;
-                pPrimeiro = pAux;
             }
-
-            pUltimo = NULL;
-            tamanhoLista = 0;
         }
     } 
 } 

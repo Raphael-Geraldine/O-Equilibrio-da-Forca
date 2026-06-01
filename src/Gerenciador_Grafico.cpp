@@ -2,9 +2,8 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
+// Sem inclusão repetida de string e list (do .h)
 #include <iostream>
-#include <string>
-#include <list>
 using namespace std;
 
 #include "../include/Menu.h"
@@ -32,6 +31,8 @@ using namespace Obstaculos;
 
 short int TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::optionSelected(-1);
 
+Gerenciador_Grafico* TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::pGrafico = nullptr;
+
 TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::Gerenciador_Grafico()
 {
     textOptions.clear();
@@ -43,18 +44,33 @@ TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::~Gerenciador_Grafico()
     textOptions.clear();
 }
 
+Gerenciador_Grafico* TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()
+{
+    if (pGrafico == nullptr) 
+    {
+        return new TrabalhoJogo::Gerenciadores::Gerenciador_Grafico();
+    }
+
+    else 
+    {
+        return pGrafico;
+    }
+}
+// Sem iterador i
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
 {
+    textOptions.clear();
     list<string>::iterator it = menuOptions.begin();
-    int i = 0, posY = 200;
+    int posX = 640, posY = 200;
     while (it != menuOptions.end())
     {
         sf::Text text(*it, fonteMenu, 30);
         sf::FloatRect bounds = text.getLocalBounds();
-        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-        text.setPosition(640,posY);
+        // Ponto de referência do meio do objeto texto.
+        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
+        // Coloca o ponto de referência na posição a seguir.
+        text.setPosition(posX,posY);
         textOptions.push_back(text);
-        i++;
         posY+=70;
         it++;
     }
@@ -62,11 +78,11 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::menuTextPlacement()
 
 void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
 {
-    for (int i=0; i<textOptions.size();i++)
-    {
-        janela.draw(textOptions[i]);
+    // Chamada fora do loop.
+    sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela)); 
 
-        sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
+    for (int i=0; i<textOptions.size();i++)
+    {   
         if (textOptions[i].getGlobalBounds().contains(mousePosition))
         {
             sf::Color hover(255,255,255,170);
@@ -76,6 +92,8 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharTextoMenu (sf::Re
         {
             textOptions[i].setFillColor(sf::Color::White);
         }
+
+        janela.draw(textOptions[i]); // Após ajuste de cores.
     }
 }
 
@@ -136,9 +154,10 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharMenu (Menu* pM, s
         optionSelected=5;
 }
 
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF, Entidade* pEnt /*, classes que serão desenhadas imagino*/)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF)
 {
-    sf::RenderWindow janela (sf::VideoMode(1280,720),"O Equilibrio da Forca");
+    // Usei ao invés de duplicar "sf::RenderWindow janela;"
+    janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
     janela.setFramerateLimit (120);
 
     loadMenu(pM);
@@ -158,7 +177,7 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::window(Menu* pM, Fase* pF
             desenharMenu (pM,janela);
         if (optionSelected == 0)
         {
-            desenharFase(pF,janela,pEnt);
+            desenharFase(pF,janela);
         }
         if (optionSelected == 1)
         {
@@ -196,18 +215,30 @@ void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow & janela, Entidade* pEnt)
+void TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
 {
     //janela.setMouseCursorVisible(false);
 
     janela.draw(pF->getFundo());
     janela.draw(pF->getGround());
     janela.draw(pF->getPlataforma());
-    janela.draw(pEnt->getDrawData());
 
     desenharOrigem(janela, pF->getPlataforma());
-    desenharOrigem(janela, pEnt->getDrawData());
     
+    TrabalhoJogo::Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
+    int tamanho = static_cast<int>(lEntidades->getTamanho());
+    for (int i = 0; i < tamanho; i++) 
+    {
+        Entidade* pEnt = (*lEntidades)[i];
+
+        if (pEnt == NULL) 
+            cerr << "Ponteiro nulo em lista de Entidades." << endl;
+        
+        else 
+            janela.draw(pEnt->getDrawData());
+            desenharOrigem(janela, pEnt->getDrawData());
+    }
+
     janela.display();
 }
 
