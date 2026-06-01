@@ -1,5 +1,11 @@
 #pragma once
 
+#include "../include/Personagem.h"
+#include "../include/Jogador.h"
+#include "../include/Inimigo.h"
+
+#include <SFML/Graphics.hpp>
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -10,13 +16,17 @@ namespace TrabalhoJogo
             {
                 private:
                     short int vida;
-                    float raio;
+                    float altura;
+                    sf::Texture stormTexture;
+                    sf::Sprite stormSkin;
 
                 public:
                     Stormtrooper ();
                     ~Stormtrooper ();
                     void executar();
                     void danificar(Jogador* p);
+                    sf::Sprite getDrawData();
+                    sf::FloatRect getBounds() const;
                     void salvar();
                     void atirar();
                     void mover();
