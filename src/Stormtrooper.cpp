@@ -1,3 +1,5 @@
+#define STORMPNG "../assets/images/Stormtrooper.png"
+
 #include <iostream>
 using std::cout;
 using std::cerr;
