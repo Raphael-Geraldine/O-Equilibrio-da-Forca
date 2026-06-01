@@ -1,3 +1,5 @@
+#define STORMPNG "../assets/images/Stormtrooper.png"
+
 #include <iostream>
 using std::cout;
 using std::cerr;
@@ -13,7 +15,7 @@ using namespace Personagens;
 
 #include <SFML/Graphics.hpp>
 
-Stormtrooper::Stormtrooper()
+Stormtrooper::Stormtrooper() //colocar os default
 {
 
 }
