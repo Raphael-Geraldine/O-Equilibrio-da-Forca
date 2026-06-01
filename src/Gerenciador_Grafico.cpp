@@ -8,7 +8,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#include "Gerenciador_Grafico.h"
+#include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
