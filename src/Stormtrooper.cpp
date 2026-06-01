@@ -15,7 +15,7 @@ using namespace Personagens;
 
 #include <SFML/Graphics.hpp>
 
-Stormtrooper::Stormtrooper()
+Stormtrooper::Stormtrooper() //colocar os default
 {
 
 }
