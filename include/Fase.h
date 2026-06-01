@@ -38,7 +38,7 @@ namespace TrabalhoJogo
                 void criarCenario();
             
             public:
-                Fase(Jogador* pJ = nullptr);
+                Fase();
                 ~Fase();
 
                 void incluirEntidade (Entidades::Entidade* pE);

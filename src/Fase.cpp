@@ -4,6 +4,7 @@
 #include "../include/Jogador.h"
 #include "../include/Plataforma.h"
 using namespace TrabalhoJogo;
+using namespace Listas;
 using namespace Entidades;
 using namespace Obstaculos;
 using namespace Fases;
@@ -18,38 +19,32 @@ using std::endl;
 
 short int Fase::cont(0);
 
-Fase::Fase(Jogador* pJ): minInimigosFaceis(3), maxInimigosFaceis(15), nFase(cont++), gC(), pPlat()
+Fase::Fase(): 
+    minInimigosFaceis(3), 
+    maxInimigosFaceis(15), 
+    nFase(cont++), 
+    gC(), 
+    pPlat()
 {
     criarCenario();
-    gC = new Gerenciador_Colisoes(pJ, pPlat);
+    gC = new Gerenciador_Colisoes(&listaEntidades);
 }
+
 Fase::~Fase()
 {
-    delete(gC);
-    delete (pPlat);
+    if (gC != nullptr)
+    {
+        delete gC;
+        gC = nullptr;
+    }
+
+    if (pPlat != nullptr)
+    {
+        delete pPlat;
+        pPlat = nullptr;
+    }
 }
 
-void Fase::incluirEntidade(Entidade* pE) 
-{
-    listaEntidades.incluir(pE);
-}
-
-Listas::ListaEntidades* Fase::getListaEntidades() 
-{
-    return &listaEntidades;
-}
-void Fase::executar()
-{
-
-}
-void Fase::criarInimigosFaceis()
-{
-
-}
-void Fase::criarPlataformas()
-{
-
-}
 void Fase::criarCenario()
 {
     ground.setSize(sf::Vector2f(1280,15));
@@ -69,10 +64,47 @@ void Fase::criarCenario()
     }
     else
     {
-        cout<<"nao existe ainda"<<endl;
+        cout << "nao existe ainda"<<endl;
     }
 
     pPlat = new Plataforma();
+
+    if (pPlat == nullptr)
+        cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
+    
+    else   
+        listaEntidades.incluir(pPlat);
+}
+
+void Fase::incluirEntidade(Entidade* pE) 
+{
+    if (pE == nullptr)
+    {
+        std::cerr << "Erro: tentativa de incluir entidade nula na fase." << std::endl;
+        return;
+    }
+
+    listaEntidades.incluir(pE);
+}
+
+Listas::ListaEntidades* Fase::getListaEntidades() 
+{
+    return &listaEntidades;
+}
+void Fase::executar()
+{
+    listaEntidades.executar();
+    
+    if (gC != nullptr)
+        gC->executar();
+}
+void Fase::criarInimigosFaceis()
+{
+
+}
+void Fase::criarPlataformas()
+{
+
 }
 
 sf::Sprite Fase::getFundo()
@@ -92,5 +124,41 @@ sf::RectangleShape Fase::getGround()
 
 sf::Sprite Fase::getPlataforma()
 {
+    if (pPlat == NULL)
+    {
+        std::cerr << "Erro: pPlat nulo." << endl;
+        return sf::Sprite();
+    }
+
     return pPlat->getDrawData();
 }
+
+/*
+void desenharFase(Fase* pF, sf::RenderWindow& janela) 
+{
+    if (pF == NULL) 
+    {
+        cerr << "Erro: Ponteiro para fase nulo." << endl;
+        return;
+    }
+
+    pF->executar();
+
+    janela.draw(pF->getFundo());
+    janela.draw(pF->getGround());
+    // janela.draw(pF->getPlataforma()); É entidade.
+
+    ListaEntidades* lEntidades = pF->getListaEntidades();
+    int tamanho = static_cast<int> ((pF->getListaEntidades())->getTamanho());
+
+    for (int i = 0; i < tamanho; i++) 
+    {
+        if (lEntidades == NULL) 
+            cout << "Lista de entidades vazia." << endl;
+        
+        janela.draw((*lEntidades)[i]->getDrawData());
+    }
+
+    janela.display();
+}
+*/

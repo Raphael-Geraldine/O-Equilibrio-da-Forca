@@ -8,19 +8,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#include "../include/Menu.h"
-#include "../include/Ente.h"
-#include "../include/Fase.h"
-#include "../include/Mustafar.h"
-#include "../include/Entidade.h"
-#include "../include/Plataforma.h"
-#include "../include/Gerenciador_Grafico.h"
+#include "Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
-using namespace Fases;
-using namespace Entidades;
-using namespace Obstaculos;
 using namespace Gerenciadores;
-
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
@@ -211,6 +201,48 @@ void Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 
 }
+
+void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
+{
+    if (pF == NULL) 
+    {
+        cerr << "Erro: Ponteiro para fase nulo." << endl;
+        return;
+    }
+
+    pF->executar();
+
+    janela.draw(pF->getFundo());
+    janela.draw(pF->getGround());
+    // janela.draw(pF->getPlataforma()); É entidade.
+    
+    ListaEntidades* lEntidades = pF->getListaEntidades();
+    
+    if (lEntidades == NULL)
+    {
+        std::cerr << "Lista de entidades nula." << std::endl;
+        return;
+    }
+
+    // desenharOrigem(janela, pF->getPlataforma()); É entidade.
+
+    int tamanho = static_cast<int> ((pF->getListaEntidades())->getTamanho());
+
+    for (int i = 0; i < tamanho; i++) 
+    {
+        if (lEntidades == NULL) 
+            cout << "Lista de entidades vazia." << endl;
+        
+        sf::Sprite spriteEntidade = (*lEntidades)[i]->getDrawData();
+
+        janela.draw(spriteEntidade);
+        desenharOrigem(janela, spriteEntidade);
+    }
+
+    janela.display();
+}
+
+/*
 void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
 {
     //janela.setMouseCursorVisible(false);
@@ -237,6 +269,7 @@ void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
 
     janela.display();
 }
+*/
 
 void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
     sf::FloatRect bounds = sprite.getGlobalBounds();

@@ -1,13 +1,10 @@
 #pragma once
 
 #include "../include/Entidade.h"
+#include "../include/ListaEntidades.h"
 #include "../include/Jogador.h"
 #include "../include/Plataforma.h"
-using namespace Entidades;
-using namespace Personagens;
-using namespace Obstaculos;
 
-#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -15,24 +12,26 @@ namespace TrabalhoJogo
 {
     namespace Gerenciadores
     {
+        using Listas::ListaEntidades;
+        using Entidades::Entidade;
+        using Entidades::Personagens::Jogador;
+        using Entidades::Obstaculos::Plataforma;
+        
         class Gerenciador_Colisoes
         {
             private:
-                //vector<Inimigo*> LIs;
-                //list<Obstaculo*> LOs;
-                //set<Projetil*> LPs;
-                Jogador* pAnakin;
-                Jogador* pObiWan;
-                Plataforma* pPlat;
+                ListaEntidades* pListaEntidades;
 
             private:
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
-                void tratarColisoesJogsObstaculos();
+                void tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat);
                 void tratarColisoesJogsInimigos();
                 void tratarColisoesJogsProjeteis();
+                // void tratarColisaoJogadorPlataforma(Jogador* pJog, Plataforma* pPlat);
+                bool caracterOutOfBounds(Entidade* pe);
 
             public:
-                Gerenciador_Colisoes(Jogador* pJ = nullptr, Plataforma* pP = nullptr);
+                Gerenciador_Colisoes(ListaEntidades* pLE = nullptr);
                 ~Gerenciador_Colisoes();
                 //void incluirInimigo(Inimigo* pI);
                 //void incluirObstaculo(Obstaculo* pO);
@@ -43,7 +42,7 @@ namespace TrabalhoJogo
                 //void setJog2 (Jogador* pJ);
 
                 bool executar();
-                bool caracterOutOfBounds(Entidade* pe);
+                
         };
     }
 }

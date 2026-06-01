@@ -41,6 +41,6 @@ void TrabalhoJogo::Principal::executar()
     pAnakin = new Jogador();
     pMustafar = new Mustafar();
     pMustafar->incluirEntidade(pAnakin);
-    pGG = TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico();
+    pGG = Gerenciador_Grafico::getGerenciadorGrafico();
     pGG->window(pMenu,static_cast<Fase*>(pMustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

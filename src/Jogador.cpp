@@ -68,6 +68,7 @@ void Jogador::mover()
         x+=2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         x-=2;
+
     playerSkin.setPosition(x,y);
 }
 

@@ -5,6 +5,19 @@
 #include <vector>
 using namespace std;
 
+#include "../include/Menu.h"
+#include "../include/Ente.h"
+#include "../include/Fase.h"
+#include "../include/Mustafar.h"
+#include "../include/Entidade.h"
+#include "../include/Plataforma.h"
+#include "../include/Gerenciador_Grafico.h"
+using namespace TrabalhoJogo;
+using namespace Fases;
+using namespace Entidades;
+using namespace Obstaculos;
+using namespace Gerenciadores;
+
 #include <SFML/Graphics.hpp>
 
 
