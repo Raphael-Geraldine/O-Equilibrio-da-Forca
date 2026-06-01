@@ -72,7 +72,7 @@ void Jogador::mover()
     playerSkin.setPosition(x,y);
 }
 
-sf::FloatRect TrabalhoJogo::Entidades::Personagens::Jogador::getBounds() const
+sf::FloatRect Jogador::getBounds() const
 {
     return playerSkin.getGlobalBounds();
 }

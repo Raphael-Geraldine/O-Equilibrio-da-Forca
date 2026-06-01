@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../include/Personagem.h"
+#include "../include/Jogador.h"
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -16,9 +19,9 @@ namespace TrabalhoJogo
                     ~Inimigo();
                     void salvarDataBuffer();
                     virtual void danificar(Jogador* p);
-                    virtual void mover() = 0
-                    virtual void executar() = 0
-                    virtual void salvar() = 0
+                    virtual void mover() = 0;
+                    virtual void executar() = 0;
+                    virtual void salvar() = 0;
             };
         }
     }

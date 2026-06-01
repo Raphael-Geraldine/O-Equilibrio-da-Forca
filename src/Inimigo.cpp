@@ -1,0 +1,28 @@
+#include <iostream>
+using std::cout;
+using std::cerr;
+using std::endl;
+
+#include "../include/Personagem.h"
+#include "../include/Jogador.h"
+#include "../include/Inimigo.h"
+using namespace TrabalhoJogo;
+using namespace Entidades;
+using namespace Personagens;
+
+Inimigo::Inimigo(): nivel_maldade(50)
+{
+
+}
+Inimigo::~Inimigo()
+{
+    nivel_maldade=-1;
+}
+void Inimigo::salvarDataBuffer()
+{
+
+}
+void Inimigo::danificar(Jogador* pJ)
+{
+    //pJ->dano() = nivel_maldade/2;
+}                    
