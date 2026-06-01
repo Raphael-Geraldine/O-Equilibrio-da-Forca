@@ -13,12 +13,16 @@ using std::cerr;
 using std::endl;
 
 
-Gerenciador_Colisoes::Gerenciador_Colisoes(ListaEntidades* pLE): 
-    pListaEntidades(pLE)
+Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma>* pLP): 
+    pListaJogadores(pLJ),
+    pListaPlataformas(pLP)
 {}
 
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
-{}
+{
+    pListaJogadores = nullptr;
+    pListaPlataformas = nullptr;
+}
 
 void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat) //AQUI NÃO ESTÁ FUNCIONANDO
 {
@@ -65,50 +69,45 @@ bool Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
-    if (pListaEntidades == nullptr)
+    if (pListaJogadores == nullptr || pListaPlataformas == nullptr)
     {
-        cerr << "Erro: lista de entidades nula no Gerenciador de Colisoes." << endl;
+        cerr << "Erro: Uma ou mais lista de derivados de entidades nula no Gerenciador de Colisoes." << endl;
         return false;
     }
 
-    bool aplicarGravidade = false;
+    bool aplicarGravidade = true;
 
-    int tamanho = static_cast<int>(pListaEntidades->getTamanho());
+    const int qtdJogadores = static_cast<int>(pListaJogadores->getTamanho());
+    const int qtdPlataformas = static_cast<int>(pListaPlataformas->getTamanho());
 
-    for (int i = 0; i < tamanho; i++) 
+    if (qtdJogadores == 0) 
     {
-        if ((*pListaEntidades)[i] == nullptr)
-            continue; // Ou não deve ser tolerado:
+        cerr << "Erro: lista de jogadores vazia no Gerenciador de Colisoes." << endl;
+        return false;
+    }
 
-        else 
+    for (int i = 0; i < qtdJogadores; i++) 
+    {
+        if ((*pListaJogadores)[i] == nullptr)
         {
-            Jogador* pJog = dynamic_cast<Jogador*>((*pListaEntidades)[i]);
+            cerr << "Jogador nulo encontrado na lista de jogadores." << endl; // Ou não deve ser tolerado com continue?
+            continue;
+        }
 
-            if (pJog != nullptr) 
+        Jogador* pJog = (*pListaJogadores)[i];
+
+        aplicarGravidade = caracterOutOfBounds(pJog);
+
+        for (int j = 0; j < qtdPlataformas; j++) 
+        {       
+            Plataforma* pPlat = (*pListaPlataformas)[j];
+
+            if (pPlat == nullptr) continue;
+
+            if(verificarColisao(pJog, pPlat)) 
             {
-                aplicarGravidade = caracterOutOfBounds(pJog);
-
-                for (int j = 0; j < tamanho; j++) 
-                {
-                    if (i == j)
-                        continue;
-                    
-                    Entidade* pEnt2 = (*pListaEntidades)[j];
-
-                    if (pEnt2 == nullptr)
-                        continue;
-
-                    Plataforma* pPlat = dynamic_cast<Plataforma*>(pEnt2);
-
-                    if (pPlat != nullptr) 
-                    {
-                        if(verificarColisao(pJog, pPlat)) 
-                        {
-                            tratarColisoesJogsObstaculos(pJog, pPlat);
-                            aplicarGravidade = false;
-                        }
-                    }
-                }
+                tratarColisoesJogsObstaculos(pJog, pPlat);
+                aplicarGravidade = false;
             }
         }
     }

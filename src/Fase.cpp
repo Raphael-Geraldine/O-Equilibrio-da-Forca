@@ -1,5 +1,6 @@
 #define MUSTAFARPNG "../assets/images/Mustafar.png"
 
+#include "../include/Entidade.h"
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
 #include "../include/Plataforma.h"
@@ -19,15 +20,24 @@ using std::endl;
 
 short int Fase::cont(0);
 
-Fase::Fase(): 
+Fase::Fase(Jogador* pJ1, Jogador* pJ2): 
     minInimigosFaceis(3), 
     maxInimigosFaceis(15), 
+    Ente(),
     nFase(cont++), 
-    gC(), 
-    pPlat()
+    gC(nullptr),
+    pJogador1(pJ1),
+    pJogador2(pJ2),
+    pPlat(nullptr) // Mudar depois eventualmente
 {
+    gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas);
+    if (pJ1 != nullptr)
+        incluirEntidade(pJ1);
+
+    if (pJ2 != nullptr)
+        incluirEntidade(pJ2);
+    
     criarCenario();
-    gC = new Gerenciador_Colisoes(&listaEntidades);
 }
 
 Fase::~Fase()
@@ -43,6 +53,24 @@ Fase::~Fase()
         delete pPlat;
         pPlat = nullptr;
     }
+}
+
+void Fase::incluirJogador(Jogador* pJ)
+{
+    if (pJ == nullptr)
+    {
+        cerr << "Erro: tentativa de incluir jogador nulo na fase." << endl;
+        return;
+    }
+
+    if (listaJogadores.getTamanho() >= 2)
+    {
+        cerr << "Erro: a fase suporta no maximo 2 jogadores." << endl;
+        return;
+    }
+
+    listaEntidades.incluir(pJ);
+    listaJogadores.incluir(pJ);
 }
 
 void Fase::criarCenario()
@@ -67,13 +95,13 @@ void Fase::criarCenario()
         cout << "nao existe ainda"<<endl;
     }
 
-    pPlat = new Plataforma();
+    pPlat = new Obstaculos::Plataforma();
 
     if (pPlat == nullptr)
         cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
     
     else   
-        listaEntidades.incluir(pPlat);
+        incluirEntidade(pPlat);
 }
 
 void Fase::incluirEntidade(Entidade* pE) 
@@ -84,20 +112,64 @@ void Fase::incluirEntidade(Entidade* pE)
         return;
     }
 
-    listaEntidades.incluir(pE);
+    // Inspiração no menu do Sistema Acadêmico, visto em sala,
+    // durante aula do Prof. Dr. Jean Simão.
+    switch (pE->getID())
+    {
+        // Depois restringir ao usar inimigos e afins.
+        case personagem:
+        {
+            incluirJogador(static_cast<Jogador*>(pE));
+            break;
+        }
+
+        case obstaculo:
+        {
+            Plataforma* pPlat = static_cast<Plataforma*>(pE);
+            listaEntidades.incluir(pPlat);
+            listaPlataformas.incluir(pPlat);
+            break;
+        }
+
+        default:
+        {
+            listaEntidades.incluir(pE);
+            break;
+        }
+    }
 }
 
-Listas::ListaEntidades* Fase::getListaEntidades() 
+ListaEntidades* Fase::getListaEntidades() 
 {
     return &listaEntidades;
 }
 void Fase::executar()
 {
     listaEntidades.executar();
-    
+
     if (gC != nullptr)
         gC->executar();
+    /*
+    NÃO FUNCIONOU:
+    bool aplicarGravidade = true;
+
+    if (gC != nullptr)
+        aplicarGravidade = gC->executar();
+
+    if(aplicarGravidade)
+    {
+        if (pJogador1 != nullptr)
+        pJogador1->gravity();
+
+        if (pJogador2 != nullptr)
+        pJogador2->gravity();
+    }
+        
+    listaEntidades.executar();
+    
+    */
 }
+
 void Fase::criarInimigosFaceis()
 {
 

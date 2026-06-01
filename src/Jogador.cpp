@@ -51,7 +51,7 @@ sf::Sprite Jogador::getDrawData()
 void Jogador::executar()
 {
     mover();
-    gravity(); // Temporário
+    gravity(); // Temporário.
 }
 void Jogador::salvar()
 {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../include/Obstaculo.h"
+
 namespace TrabalhoJogo
 {
     namespace Entidades

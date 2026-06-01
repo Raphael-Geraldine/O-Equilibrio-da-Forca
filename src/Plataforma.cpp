@@ -18,7 +18,10 @@ using namespace Obstaculos;
 short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{270,270},{480,480},{360,360},{540,540},{144,144}};
 
-TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): largura(l), platID(cont++)
+TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
+    Obstaculo(),
+    largura(l), 
+    platID(cont++)
 {
     danoso=false;
     

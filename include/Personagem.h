@@ -13,7 +13,6 @@ namespace TrabalhoJogo
             {
                 protected:
                     int num_vidas;
-                    ID identificador;
 
                 public:
                     Personagem();

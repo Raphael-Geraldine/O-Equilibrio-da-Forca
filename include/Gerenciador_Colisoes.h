@@ -20,7 +20,11 @@ namespace TrabalhoJogo
         class Gerenciador_Colisoes
         {
             private:
-                ListaEntidades* pListaEntidades;
+                //ListaEntidades* pListaEntidades;
+                Listas::Lista<Entidades::Personagens::Jogador>* pListaJogadores;
+                Listas::Lista<Entidades::Obstaculos::Plataforma>* pListaPlataformas;
+                //Listas::Lista<Entidades::Personagens::Inimigo>* pListaInimigos;
+                //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
 
             private:
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
@@ -31,8 +35,10 @@ namespace TrabalhoJogo
                 bool caracterOutOfBounds(Entidade* pe);
 
             public:
-                Gerenciador_Colisoes(ListaEntidades* pLE = nullptr);
-                ~Gerenciador_Colisoes();
+                Gerenciador_Colisoes(Listas::Lista<Entidades::Personagens::Jogador>* pLJ = nullptr,
+                                     Listas::Lista<Entidades::Obstaculos::Plataforma>* pLP = nullptr);
+                
+                 ~Gerenciador_Colisoes();
                 //void incluirInimigo(Inimigo* pI);
                 //void incluirObstaculo(Obstaculo* pO);
                 //void incluirProjetil(Projetil* pJ);

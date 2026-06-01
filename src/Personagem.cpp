@@ -4,7 +4,7 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
-Personagem::Personagem(): Entidade(ID::personagem), num_vidas(0)
+Personagem::Personagem(): Entidade(personagem), num_vidas(0)
 {
 
 }

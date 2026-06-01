@@ -2,7 +2,7 @@
 using namespace TrabalhoJogo;
 using namespace Obstaculos;
 
-Obstaculo::Obstaculo():Entidade(ID::obstaculo), danoso(false)
+Obstaculo::Obstaculo():Entidade(obstaculo), danoso(false)
 {}
 
 Obstaculo::~Obstaculo()
