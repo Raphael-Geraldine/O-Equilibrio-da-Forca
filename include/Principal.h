@@ -22,7 +22,6 @@ namespace TrabalhoJogo
     namespace Fases 
     { 
         class Fase;
-        class Mustafar;
         //class Hoth;
     }
 }
@@ -32,19 +31,20 @@ namespace TrabalhoJogo
     class Principal
     {
         private:
-            TrabalhoJogo::Menu* pMenu;
-            TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pGG;
+            Gerenciadores::Gerenciador_Grafico* pGG;
+            Menu* pMenu;
             TrabalhoJogo::Listas::ListaEntidades LEntidades;
             // TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
             // TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
-            TrabalhoJogo::Fases::Mustafar* pMustafar;
+           Fases::Fase* pFase;
             //TrabalhoJogo::Fases::Hoth* hoth;
 
-            TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
+            Entidades::Personagens::Jogador* pAnakin;
 
         public:
             Principal();
             ~Principal();
+
             void executar();
     };
 }

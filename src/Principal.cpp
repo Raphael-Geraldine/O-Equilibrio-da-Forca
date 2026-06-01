@@ -20,18 +20,26 @@ using namespace Fases;
 
 TrabalhoJogo::Principal::Principal(): 
     pGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
-    pMenu(), 
-    LEntidades(),
-    pMustafar()
+    pMenu(nullptr), 
+    pAnakin(nullptr),
+    pFase(nullptr)
 {
     executar();
 }
 
 TrabalhoJogo::Principal::~Principal()
 {
-    delete(pMenu);
-    delete(pGG);
-    delete(pMustafar);
+    delete pMenu;
+    pMenu = nullptr;
+
+    delete pFase;
+    pFase = nullptr;
+
+    pAnakin = nullptr;
+
+    // Cuidado: se Gerenciador_Grafico for singleton, normalmente NÃO delete aqui.
+    pGG = nullptr;
+
     LEntidades.limpar();
 }
 
@@ -39,8 +47,9 @@ void TrabalhoJogo::Principal::executar()
 {
     pMenu = new Menu();
     pAnakin = new Jogador();
-    pMustafar = new Mustafar();
-    pMustafar->incluirEntidade(pAnakin);
+    pFase = new Mustafar(pAnakin);
+    // pMustafar->incluirEntidade(pAnakin);
     pGG = Gerenciador_Grafico::getGerenciadorGrafico();
-    pGG->window(pMenu,static_cast<Fase*>(pMustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
+    pGG->window(pMenu, pFase);
+    //pGG->window(pMenu,static_cast<Fase*>(pMustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

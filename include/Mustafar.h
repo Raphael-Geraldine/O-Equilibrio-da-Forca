@@ -18,7 +18,8 @@ namespace TrabalhoJogo
                 void criarObstaculos(); //Médios
 
             public:
-                Mustafar();
+                Mustafar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
+                         Entidades::Personagens::Jogador* pJ2 = nullptr);
                 ~Mustafar();
         };
     }

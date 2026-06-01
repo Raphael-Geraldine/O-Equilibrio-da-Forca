@@ -6,7 +6,10 @@ using namespace Fases;
 using namespace Entidades;
 using namespace Personagens;
 
-Mustafar::Mustafar(): minInimigosMedios(3), maxInimigosMedios(10)
+Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2): 
+    Fase(pJ1, pJ2),
+    minInimigosMedios(3),
+    maxInimigosMedios(10)
 {
     criarObstaculos();
     criarInimigos();
