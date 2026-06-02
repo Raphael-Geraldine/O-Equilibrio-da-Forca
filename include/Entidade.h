@@ -14,7 +14,8 @@ namespace TrabalhoJogo
         {
             empty = 0,
             obstaculo,
-            personagem,
+            inimigo,
+            jogador,
             projetil
         };
 

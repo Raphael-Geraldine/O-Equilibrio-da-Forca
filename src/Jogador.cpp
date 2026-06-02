@@ -16,8 +16,7 @@ using namespace Gerenciadores;
 
 short int Jogador::cont(0);
 
-Jogador::Jogador(): 
-    playerID(cont++)
+Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 {
     playerSkin.setScale(0.17f,0.17f);
 
@@ -55,7 +54,6 @@ sf::Sprite Jogador::getDrawData()
 void Jogador::executar()
 {
     mover();
-    gravity(); // Temporário.
 }
 void Jogador::salvar()
 {
@@ -63,7 +61,7 @@ void Jogador::salvar()
 }
 void Jogador::mover()
 {
-    //gravity();
+    gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         y-=2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))

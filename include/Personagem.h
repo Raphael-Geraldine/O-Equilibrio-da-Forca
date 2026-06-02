@@ -15,7 +15,7 @@ namespace TrabalhoJogo
                     int num_vidas;
 
                 public:
-                    Personagem();
+                    Personagem(ID identificador = empty);
                     ~Personagem();
                     void salvarDataBuffer();
                     void gravity();

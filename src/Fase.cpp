@@ -3,6 +3,8 @@
 #include "../include/Entidade.h"
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
+#include "../include/Inimigo.h"
+#include "../include/Stormtrooper.h"
 #include "../include/Plataforma.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
@@ -18,6 +20,8 @@ using namespace Gerenciadores;
 using std::cout;
 using std::cerr;
 using std::endl;
+
+#include <stdlib.h>
 
 short int Fase::cont(0);
 
@@ -37,6 +41,8 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
 
     if (pJ2 != nullptr)
         incluirEntidade(pJ2);
+
+    criarInimigosFaceis();
     
     criarCenario();
 }
@@ -54,6 +60,12 @@ Fase::~Fase()
         delete pPlat;
         pPlat = nullptr;
     }
+
+    if (listaEntidades.getTamanho() != 0)
+        listaEntidades.limpar();
+
+    if (listaInimigos.getTamanho() != 0)
+        listaInimigos.limpar();
 }
 
 void Fase::incluirJogador(Jogador* pJ)
@@ -72,6 +84,24 @@ void Fase::incluirJogador(Jogador* pJ)
 
     listaEntidades.incluir(pJ);
     listaJogadores.incluir(pJ);
+}
+
+void Fase::incluirInimigo(Inimigo* pI)
+{
+    if (pI == nullptr)
+    {
+        cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
+        return;
+    }
+
+    if (listaInimigos.getTamanho() >= 45)
+    {
+        cerr << "Erro: a fase suporta no maximo 45 inimigos." << endl;
+        return;
+    }
+
+    listaEntidades.incluir(pI);
+    listaInimigos.incluir(pI);
 }
 
 void Fase::criarCenario()
@@ -118,9 +148,15 @@ void Fase::incluirEntidade(Entidade* pE)
     switch (pE->getID())
     {
         // Depois restringir ao usar inimigos e afins.
-        case personagem:
+        case jogador:
         {
             incluirJogador(static_cast<Jogador*>(pE));
+            break;
+        }
+
+        case inimigo:
+        {
+            incluirInimigo(static_cast<Inimigo*>(pE));
             break;
         }
 
@@ -173,8 +209,14 @@ void Fase::executar()
 
 void Fase::criarInimigosFaceis()
 {
-
+    int qntd = rand()% (minInimigosFaceis+maxInimigosFaceis) + minInimigosFaceis;
+    for (int i = 0; i < qntd; i++)
+    {
+        Stormtrooper* pStorm = new Stormtrooper();
+        incluirInimigo(static_cast<Inimigo*>(pStorm)); 
+    }
 }
+
 void Fase::criarPlataformas()
 {
 

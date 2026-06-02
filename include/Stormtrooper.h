@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../include/Entidade.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
@@ -28,7 +29,7 @@ namespace TrabalhoJogo
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;
                     void salvar();
-                    void atirar();
+                    void atacar();
                     void mover();
             };
         }
