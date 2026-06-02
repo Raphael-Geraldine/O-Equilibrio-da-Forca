@@ -9,34 +9,41 @@ using std::endl;
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
 #include "../include/Stormtrooper.h"
+#include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
+using namespace Gerenciadores;
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
-Stormtrooper::Stormtrooper(): Inimigo(), vida(0), altura(1)
+Stormtrooper::Stormtrooper(): 
+    Inimigo(),
+    vida(0),
+    altura(1)
 {
     vida = (rand()%5)+1;
+
     x = (rand()%1100)+100;
     y = 600;
 
-    stormSkin.setPosition(x,y);
+     sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
 
-    if (!stormTexture.loadFromFile(STORMPNG))
+    if (pTexturaStormtrooper == nullptr)
     {
         cerr << "Erro de carregamento do PNG do Stormtrooper" << endl;
     }
     else
     {
-        stormSkin.setTexture(stormTexture); 
+        stormSkin.setTexture(*pTexturaStormtrooper); 
     }
 
     sf::FloatRect bounds = stormSkin.getLocalBounds();
     stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     stormSkin.setScale(0.15,0.15);
+    stormSkin.setPosition(x,y);
 }
 Stormtrooper::~Stormtrooper()
 {
