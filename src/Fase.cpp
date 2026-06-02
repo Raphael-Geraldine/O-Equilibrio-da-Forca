@@ -4,6 +4,7 @@
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
 #include "../include/Plataforma.h"
+#include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Listas;
 using namespace Entidades;
@@ -81,15 +82,15 @@ void Fase::criarCenario()
     
     if (nFase == 0)
     {
-        if (!texturaFundo.loadFromFile(MUSTAFARPNG))
-        {
+        sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(MUSTAFARPNG);
+        
+        if (pTexturaFundo == 0)
             cerr << "Erro de carregamento do Plano de Fundo de Mustafar" << endl;
-        }
+
         else
-        {
-            fundo.setTexture(texturaFundo); 
-        }
+            fundo.setTexture(*pTexturaFundo); 
     }
+    
     else
     {
         cout << "nao existe ainda"<<endl;

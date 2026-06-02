@@ -37,7 +37,7 @@ TrabalhoJogo::Principal::~Principal()
 
     pAnakin = nullptr;
 
-    // Cuidado: se Gerenciador_Grafico for singleton, normalmente NÃO delete aqui.
+    // Cuidado: Gerenciador_Grafico é singleton, não deleta aqui.
     pGG = nullptr;
 
     LEntidades.limpar();
@@ -45,11 +45,15 @@ TrabalhoJogo::Principal::~Principal()
 
 void TrabalhoJogo::Principal::executar()
 {
+    pGG = Gerenciador_Grafico::getGerenciadorGrafico();
+    
+    Ente::staticSetGG(pGG);
+
     pMenu = new Menu();
     pAnakin = new Jogador();
     pFase = new Mustafar(pAnakin);
-    // pMustafar->incluirEntidade(pAnakin);
-    pGG = Gerenciador_Grafico::getGerenciadorGrafico();
+    //pMustafar->incluirEntidade(pAnakin);
+
     pGG->window(pMenu, pFase);
     //pGG->window(pMenu,static_cast<Fase*>(pMustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
 }

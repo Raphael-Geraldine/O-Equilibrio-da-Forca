@@ -1,9 +1,18 @@
 #pragma once
 
-#include <string>
+#include <string.h>
 #include <list>
 #include <vector>
 using namespace std;
+
+#include <iostream>
+#include <map>
+using std::cout;
+using std::cerr;
+using std::endl;
+using std::pair;
+using std::map;
+
 
 #include "../include/Menu.h"
 #include "../include/Ente.h"
@@ -53,12 +62,19 @@ namespace TrabalhoJogo
             private:
                 sf::RenderWindow janela;
 
-                sf::Texture texturaFundo; 
+                // Funções conhecidas pelos vídeos do Burda:
+                map<const char*, sf::Texture*> mapaTexturas;
+                sf::Clock relogio;
+                static float dt;
+
+                static Gerenciador_Grafico* pGrafico; // static Singleton* Instance();
+
+                // sf::Texture texturaFundo; 
                 sf::Sprite fundo;
 
                 sf::Font fonteMenu;
 
-                sf::Texture texturaAnakin;
+                // sf::Texture texturaAnakin;
                 sf::Sprite anakin;
 
                 sf::Text textIniciar;
@@ -71,8 +87,6 @@ namespace TrabalhoJogo
                 list<string> menuOptions;
                 vector<sf::Text> textOptions;
                 static short int optionSelected;  
-                static Gerenciador_Grafico* pGrafico; // static Singleton* Instance();
-
             protected:
                 // Padrão de projeto Singleton 
                 // (conhecido pelos vídeos do canal Gege++)
@@ -85,7 +99,10 @@ namespace TrabalhoJogo
 
                 void window(Menu* pM, Fase* pF);
                 
+                sf::Texture* carregarTextura (const char* path);
+                void atualizarTempoPercorrido();
                 void loadMenu(Menu* pM);
+
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);

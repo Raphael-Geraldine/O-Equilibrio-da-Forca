@@ -6,20 +6,40 @@ using std::cerr;
 using std::endl;
 
 #include "../include/Personagem.h"
+#include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
+using namespace Gerenciadores;
 
 #include "../include/Jogador.h"
 
 short int Jogador::cont(0);
 
-Jogador::Jogador(): playerID(cont++)
+Jogador::Jogador(): 
+    playerID(cont++)
 {
-    playerSkin.setScale(0.17,0.17);
+    playerSkin.setScale(0.17f,0.17f);
 
     x=20;
     y=570;
+
+    if (!playerID)
+    {
+        sf::Texture* pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
+
+        if (pTexturaJogador == nullptr)
+            cerr << "Erro de carregamento do PNG do Jogador 1" << endl;
+
+        else
+            playerSkin.setTexture(*pTexturaJogador); 
+    }
+    else
+        cout<<"Vai ser ObiWan"<<endl;
+
+    sf::FloatRect bounds = playerSkin.getLocalBounds();
+    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    
     playerSkin.setPosition(x,y);
 }
 
@@ -29,23 +49,7 @@ Jogador::~Jogador()
 }
 sf::Sprite Jogador::getDrawData()
 {
-    if (!playerID)
-    {
-        if (!playerTexture.loadFromFile(ANAKINPNG))
-        {
-            cerr << "Erro de carregamento do PNG do Jogador 1" << endl;
-        }
-        else
-        {
-            playerSkin.setTexture(playerTexture); 
-        }
-    }
-    else
-        cout<<"Vai ser ObiWan"<<endl;
 
-    sf::FloatRect bounds = playerSkin.getLocalBounds();
-    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-    
     return playerSkin;
 }
 void Jogador::executar()

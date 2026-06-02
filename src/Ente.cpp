@@ -1,27 +1,32 @@
-#include "../include/Gerenciador_Grafico.h"
 #include "../include/Ente.h"
-using namespace TrabalhoJogo;
-using namespace Gerenciadores;
+#include "../include/Gerenciador_Grafico.h"
 
 #include <iostream>
 using std::cout;
-using std::cerr;
 using std::endl;
 
+// Inicializacao de atributos estaticos:
+int TrabalhoJogo::Ente::cont = 0;
 
-int Ente::cont(0);
+TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* TrabalhoJogo::Ente::pGG = nullptr;
 
-Ente::Ente(): id(cont++)
-{}
-
-Ente::~Ente()
-{}
-
-void Ente::desenhar()
+TrabalhoJogo::Ente::Ente(): 
+    id(cont++)
 {
-    cout<<id<<endl;
 }
-void staticSetGG(Gerenciador_Grafico* pG)
+
+TrabalhoJogo::Ente::~Ente()
 {
-    cout<<"ok"<<endl;
+}
+
+void TrabalhoJogo::Ente::desenhar()
+{
+    cout << id << endl;
+}
+
+void TrabalhoJogo::Ente::staticSetGG(
+    TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pG
+)
+{
+    pGG = pG;
 }

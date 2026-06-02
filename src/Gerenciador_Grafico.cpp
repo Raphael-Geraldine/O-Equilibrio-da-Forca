@@ -2,12 +2,6 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
-// Sem inclusão repetida de string e list (do .h)
-#include <iostream>
-using std::cout;
-using std::cerr;
-using std::endl;
-
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
@@ -16,6 +10,7 @@ using namespace Gerenciadores;
 #include <stdlib.h>
 
 short int Gerenciador_Grafico::optionSelected(-1);
+float Gerenciador_Grafico::dt = 0;
 
 Gerenciador_Grafico* Gerenciador_Grafico::pGrafico = nullptr;
 
@@ -27,6 +22,17 @@ Gerenciador_Grafico::Gerenciador_Grafico()
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
 {
+    map<const char*, sf::Texture*>::iterator it;
+
+    for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it) 
+    {
+        if((*it).second)    
+            delete ((*it).second);
+
+        ((*it).second) = nullptr;
+    }
+
+    mapaTexturas.clear();
     textOptions.clear();
 }
 
@@ -34,14 +40,45 @@ Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 {
     if (pGrafico == nullptr) 
     {
-        return new Gerenciador_Grafico();
+        pGrafico = new Gerenciador_Grafico();
     }
 
-    else 
-    {
-        return pGrafico;
-    }
+    return pGrafico;
 }
+
+void Gerenciador_Grafico::atualizarTempoPercorrido() 
+{
+    dt = relogio.getElapsedTime().asSeconds();
+    relogio.restart();
+}
+
+sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path) 
+{
+    map<const char*, sf::Texture*>::iterator it;
+    for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it)
+    {
+        if (strcmp((*it).first, path) == 0)
+            return ((*it).second);
+    }
+
+    sf::Texture* textura = new sf::Texture();
+
+    if ((*textura).loadFromFile(path) == false) 
+    {
+        cerr << "Erro: Nao foi possivel carregar textura!" << endl;
+
+        delete textura;
+        textura = nullptr;
+
+        return nullptr;
+    }
+
+
+    mapaTexturas.insert(pair<const char*, sf::Texture*>(path, textura));
+
+    return textura;
+}
+
 // Sem iterador i
 void Gerenciador_Grafico::menuTextPlacement()
 {
@@ -85,6 +122,12 @@ void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
 
 void Gerenciador_Grafico::loadMenu (Menu* pM)
 {
+    fundo.setTexture(*carregarTextura(MENUINICIALPNG));
+    
+    anakin.setTexture(*carregarTextura(ANAKINPNG));
+    anakin.setScale(0.5,0.5);
+    anakin.setPosition(50,170);
+    /*
     if (!texturaFundo.loadFromFile(MENUINICIALPNG))
     {
         cerr << "Erro de carregamento do Plano de Fundo do Menu Inicial" << endl;
@@ -102,8 +145,7 @@ void Gerenciador_Grafico::loadMenu (Menu* pM)
     {
         anakin.setTexture(texturaAnakin); 
     }
-    anakin.setScale(0.5,0.5);
-    anakin.setPosition(50,170);
+    */
 
     if (!fonteMenu.loadFromFile(FONTE))
     {
@@ -128,14 +170,19 @@ void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
 
     if (pM->CliqueDeRedirecionamento(janela,textOptions[0]))
         optionSelected=0;
+
     if (pM->CliqueDeRedirecionamento(janela,textOptions[1]))
         optionSelected=1;
+
     if (pM->CliqueDeRedirecionamento(janela,textOptions[2]))
         optionSelected=2;
+
     if (pM->CliqueDeRedirecionamento(janela,textOptions[3]))
         optionSelected=3; //falta implementar o clique específico
+
     if (pM->CliqueDeRedirecionamento(janela,textOptions[4]))
         optionSelected=4; //falta implementar o clique específico
+
     if (pM->CliqueDeRedirecionamento(janela,textOptions[5]))
         optionSelected=5;
 }
@@ -230,8 +277,11 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
 
     for (int i = 0; i < tamanho; i++) 
     {
-        if (lEntidades == NULL) 
-            cout << "Lista de entidades vazia." << endl;
+        if ((*lEntidades)[i] == NULL) 
+        {
+            cerr << "Entidade nula no indice " << i << "." << endl;
+            continue;
+        }
         
         sf::Sprite spriteEntidade = (*lEntidades)[i]->getDrawData();
 

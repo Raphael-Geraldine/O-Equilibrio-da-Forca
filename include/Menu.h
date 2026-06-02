@@ -27,7 +27,7 @@ namespace TrabalhoJogo
             vector<string> fases;
             vector<string>::iterator faseEscolhida;
             int qntdJogadores;
-            TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* gGraf;
+            TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pGGraf;
 
         public:
             Menu();

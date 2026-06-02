@@ -15,7 +15,10 @@ using namespace Gerenciadores;
 
 #include <SFML/Graphics.hpp>
 
-Menu::Menu(): gGraf(), qntdJogadores(1), pJogo()
+Menu::Menu(): 
+    //pGGraf(getInstance()), 
+    qntdJogadores(1),
+     pJogo()
 {
     fases.clear();
     fases.push_back("Mustafar");
@@ -30,14 +33,22 @@ Menu::~Menu()
     fases.clear();
     faseEscolhida=fases.end();
     qntdJogadores=-1;
-    delete(gGraf);
+    delete(pGGraf);
 }
 
 void Menu::executar()
 {
-    //gGraf=new Gerenciador_Grafico();
+    /*
+    while (pGGraf->isWindowOpen()) 
+    {
+        pGGraf->updateDeltaTime();
+        pGGraf->clear();
+        pGGraf->display();
+    }
+    */
+    //pGGraf=new Gerenciador_Grafico();
     
-    //gGraf->window(this);
+    //pGGraf->window(this);
 }
 
 bool Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
