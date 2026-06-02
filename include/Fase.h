@@ -3,6 +3,7 @@
 #include "../include/Lista.h"
 #include "../include/ListaEntidades.h"
 #include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 #include "../include/Plataforma.h"
 #include "../include/Gerenciador_Colisoes.h"
 #include "../include/Ente.h"
@@ -25,6 +26,7 @@ namespace TrabalhoJogo
 
                 Listas::ListaEntidades listaEntidades;
                 Listas::Lista<Entidades::Personagens::Jogador> listaJogadores;
+                Listas::Lista<Entidades::Personagens::Inimigo> listaInimigos;
                 Listas::Lista<Entidades::Obstaculos::Plataforma> listaPlataformas;
 
                 Gerenciadores::Gerenciador_Colisoes* gC;
@@ -50,6 +52,7 @@ namespace TrabalhoJogo
                 ~Fase();
 
                 void incluirJogador(Jogador* pJ);
+                void incluirInimigo(Inimigo* pI);
 
                 void incluirEntidade (Entidade* pE);
                 Listas::ListaEntidades* getListaEntidades();

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../include/Entidade.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
@@ -15,6 +16,7 @@ namespace TrabalhoJogo
             class Stormtrooper : public Inimigo
             {
                 private:
+                    ID id;
                     short int vida;
                     float altura;
                     sf::Texture stormTexture;

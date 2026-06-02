@@ -14,7 +14,7 @@ using namespace Personagens;
 
 short int Jogador::cont(0);
 
-Jogador::Jogador(): playerID(cont++)
+Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 {
     playerSkin.setScale(0.17,0.17);
 

@@ -3,6 +3,7 @@
 #include "../include/Entidade.h"
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 #include "../include/Plataforma.h"
 using namespace TrabalhoJogo;
 using namespace Listas;
@@ -73,6 +74,24 @@ void Fase::incluirJogador(Jogador* pJ)
     listaJogadores.incluir(pJ);
 }
 
+void Fase::incluirInimigo(Inimigo* pI)
+{
+    if (pI == nullptr)
+    {
+        cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
+        return;
+    }
+
+    if (listaInimigos.getTamanho() >= 45)
+    {
+        cerr << "Erro: a fase suporta no maximo 45 inimigos." << endl;
+        return;
+    }
+
+    listaEntidades.incluir(pI);
+    listaInimigos.incluir(pI);
+}
+
 void Fase::criarCenario()
 {
     ground.setSize(sf::Vector2f(1280,15));
@@ -117,9 +136,15 @@ void Fase::incluirEntidade(Entidade* pE)
     switch (pE->getID())
     {
         // Depois restringir ao usar inimigos e afins.
-        case personagem:
+        case jogador:
         {
             incluirJogador(static_cast<Jogador*>(pE));
+            break;
+        }
+
+        case inimigo:
+        {
+            incluirInimigo(static_cast<Inimigo*>(pE));
             break;
         }
 
