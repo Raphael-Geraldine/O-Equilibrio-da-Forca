@@ -9,7 +9,8 @@ OEquilibriodaForca
 # Pastas do VS Code
 .vscode/
 
-# tmp files
+# Arquivos do MacOS
+*.dSYM/
 .DS_Store
 
 # CMake
