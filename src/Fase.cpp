@@ -4,6 +4,7 @@
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
+#include "../include/Stormtrooper.h"
 #include "../include/Plataforma.h"
 using namespace TrabalhoJogo;
 using namespace Listas;
@@ -18,6 +19,8 @@ using namespace Gerenciadores;
 using std::cout;
 using std::cerr;
 using std::endl;
+
+#include <stdlib.h>
 
 short int Fase::cont(0);
 
@@ -37,6 +40,8 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
 
     if (pJ2 != nullptr)
         incluirEntidade(pJ2);
+
+    criarInimigosFaceis();
     
     criarCenario();
 }
@@ -54,6 +59,12 @@ Fase::~Fase()
         delete pPlat;
         pPlat = nullptr;
     }
+
+    if (listaEntidades.getTamanho() != 0)
+        listaEntidades.limpar();
+
+    if (listaInimigos.getTamanho() != 0)
+        listaInimigos.limpar();
 }
 
 void Fase::incluirJogador(Jogador* pJ)
@@ -197,8 +208,14 @@ void Fase::executar()
 
 void Fase::criarInimigosFaceis()
 {
-
+    int qntd = rand()% (minInimigosFaceis+maxInimigosFaceis) + minInimigosFaceis;
+    for (int i = 0; i < qntd; i++)
+    {
+        Stormtrooper* pStorm = new Stormtrooper();
+        incluirInimigo(static_cast<Inimigo*>(pStorm)); 
+    }
 }
+
 void Fase::criarPlataformas()
 {
 

@@ -10,7 +10,7 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
-Inimigo::Inimigo(): nivel_maldade(50)
+Inimigo::Inimigo(): Personagem(inimigo), nivel_maldade(50)
 {
 
 }

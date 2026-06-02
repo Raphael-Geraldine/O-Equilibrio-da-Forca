@@ -16,7 +16,6 @@ namespace TrabalhoJogo
             class Stormtrooper : public Inimigo
             {
                 private:
-                    ID id;
                     short int vida;
                     float altura;
                     sf::Texture stormTexture;
@@ -30,7 +29,7 @@ namespace TrabalhoJogo
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;
                     void salvar();
-                    void atirar();
+                    void atacar();
                     void mover();
             };
         }
