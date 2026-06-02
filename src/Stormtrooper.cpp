@@ -20,7 +20,7 @@ Stormtrooper::Stormtrooper(): Inimigo(), vida(0), altura(1)
 {
     vida = (rand()%5)+1;
     x = (rand()%1100)+100;
-    y = 680;
+    y = 600;
 
     stormSkin.setPosition(x,y);
 
@@ -61,9 +61,9 @@ void Stormtrooper::mover()
     int direction = rand()%10;
 
     if (direction > 1)
-        x+=2;
-    else
         x-=2;
+    else
+        x+=2;
 }
 void Stormtrooper::atacar()
 {
