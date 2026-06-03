@@ -2,6 +2,8 @@
 
 #include "../include/Personagem.h"
 
+#include "SFML/Graphics.hpp"
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -14,6 +16,8 @@ namespace TrabalhoJogo
             {
                 protected:
                     float cooldownAtaque;
+                    sf::Clock aleatMov;
+                    bool directionMov; //1 direita, 0 esquerda
                     int nivel_maldade;
 
                 public:

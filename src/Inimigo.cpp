@@ -10,7 +10,7 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
-Inimigo::Inimigo(): Personagem(inimigo), nivel_maldade(50), cooldownAtaque(1.0f)
+Inimigo::Inimigo(): Personagem(inimigo), nivel_maldade(50), cooldownAtaque(1.0f), directionMov(false)
 {
 
 }

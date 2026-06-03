@@ -69,15 +69,23 @@ void Stormtrooper::mover()
 {
     gravity();
 
-    int direction = rand()%10;
+    int sort = rand()%10;
 
-    if (x>640 && direction > 3)
-        x-=2;
-    else if (direction > 3)
-        x+=2;
+    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
+    {
+        if ((x>640 && sort > 3)||(x<640 && sort < 4))
+            directionMov=false;
+        else
+            directionMov=true;
+
+        aleatMov.restart();
+    }
+
+    if (directionMov)
+        x+=1;
     else
-        x-=2;
-
+        x-=1;
+    
     stormSkin.setPosition(x,y);
 }
 sf::FloatRect Stormtrooper::getBounds() const
