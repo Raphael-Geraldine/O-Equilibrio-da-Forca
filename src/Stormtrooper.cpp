@@ -20,10 +20,10 @@ using namespace Gerenciadores;
 
 Stormtrooper::Stormtrooper(): 
     Inimigo(),
-    vida(0),
     altura(1)
 {
-    vida = (rand()%5)+1;
+    num_vidas = (rand()%5)+1;
+    nivel_maldade = 4;
 
     x = (rand()%1100)+100;
     y = 200;
@@ -47,7 +47,7 @@ Stormtrooper::Stormtrooper():
 }
 Stormtrooper::~Stormtrooper()
 {
-    vida=-1;
+    num_vidas=-1;
 }
 void Stormtrooper::executar()
 {
@@ -59,7 +59,11 @@ void Stormtrooper::salvar()
 }
 void Stormtrooper::danificar(Jogador* p)
 {
-
+    int chance = rand()%1000; 
+    if (num_vidas && chance>987)
+    {
+        p->sofrerAtaque(nivel_maldade/4);
+    }
 }
 void Stormtrooper::mover()
 {
@@ -73,10 +77,6 @@ void Stormtrooper::mover()
         x+=2;
 
     stormSkin.setPosition(x,y);
-}
-void Stormtrooper::atacar()
-{
-
 }
 sf::FloatRect Stormtrooper::getBounds() const
 {

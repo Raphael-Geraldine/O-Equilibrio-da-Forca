@@ -19,6 +19,7 @@ namespace TrabalhoJogo
                     ~Personagem();
                     void salvarDataBuffer();
                     void gravity();
+                    int getVida();
                     virtual sf::Sprite getDrawData() = 0;
                     virtual sf::FloatRect getBounds() const = 0;
                     virtual void executar() = 0;

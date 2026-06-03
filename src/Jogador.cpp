@@ -79,10 +79,17 @@ sf::FloatRect Jogador::getBounds() const
     return playerSkin.getGlobalBounds();
 }
 
-/*void Jogador::colidirInimigo(Inimigo* pIn)
+void Jogador::colidirInimigo(Inimigo* pIn)
 {
-
+    pIn->sofrerAtaque(10);
 }
+
+void Jogador::sofrerAtaque(int dano)
+{
+    num_vidas-=dano;
+}
+
+/*
 void Jogador::colidirObstaculo(Obstaculo* pOb)
 {
 

@@ -13,18 +13,20 @@ using std::cerr;
 using std::endl;
 
 
-Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma>* pLP): 
+Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma>* pLP, Lista<Inimigo>* pLI): 
     pListaJogadores(pLJ),
-    pListaPlataformas(pLP)
+    pListaPlataformas(pLP),
+    pListaInimigos(pLI)
 {}
 
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
     pListaJogadores = nullptr;
     pListaPlataformas = nullptr;
+    pListaInimigos = nullptr;
 }
 
-void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat) //AQUI NÃO ESTÁ FUNCIONANDO
+void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat)
 {
     if (pJog == nullptr || pPlat == nullptr)
         return;
@@ -69,7 +71,8 @@ bool Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
-    if (pListaJogadores == nullptr || pListaPlataformas == nullptr)
+
+    if (pListaJogadores == nullptr || pListaPlataformas == nullptr || pListaInimigos == nullptr)
     {
         cerr << "Erro: Uma ou mais lista de derivados de entidades nula no Gerenciador de Colisoes." << endl;
         return false;
@@ -79,6 +82,7 @@ bool Gerenciador_Colisoes::executar()
 
     const int qtdJogadores = static_cast<int>(pListaJogadores->getTamanho());
     const int qtdPlataformas = static_cast<int>(pListaPlataformas->getTamanho());
+    const int qtdInimigos = static_cast<int>(pListaInimigos->getTamanho());
 
     if (qtdJogadores == 0) 
     {
@@ -110,6 +114,18 @@ bool Gerenciador_Colisoes::executar()
                 aplicarGravidade = false;
             }
         }
+
+        for (int k = 0; k < qtdInimigos; k++) 
+        {       
+            Inimigo* pInim = (*pListaInimigos)[k];
+
+            aplicarGravidade = caracterOutOfBounds(pInim);
+
+            if (pInim == nullptr) continue;
+
+            if(verificarColisao(pJog, pInim)) 
+                tratarColisoesJogsInimigos(pJog, pInim);
+        }
     }
     return aplicarGravidade;
 }
@@ -121,9 +137,10 @@ const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) 
     return false;
 }
 
-void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
+void Gerenciador_Colisoes::tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim)
 {
-    
+    pInim->danificar(pJog);
+    pJog->colidirInimigo(pInim);
 }
 void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 {

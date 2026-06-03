@@ -24,5 +24,10 @@ void Inimigo::salvarDataBuffer()
 }
 void Inimigo::danificar(Jogador* pJ)
 {
-    //pJ->dano() = nivel_maldade/2;
-}                    
+    pJ->sofrerAtaque(nivel_maldade/2);
+}                  
+
+void Inimigo::sofrerAtaque(int dano)
+{
+    num_vidas-=dano;
+}

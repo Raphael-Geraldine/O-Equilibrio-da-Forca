@@ -36,3 +36,8 @@ void Personagem::gravity()
 {
     y+=1;
 }
+
+int Personagem::getVida()
+{
+    return num_vidas;
+}

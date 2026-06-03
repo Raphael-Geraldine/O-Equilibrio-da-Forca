@@ -4,6 +4,7 @@
 #include "../include/ListaEntidades.h"
 #include "../include/Jogador.h"
 #include "../include/Plataforma.h"
+#include "../include/Inimigo.h"
 
 
 #include <SFML/Graphics.hpp>
@@ -23,20 +24,21 @@ namespace TrabalhoJogo
                 //ListaEntidades* pListaEntidades;
                 Listas::Lista<Entidades::Personagens::Jogador>* pListaJogadores;
                 Listas::Lista<Entidades::Obstaculos::Plataforma>* pListaPlataformas;
-                //Listas::Lista<Entidades::Personagens::Inimigo>* pListaInimigos;
+                Listas::Lista<Entidades::Personagens::Inimigo>* pListaInimigos;
                 //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
 
             private:
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
                 void tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat);
-                void tratarColisoesJogsInimigos();
+                void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
                 void tratarColisoesJogsProjeteis();
                 // void tratarColisaoJogadorPlataforma(Jogador* pJog, Plataforma* pPlat);
                 bool caracterOutOfBounds(Entidade* pe);
 
             public:
                 Gerenciador_Colisoes(Listas::Lista<Entidades::Personagens::Jogador>* pLJ = nullptr,
-                                     Listas::Lista<Entidades::Obstaculos::Plataforma>* pLP = nullptr);
+                                     Listas::Lista<Entidades::Obstaculos::Plataforma>* pLP = nullptr,
+                                     Listas::Lista<Entidades::Personagens::Inimigo>* pLI = nullptr);
                 
                  ~Gerenciador_Colisoes();
                 //void incluirInimigo(Inimigo* pI);

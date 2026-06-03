@@ -35,7 +35,7 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     pJogador2(pJ2),
     pPlat(nullptr) // Mudar depois eventualmente
 {
-    gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas);
+    gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas, &listaInimigos);
     if (pJ1 != nullptr)
         incluirEntidade(pJ1);
 
@@ -182,6 +182,19 @@ ListaEntidades* Fase::getListaEntidades()
 }
 void Fase::executar()
 {
+    int tamInim = listaInimigos.getTamanho();
+    for (int i = 0; i < tamInim; i++)
+    {
+        if (listaInimigos[i]->getVida() <= 0)
+        {
+            Inimigo* inimMorto = listaInimigos[i];
+            listaEntidades.remover(inimMorto);
+            listaInimigos.remover(i);
+            i--; // pois não pode ser acrescido na prox. iteração
+            tamInim--;
+        }
+    }
+
     listaEntidades.executar();
 
     if (gC != nullptr)

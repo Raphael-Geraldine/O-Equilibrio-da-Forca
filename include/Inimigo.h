@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../include/Personagem.h"
-#include "../include/Jogador.h"
 
 namespace TrabalhoJogo
 {
@@ -9,6 +8,8 @@ namespace TrabalhoJogo
     {
         namespace Personagens
         {
+            class Jogador;
+
             class Inimigo : public Personagem
             {
                 protected:
@@ -18,7 +19,8 @@ namespace TrabalhoJogo
                     Inimigo();
                     ~Inimigo();
                     void salvarDataBuffer();
-                    virtual void danificar(Jogador* p);
+                    void sofrerAtaque(int dano);
+                    virtual void danificar(Jogador* pJ);
                     virtual sf::Sprite getDrawData() = 0;
                     virtual sf::FloatRect getBounds() const = 0;
                     virtual void mover() = 0;
