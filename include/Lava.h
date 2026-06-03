@@ -1,5 +1,10 @@
 #pragma once
 
+#include "../include/Jogador.h"
+#include "../include/Obstaculo.h"
+
+#include "SFML/Graphics.hpp"
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -11,6 +16,8 @@ namespace TrabalhoJogo
                 private:
                     float largura;
                     short int danosidade;
+                    sf::Sprite lavaSkin;
+                    sf::Texture lavaTexture;
 
                 public:
                     Lava();
@@ -18,6 +25,9 @@ namespace TrabalhoJogo
                     void executar();
                     void salvar();
                     void obstaculizar (Jogador* p);
+                    void mover();
+                    sf::Sprite getDrawData();
+                    sf::FloatRect getBounds() const;
             };
         }
     }
