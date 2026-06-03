@@ -25,10 +25,10 @@ void Inimigo::salvarDataBuffer()
 
 void Inimigo::tentarDanificar(Jogador* pJ)
 {
-    if (clock.getElapsedTime().asSeconds() >= cooldownAtaque)
+    if (clockAtaque.getElapsedTime().asSeconds() >= cooldownAtaque)
     {
         danificar(pJ);
-        clock.restart();
+        clockAtaque.restart();
     }
 }
 

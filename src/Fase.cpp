@@ -229,10 +229,10 @@ void Fase::criarInimigosFaceis()
     }
 }
 
-void Fase::criarPlataformas() //Está inicializando o máx, 7 plataformas, depois substituir por i < qntd
+void Fase::criarPlataformas()
 {
     int qntd = rand()%(maxPlat-minPlat+1) + minPlat;
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < qntd; i++)
     {
         Plataforma* pPlat = new Plataforma();
         if (pPlat == nullptr)

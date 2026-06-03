@@ -31,9 +31,10 @@ namespace TrabalhoJogo
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
                 void tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat);
                 void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
+                void tratarColisoesInimObstaculos(Inimigo* pInim, Plataforma* pPlat);
                 void tratarColisoesJogsProjeteis();
                 // void tratarColisaoJogadorPlataforma(Jogador* pJog, Plataforma* pPlat);
-                bool caracterOutOfBounds(Entidade* pe);
+                void caracterOutOfBounds(Entidade* pe);
 
             public:
                 Gerenciador_Colisoes(Listas::Lista<Entidades::Personagens::Jogador>* pLJ = nullptr,
@@ -49,7 +50,7 @@ namespace TrabalhoJogo
                 //void setJog1 (Jogador* pJ);
                 //void setJog2 (Jogador* pJ);
 
-                bool executar();
+                void executar();
                 
         };
     }

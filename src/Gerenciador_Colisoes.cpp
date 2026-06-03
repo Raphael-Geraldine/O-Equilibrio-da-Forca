@@ -69,7 +69,48 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataform
     
 }
 
-bool Gerenciador_Colisoes::executar()
+void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Plataforma* pPlat)
+{
+    if (pInim == nullptr || pPlat == nullptr)
+        return;
+    
+    sf::FloatRect inimBounds = pInim->getBounds();
+    sf::FloatRect platBounds = pPlat->getBounds();
+    
+    const int RECUO_COLISAO = 2;
+
+    if (((pInim->getX() - inimBounds.width) > (pPlat->getX() - platBounds.width)) 
+       && ((pInim->getX() + inimBounds.width) < (pPlat->getX() + platBounds.width)))
+    {
+        bool upDown = false;
+
+        if ((pInim->getY() - inimBounds.height) < (pPlat->getY() - platBounds.height))
+            upDown=true;
+
+        if (upDown)
+            pInim->setY(pInim->getY() - RECUO_COLISAO);
+        
+        else
+            pInim->setY(pInim->getY() + RECUO_COLISAO);        
+    }
+   
+    else     
+    {
+        bool rightLeft = false;
+        
+        if ((pInim->getX() + inimBounds.width) > (pPlat->getX() + platBounds.width / 2.0f))
+            rightLeft = true;
+
+        if (rightLeft)
+            pInim->setX(pInim->getX() + RECUO_COLISAO);
+
+        else
+            pInim->setX(pInim->getX() - RECUO_COLISAO);
+    }
+    
+}
+
+void Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
@@ -77,10 +118,8 @@ bool Gerenciador_Colisoes::executar()
     if (pListaJogadores == nullptr || pListaPlataformas == nullptr || pListaInimigos == nullptr)
     {
         cerr << "Erro: Uma ou mais lista de derivados de entidades nula no Gerenciador de Colisoes." << endl;
-        return false;
+        return;
     }
-
-    bool aplicarGravidade = true;
 
     const int qtdJogadores = static_cast<int>(pListaJogadores->getTamanho());
     const int qtdPlataformas = static_cast<int>(pListaPlataformas->getTamanho());
@@ -89,7 +128,7 @@ bool Gerenciador_Colisoes::executar()
     if (qtdJogadores == 0) 
     {
         cerr << "Erro: lista de jogadores vazia no Gerenciador de Colisoes." << endl;
-        return false;
+        return;
     }
 
     for (int i = 0; i < qtdJogadores; i++) 
@@ -102,7 +141,7 @@ bool Gerenciador_Colisoes::executar()
 
         Jogador* pJog = (*pListaJogadores)[i];
 
-        aplicarGravidade = caracterOutOfBounds(pJog);
+        caracterOutOfBounds(pJog);
 
         for (int j = 0; j < qtdPlataformas; j++) 
         {       
@@ -113,7 +152,7 @@ bool Gerenciador_Colisoes::executar()
             if(verificarColisao(pJog, pPlat)) 
             {
                 tratarColisoesJogsObstaculos(pJog, pPlat);
-                aplicarGravidade = false;
+                //aplicarGravidade = false;
             }
         }
 
@@ -121,7 +160,7 @@ bool Gerenciador_Colisoes::executar()
         {       
             Inimigo* pInim = (*pListaInimigos)[k];
 
-            aplicarGravidade = caracterOutOfBounds(pInim);
+            caracterOutOfBounds(pInim);
 
             if (pInim == nullptr) continue;
 
@@ -129,7 +168,30 @@ bool Gerenciador_Colisoes::executar()
                 tratarColisoesJogsInimigos(pJog, pInim);
         }
     }
-    return aplicarGravidade;
+
+    for (int j = 0; j < qtdInimigos; j++)
+    {
+        if ((*pListaInimigos)[j] == nullptr)
+        {
+            cerr << "Inimigo nulo encontrado na lista de inimigos." << endl; // Ou não deve ser tolerado com continue?
+            continue;
+        }
+
+        Inimigo* pInim = (*pListaInimigos)[j];
+
+        for (int k = 0; k < qtdPlataformas; k++)
+        {
+            Plataforma* pPlat = (*pListaPlataformas)[k];
+
+            if (pPlat == nullptr) continue;
+
+            if(verificarColisao(pInim, pPlat)) 
+            {
+                tratarColisoesInimObstaculos(pInim, pPlat);
+                //aplicarGravidade = false;
+            }
+        }
+    }
 }
 
 const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
@@ -148,7 +210,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 {
     
 }
-bool Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
+void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
     sf::FloatRect playerPosition = pe->getBounds();
     
@@ -164,10 +226,10 @@ bool Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
     if(playerPosition.left + playerPosition.width >= 1280)
         pe->setX(pe->getX() - 2);
     
-    if(playerPosition.top + playerPosition.height < 708)
-        return true;
+    //if(playerPosition.top + playerPosition.height < 708)
+        //return true;
 
-    return false;
+    //return false;
 }
 
 /* void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)

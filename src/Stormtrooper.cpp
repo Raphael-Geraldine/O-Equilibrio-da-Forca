@@ -42,7 +42,7 @@ Stormtrooper::Stormtrooper():
     sf::FloatRect bounds = stormSkin.getLocalBounds();
     stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    stormSkin.setScale(0.15,0.15);
+    stormSkin.setScale(altura*0.15,altura*0.15);
     stormSkin.setPosition(x,y);
 }
 Stormtrooper::~Stormtrooper()
@@ -71,10 +71,12 @@ void Stormtrooper::mover()
 
     int direction = rand()%10;
 
-    if (direction > 4)
+    if (x>640 && direction > 3)
         x-=2;
-    else
+    else if (direction > 3)
         x+=2;
+    else
+        x-=2;
 
     stormSkin.setPosition(x,y);
 }

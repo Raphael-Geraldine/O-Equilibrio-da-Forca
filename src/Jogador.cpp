@@ -57,7 +57,7 @@ void Jogador::executar()
 {
     mover();
     if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::F)))
-        clock.restart();
+        clockAtaque.restart();
 }
 void Jogador::salvar()
 {
@@ -85,7 +85,7 @@ sf::FloatRect Jogador::getBounds() const
 
 void Jogador::colidirInimigo(Inimigo* pIn)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clock.getElapsedTime().asSeconds()<0.2f)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
     {
         pIn->sofrerAtaque(10);
         y-=10; //recuo pós ataque, arrumar a física aqui tbm
