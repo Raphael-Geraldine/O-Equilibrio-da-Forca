@@ -12,6 +12,7 @@ namespace TrabalhoJogo
             class Personagem : public Entidade
             {
                 protected:
+                    sf::Clock clock;
                     int num_vidas;
 
                 public:

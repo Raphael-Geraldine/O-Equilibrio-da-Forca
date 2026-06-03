@@ -18,6 +18,8 @@ short int Jogador::cont(0);
 
 Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 {
+    num_vidas = 100;
+    
     playerSkin.setScale(0.17f,0.17f);
 
     x=20;
@@ -54,6 +56,8 @@ sf::Sprite Jogador::getDrawData()
 void Jogador::executar()
 {
     mover();
+    if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::F)))
+        clock.restart();
 }
 void Jogador::salvar()
 {
@@ -81,12 +85,18 @@ sf::FloatRect Jogador::getBounds() const
 
 void Jogador::colidirInimigo(Inimigo* pIn)
 {
-    pIn->sofrerAtaque(10);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clock.getElapsedTime().asSeconds()<0.2f)
+    {
+        pIn->sofrerAtaque(10);
+        y-=10; //recuo pós ataque, arrumar a física aqui tbm
+        x-=20;
+    }
 }
 
 void Jogador::sofrerAtaque(int dano)
 {
     num_vidas-=dano;
+    cout<<num_vidas<<endl;
 }
 
 /*

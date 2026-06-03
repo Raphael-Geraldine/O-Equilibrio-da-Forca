@@ -17,7 +17,9 @@ Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma
     pListaJogadores(pLJ),
     pListaPlataformas(pLP),
     pListaInimigos(pLI)
-{}
+{
+
+}
 
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
@@ -139,7 +141,7 @@ const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) 
 
 void Gerenciador_Colisoes::tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim)
 {
-    pInim->danificar(pJog);
+    pInim->tentarDanificar(pJog);
     pJog->colidirInimigo(pInim);
 }
 void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()

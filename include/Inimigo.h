@@ -13,6 +13,7 @@ namespace TrabalhoJogo
             class Inimigo : public Personagem
             {
                 protected:
+                    float cooldownAtaque;
                     int nivel_maldade;
 
                 public:
@@ -20,6 +21,7 @@ namespace TrabalhoJogo
                     ~Inimigo();
                     void salvarDataBuffer();
                     void sofrerAtaque(int dano);
+                    void tentarDanificar(Jogador* pJ);
                     virtual void danificar(Jogador* pJ);
                     virtual sf::Sprite getDrawData() = 0;
                     virtual sf::FloatRect getBounds() const = 0;

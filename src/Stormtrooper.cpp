@@ -59,8 +59,8 @@ void Stormtrooper::salvar()
 }
 void Stormtrooper::danificar(Jogador* p)
 {
-    int chance = rand()%1000; 
-    if (num_vidas && chance>987)
+    int chance = rand()%10; 
+    if (num_vidas && chance>3)
     {
         p->sofrerAtaque(nivel_maldade/4);
     }
@@ -71,7 +71,7 @@ void Stormtrooper::mover()
 
     int direction = rand()%10;
 
-    if (direction > 3)
+    if (direction > 4)
         x-=2;
     else
         x+=2;
