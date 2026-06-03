@@ -26,7 +26,7 @@ Stormtrooper::Stormtrooper():
     vida = (rand()%5)+1;
 
     x = (rand()%1100)+100;
-    y = 600;
+    y = 200;
 
      sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
 
@@ -67,10 +67,12 @@ void Stormtrooper::mover()
 
     int direction = rand()%10;
 
-    if (direction > 1)
+    if (direction > 3)
         x-=2;
     else
         x+=2;
+
+    stormSkin.setPosition(x,y);
 }
 void Stormtrooper::atacar()
 {

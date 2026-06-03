@@ -100,7 +100,7 @@ void Fase::incluirInimigo(Inimigo* pI)
         return;
     }
 
-    listaEntidades.incluir(pI);
+    listaEntidades.incluir(static_cast<Entidade*>(pI));
     listaInimigos.incluir(pI);
 }
 
@@ -209,11 +209,11 @@ void Fase::executar()
 
 void Fase::criarInimigosFaceis()
 {
-    int qntd = rand()% (minInimigosFaceis+maxInimigosFaceis) + minInimigosFaceis;
+    int qntd = rand()% (maxInimigosFaceis) + minInimigosFaceis;
     for (int i = 0; i < qntd; i++)
     {
         Stormtrooper* pStorm = new Stormtrooper();
-        incluirInimigo(static_cast<Inimigo*>(pStorm)); 
+        incluirEntidade(static_cast<Inimigo*>(pStorm)); 
     }
 }
 
