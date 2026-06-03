@@ -33,6 +33,8 @@ namespace TrabalhoJogo
 
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;
+                const int minPlat;
+                const int maxPlat;
                 
                 sf::Texture texturaFundo; 
                 sf::Sprite fundo;
@@ -61,7 +63,6 @@ namespace TrabalhoJogo
 
                 sf::Sprite getFundo();
                 sf::RectangleShape getGround();
-                sf::Sprite getPlataforma();
         };
     }
 }

@@ -28,6 +28,8 @@ short int Fase::cont(0);
 Fase::Fase(Jogador* pJ1, Jogador* pJ2): 
     minInimigosFaceis(3), 
     maxInimigosFaceis(15), 
+    minPlat(3),
+    maxPlat(7),
     Ente(),
     nFase(cont++), 
     gC(nullptr),
@@ -44,7 +46,7 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
 
     criarInimigosFaceis();
     
-    criarCenario();
+    criarCenario(); //as plataformas são criadas a partir daqui
 }
 
 Fase::~Fase()
@@ -126,13 +128,7 @@ void Fase::criarCenario()
         cout << "nao existe ainda"<<endl;
     }
 
-    pPlat = new Obstaculos::Plataforma();
-
-    if (pPlat == nullptr)
-        cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
-    
-    else   
-        incluirEntidade(pPlat);
+    criarPlataformas();
 }
 
 void Fase::incluirEntidade(Entidade* pE) 
@@ -222,17 +218,28 @@ void Fase::executar()
 
 void Fase::criarInimigosFaceis()
 {
-    int qntd = rand()% (maxInimigosFaceis) + minInimigosFaceis;
+    int qntd = rand()%(maxInimigosFaceis-minInimigosFaceis+1) + minInimigosFaceis;
     for (int i = 0; i < qntd; i++)
     {
         Stormtrooper* pStorm = new Stormtrooper();
-        incluirEntidade(static_cast<Inimigo*>(pStorm)); 
+        if (pStorm == nullptr)
+            cerr << "Tentativa de incluir Stormtrooper nula na lista de entidades." << endl;
+        else
+            incluirEntidade(static_cast<Inimigo*>(pStorm)); 
     }
 }
 
-void Fase::criarPlataformas()
+void Fase::criarPlataformas() //Está inicializando o máx, 7 plataformas, depois substituir por i < qntd
 {
-
+    int qntd = rand()%(maxPlat-minPlat+1) + minPlat;
+    for (int i = 0; i < 7; i++)
+    {
+        Plataforma* pPlat = new Plataforma();
+        if (pPlat == nullptr)
+            cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
+        else   
+            incluirEntidade(static_cast<Obstaculo*>(pPlat));
+    }
 }
 
 sf::Sprite Fase::getFundo()
@@ -250,7 +257,8 @@ sf::RectangleShape Fase::getGround()
     return ground;
 }
 
-sf::Sprite Fase::getPlataforma()
+/*
+sf::Sprite Fase::getPlataforma() // a princípo não usamos mais, pode apagar
 {
     if (pPlat == NULL)
     {
@@ -261,7 +269,7 @@ sf::Sprite Fase::getPlataforma()
     return pPlat->getDrawData();
 }
 
-/*
+
 void desenharFase(Fase* pF, sf::RenderWindow& janela) 
 {
     if (pF == NULL) 

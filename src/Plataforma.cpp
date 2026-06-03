@@ -18,7 +18,10 @@ using namespace Obstaculos;
 using namespace Gerenciadores;
 
 short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
-vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={{270,270},{480,480},{360,360},{540,540},{144,144}};
+vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={
+    {250, 520}, {1030, 520}, {640, 400}, {150, 300}, {1180, 300}, {420, 180}, {860, 180},
+    {300, 480}, {980, 480}, {640, 140}, {150, 300}, {1130, 300}, {440, 220}, {840, 220}
+};
 
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
     Obstaculo(),
@@ -27,7 +30,7 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
 {
     danoso=false;
     
-    platSkin.setScale(0.3,0.3);
+    platSkin.setScale(0.25,0.25);
 
     sf::Texture* pTexturaPlataforma = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(PLATPNG);
     
