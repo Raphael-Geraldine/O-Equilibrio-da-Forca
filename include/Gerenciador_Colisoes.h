@@ -27,7 +27,7 @@ namespace TrabalhoJogo
                 //ListaEntidades* pListaEntidades;
                 sf::RectangleShape* pGround;
                 Listas::Lista<Entidades::Personagens::Jogador>* pListaJogadores;
-                Listas::Lista<Entidades::Obstaculos::Plataforma>* pListaPlataformas;
+                Listas::Lista<Entidades::Obstaculos::Obstaculo>* pListaObstaculos;
                 Listas::Lista<Entidades::Personagens::Inimigo>* pListaInimigos;
                 //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
 
@@ -36,14 +36,14 @@ namespace TrabalhoJogo
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
                 void tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pPlat);
                 void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
-                void tratarColisoesInimObstaculos(Inimigo* pInim, Plataforma* pPlat);
+                void tratarColisoesInimObstaculos(Inimigo* pInim, Obstaculo* pPlat);
                 void tratarColisoesJogsProjeteis();
                 // void tratarColisaoJogadorPlataforma(Jogador* pJog, Plataforma* pPlat);
                 void caracterOutOfBounds(Entidade* pe);
 
             public:
                 Gerenciador_Colisoes(Listas::Lista<Entidades::Personagens::Jogador>* pLJ = nullptr,
-                                     Listas::Lista<Entidades::Obstaculos::Plataforma>* pLP = nullptr,
+                                     Listas::Lista<Entidades::Obstaculos::Obstaculo>* pLO = nullptr,
                                      Listas::Lista<Entidades::Personagens::Inimigo>* pLI = nullptr,
                                      sf::RectangleShape* pG = nullptr);
                 

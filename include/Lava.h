@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+using namespace std;
+
 #include "../include/Jogador.h"
 #include "../include/Obstaculo.h"
 
@@ -14,17 +17,21 @@ namespace TrabalhoJogo
             class Lava : public Obstaculo
             {
                 private:
-                    float largura;
                     short int danosidade;
-                    sf::Sprite lavaSkin;
+                    static short int cont;
+                    static vector<sf::Vector2i> lavaPositions;
+                    short int lavaID;
+                    float largura;
                     sf::Texture lavaTexture;
+                    sf::Sprite lavaSkin;
+                    sf::IntRect lavaSize;
 
                 public:
                     Lava();
                     ~Lava();
                     void executar();
                     void salvar();
-                    void obstaculizar (Jogador* p);
+                    void obstaculizar (Jogador* pJog);
                     void mover();
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;

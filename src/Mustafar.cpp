@@ -5,6 +5,8 @@
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
 #include "../include/K_2SO.h"
+#include "../include/Obstaculo.h"
+#include "../include/Lava.h"
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Mustafar.h"
 using namespace TrabalhoJogo;
@@ -17,7 +19,9 @@ using namespace Gerenciadores;
 Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2): 
     Fase(pJ1, pJ2),
     minInimigosMedios(3),
-    maxInimigosMedios(7)
+    maxInimigosMedios(7),
+    minObstMedios(3),
+    maxObstMedios(5)
 {   
     sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(MUSTAFARPNG);
         
@@ -53,7 +57,15 @@ void Mustafar::criarInimigos()
 
 void Mustafar::criarObstaculos()
 {
-    
+    int qntd = rand()%(maxObstMedios-minObstMedios+1) + minObstMedios;
+    for (int i = 0; i < qntd; i++)
+    {
+        Lava* pLava = new Lava();
+        if (pLava == nullptr)
+            cerr << "Tentativa de incluir lava nula na lista de entidades." << endl;
+        else   
+            incluirEntidade(static_cast<Obstaculo*>(pLava));
+    }
 }
 
 void Mustafar::incluirEntidade(Entidade* pE) 
@@ -83,9 +95,7 @@ void Mustafar::incluirEntidade(Entidade* pE)
 
         case obstaculo:
         {
-            Plataforma* pPlat = static_cast<Plataforma*>(pE);
-            listaEntidades.incluir(pPlat);
-            listaPlataformas.incluir(pPlat);
+            incluirObstaculo(static_cast<Obstaculo*>(pE));
             break;
         }
 
@@ -131,6 +141,24 @@ void Mustafar::incluirInimigo(Inimigo* pI)
 
     listaEntidades.incluir(static_cast<Entidade*>(pI));
     listaInimigos.incluir(pI);
+}
+
+void Mustafar::incluirObstaculo(Obstaculo* pO)
+{
+    if (pO == nullptr)
+    {
+        cerr << "Erro: tentativa de incluir obstaculo nulo na fase." << endl;
+        return;
+    }
+
+    if (listaObstaculos.getTamanho() >= 45)
+    {
+        cerr << "Erro: a fase suporta no maximo 45 obstaculos." << endl;
+        return;
+    }
+
+    listaEntidades.incluir(static_cast<Entidade*>(pO));
+    listaObstaculos.incluir(pO);
 }
 
 sf::Sprite Mustafar::getFundo()

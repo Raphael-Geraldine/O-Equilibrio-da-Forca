@@ -4,6 +4,7 @@
 #include "../include/Inimigo.h"
 #include "../include/Stormtrooper.h"
 #include "../include/Plataforma.h"
+#include "../include/Obstaculo.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Listas;
@@ -35,7 +36,7 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     pJogador2(pJ2),
     pPlat(nullptr) // Mudar depois eventualmente
 {
-    gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas, &listaInimigos, &ground);
+    gC = new Gerenciador_Colisoes(&listaJogadores, &listaObstaculos, &listaInimigos, &ground);
 }
 
 Fase::~Fase()

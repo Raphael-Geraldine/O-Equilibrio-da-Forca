@@ -4,6 +4,7 @@
 #include "../include/ListaEntidades.h"
 #include "../include/K_2SO.h"
 #include "../include/Inimigo.h"
+#include "../include/Obstaculo.h"
 #include "../include/Gerenciador_Colisoes.h"
 #include "../include/Ente.h"
 #include "../include/Fase.h"
@@ -19,13 +20,16 @@ namespace TrabalhoJogo
             private:
                 const int minInimigosMedios;
                 const int maxInimigosMedios;
+                const int minObstMedios;
+                const int maxObstMedios;
                 sf::Texture texturaFundo; 
                 sf::Sprite fundo;
 
             private:
-                void incluirEntidade(Entidade* pE);
-                void incluirJogador(Jogador* pJ);
-                void incluirInimigo(Inimigo* pI);
+                void incluirEntidade(Entidades::Entidade* pE);
+                void incluirJogador(Entidades::Personagens::Jogador* pJ);
+                void incluirInimigo(Entidades::Personagens::Inimigo* pI);
+                void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO);
                 void criarInimigos(); //Médios
                 void criarObstaculos(); //Médios
 

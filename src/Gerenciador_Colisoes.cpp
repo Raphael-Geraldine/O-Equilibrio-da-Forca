@@ -12,9 +12,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma>* pLP, Lista<Inimigo>* pLI,  sf::RectangleShape* pG): 
+Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Obstaculo>* pLO, Lista<Inimigo>* pLI,  sf::RectangleShape* pG): 
     pListaJogadores(pLJ),
-    pListaPlataformas(pLP),
+    pListaObstaculos(pLO),
     pListaInimigos(pLI),
     pGround(pG)
 {
@@ -24,7 +24,7 @@ Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
     pListaJogadores = nullptr;
-    pListaPlataformas = nullptr;
+    pListaObstaculos = nullptr;
     pListaInimigos = nullptr;
     pGround = nullptr;
 }
@@ -37,22 +37,22 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo
     pObs->obstaculizar(pJog);
 }
 
-void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Plataforma* pPlat)
+void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Obstaculo* pObs)
 {
-    if (pInim == nullptr || pPlat == nullptr)
+    if (pInim == nullptr || pObs == nullptr)
         return;
     
     sf::FloatRect inimBounds = pInim->getBounds();
-    sf::FloatRect platBounds = pPlat->getBounds();
+    sf::FloatRect obsBounds = pObs->getBounds();
     
     const int RECUO_COLISAO = 2;
 
-    if (((pInim->getX() - inimBounds.width) > (pPlat->getX() - platBounds.width)) 
-       && ((pInim->getX() + inimBounds.width) < (pPlat->getX() + platBounds.width)))
+    if (((pInim->getX() - inimBounds.width) > (pObs->getX() - obsBounds.width)) 
+       && ((pInim->getX() + inimBounds.width) < (pObs->getX() + obsBounds.width)))
     {
         bool upDown = false;
 
-        if ((pInim->getY() - inimBounds.height) < (pPlat->getY() - platBounds.height))
+        if ((pInim->getY() - inimBounds.height) < (pObs->getY() - obsBounds.height))
             upDown=true;
 
         if (upDown)
@@ -66,7 +66,7 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Platafor
     {
         bool rightLeft = false;
         
-        if ((pInim->getX() + inimBounds.width) > (pPlat->getX() + platBounds.width / 2.0f))
+        if ((pInim->getX() + inimBounds.width) > (pObs->getX() + obsBounds.width / 2.0f))
             rightLeft = true;
 
         if (rightLeft)
@@ -105,14 +105,14 @@ void Gerenciador_Colisoes::executar()
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
     //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
 
-    if (pListaJogadores == nullptr || pListaPlataformas == nullptr || pListaInimigos == nullptr)
+    if (pListaJogadores == nullptr || pListaObstaculos == nullptr || pListaInimigos == nullptr)
     {
         cerr << "Erro: Uma ou mais lista de derivados de entidades nula no Gerenciador de Colisoes." << endl;
         return;
     }
 
     const int qtdJogadores = static_cast<int>(pListaJogadores->getTamanho());
-    const int qtdPlataformas = static_cast<int>(pListaPlataformas->getTamanho());
+    const int qtdObstaculos = static_cast<int>(pListaObstaculos->getTamanho());
     const int qtdInimigos = static_cast<int>(pListaInimigos->getTamanho());
 
     if (qtdJogadores == 0) 
@@ -135,15 +135,15 @@ void Gerenciador_Colisoes::executar()
 
         caracterOutOfBounds(pJog);
 
-        for (int j = 0; j < qtdPlataformas; j++) 
+        for (int j = 0; j < qtdObstaculos; j++) 
         {       
-            Plataforma* pPlat = (*pListaPlataformas)[j];
+            Obstaculo* pObs = (*pListaObstaculos)[j];
 
-            if (pPlat == nullptr) continue;
+            if (pObs == nullptr) continue;
 
-            if(verificarColisao(pJog, pPlat)) 
+            if(verificarColisao(pJog, pObs)) 
             {
-                tratarColisoesJogsObstaculos(pJog, pPlat);
+                tratarColisoesJogsObstaculos(pJog, pObs);
                 //aplicarGravidade = false;
             }
         }
@@ -173,15 +173,15 @@ void Gerenciador_Colisoes::executar()
 
         Inimigo* pInim = (*pListaInimigos)[j];
 
-        for (int k = 0; k < qtdPlataformas; k++)
+        for (int k = 0; k < qtdObstaculos; k++)
         {
-            Plataforma* pPlat = (*pListaPlataformas)[k];
+            Obstaculo* pObs = (*pListaObstaculos)[k];
 
-            if (pPlat == nullptr) continue;
+            if (pObs == nullptr) continue;
 
-            if(verificarColisao(pInim, pPlat)) 
+            if(verificarColisao(pInim, pObs)) 
             {
-                tratarColisoesInimObstaculos(pInim, pPlat);
+                tratarColisoesInimObstaculos(pInim, pObs);
                 //aplicarGravidade = false;
             }
         }

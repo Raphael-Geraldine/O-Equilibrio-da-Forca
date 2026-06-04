@@ -5,6 +5,7 @@
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
 #include "../include/Plataforma.h"
+#include "../include/Obstaculo.h"
 #include "../include/Gerenciador_Colisoes.h"
 #include "../include/Ente.h"
 
@@ -27,7 +28,7 @@ namespace TrabalhoJogo
                 Listas::ListaEntidades listaEntidades;
                 Listas::Lista<Entidades::Personagens::Jogador> listaJogadores;
                 Listas::Lista<Entidades::Personagens::Inimigo> listaInimigos;
-                Listas::Lista<Entidades::Obstaculos::Plataforma> listaPlataformas;
+                Listas::Lista<Entidades::Obstaculos::Obstaculo> listaObstaculos;
 
                 Gerenciadores::Gerenciador_Colisoes* gC;
 
@@ -54,8 +55,9 @@ namespace TrabalhoJogo
 
                 ~Fase();
 
-                virtual void incluirJogador(Jogador* pJ) = 0;
-                virtual void incluirInimigo(Inimigo* pI) = 0;
+                virtual void incluirJogador(TrabalhoJogo::Entidades::Personagens::Jogador* pJ) = 0;
+                virtual void incluirInimigo(TrabalhoJogo::Entidades::Personagens::Inimigo* pI) = 0;
+                virtual void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO) = 0;
 
                 virtual void incluirEntidade (Entidade* pE) = 0;
                 Listas::ListaEntidades* getListaEntidades();
