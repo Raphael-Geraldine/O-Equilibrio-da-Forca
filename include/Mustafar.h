@@ -1,7 +1,13 @@
 #pragma once
 
-#include "../include/Fase.h"
-#include "../include/Jogador.h"
+#include "../include/Lista.h"
+#include "../include/ListaEntidades.h"
+#include "../include/K_2SO.h"
+#include "../include/Inimigo.h"
+#include "../include/Gerenciador_Colisoes.h"
+#include "../include/Ente.h"
+
+#include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
 {
@@ -12,8 +18,13 @@ namespace TrabalhoJogo
             private:
                 const int minInimigosMedios;
                 const int maxInimigosMedios;
+                sf::Texture texturaFundo; 
+                sf::Sprite fundo;
 
-            protected:
+            private:
+                void incluirEntidade(Entidade* pE);
+                void incluirJogador(Jogador* pJ);
+                void incluirInimigo(Inimigo* pI);
                 void criarInimigos(); //Médios
                 void criarObstaculos(); //Médios
 
@@ -21,6 +32,7 @@ namespace TrabalhoJogo
                 Mustafar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                          Entidades::Personagens::Jogador* pJ2 = nullptr);
                 ~Mustafar();
+                sf::Sprite getFundo();
         };
     }
 }
