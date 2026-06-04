@@ -35,7 +35,7 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     pJogador2(pJ2),
     pPlat(nullptr) // Mudar depois eventualmente
 {
-    gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas, &listaInimigos);
+    gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas, &listaInimigos, &ground);
 }
 
 Fase::~Fase()

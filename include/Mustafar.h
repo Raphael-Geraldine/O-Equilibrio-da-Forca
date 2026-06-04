@@ -1,4 +1,4 @@
-#define MUSTAFARPNG "../assets/images/Mustafar.png"
+#pragma once
 
 #include "../include/Lista.h"
 #include "../include/ListaEntidades.h"
@@ -6,6 +6,7 @@
 #include "../include/Inimigo.h"
 #include "../include/Gerenciador_Colisoes.h"
 #include "../include/Ente.h"
+#include "../include/Fase.h"
 
 #include <SFML/Graphics.hpp>
 
