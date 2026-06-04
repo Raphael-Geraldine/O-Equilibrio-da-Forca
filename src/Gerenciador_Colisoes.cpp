@@ -28,45 +28,9 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
     pListaInimigos = nullptr;
 }
 
-void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat)
+void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pObs)
 {
-    if (pJog == nullptr || pPlat == nullptr)
-        return;
-    
-    sf::FloatRect playerBounds = pJog->getBounds();
-    sf::FloatRect platBounds = pPlat->getBounds();
-    
-    const int RECUO_COLISAO = 2;
-
-    if (((pJog->getX() - playerBounds.width) > (pPlat->getX() - platBounds.width)) 
-       && ((pJog->getX() + playerBounds.width) < (pPlat->getX() + platBounds.width)))
-    {
-        bool upDown = false;
-
-        if ((pJog->getY() - playerBounds.height) < (pPlat->getY() - platBounds.height))
-            upDown=true;
-
-        if (upDown)
-            pJog->setY(pJog->getY() - RECUO_COLISAO);
-        
-        else
-            pJog->setY(pJog->getY() + RECUO_COLISAO);        
-    }
-   
-    else     
-    {
-        bool rightLeft = false;
-        
-        if ((pJog->getX() + playerBounds.width) > (pPlat->getX() + platBounds.width / 2.0f))
-            rightLeft = true;
-
-        if (rightLeft)
-            pJog->setX(pJog->getX() + RECUO_COLISAO);
-
-        else
-            pJog->setX(pJog->getX() - RECUO_COLISAO);
-    }
-    
+    pObs->obstaculizar(pJog);
 }
 
 void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Plataforma* pPlat)

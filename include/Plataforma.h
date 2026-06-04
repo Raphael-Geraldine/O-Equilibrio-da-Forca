@@ -29,7 +29,7 @@ namespace TrabalhoJogo
                     void executar();
                     void salvar();
                     void mover();
-                    void obstaculizar(Jogador* p);
+                    void obstaculizar(Jogador* pJog);
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;
             };

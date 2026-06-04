@@ -3,6 +3,7 @@
 #include "../include/Entidade.h"
 #include "../include/ListaEntidades.h"
 #include "../include/Jogador.h"
+#include "../include/Obstaculo.h"
 #include "../include/Plataforma.h"
 #include "../include/Inimigo.h"
 
@@ -17,7 +18,8 @@ namespace TrabalhoJogo
         using Entidades::Entidade;
         using Entidades::Personagens::Jogador;
         using Entidades::Obstaculos::Plataforma;
-        
+        using Entidades::Obstaculos::Obstaculo;
+
         class Gerenciador_Colisoes
         {
             private:
@@ -29,7 +31,7 @@ namespace TrabalhoJogo
 
             private:
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
-                void tratarColisoesJogsObstaculos(Jogador* pJog, Plataforma* pPlat);
+                void tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pPlat);
                 void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
                 void tratarColisoesInimObstaculos(Inimigo* pInim, Plataforma* pPlat);
                 void tratarColisoesJogsProjeteis();

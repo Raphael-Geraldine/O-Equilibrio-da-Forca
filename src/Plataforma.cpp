@@ -56,8 +56,45 @@ void TrabalhoJogo::Entidades::Obstaculos::Plataforma::salvar()
 {}
 void TrabalhoJogo::Entidades::Obstaculos::Plataforma::mover()
 {}
-void TrabalhoJogo::Entidades::Obstaculos::Plataforma::obstaculizar(Jogador* p)
-{}
+void TrabalhoJogo::Entidades::Obstaculos::Plataforma::obstaculizar(Jogador* pJog)
+{
+    if (pJog == nullptr)
+        return;
+    
+    sf::FloatRect playerBounds = pJog->getBounds();
+    sf::FloatRect platBounds = this->getBounds();
+    
+    const int RECUO_COLISAO = 2;
+
+    if (((pJog->getX() - playerBounds.width) > (x - platBounds.width)) 
+       && ((pJog->getX() + playerBounds.width) < (x + platBounds.width)))
+    {
+        bool upDown = false;
+
+        if ((pJog->getY() - playerBounds.height) < (y - platBounds.height))
+            upDown=true;
+
+        if (upDown)
+            pJog->setY(pJog->getY() - RECUO_COLISAO);
+        
+        else
+            pJog->setY(pJog->getY() + RECUO_COLISAO);        
+    }
+   
+    else     
+    {
+        bool rightLeft = false;
+        
+        if ((pJog->getX() + playerBounds.width) > (x + platBounds.width / 2.0f))
+            rightLeft = true;
+
+        if (rightLeft)
+            pJog->setX(pJog->getX() + RECUO_COLISAO);
+
+        else
+            pJog->setX(pJog->getX() - RECUO_COLISAO);
+    }
+}
 sf::Sprite TrabalhoJogo::Entidades::Obstaculos::Plataforma::getDrawData()
 {   
     return platSkin;
