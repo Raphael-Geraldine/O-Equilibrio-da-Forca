@@ -6,8 +6,8 @@
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
-#include <SFML/Graphics.hpp>
 #include <stdlib.h>
+#include <SFML/Graphics.hpp>
 
 short int Gerenciador_Grafico::optionSelected(-1);
 float Gerenciador_Grafico::dt = 0;
@@ -22,7 +22,7 @@ Gerenciador_Grafico::Gerenciador_Grafico()
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
 {
-    map<const char*, sf::Texture*>::iterator it;
+    /*map<const char*, sf::Texture*>::iterator it;
 
     for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it) 
     {
@@ -31,9 +31,21 @@ Gerenciador_Grafico::~Gerenciador_Grafico()
 
         ((*it).second) = nullptr;
     }
+    
+    //fixing carregarTextura Memory Leaks
+    delete(fundo.getTexture());
+    delete(anakin.getTexture());*/
 
     mapaTexturas.clear();
     textOptions.clear();
+}
+
+void Gerenciador_Grafico::destruirGGrafico() 
+{
+    if (Gerenciador_Grafico::getGerenciadorGrafico() != nullptr) 
+    {
+        delete (Gerenciador_Grafico::getGerenciadorGrafico());
+    }
 }
 
 Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
@@ -41,6 +53,7 @@ Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
     if (pGrafico == nullptr) 
     {
         pGrafico = new Gerenciador_Grafico();
+        std::atexit(destruirGGrafico);
     }
 
     return pGrafico;
@@ -62,12 +75,12 @@ sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
     }
 
     sf::Texture* textura = new sf::Texture();
-
+    
     if ((*textura).loadFromFile(path) == false) 
     {
         cerr << "Erro: Nao foi possivel carregar textura!" << endl;
 
-        delete textura;
+        delete (textura);
         textura = nullptr;
 
         return nullptr;

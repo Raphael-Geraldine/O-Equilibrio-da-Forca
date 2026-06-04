@@ -49,7 +49,9 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
     platSkin.setPosition(x,y);
 }
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::~Plataforma()
-{}
+{
+    delete(platSkin.getTexture());
+}
 void TrabalhoJogo::Entidades::Obstaculos::Plataforma::executar()
 {}
 void TrabalhoJogo::Entidades::Obstaculos::Plataforma::salvar()

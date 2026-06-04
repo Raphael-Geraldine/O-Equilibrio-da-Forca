@@ -86,7 +86,9 @@ namespace TrabalhoJogo
 
                 list<string> menuOptions;
                 vector<sf::Text> textOptions;
-                static short int optionSelected;  
+                static short int optionSelected;
+                static void destruirGGrafico();
+
             protected:
                 // Padrão de projeto Singleton 
                 // (conhecido pelos vídeos do canal Gege++)

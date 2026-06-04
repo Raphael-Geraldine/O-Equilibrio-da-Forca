@@ -46,7 +46,7 @@ Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 
 Jogador::~Jogador()
 {
-
+    delete(playerSkin.getTexture());
 }
 sf::Sprite Jogador::getDrawData()
 {

@@ -29,12 +29,13 @@ TrabalhoJogo::Principal::Principal():
 
 TrabalhoJogo::Principal::~Principal()
 {
-    delete pMenu;
+    delete (pMenu);
     pMenu = nullptr;
 
-    delete pFase;
+    delete (pFase);
     pFase = nullptr;
 
+    delete (pAnakin);
     pAnakin = nullptr;
 
     // Cuidado: Gerenciador_Grafico é singleton, não deleta aqui.

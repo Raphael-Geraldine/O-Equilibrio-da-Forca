@@ -63,6 +63,9 @@ Fase::~Fase()
         pPlat = nullptr;
     }
 
+    //fixing memory leaks
+    delete(fundo.getTexture());
+
     if (listaEntidades.getTamanho() != 0)
         listaEntidades.limpar();
 

@@ -48,6 +48,7 @@ Stormtrooper::Stormtrooper():
 Stormtrooper::~Stormtrooper()
 {
     num_vidas=-1;
+    delete(stormSkin.getTexture());
 }
 void Stormtrooper::executar()
 {
