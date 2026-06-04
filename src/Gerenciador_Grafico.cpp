@@ -22,7 +22,7 @@ Gerenciador_Grafico::Gerenciador_Grafico()
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
 {
-    /*map<const char*, sf::Texture*>::iterator it;
+    map<const char*, sf::Texture*>::iterator it;
 
     for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it) 
     {
@@ -32,9 +32,11 @@ Gerenciador_Grafico::~Gerenciador_Grafico()
         ((*it).second) = nullptr;
     }
     
+    /*
     //fixing carregarTextura Memory Leaks
     delete(fundo.getTexture());
-    delete(anakin.getTexture());*/
+    delete(anakin.getTexture());
+    */
 
     mapaTexturas.clear();
     textOptions.clear();
@@ -42,12 +44,22 @@ Gerenciador_Grafico::~Gerenciador_Grafico()
 
 void Gerenciador_Grafico::destruirGGrafico() 
 {
+    if (pGrafico != nullptr) 
+    {
+        delete pGrafico;
+        pGrafico = nullptr;
+    }
+}
+
+/*
+void Gerenciador_Grafico::destruirGGrafico() 
+{
     if (Gerenciador_Grafico::getGerenciadorGrafico() != nullptr) 
     {
         delete (Gerenciador_Grafico::getGerenciadorGrafico());
     }
 }
-
+*/
 Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 {
     if (pGrafico == nullptr) 

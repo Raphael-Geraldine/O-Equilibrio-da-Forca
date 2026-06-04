@@ -12,11 +12,11 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-
-Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma>* pLP, Lista<Inimigo>* pLI): 
+Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Plataforma>* pLP, Lista<Inimigo>* pLI,  sf::RectangleShape* pG): 
     pListaJogadores(pLJ),
     pListaPlataformas(pLP),
-    pListaInimigos(pLI)
+    pListaInimigos(pLI),
+    pGround(pG)
 {
 
 }
@@ -26,10 +26,14 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
     pListaJogadores = nullptr;
     pListaPlataformas = nullptr;
     pListaInimigos = nullptr;
+    pGround = nullptr;
 }
 
 void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pObs)
 {
+    if (pJog == nullptr || pObs == nullptr) 
+        return;
+
     pObs->obstaculizar(pJog);
 }
 
@@ -74,6 +78,28 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Platafor
     
 }
 
+void Gerenciador_Colisoes::tratarColisaoJogChao(Jogador* pJog)
+{
+    if (pJog == nullptr || pGround == nullptr)
+        return;
+
+    sf::FloatRect jogBounds = pJog->getBounds();
+    sf::FloatRect chaoBounds = pGround->getGlobalBounds();
+    sf::FloatRect intersecao;
+
+    if (!jogBounds.intersects(chaoBounds, intersecao))
+        return;
+
+    // Só faz sentido o caso do jogador vindo de cima.
+    if (jogBounds.top < chaoBounds.top)
+    {
+        pJog->setY(pJog->getY() - intersecao.height);
+        pJog->setVelocidadeY(0.0f);
+        pJog->setNoChao(true);
+        pJog->atualizarPosicaoSprite();
+    }
+}
+
 void Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
@@ -105,6 +131,8 @@ void Gerenciador_Colisoes::executar()
 
         Jogador* pJog = (*pListaJogadores)[i];
 
+        pJog->setNoChao(false);
+
         caracterOutOfBounds(pJog);
 
         for (int j = 0; j < qtdPlataformas; j++) 
@@ -120,13 +148,15 @@ void Gerenciador_Colisoes::executar()
             }
         }
 
+        tratarColisaoJogChao(pJog);
+
         for (int k = 0; k < qtdInimigos; k++) 
         {       
             Inimigo* pInim = (*pListaInimigos)[k];
 
-            caracterOutOfBounds(pInim);
-
             if (pInim == nullptr) continue;
+
+            caracterOutOfBounds(pInim);
 
             if(verificarColisao(pJog, pInim)) 
                 tratarColisoesJogsInimigos(pJog, pInim);
@@ -160,9 +190,10 @@ void Gerenciador_Colisoes::executar()
 
 const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
-    if ((pe1->getBounds()).intersects(pe2->getBounds()))
-        return true;
-    return false;
+    if (pe1 == nullptr || pe2 == nullptr)
+        return false;
+
+    return (pe1->getBounds()).intersects(pe2->getBounds());
 }
 
 void Gerenciador_Colisoes::tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim)
@@ -176,6 +207,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 }
 void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
+    if (pe == nullptr) return;
+
     sf::FloatRect playerPosition = pe->getBounds();
     
     if(playerPosition.top <= 0)

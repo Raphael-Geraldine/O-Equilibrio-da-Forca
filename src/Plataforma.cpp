@@ -48,55 +48,77 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
 
     platSkin.setPosition(x,y);
 }
-TrabalhoJogo::Entidades::Obstaculos::Plataforma::~Plataforma()
+Plataforma::~Plataforma()
 {
-    delete(platSkin.getTexture());
+    // TIRAR SEG FAULT: delete(platSkin.getTexture());
 }
-void TrabalhoJogo::Entidades::Obstaculos::Plataforma::executar()
+void Plataforma::executar()
 {}
-void TrabalhoJogo::Entidades::Obstaculos::Plataforma::salvar()
+void Plataforma::salvar()
 {}
-void TrabalhoJogo::Entidades::Obstaculos::Plataforma::mover()
+void Plataforma::mover()
 {}
-void TrabalhoJogo::Entidades::Obstaculos::Plataforma::obstaculizar(Jogador* pJog)
+void Plataforma::obstaculizar(Jogador* pJog)
 {
     if (pJog == nullptr)
+        return;    
+
+    sf::FloatRect jogBounds = pJog->getBounds();
+    sf::FloatRect obsBounds = this->getBounds();
+    sf::FloatRect intersecao;
+
+    // bool intersects (const Rect< T > &rectangle, Rect< T > &intersection) const
+    // Método sobrecarregado retorna o retângulo sobreposto no parâmetro de intersecao
+    // Método público sobrecarregado de sf::Rect<T>
+    if (!jogBounds.intersects(obsBounds, intersecao))
         return;
-    
-    sf::FloatRect playerBounds = pJog->getBounds();
-    sf::FloatRect platBounds = this->getBounds();
-    
-    const int RECUO_COLISAO = 2;
 
-    if (((pJog->getX() - playerBounds.width) > (x - platBounds.width)) 
-       && ((pJog->getX() + playerBounds.width) < (x + platBounds.width)))
+    cout << "COLIDIU COM PLATAFORMA | "
+     << "intersecao.w=" << intersecao.width
+     << " intersecao.h=" << intersecao.height
+     << " velY=" << pJog->getVelocidade().y
+     << endl;
+
+    // Colisão vertical:
+    if (intersecao.height < intersecao.width)
     {
-        bool upDown = false;
+        // Jogador acima do obstáculo:
+        if (jogBounds.top < obsBounds.top)
+        {
+            pJog->setY(pJog->getY() - intersecao.height);
+            pJog->setVelocidadeY(0.0f);
+            pJog->setNoChao(true);
+        }
 
-        if ((pJog->getY() - playerBounds.height) < (y - platBounds.height))
-            upDown=true;
-
-        if (upDown)
-            pJog->setY(pJog->getY() - RECUO_COLISAO);
-        
+        // Jogador bate a cabeça no obstáculo:
         else
-            pJog->setY(pJog->getY() + RECUO_COLISAO);        
+        {
+            pJog->setY(pJog->getY() + intersecao.height);
+            pJog->setVelocidadeY(0.0f);
+        }
     }
-   
-    else     
+
+    // Colisão horizontal:
+    else
     {
-        bool rightLeft = false;
-        
-        if ((pJog->getX() + playerBounds.width) > (x + platBounds.width / 2.0f))
-            rightLeft = true;
+        // Jogador à esquerda do obstáculo:
+        if (jogBounds.left < obsBounds.left)
+        {
+            pJog->setX(pJog->getX() - intersecao.width);
+            pJog->setVelocidadeX(0.0f);
+        }
 
-        if (rightLeft)
-            pJog->setX(pJog->getX() + RECUO_COLISAO);
-
-        else
-            pJog->setX(pJog->getX() - RECUO_COLISAO);
+        // Jogador à direita do obstáculo:
+        else 
+        {
+            pJog->setX(pJog->getX() + intersecao.width);
+            pJog->setVelocidadeX(0.0f);
+        }
     }
+
+    pJog->atualizarPosicaoSprite();  
 }
+
 sf::Sprite TrabalhoJogo::Entidades::Obstaculos::Plataforma::getDrawData()
 {   
     return platSkin;

@@ -17,7 +17,6 @@ namespace TrabalhoJogo
             {
                 private:
                     float altura;
-                    sf::Texture stormTexture;
                     sf::Sprite stormSkin;
 
                 public:

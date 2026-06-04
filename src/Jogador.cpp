@@ -46,7 +46,7 @@ Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 
 Jogador::~Jogador()
 {
-    delete(playerSkin.getTexture());
+    // TIRAR SEG: delete(playerSkin.getTexture());
 }
 sf::Sprite Jogador::getDrawData()
 {
@@ -56,8 +56,6 @@ sf::Sprite Jogador::getDrawData()
 void Jogador::executar()
 {
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
-
-    noChao = false;
 
     velocidade.x = 0.0f;
     
@@ -87,16 +85,7 @@ void Jogador::mover()
     x += velocidade.x * dt;
     y += velocidade.y * dt;
 
-    const float CHAO_TESTE = 200.0f;
-
-    if (y > CHAO_TESTE)
-    {
-        y = CHAO_TESTE;
-        velocidade.y = 0.0f;
-        noChao = true;
-    }
-
-    playerSkin.setPosition(x,y);
+    atualizarPosicaoSprite();
     /*
     gravity();
 
@@ -133,6 +122,11 @@ void Jogador::sofrerAtaque(int dano)
     cout<<num_vidas<<endl;
 }
 
+void Jogador::atualizarPosicaoSprite() 
+{
+    //void sf::Transformable::setPosition(const Vector2f &position)	
+    playerSkin.setPosition(x,y);
+}
 /*
 void Jogador::colidirObstaculo(Obstaculo* pOb)
 {

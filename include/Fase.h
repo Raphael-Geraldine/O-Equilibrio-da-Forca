@@ -36,11 +36,12 @@ namespace TrabalhoJogo
                 const int minPlat;
                 const int maxPlat;
                 
-                sf::Texture texturaFundo; 
-                sf::Sprite fundo;
                 sf::RectangleShape ground;
 
-            protected:
+                void inicializar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
+                     Entidades::Personagens::Jogador* pJ2 = nullptr);
+
+            private:
                 void criarInimigosFaceis();
                 void criarPlataformas(); //Obstáculo fácil
                 virtual void criarInimigos() = 0;
@@ -53,15 +54,15 @@ namespace TrabalhoJogo
 
                 ~Fase();
 
-                void incluirJogador(Jogador* pJ);
-                void incluirInimigo(Inimigo* pI);
+                virtual void incluirJogador(Jogador* pJ) = 0;
+                virtual void incluirInimigo(Inimigo* pI) = 0;
 
-                void incluirEntidade (Entidade* pE);
+                virtual void incluirEntidade (Entidade* pE) = 0;
                 Listas::ListaEntidades* getListaEntidades();
 
                 virtual void executar();
 
-                sf::Sprite getFundo();
+                virtual sf::Sprite getFundo() = 0;
                 sf::RectangleShape getGround();
         };
     }

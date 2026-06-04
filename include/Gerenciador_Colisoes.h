@@ -23,13 +23,16 @@ namespace TrabalhoJogo
         class Gerenciador_Colisoes
         {
             private:
+                
                 //ListaEntidades* pListaEntidades;
+                sf::RectangleShape* pGround;
                 Listas::Lista<Entidades::Personagens::Jogador>* pListaJogadores;
                 Listas::Lista<Entidades::Obstaculos::Plataforma>* pListaPlataformas;
                 Listas::Lista<Entidades::Personagens::Inimigo>* pListaInimigos;
                 //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
 
             private:
+                void tratarColisaoJogChao(Jogador* pJog);
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
                 void tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pPlat);
                 void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
@@ -41,7 +44,8 @@ namespace TrabalhoJogo
             public:
                 Gerenciador_Colisoes(Listas::Lista<Entidades::Personagens::Jogador>* pLJ = nullptr,
                                      Listas::Lista<Entidades::Obstaculos::Plataforma>* pLP = nullptr,
-                                     Listas::Lista<Entidades::Personagens::Inimigo>* pLI = nullptr);
+                                     Listas::Lista<Entidades::Personagens::Inimigo>* pLI = nullptr,
+                                     sf::RectangleShape* pG = nullptr);
                 
                  ~Gerenciador_Colisoes();
                 //void incluirInimigo(Inimigo* pI);

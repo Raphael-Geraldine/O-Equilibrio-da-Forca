@@ -1,5 +1,3 @@
-#define MUSTAFARPNG "../assets/images/Mustafar.png"
-
 #include "../include/Entidade.h"
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
@@ -38,15 +36,6 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     pPlat(nullptr) // Mudar depois eventualmente
 {
     gC = new Gerenciador_Colisoes(&listaJogadores, &listaPlataformas, &listaInimigos);
-    if (pJ1 != nullptr)
-        incluirEntidade(pJ1);
-
-    if (pJ2 != nullptr)
-        incluirEntidade(pJ2);
-
-    criarInimigosFaceis();
-    
-    criarCenario(); //as plataformas são criadas a partir daqui
 }
 
 Fase::~Fase()
@@ -63,9 +52,6 @@ Fase::~Fase()
         pPlat = nullptr;
     }
 
-    //fixing memory leaks
-    delete(fundo.getTexture());
-
     if (listaEntidades.getTamanho() != 0)
         listaEntidades.limpar();
 
@@ -73,40 +59,16 @@ Fase::~Fase()
         listaInimigos.limpar();
 }
 
-void Fase::incluirJogador(Jogador* pJ)
+void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
 {
-    if (pJ == nullptr)
-    {
-        cerr << "Erro: tentativa de incluir jogador nulo na fase." << endl;
-        return;
-    }
+    if (pJ1 != nullptr)
+        incluirEntidade(pJ1);
 
-    if (listaJogadores.getTamanho() >= 2)
-    {
-        cerr << "Erro: a fase suporta no maximo 2 jogadores." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(pJ);
-    listaJogadores.incluir(pJ);
-}
-
-void Fase::incluirInimigo(Inimigo* pI)
-{
-    if (pI == nullptr)
-    {
-        cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
-        return;
-    }
-
-    if (listaInimigos.getTamanho() >= 45)
-    {
-        cerr << "Erro: a fase suporta no maximo 45 inimigos." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(static_cast<Entidade*>(pI));
-    listaInimigos.incluir(pI);
+    if (pJ2 != nullptr)
+        incluirEntidade(pJ2);
+    
+    criarInimigosFaceis();    
+    criarCenario(); //as plataformas são criadas a partir daqui
 }
 
 void Fase::criarCenario()
@@ -114,65 +76,8 @@ void Fase::criarCenario()
     ground.setSize(sf::Vector2f(1280,15));
     ground.setFillColor(sf::Color::Green);
     ground.setPosition(0, 710);
-    
-    if (nFase == 0)
-    {
-        sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(MUSTAFARPNG);
-        
-        if (pTexturaFundo == 0)
-            cerr << "Erro de carregamento do Plano de Fundo de Mustafar" << endl;
-
-        else
-            fundo.setTexture(*pTexturaFundo); 
-    }
-    
-    else
-    {
-        cout << "nao existe ainda"<<endl;
-    }
 
     criarPlataformas();
-}
-
-void Fase::incluirEntidade(Entidade* pE) 
-{
-    if (pE == nullptr)
-    {
-        std::cerr << "Erro: tentativa de incluir entidade nula na fase." << std::endl;
-        return;
-    }
-
-    // Inspiração no menu do Sistema Acadêmico, visto em sala,
-    // durante aula do Prof. Dr. Jean Simão.
-    switch (pE->getID())
-    {
-        // Depois restringir ao usar inimigos e afins.
-        case jogador:
-        {
-            incluirJogador(static_cast<Jogador*>(pE));
-            break;
-        }
-
-        case inimigo:
-        {
-            incluirInimigo(static_cast<Inimigo*>(pE));
-            break;
-        }
-
-        case obstaculo:
-        {
-            Plataforma* pPlat = static_cast<Plataforma*>(pE);
-            listaEntidades.incluir(pPlat);
-            listaPlataformas.incluir(pPlat);
-            break;
-        }
-
-        default:
-        {
-            listaEntidades.incluir(pE);
-            break;
-        }
-    }
 }
 
 ListaEntidades* Fase::getListaEntidades() 
@@ -243,16 +148,6 @@ void Fase::criarPlataformas()
         else   
             incluirEntidade(static_cast<Obstaculo*>(pPlat));
     }
-}
-
-sf::Sprite Fase::getFundo()
-{
-    //listaEntidades.executar();
-    //bool g = gC->executar();
-    //Em jogador por or:
-    // if (g)
-    //    pJog->gravity();
-    return fundo;
 }
 
 sf::RectangleShape Fase::getGround()

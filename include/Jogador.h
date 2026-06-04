@@ -29,6 +29,8 @@ namespace TrabalhoJogo
                     void executar();
                     void salvar();
                     void mover();
+
+                    void atualizarPosicaoSprite();
             };
         }
     }

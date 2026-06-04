@@ -16,9 +16,9 @@ using namespace Gerenciadores;
 #include <SFML/Graphics.hpp>
 
 Menu::Menu(): 
-    //pGGraf(getInstance()), 
+    pGGraf(nullptr),
     qntdJogadores(1),
-     pJogo()
+    pJogo()
 {
     fases.clear();
     fases.push_back("Mustafar");
@@ -33,7 +33,9 @@ Menu::~Menu()
     fases.clear();
     faseEscolhida=fases.end();
     qntdJogadores=-1;
-    delete(pGGraf);
+
+    // O Menu não deve deletá-lo, pois Gerenciador_Gráfico é singleton
+    pGGraf = nullptr; 
 }
 
 void Menu::executar()
