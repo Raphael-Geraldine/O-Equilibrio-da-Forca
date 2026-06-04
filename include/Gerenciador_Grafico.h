@@ -101,10 +101,13 @@ namespace TrabalhoJogo
 
                 void window(Menu* pM, Fase* pF);
                 
-                sf::Texture* carregarTextura (const char* path);
+                static float getDeltaTempo();
                 void atualizarTempoPercorrido();
-                void loadMenu(Menu* pM);
+                
+                sf::Texture* carregarTextura (const char* path);
 
+
+                void loadMenu(Menu* pM);
                 void menuTextPlacement();
                 void desenharTextoMenu (sf::RenderWindow & janela);
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela);

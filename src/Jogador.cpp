@@ -55,7 +55,10 @@ sf::Sprite Jogador::getDrawData()
 }
 void Jogador::executar()
 {
+    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
+
     noChao = false;
+
     velocidade.x = 0.0f;
     
     // Para a esquerda.

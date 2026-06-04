@@ -59,6 +59,11 @@ Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
     return pGrafico;
 }
 
+float Gerenciador_Grafico::getDeltaTempo() 
+{
+    return dt;
+}
+
 void Gerenciador_Grafico::atualizarTempoPercorrido() 
 {
     dt = relogio.getElapsedTime().asSeconds();
@@ -210,6 +215,8 @@ void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
 
     while (janela.isOpen())
     {
+        atualizarTempoPercorrido();
+
         sf::Event event;
         while (janela.pollEvent(event))
         {
@@ -220,7 +227,9 @@ void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
         janela.clear(sf::Color::Black);
         
         if (optionSelected == -1)
+        {
             desenharMenu (pM,janela);
+        }
         if (optionSelected == 0)
         {
             desenharFase(pF,janela);

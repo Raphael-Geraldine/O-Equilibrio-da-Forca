@@ -51,7 +51,18 @@ int Personagem::getVida()
 void Personagem::setDeltaTempo (const float tempo) 
 {
     if (tempo > 0.0f) 
-        dt = tempo;
+    {
+        // Parece ser um limite razoável caso o jogo trave,
+        // para o jogador não teleportar (no máximo desloca
+        // 900 (v_max) * 0,033 px, que corespondem a 1/0.033 
+        // = 30 FPS, um atraso de frame de 33 ms). Física 
+        // nunca simula frame pior que 30 FPS (tolerância).
+        if (tempo > 0.033f)
+            dt = 0.033f;
+        
+        else
+            dt = tempo;
+    }
 }
 
 void Personagem::setVelocidade (const sf::Vector2f vel) 
