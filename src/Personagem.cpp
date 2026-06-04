@@ -4,7 +4,17 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
-Personagem::Personagem(ID identificador): Entidade(identificador), num_vidas(0)
+const float Personagem::PIXELS_POR_METRO = 50.0f;
+const float Personagem::GRAVIDADE_REAL = 9.8f;
+const float Personagem::GRAVIDADE = GRAVIDADE_REAL * PIXELS_POR_METRO;
+const float Personagem::VELOCIDADE_MAX_QUEDA = 900.0f;
+
+Personagem::Personagem(ID identificador): 
+    Entidade(identificador), 
+    num_vidas(0),
+    velocidade(0.0f, 0.0f),
+    noChao(false),
+    dt(1.0f/ 60.0f)
 {
 
 }
@@ -32,12 +42,56 @@ void Personagem::salvarDataBuffer()
     
 }
 
-void Personagem::gravity()
-{
-    y+=1;
-}
-
 int Personagem::getVida()
 {
     return num_vidas;
+}
+
+void Personagem::setDeltaTempo (const float tempo) 
+{
+    if (tempo > 0.0f) 
+        dt = tempo;
+}
+
+void Personagem::setVelocidade (const sf::Vector2f vel) 
+{
+    velocidade = vel;
+}
+
+void Personagem::setVelocidadeX (const float vx) 
+{
+    velocidade.x = vx;
+}
+
+void Personagem::setVelocidadeY (const float vy) 
+{
+    velocidade.y = vy;
+}
+
+sf::Vector2f Personagem::getVelocidade () const
+{
+    return velocidade;
+}
+
+void Personagem::setNoChao(const bool emChao)
+{
+    noChao = emChao;
+}
+
+bool Personagem::getNoChao() const 
+{
+    return noChao;
+}
+
+void Personagem::gravity()
+{
+    if (!noChao)
+    {
+        // v = v0 + gt;
+        // y > 0 para baixo.
+        velocidade.y += GRAVIDADE * dt;
+
+        if (velocidade.y > VELOCIDADE_MAX_QUEDA) 
+            velocidade.y = VELOCIDADE_MAX_QUEDA;
+    }
 }
