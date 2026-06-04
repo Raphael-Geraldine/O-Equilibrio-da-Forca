@@ -1,144 +1,38 @@
 #define MUSTAFARPNG "../assets/images/Mustafar.png"
 
-#include "../include/Entidade.h"
-#include "../include/Fase.h"
-#include "../include/Jogador.h"
-#include "../include/Inimigo.h"
+#include "../include/Lista.h"
+#include "../include/ListaEntidades.h"
 #include "../include/K_2SO.h"
-#include "../include/Gerenciador_Grafico.h"
-#include "../include/Mustafar.h"
-using namespace TrabalhoJogo;
-using namespace Listas;
-using namespace Entidades;
-using namespace Obstaculos;
-using namespace Fases;
-using namespace Gerenciadores;
+#include "../include/Inimigo.h"
+#include "../include/Gerenciador_Colisoes.h"
+#include "../include/Ente.h"
 
-Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2): 
-    Fase(pJ1, pJ2),
-    minInimigosMedios(3),
-    maxInimigosMedios(7)
-{   
-    sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(MUSTAFARPNG);
-        
-    if (pTexturaFundo == 0)
-        cerr << "Erro de carregamento do Plano de Fundo de Mustafar" << endl;
+#include <SFML/Graphics.hpp>
 
-    else
-        fundo.setTexture(*pTexturaFundo); 
-    
-    inicializar(pJ1,pJ2);
-    criarObstaculos();
-    criarInimigos();
-}
-
-Mustafar::~Mustafar()
+namespace TrabalhoJogo
 {
-    //fixing memory leaks
-    //delete(fundo.getTexture());
-}
-
-void Mustafar::criarInimigos()
-{
-    int qntd = rand()%(maxInimigosMedios-minInimigosMedios+1) + minInimigosMedios;
-    for (int i = 0; i < qntd; i++)
+    namespace Fases
     {
-        K_2SO* pK2 = new K_2SO();
-        if (pK2 == nullptr)
-            cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
-        else
-            incluirEntidade(static_cast<Inimigo*>(pK2)); 
-    }
-}
-
-void Mustafar::criarObstaculos()
-{
-    
-}
-
-void Mustafar::incluirEntidade(Entidade* pE) 
-{
-    if (pE == nullptr)
-    {
-        std::cerr << "Erro: tentativa de incluir entidade nula na fase." << std::endl;
-        return;
-    }
-
-    // Inspiração no menu do Sistema Acadêmico, visto em sala,
-    // durante aula do Prof. Dr. Jean Simão.
-    switch (pE->getID())
-    {
-        // Depois restringir ao usar inimigos e afins.
-        case jogador:
+        class Mustafar : public Fase
         {
-            incluirJogador(static_cast<Jogador*>(pE));
-            break;
-        }
+            private:
+                const int minInimigosMedios;
+                const int maxInimigosMedios;
+                sf::Texture texturaFundo; 
+                sf::Sprite fundo;
 
-        case inimigo:
-        {
-            incluirInimigo(static_cast<Inimigo*>(pE));
-            break;
-        }
+            private:
+                void incluirEntidade(Entidade* pE);
+                void incluirJogador(Jogador* pJ);
+                void incluirInimigo(Inimigo* pI);
+                void criarInimigos(); //Médios
+                void criarObstaculos(); //Médios
 
-        case obstaculo:
-        {
-            Plataforma* pPlat = static_cast<Plataforma*>(pE);
-            listaEntidades.incluir(pPlat);
-            listaPlataformas.incluir(pPlat);
-            break;
-        }
-
-        default:
-        {
-            listaEntidades.incluir(pE);
-            break;
-        }
+            public:
+                Mustafar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
+                         Entidades::Personagens::Jogador* pJ2 = nullptr);
+                ~Mustafar();
+                sf::Sprite getFundo();
+        };
     }
-}
-
-void Mustafar::incluirJogador(Jogador* pJ)
-{
-    if (pJ == nullptr)
-    {
-        cerr << "Erro: tentativa de incluir jogador nulo na fase." << endl;
-        return;
-    }
-
-    if (listaJogadores.getTamanho() >= 2)
-    {
-        cerr << "Erro: a fase suporta no maximo 2 jogadores." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(pJ);
-    listaJogadores.incluir(pJ);
-}
-
-void Mustafar::incluirInimigo(Inimigo* pI)
-{
-    if (pI == nullptr)
-    {
-        cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
-        return;
-    }
-
-    if (listaInimigos.getTamanho() >= 45)
-    {
-        cerr << "Erro: a fase suporta no maximo 45 inimigos." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(static_cast<Entidade*>(pI));
-    listaInimigos.incluir(pI);
-}
-
-sf::Sprite Mustafar::getFundo()
-{
-    //listaEntidades.executar();
-    //bool g = gC->executar();
-    //Em jogador por or:
-    // if (g)
-    //    pJog->gravity();
-    return fundo;
 }
