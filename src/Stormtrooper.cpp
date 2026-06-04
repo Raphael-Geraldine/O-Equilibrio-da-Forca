@@ -28,7 +28,7 @@ Stormtrooper::Stormtrooper():
     x = (rand()%1100)+100;
     y = 200;
 
-     sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
+    sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
 
     if (pTexturaStormtrooper == nullptr)
     {
@@ -48,7 +48,6 @@ Stormtrooper::Stormtrooper():
 Stormtrooper::~Stormtrooper()
 {
     num_vidas=-1;
-    delete(stormSkin.getTexture());
 }
 void Stormtrooper::executar()
 {
