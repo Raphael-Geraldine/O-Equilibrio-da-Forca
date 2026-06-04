@@ -14,7 +14,8 @@ Personagem::Personagem(ID identificador):
     num_vidas(0),
     velocidade(0.0f, 0.0f),
     noChao(false),
-    dt(1.0f/ 60.0f)
+    // 1 segundo / 60 frames = 0,16666... segundos por frame
+    dt(1.0f/ 60.0f) 
 {
 
 }

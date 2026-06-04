@@ -55,7 +55,21 @@ sf::Sprite Jogador::getDrawData()
 }
 void Jogador::executar()
 {
+    noChao = false;
+    velocidade.x = 0.0f;
+    
+    // Para a esquerda.
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        velocidade.x = -220.0f;
+
+    // Para a direita.
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        velocidade.x = 220.0f;
+
+    gravity();
+    
     mover();
+
     if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::F)))
         clockAtaque.restart();
 }
@@ -65,7 +79,24 @@ void Jogador::salvar()
 }
 void Jogador::mover()
 {
+    // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
+    // 220 px/s * 0,0167 s/frame = 3,67 pixels por frame
+    x += velocidade.x * dt;
+    y += velocidade.y * dt;
+
+    const float CHAO_TESTE = 200.0f;
+
+    if (y > CHAO_TESTE)
+    {
+        y = CHAO_TESTE;
+        velocidade.y = 0.0f;
+        noChao = true;
+    }
+
+    playerSkin.setPosition(x,y);
+    /*
     gravity();
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         y-=2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -74,8 +105,8 @@ void Jogador::mover()
         x+=2;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         x-=2;
+    */
 
-    playerSkin.setPosition(x,y);
 }
 
 sf::FloatRect Jogador::getBounds() const
