@@ -16,6 +16,9 @@ Gerenciador_Grafico* Gerenciador_Grafico::pGrafico = nullptr;
 
 Gerenciador_Grafico::Gerenciador_Grafico()
 {
+    janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
+    janela.setFramerateLimit(120);
+
     textOptions.clear();
     menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
 }
@@ -150,7 +153,7 @@ void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
     }
 }
 
-void Gerenciador_Grafico::loadMenu (Menu* pM)
+void Gerenciador_Grafico::loadMenu(Menu* pM)
 {
     fundo.setTexture(*carregarTextura(MENUINICIALPNG));
     
@@ -219,10 +222,6 @@ void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
 
 void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
 {
-    // Usei ao invés de duplicar "sf::RenderWindow janela;"
-    janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
-    janela.setFramerateLimit (120);
-
     loadMenu(pM);
 
     while (janela.isOpen())

@@ -29,7 +29,6 @@ namespace TrabalhoJogo
             
             protected:
                 Entidade(ID identificador = empty);
-                virtual ~Entidade();
                 void salvarDataBuffer();
 
             public:
@@ -40,7 +39,8 @@ namespace TrabalhoJogo
                 int getX() const;
                 void setY(int j);
                 int getY() const;
-                
+
+                virtual ~Entidade();
                 virtual void executar() = 0;
                 virtual void salvar() = 0;
                 virtual void mover() = 0; //lembrar que apenas personagens movem!

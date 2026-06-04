@@ -52,11 +52,27 @@ Fase::~Fase()
         pPlat = nullptr;
     }
 
-    if (listaEntidades.getTamanho() != 0)
-        listaEntidades.limpar();
-
     if (listaInimigos.getTamanho() != 0)
         listaInimigos.limpar();
+
+
+    int tamanhoEnt = listaEntidades.getTamanho();
+    
+    for (int i = 0; i < tamanhoEnt; i++) 
+    {
+        Entidade* pEnt = listaEntidades[i];
+        
+        if (pEnt != nullptr) 
+        {
+            Jogador* testPlayer = dynamic_cast<Jogador*>(pEnt);
+            
+            if (testPlayer == nullptr) 
+            {
+                delete pEnt; 
+            }
+        }
+    }
+    listaEntidades.limpar();
 }
 
 void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)

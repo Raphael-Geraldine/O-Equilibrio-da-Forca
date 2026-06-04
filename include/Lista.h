@@ -39,27 +39,27 @@ namespace TrabalhoJogo
 
                 };
 
-                private:
-                    Elemento<TL>* pPrimeiro;
-                    Elemento<TL>* pUltimo;
-                    size_t tamanhoLista;
+            private:
+                Elemento<TL>* pPrimeiro;
+                Elemento<TL>* pUltimo;
+                size_t tamanhoLista;
 
-        public:
-            Lista();
-            ~Lista();
-            
-            size_t getTamanho() const;
-            
-            // Inspiração na implementação do Burda, 
-            // vide vídeo 8 da playlist Tutorial Jogo SFML.
-            TL* operator[](int indice);
+            public:
+                Lista();
+                ~Lista();
+                
+                size_t getTamanho() const;
+                
+                // Inspiração na implementação do Burda, 
+                // vide vídeo 8 da playlist Tutorial Jogo SFML.
+                TL* operator[](int indice);
 
-            void remover(int id);
-            void remover(TL* pinfo);
+                void remover(int id);
+                void remover(TL* pinfo);
 
-            void incluir(TL* p);
-            void percorrer();
-            void limpar();  
+                void incluir(TL* p);
+                void percorrer();
+                void limpar();  
         };
 
         // Implementação do template Elemento (TE) //
