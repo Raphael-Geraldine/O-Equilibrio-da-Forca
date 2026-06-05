@@ -90,12 +90,28 @@ void Gerenciador_Colisoes::tratarColisaoJogChao(Jogador* pJog)
     if (!jogBounds.intersects(chaoBounds, intersecao))
         return;
 
+    const float EPSILON = 0.5f;
+    const float COEF_REST_PISO = 0.07f;
+
+    sf::Vector2f vel = pJog->getVelocidade();
+
     // Só faz sentido o caso do jogador vindo de cima.
-    if (jogBounds.top < chaoBounds.top)
+    if (vel.y >= 0.0f && jogBounds.top < chaoBounds.top)
     {
-        pJog->setY(pJog->getY() - intersecao.height);
-        pJog->setVelocidadeY(0.0f);
-        pJog->setNoChao(true);
+        pJog->setY(pJog->getY() - intersecao.height - EPSILON);
+        float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
+
+        // Evita ficar quicando "ad aeternum" no chão.
+        if (novaVelY > -20.0f)
+            novaVelY = 0.0f;
+
+        pJog->setVelocidadeY(novaVelY);
+
+        if (novaVelY < 0.0f)
+            pJog->setNoChao(false);
+        else
+            pJog->setNoChao(true);
+            
         pJog->atualizarPosicaoSprite();
     }
 }

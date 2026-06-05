@@ -88,6 +88,7 @@ void Plataforma::obstaculizar(Jogador* pJog)
     // Coeficiente de restituição (de 0.0f a 1.0f):
     const float COEF_REST_CABECA = 0.10f; 
     const float COEF_REST_PISO = 0.05f;
+    const float COEF_REST_LATERAL = 0.05f;
 
     sf::Vector2f vel = pJog->getVelocidade();
 
@@ -99,7 +100,19 @@ void Plataforma::obstaculizar(Jogador* pJog)
         {
             pJog->setY(pJog->getY() - intersecao.height - EPSILON);
             float novaVelY = (-1.0f) * vel.y * COEF_REST_CABECA;
+
+            // Evita ficar quicando "ad aeternum" no chão.
+            if (novaVelY > -20.0f)
+                novaVelY = 0.0f;
+
             pJog->setVelocidadeY(novaVelY);
+                    
+            if (novaVelY < 0.0f)
+                pJog->setNoChao(false);
+
+            else
+                pJog->setNoChao(true);
+
             pJog->setNoChao(true);
         }
 
@@ -117,17 +130,19 @@ void Plataforma::obstaculizar(Jogador* pJog)
     {
         // Jogador à esquerda do obstáculo:
         if (jogBounds.left < obsBounds.left)
-        {
-            pJog->setX(pJog->getX() - intersecao.width);
-            pJog->setVelocidadeX(0.0f);
-        }
+            pJog->setX(pJog->getX() - intersecao.width - EPSILON);
 
         // Jogador à direita do obstáculo:
-        else 
-        {
-            pJog->setX(pJog->getX() + intersecao.width);
-            pJog->setVelocidadeX(0.0f);
-        }
+        else
+            pJog->setX(pJog->getX() + intersecao.width + EPSILON);
+        
+        float novaVelX = (-1.0f) * vel.x * COEF_REST_LATERAL;
+
+        // Recuo apenas se tiver impacto suficiente para tal.
+        if (novaVelX < 20.0f && novaVelX > -20.0f)
+            novaVelX = 0.0f;
+
+        pJog->setVelocidadeX(novaVelX);
     }
 
     pJog->atualizarPosicaoSprite();  
