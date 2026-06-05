@@ -25,6 +25,7 @@ namespace TrabalhoJogo
                     static const float GRAVIDADE_REAL;
                     static const float GRAVIDADE;
                     static const float VELOCIDADE_MAX_QUEDA;
+                    static const float VELOCIDADE_PULO;
 
                 public:
                     Personagem(ID identificador = empty);
@@ -39,9 +40,9 @@ namespace TrabalhoJogo
                     void setNoChao(const bool emChao);
                     bool getNoChao() const;
 
-
                     void salvarDataBuffer();
                     void gravity();
+                    void pular();
                     int getVida();
                     virtual sf::Sprite getDrawData() = 0;
                     virtual sf::FloatRect getBounds() const = 0;

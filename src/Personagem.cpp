@@ -8,6 +8,7 @@ const float Personagem::PIXELS_POR_METRO = 50.0f;
 const float Personagem::GRAVIDADE_REAL = 9.8f;
 const float Personagem::GRAVIDADE = GRAVIDADE_REAL * PIXELS_POR_METRO;
 const float Personagem::VELOCIDADE_MAX_QUEDA = 900.0f;
+const float Personagem::VELOCIDADE_PULO = -420.0f;
 
 Personagem::Personagem(ID identificador): 
     Entidade(identificador), 
@@ -105,5 +106,14 @@ void Personagem::gravity()
 
         if (velocidade.y > VELOCIDADE_MAX_QUEDA) 
             velocidade.y = VELOCIDADE_MAX_QUEDA;
+    }
+}
+
+void Personagem::pular() 
+{
+    if (noChao) 
+    {
+        velocidade.y = VELOCIDADE_PULO;
+        noChao = false;
     }
 }

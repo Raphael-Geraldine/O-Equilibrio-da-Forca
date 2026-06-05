@@ -61,11 +61,15 @@ void Jogador::executar()
     
     // Para a esquerda.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        velocidade.x = -220.0f;
+        velocidade.x = -500.0f;
 
     // Para a direita.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        velocidade.x = 220.0f;
+        velocidade.x = 500.0f;
+
+    // Para pular.
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        pular();
 
     gravity();
     

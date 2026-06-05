@@ -73,28 +73,42 @@ void Plataforma::obstaculizar(Jogador* pJog)
     if (!jogBounds.intersects(obsBounds, intersecao))
         return;
 
+    // Depois comentar:
     cout << "COLIDIU COM PLATAFORMA | "
      << "intersecao.w=" << intersecao.width
      << " intersecao.h=" << intersecao.height
      << " velY=" << pJog->getVelocidade().y
      << endl;
 
+    // Para evitar que o jogador fique exatamente encostado ou
+    // levemente sobreposto pós correçao de colisão 
+    // (o que se mostrou potencial fonte de bugs).
+    const float EPSILON = 0.5f;
+
+    // Coeficiente de restituição (de 0.0f a 1.0f):
+    const float COEF_REST_CABECA = 0.10f; 
+    const float COEF_REST_PISO = 0.05f;
+
+    sf::Vector2f vel = pJog->getVelocidade();
+
     // Colisão vertical:
     if (intersecao.height < intersecao.width)
     {
         // Jogador acima do obstáculo:
-        if (jogBounds.top < obsBounds.top)
+        if (vel.y >= 0.0f && jogBounds.top < obsBounds.top)
         {
-            pJog->setY(pJog->getY() - intersecao.height);
-            pJog->setVelocidadeY(0.0f);
+            pJog->setY(pJog->getY() - intersecao.height - EPSILON);
+            float novaVelY = (-1.0f) * vel.y * COEF_REST_CABECA;
+            pJog->setVelocidadeY(novaVelY);
             pJog->setNoChao(true);
         }
 
         // Jogador bate a cabeça no obstáculo:
-        else
+        else if (vel.y < 0.0f)
         {
-            pJog->setY(pJog->getY() + intersecao.height);
-            pJog->setVelocidadeY(0.0f);
+            pJog->setY(pJog->getY() + intersecao.height + EPSILON);
+            float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
+            pJog->setVelocidadeY(novaVelY);
         }
     }
 
