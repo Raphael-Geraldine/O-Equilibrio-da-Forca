@@ -22,6 +22,7 @@ namespace TrabalhoJogo
                     sf::Texture platTexture;
                     sf::Sprite platSkin;
                     sf::IntRect platSize;
+                    void fazEscorregar(Jogador* pJog, const sf::FloatRect& jogBounds, const sf::FloatRect& obsBounds); 
 
                 public:
                     Plataforma(float l=0.0f);

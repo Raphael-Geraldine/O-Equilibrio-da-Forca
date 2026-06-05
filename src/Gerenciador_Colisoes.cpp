@@ -94,9 +94,21 @@ void Gerenciador_Colisoes::tratarColisaoJogChao(Jogador* pJog)
     const float COEF_REST_PISO = 0.07f;
 
     sf::Vector2f vel = pJog->getVelocidade();
+    sf::Vector2f posAnt = pJog->getPosicaoAnterior();
+
+    // Como a origem do jogador está no centro:
+    sf::FloatRect boundsAnterior(
+        posAnt.x - jogBounds.width / 2.0f,
+        posAnt.y - jogBounds.height / 2.0f,
+        jogBounds.width,
+        jogBounds.height
+    );
+
+    float anteriorBaixo = boundsAnterior.top + boundsAnterior.height;
+    float chaoCima = chaoBounds.top;
 
     // Só faz sentido o caso do jogador vindo de cima.
-    if (vel.y >= 0.0f && jogBounds.top < chaoBounds.top)
+    if (anteriorBaixo <= chaoCima)
     {
         pJog->setY(pJog->getY() - intersecao.height - EPSILON);
         float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
@@ -111,7 +123,7 @@ void Gerenciador_Colisoes::tratarColisaoJogChao(Jogador* pJog)
             pJog->setNoChao(false);
         else
             pJog->setNoChao(true);
-            
+
         pJog->atualizarPosicaoSprite();
     }
 }

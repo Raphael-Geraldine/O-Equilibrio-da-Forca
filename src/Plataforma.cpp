@@ -105,6 +105,15 @@ void Plataforma::obstaculizar(Jogador* pJog)
     // Veio de cima, antes estava acima da plataforma.
     if (anteriorBaixo <= obsCima)
     {
+        const float apoio_minimo = 0.65f;
+        float porcentagemApoio = intersecao.width / jogBounds.width;
+
+        if (porcentagemApoio < apoio_minimo)
+        {
+            fazEscorregar(pJog, jogBounds, obsBounds);
+            return;
+        }
+
         pJog->setY(pJog->getY() - intersecao.height - EPSILON);
         float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
 
@@ -163,6 +172,33 @@ void Plataforma::obstaculizar(Jogador* pJog)
     }
 
     pJog->atualizarPosicaoSprite();  
+}
+
+void Plataforma::fazEscorregar(Jogador* pJog, const sf::FloatRect& jogBounds, const sf::FloatRect& obsBounds) 
+{
+    if (pJog == nullptr)
+        return;
+
+    const float desloc_escorrega = 6.0f;
+    const float veloc_escorrega = 20.0f;
+
+    float centroJogador = jogBounds.left + jogBounds.width / 2.0f;
+    float centroPlataforma = obsBounds.left + obsBounds.width / 2.0f;
+
+    float direcao = 1.0f;
+
+    if (centroJogador < centroPlataforma)
+        direcao = -1.0f;
+
+    pJog->setNoChao(false);
+
+    // Empurra o jogador para fora da plataforma.
+    pJog->setX(pJog->getX() + direcao * desloc_escorrega);
+
+    // Dá uma velocidade lateral pequena para reforçar a sensação de escorregão.
+    pJog->setVelocidadeX(direcao * veloc_escorrega);
+
+    pJog->atualizarPosicaoSprite();
 }
 
 sf::Sprite TrabalhoJogo::Entidades::Obstaculos::Plataforma::getDrawData()
