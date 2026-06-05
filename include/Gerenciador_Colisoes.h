@@ -23,7 +23,13 @@ namespace TrabalhoJogo
         class Gerenciador_Colisoes
         {
             private:
-                
+                static const float lim_esq;
+                static const float lim_dir;
+                static const float lim_cima;
+                static const float lim_baixo;
+                static const float epsilonJanela;
+                static const float coefRestTeto;
+
                 //ListaEntidades* pListaEntidades;
                 sf::RectangleShape* pGround;
                 Listas::Lista<Entidades::Personagens::Jogador>* pListaJogadores;

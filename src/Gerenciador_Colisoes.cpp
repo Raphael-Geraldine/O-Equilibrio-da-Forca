@@ -6,11 +6,18 @@ using namespace Personagens;
 using namespace Obstaculos;
 using namespace Gerenciadores;
 
-
 #include <iostream>
 using std::cout;
 using std::cerr;
 using std::endl;
+
+const float Gerenciador_Colisoes::lim_esq = 0.0f;
+const float Gerenciador_Colisoes::lim_dir = 1280.0f;
+const float Gerenciador_Colisoes::lim_cima = 0.0f;
+const float Gerenciador_Colisoes::lim_baixo = 720.0f;
+
+const float Gerenciador_Colisoes::epsilonJanela = 0.5f;
+const float Gerenciador_Colisoes::coefRestTeto = 0.15f;
 
 Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Obstaculo>* pLO, Lista<Inimigo>* pLI,  sf::RectangleShape* pG): 
     pListaJogadores(pLJ),
@@ -161,8 +168,6 @@ void Gerenciador_Colisoes::executar()
 
         pJog->setNoChao(false);
 
-        caracterOutOfBounds(pJog);
-
         for (int j = 0; j < qtdObstaculos; j++) 
         {       
             Obstaculo* pObs = (*pListaObstaculos)[j];
@@ -177,6 +182,8 @@ void Gerenciador_Colisoes::executar()
         }
 
         tratarColisaoJogChao(pJog);
+
+        caracterOutOfBounds(pJog);
 
         for (int k = 0; k < qtdInimigos; k++) 
         {       
@@ -235,26 +242,76 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 }
 void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
-    if (pe == nullptr) return;
+    if (pe == nullptr) 
+        return;
 
-    sf::FloatRect playerPosition = pe->getBounds();
+    sf::FloatRect bounds = pe->getBounds();
+    Jogador* pJog = dynamic_cast<Jogador*>(pe);
     
-    if(playerPosition.top <= 0)
-        pe->setY(pe->getY() + 2);
+    bool corrigiu = false;
 
-    if(playerPosition.top + playerPosition.height >= 710)
-        pe->setY(pe->getY() - 2);
+    // Saiu pela esquerda
+    if (bounds.left < lim_esq)
+    {
+        pe->setX(pe->getX() + (lim_esq - bounds.left));
+        corrigiu = true;
+    }
 
-    if(playerPosition.left <= 0)
-        pe->setX(pe->getX() + 2);
+    // Saiu pela direita
+    else if (bounds.left + bounds.width > lim_dir)
+    {
+        pe->setX(pe->getX() - ((bounds.left + bounds.width) - lim_dir));
+        corrigiu = true;
+    }
 
-    if(playerPosition.left + playerPosition.width >= 1280)
-        pe->setX(pe->getX() - 2);
-    
-    //if(playerPosition.top + playerPosition.height < 708)
-        //return true;
+    bounds = pe->getBounds();
 
-    //return false;
+    // Saiu por cima
+    if (bounds.top < lim_cima)
+    {
+        pe->setY(pe->getY() + (lim_cima - bounds.top));
+        corrigiu = true;
+
+        if (pJog != nullptr)
+        {
+            sf::Vector2f vel = pJog->getVelocidade();
+
+            if (vel.y < 0.0f)
+            {
+                float novaVelY = (-1.0f) * vel.y * coefRestTeto;
+
+                // Garante um pequeno recuo para baixo.
+                if (novaVelY < 60.0f)
+                    novaVelY = 60.0f;
+
+                pJog->setVelocidadeY(novaVelY);
+                pJog->setNoChao(false);
+            }
+        }
+    }
+
+    // Saiu por baixo
+    else if (bounds.top + bounds.height > lim_baixo)
+    {
+        pe->setY(pe->getY() - ((bounds.top + bounds.height) - lim_baixo));
+        corrigiu = true;
+    }
+
+    if (corrigiu && pJog != nullptr)
+    {
+        pJog->atualizarPosicaoSprite();
+
+        sf::Vector2f vel = pJog->getVelocidade();
+
+        if (pJog->getBounds().top <= lim_cima && vel.y < 0.0f)
+            pJog->setVelocidadeY(0.0f);
+
+        if (pJog->getBounds().left <= lim_esq && vel.x < 0.0f)
+            pJog->setVelocidadeX(0.0f);
+
+        if (pJog->getBounds().left + pJog->getBounds().width >= lim_dir && vel.x > 0.0f)
+            pJog->setVelocidadeX(0.0f);
+    }
 }
 
 /* void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)

@@ -15,6 +15,7 @@ namespace TrabalhoJogo
             {
                 protected:
                     bool danoso;
+                    bool aplicarGravidade;
 
                 public:
                     Obstaculo();

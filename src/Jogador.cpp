@@ -46,8 +46,8 @@ Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 
 Jogador::~Jogador()
 {
-    // TIRAR SEG: delete(playerSkin.getTexture());
 }
+
 sf::Sprite Jogador::getDrawData()
 {
 
@@ -82,6 +82,7 @@ void Jogador::salvar()
 {
     
 }
+
 void Jogador::mover()
 {
     // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
@@ -90,19 +91,6 @@ void Jogador::mover()
     y += velocidade.y * dt;
 
     atualizarPosicaoSprite();
-    /*
-    gravity();
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        y-=2;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        y+=2;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        x+=2;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        x-=2;
-    */
-
 }
 
 sf::FloatRect Jogador::getBounds() const

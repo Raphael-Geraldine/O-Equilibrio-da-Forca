@@ -17,6 +17,14 @@ using namespace Personagens;
 using namespace Obstaculos;
 using namespace Gerenciadores;
 
+const float Plataforma::epsilonColisao = 0.5f;
+const float Plataforma::coefRestCabeca = 0.10f;
+const float Plataforma::coefRestPiso = 0.05f;
+const float Plataforma::coefRestLateral = 0.05f;
+const float Plataforma::apoioMinimo = 0.5f;
+const float Plataforma::deslocamentoEscorrega = 2.0f;
+const float Plataforma::velocidadeEscorrega = 80.0f;
+
 short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={
     {250, 520}, {1030, 520}, {640, 400}, {100, 300}, {1180, 300}, {420, 180}, {860, 180},
@@ -28,6 +36,8 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
     largura(l), 
     platID(cont++)
 {
+    aplicarGravidade = false;
+
     danoso=false;
     
     platSkin.setScale(0.2,0.20);
@@ -70,27 +80,13 @@ void Plataforma::obstaculizar(Jogador* pJog)
 
     if (!jogBounds.intersects(obsBounds, intersecao))
         return;
-
-    // Para evitar que o jogador fique exatamente encostado ou
-    // levemente sobreposto pós correçao de colisão 
-    // (o que se mostrou potencial fonte de bugs).
-    const float EPSILON = 0.5f;
-
-    // Coeficiente de restituição (de 0.0f a 1.0f):
-    const float COEF_REST_CABECA = 0.10f; 
-    const float COEF_REST_PISO = 0.05f;
-    const float COEF_REST_LATERAL = 0.05f;
     
     sf::Vector2f vel = pJog->getVelocidade();
     sf::Vector2f posAnt = pJog->getPosicaoAnterior();
 
     // Tratar quinas, lembrando que sprite está com origem no centro.
-    sf::FloatRect boundsAnterior(
-        posAnt.x - jogBounds.width / 2.0f,
-        posAnt.y - jogBounds.height / 2.0f,
-        jogBounds.width,
-        jogBounds.height
-    );
+    sf::FloatRect boundsAnterior(posAnt.x - jogBounds.width / 2.0f,
+    posAnt.y - jogBounds.height / 2.0f, jogBounds.width, jogBounds.height);
 
     float anteriorBaixo = boundsAnterior.top + boundsAnterior.height;
     float anteriorCima = boundsAnterior.top;
@@ -102,20 +98,22 @@ void Plataforma::obstaculizar(Jogador* pJog)
     float obsEsquerda = obsBounds.left;
     float obsDireita = obsBounds.left + obsBounds.width;
 
+    bool colisaoResolvida = false;
+    bool colidiuLateral = false;
+
     // Veio de cima, antes estava acima da plataforma.
     if (anteriorBaixo <= obsCima)
     {
-        const float apoio_minimo = 0.65f;
         float porcentagemApoio = intersecao.width / jogBounds.width;
 
-        if (porcentagemApoio < apoio_minimo)
+        if (porcentagemApoio < apoioMinimo)
         {
             fazEscorregar(pJog, jogBounds, obsBounds);
             return;
         }
 
-        pJog->setY(pJog->getY() - intersecao.height - EPSILON);
-        float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
+        pJog->setY(pJog->getY() - intersecao.height - epsilonColisao);
+        float novaVelY = (-1.0f) * vel.y * coefRestPiso;
 
         // Evita ficar quicando "ad aeternum" no chão.
         if (novaVelY > -20.0f)
@@ -128,47 +126,73 @@ void Plataforma::obstaculizar(Jogador* pJog)
 
         else
             pJog->setNoChao(true);
+
+        colisaoResolvida = true;
     }
 
     // Veio de baixo, antes estava abaixo da plataforma:
     else if (anteriorCima >= obsBaixo)
     {
-        pJog->setY(pJog->getY() + intersecao.height + EPSILON);
-        float novaVelY = (-1.0f) * vel.y * COEF_REST_CABECA;
+        pJog->setY(pJog->getY() + intersecao.height + epsilonColisao);
+        float novaVelY = (-1.0f) * vel.y * coefRestPiso;
         pJog->setVelocidadeY(novaVelY);
-        pJog->setNoChao(false);
+        colisaoResolvida = true;
     }
 
-    // Colisão horizontal:
-    else 
+    // Veio da esquerda:
+    else if (anteriorDireita <= obsEsquerda)
     {
-        bool colidiuLateral = false;
-
-        // Veio da esquerda:
-        if (anteriorDireita <= obsEsquerda)
-        {
-            pJog->setX(pJog->getX() - intersecao.width - EPSILON);
-            colidiuLateral = true;
-        }
+        pJog->setX(pJog->getX() - intersecao.width - epsilonColisao);
+        colidiuLateral = true; 
+    }
+ 
+    // Veio da direita:
+    else if (anteriorEsquerda >= obsDireita)
+    {
+        pJog->setX(pJog->getX() + intersecao.width + epsilonColisao);
+        colidiuLateral = true;  
+    }
             
+    if (colidiuLateral) 
+    {    
+        float novaVelX = (-1.0f) * vel.x * coefRestLateral;  
 
-        // Veio da direita:
-        else if (anteriorEsquerda >= obsDireita)
+        // Recuo apenas se tiver impacto suficiente para tal.
+        if (novaVelX < 20.0f && novaVelX > -20.0f)
+            novaVelX = 0.0f;
+
+        pJog->setVelocidadeX(novaVelX);
+        colisaoResolvida = true;
+    }        
+
+    // Para colisões usando W + A (diagonal), a posição anterior e final 
+    // não resolvia (atravessava o objeto).
+    if (!colisaoResolvida)
+    {
+        if (intersecao.height < intersecao.width)
         {
-            pJog->setX(pJog->getX() + intersecao.width + EPSILON);
-            colidiuLateral = true;
+            if (vel.y < 0.0f)
+            {
+                pJog->setY(pJog->getY() + intersecao.height + epsilonColisao);
+                pJog->setVelocidadeY(0.0f);
+                pJog->setNoChao(false);
+            }
+            else
+            {
+                pJog->setY(pJog->getY() - intersecao.height - epsilonColisao);
+                pJog->setVelocidadeY(0.0f);
+                pJog->setNoChao(true);
+            }
         }
-            
-        if (colidiuLateral) 
+        else
         {
-            float novaVelX = (-1.0f) * vel.x * COEF_REST_LATERAL;
+            if (vel.x < 0.0f)
+                pJog->setX(pJog->getX() + intersecao.width + epsilonColisao);
+            else
+                pJog->setX(pJog->getX() - intersecao.width - epsilonColisao);
 
-            // Recuo apenas se tiver impacto suficiente para tal.
-            if (novaVelX < 20.0f && novaVelX > -20.0f)
-                novaVelX = 0.0f;
-
-            pJog->setVelocidadeX(novaVelX);
-        }        
+            pJog->setVelocidadeX(0.0f);
+        }
     }
 
     pJog->atualizarPosicaoSprite();  
@@ -178,9 +202,6 @@ void Plataforma::fazEscorregar(Jogador* pJog, const sf::FloatRect& jogBounds, co
 {
     if (pJog == nullptr)
         return;
-
-    const float desloc_escorrega = 6.0f;
-    const float veloc_escorrega = 20.0f;
 
     float centroJogador = jogBounds.left + jogBounds.width / 2.0f;
     float centroPlataforma = obsBounds.left + obsBounds.width / 2.0f;
@@ -193,10 +214,10 @@ void Plataforma::fazEscorregar(Jogador* pJog, const sf::FloatRect& jogBounds, co
     pJog->setNoChao(false);
 
     // Empurra o jogador para fora da plataforma.
-    pJog->setX(pJog->getX() + direcao * desloc_escorrega);
+    pJog->setX(pJog->getX() + direcao * deslocamentoEscorrega);
 
     // Dá uma velocidade lateral pequena para reforçar a sensação de escorregão.
-    pJog->setVelocidadeX(direcao * veloc_escorrega);
+    pJog->setVelocidadeX(direcao * velocidadeEscorrega);
 
     pJog->atualizarPosicaoSprite();
 }
