@@ -91,7 +91,8 @@ void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
 void Fase::criarCenario()
 {
     ground.setSize(sf::Vector2f(1280,15));
-    ground.setFillColor(sf::Color::Green);
+    sf::Color brown(27,14,10,255);
+    ground.setFillColor(brown);
     ground.setPosition(0, 710);
 
     criarPlataformas();
@@ -109,6 +110,7 @@ void Fase::executar()
         if (listaInimigos[i]->getVida() <= 0)
         {
             Inimigo* inimMorto = listaInimigos[i];
+            delete(inimMorto);
             listaEntidades.remover(inimMorto);
             listaInimigos.remover(i);
             i--; // pois não pode ser acrescido na prox. iteração

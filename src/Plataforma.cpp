@@ -30,7 +30,7 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
 {
     danoso=false;
     
-    platSkin.setScale(0.25,0.25);
+    platSkin.setScale(0.2,0.20);
 
     sf::Texture* pTexturaPlataforma = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(PLATPNG);
     

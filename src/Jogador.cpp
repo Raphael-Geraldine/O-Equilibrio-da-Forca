@@ -20,7 +20,7 @@ Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 {
     num_vidas = 100;
     
-    playerSkin.setScale(0.17f,0.17f);
+    playerSkin.setScale(0.125f,0.125f);
 
     x=20;
     y=570;

@@ -42,7 +42,7 @@ Stormtrooper::Stormtrooper():
     sf::FloatRect bounds = stormSkin.getLocalBounds();
     stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    stormSkin.setScale(altura*0.15,altura*0.15);
+    stormSkin.setScale(altura*0.12,altura*0.12);
     stormSkin.setPosition(x,y);
 }
 Stormtrooper::~Stormtrooper()

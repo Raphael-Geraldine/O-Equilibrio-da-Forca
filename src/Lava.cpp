@@ -22,7 +22,7 @@ using namespace Gerenciadores;
 
 short int TrabalhoJogo::Entidades::Obstaculos::Lava::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Lava::lavaPositions={
-    {250, 720}, {500, 720}, {750, 720}, {950, 720}, {1150, 720},
+    {250, 720}, {500, 720}, {750, 720}, {950, 720}, {1180, 720},
     {300, 720}, {420, 720}, {610, 720}, {850, 720}, {1050, 720}
 };
 
@@ -34,7 +34,7 @@ Lava::Lava():
 {
     danoso=true;
 
-    lavaSkin.setScale(0.25,0.25);
+    lavaSkin.setScale(0.20,0.20);
 
     sf::Texture* pTexturaLava = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(LAVAPNG);
     
