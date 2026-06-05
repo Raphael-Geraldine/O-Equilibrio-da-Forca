@@ -13,12 +13,12 @@ namespace TrabalhoJogo
             {
                 protected:
                     int num_vidas;
-                    bool noChao;
                     
-                    float dt;
                     sf::Clock clockAtaque;
-
                     sf::Vector2f velocidade;
+                    sf::Vector2f posicaoAnterior;
+                    bool noChao;
+                    float dt;
 
                     // Pensar em usar: constexpr é valor constante, conhecido em tempo de compilação.
                     static const float PIXELS_POR_METRO;
@@ -39,6 +39,8 @@ namespace TrabalhoJogo
                     
                     void setNoChao(const bool emChao);
                     bool getNoChao() const;
+                    void salvarPosicaoAnterior();
+                    sf::Vector2f getPosicaoAnterior() const;
 
                     void salvarDataBuffer();
                     void gravity();

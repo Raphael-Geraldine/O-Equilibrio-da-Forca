@@ -56,16 +56,16 @@ sf::Sprite Jogador::getDrawData()
 void Jogador::executar()
 {
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
-
+    salvarPosicaoAnterior();
     velocidade.x = 0.0f;
     
     // Para a esquerda.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        velocidade.x = -500.0f;
+        velocidade.x = -400.0f;
 
     // Para a direita.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        velocidade.x = 500.0f;
+        velocidade.x = 400.0f;
 
     // Para pular.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))

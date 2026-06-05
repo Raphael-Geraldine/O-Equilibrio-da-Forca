@@ -96,6 +96,17 @@ bool Personagem::getNoChao() const
     return noChao;
 }
 
+void Personagem::salvarPosicaoAnterior()
+{
+    posicaoAnterior.x = x;
+    posicaoAnterior.y = y;
+}
+
+sf::Vector2f Personagem::getPosicaoAnterior() const
+{
+    return posicaoAnterior;
+}
+
 void Personagem::gravity()
 {
     if (!noChao)

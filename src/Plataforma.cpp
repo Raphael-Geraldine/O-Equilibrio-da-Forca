@@ -58,27 +58,18 @@ void Plataforma::salvar()
 {}
 void Plataforma::mover()
 {}
+
 void Plataforma::obstaculizar(Jogador* pJog)
 {
-    if (pJog == nullptr)
+    if (pJog == nullptr) 
         return;    
 
     sf::FloatRect jogBounds = pJog->getBounds();
     sf::FloatRect obsBounds = this->getBounds();
     sf::FloatRect intersecao;
 
-    // bool intersects (const Rect< T > &rectangle, Rect< T > &intersection) const
-    // Método sobrecarregado retorna o retângulo sobreposto no parâmetro de intersecao
-    // Método público sobrecarregado de sf::Rect<T>
     if (!jogBounds.intersects(obsBounds, intersecao))
         return;
-
-    // Depois comentar:
-    cout << "COLIDIU COM PLATAFORMA | "
-     << "intersecao.w=" << intersecao.width
-     << " intersecao.h=" << intersecao.height
-     << " velY=" << pJog->getVelocidade().y
-     << endl;
 
     // Para evitar que o jogador fique exatamente encostado ou
     // levemente sobreposto pós correçao de colisão 
@@ -89,60 +80,86 @@ void Plataforma::obstaculizar(Jogador* pJog)
     const float COEF_REST_CABECA = 0.10f; 
     const float COEF_REST_PISO = 0.05f;
     const float COEF_REST_LATERAL = 0.05f;
-
+    
     sf::Vector2f vel = pJog->getVelocidade();
+    sf::Vector2f posAnt = pJog->getPosicaoAnterior();
 
-    // Colisão vertical:
-    if (intersecao.height < intersecao.width)
+    // Tratar quinas, lembrando que sprite está com origem no centro.
+    sf::FloatRect boundsAnterior(
+        posAnt.x - jogBounds.width / 2.0f,
+        posAnt.y - jogBounds.height / 2.0f,
+        jogBounds.width,
+        jogBounds.height
+    );
+
+    float anteriorBaixo = boundsAnterior.top + boundsAnterior.height;
+    float anteriorCima = boundsAnterior.top;
+    float anteriorDireita = boundsAnterior.left + boundsAnterior.width;
+    float anteriorEsquerda = boundsAnterior.left;
+
+    float obsBaixo = obsBounds.top + obsBounds.height;
+    float obsCima = obsBounds.top;
+    float obsEsquerda = obsBounds.left;
+    float obsDireita = obsBounds.left + obsBounds.width;
+
+    // Veio de cima, antes estava acima da plataforma.
+    if (anteriorBaixo <= obsCima)
     {
-        // Jogador acima do obstáculo:
-        if (vel.y >= 0.0f && jogBounds.top < obsBounds.top)
-        {
-            pJog->setY(pJog->getY() - intersecao.height - EPSILON);
-            float novaVelY = (-1.0f) * vel.y * COEF_REST_CABECA;
+        pJog->setY(pJog->getY() - intersecao.height - EPSILON);
+        float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
 
-            // Evita ficar quicando "ad aeternum" no chão.
-            if (novaVelY > -20.0f)
-                novaVelY = 0.0f;
+        // Evita ficar quicando "ad aeternum" no chão.
+        if (novaVelY > -20.0f)
+            novaVelY = 0.0f;
 
-            pJog->setVelocidadeY(novaVelY);
-                    
-            if (novaVelY < 0.0f)
-                pJog->setNoChao(false);
+        pJog->setVelocidadeY(novaVelY);
+                
+        if (novaVelY < 0.0f)
+            pJog->setNoChao(false);
 
-            else
-                pJog->setNoChao(true);
-
+        else
             pJog->setNoChao(true);
-        }
+    }
 
-        // Jogador bate a cabeça no obstáculo:
-        else if (vel.y < 0.0f)
-        {
-            pJog->setY(pJog->getY() + intersecao.height + EPSILON);
-            float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
-            pJog->setVelocidadeY(novaVelY);
-        }
+    // Veio de baixo, antes estava abaixo da plataforma:
+    else if (anteriorCima >= obsBaixo)
+    {
+        pJog->setY(pJog->getY() + intersecao.height + EPSILON);
+        float novaVelY = (-1.0f) * vel.y * COEF_REST_CABECA;
+        pJog->setVelocidadeY(novaVelY);
+        pJog->setNoChao(false);
     }
 
     // Colisão horizontal:
-    else
+    else 
     {
-        // Jogador à esquerda do obstáculo:
-        if (jogBounds.left < obsBounds.left)
+        bool colidiuLateral = false;
+
+        // Veio da esquerda:
+        if (anteriorDireita <= obsEsquerda)
+        {
             pJog->setX(pJog->getX() - intersecao.width - EPSILON);
+            colidiuLateral = true;
+        }
+            
 
-        // Jogador à direita do obstáculo:
-        else
+        // Veio da direita:
+        else if (anteriorEsquerda >= obsDireita)
+        {
             pJog->setX(pJog->getX() + intersecao.width + EPSILON);
-        
-        float novaVelX = (-1.0f) * vel.x * COEF_REST_LATERAL;
+            colidiuLateral = true;
+        }
+            
+        if (colidiuLateral) 
+        {
+            float novaVelX = (-1.0f) * vel.x * COEF_REST_LATERAL;
 
-        // Recuo apenas se tiver impacto suficiente para tal.
-        if (novaVelX < 20.0f && novaVelX > -20.0f)
-            novaVelX = 0.0f;
+            // Recuo apenas se tiver impacto suficiente para tal.
+            if (novaVelX < 20.0f && novaVelX > -20.0f)
+                novaVelX = 0.0f;
 
-        pJog->setVelocidadeX(novaVelX);
+            pJog->setVelocidadeX(novaVelX);
+        }        
     }
 
     pJog->atualizarPosicaoSprite();  
