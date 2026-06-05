@@ -28,7 +28,7 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     minInimigosFaceis(3), 
     maxInimigosFaceis(15), 
     minPlat(3),
-    maxPlat(7),
+    maxPlat(6),
     Ente(),
     nFase(cont++), 
     gC(nullptr),

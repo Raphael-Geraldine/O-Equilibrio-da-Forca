@@ -48,97 +48,73 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Obstacul
 {
     if (pInim == nullptr || pObs == nullptr)
         return;
-    
-    sf::FloatRect inimBounds = pInim->getBounds();
-    sf::FloatRect obsBounds = pObs->getBounds();
-    
-    const int RECUO_COLISAO = 2;
 
-    if (((pInim->getX() - inimBounds.width) > (pObs->getX() - obsBounds.width)) 
-       && ((pInim->getX() + inimBounds.width) < (pObs->getX() + obsBounds.width)))
-    {
-        bool upDown = false;
-
-        if ((pInim->getY() - inimBounds.height) < (pObs->getY() - obsBounds.height))
-            upDown=true;
-
-        if (upDown)
-            pInim->setY(pInim->getY() - RECUO_COLISAO);
-        
-        else
-            pInim->setY(pInim->getY() + RECUO_COLISAO);        
-    }
-   
-    else     
-    {
-        bool rightLeft = false;
-        
-        if ((pInim->getX() + inimBounds.width) > (pObs->getX() + obsBounds.width / 2.0f))
-            rightLeft = true;
-
-        if (rightLeft)
-            pInim->setX(pInim->getX() + RECUO_COLISAO);
-
-        else
-            pInim->setX(pInim->getX() - RECUO_COLISAO);
-    }
-    
+    pObs->obstaculizarInim(pInim);
 }
 
-void Gerenciador_Colisoes::tratarColisaoJogChao(Jogador* pJog)
+void Gerenciador_Colisoes::tratarColisaoChao(Personagem* pP)
 {
-    if (pJog == nullptr || pGround == nullptr)
+    if (pP == nullptr || pGround == nullptr)
         return;
 
-    sf::FloatRect jogBounds = pJog->getBounds();
+    sf::FloatRect pBounds = pP->getBounds();
     sf::FloatRect chaoBounds = pGround->getGlobalBounds();
     sf::FloatRect intersecao;
 
-    if (!jogBounds.intersects(chaoBounds, intersecao))
+    if (!pBounds.intersects(chaoBounds, intersecao))
         return;
 
     const float EPSILON = 0.5f;
     const float COEF_REST_PISO = 0.07f;
 
-    sf::Vector2f vel = pJog->getVelocidade();
-    sf::Vector2f posAnt = pJog->getPosicaoAnterior();
+    sf::Vector2f vel = pP->getVelocidade();
+    sf::Vector2f posAnt = pP->getPosicaoAnterior();
 
-    // Como a origem do jogador está no centro:
+    // Como a origem do personagem está no centro:
     sf::FloatRect boundsAnterior(
-        posAnt.x - jogBounds.width / 2.0f,
-        posAnt.y - jogBounds.height / 2.0f,
-        jogBounds.width,
-        jogBounds.height
+        posAnt.x - pBounds.width / 2.0f,
+        posAnt.y - pBounds.height / 2.0f,
+        pBounds.width,
+        pBounds.height
     );
 
     float anteriorBaixo = boundsAnterior.top + boundsAnterior.height;
     float chaoCima = chaoBounds.top;
 
-    // Só faz sentido o caso do jogador vindo de cima.
+    // Só faz sentido o caso do personagem vindo de cima.
     if (anteriorBaixo <= chaoCima)
     {
-        pJog->setY(pJog->getY() - intersecao.height - EPSILON);
+        pP->setY(pP->getY() - intersecao.height - EPSILON);
         float novaVelY = (-1.0f) * vel.y * COEF_REST_PISO;
 
         // Evita ficar quicando "ad aeternum" no chão.
         if (novaVelY > -20.0f)
             novaVelY = 0.0f;
 
-        pJog->setVelocidadeY(novaVelY);
+        pP->setVelocidadeY(novaVelY);
 
-        if (novaVelY < 0.0f)
-            pJog->setNoChao(false);
+        float pBottom = pP->getY()+(pBounds.height/2.0f); 
+        float chaoTop = pGround->getPosition().y;
+
+        if (abs(pBottom-chaoTop) < 2.0f)
+            pP->setNoChao(true);
         else
-            pJog->setNoChao(true);
+            pP->setNoChao(false);
+        
+        /*
+        if (novaVelY < 0.0f)
+            pP->setNoChao(false);
+        else
+            pP->setNoChao(true);
+        */
 
-        pJog->atualizarPosicaoSprite();
+        pP->atualizarPosicaoSprite();
     }
 }
 
 void Gerenciador_Colisoes::executar()
 {
     //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
-    //talvez compense cair em outro lugar tbm esse bool tá sendo usado para "desativar" a gravidade quando estiver no solo
 
     if (pListaJogadores == nullptr || pListaObstaculos == nullptr || pListaInimigos == nullptr)
     {
@@ -181,7 +157,7 @@ void Gerenciador_Colisoes::executar()
             }
         }
 
-        tratarColisaoJogChao(pJog);
+        tratarColisaoChao(pJog);
 
         caracterOutOfBounds(pJog);
 
@@ -214,11 +190,15 @@ void Gerenciador_Colisoes::executar()
 
             if (pObs == nullptr) continue;
 
+            pInim->setNoChao(false);
+
             if(verificarColisao(pInim, pObs)) 
             {
                 tratarColisoesInimObstaculos(pInim, pObs);
                 //aplicarGravidade = false;
             }
+
+            tratarColisaoChao(pInim);
         }
     }
 }
@@ -253,14 +233,16 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
     // Saiu pela esquerda
     if (bounds.left < lim_esq)
     {
-        pe->setX(pe->getX() + (lim_esq - bounds.left));
+        pe->setX(lim_esq + (bounds.width/2.0f));
+        //pe->setX(pe->getX() + (lim_esq - bounds.left));
         corrigiu = true;
     }
 
     // Saiu pela direita
     else if (bounds.left + bounds.width > lim_dir)
     {
-        pe->setX(pe->getX() - ((bounds.left + bounds.width) - lim_dir));
+        pe->setX(lim_dir - (bounds.width/2.0f));
+        //pe->setX(pe->getX() - ((bounds.left + bounds.width) - lim_dir));
         corrigiu = true;
     }
 

@@ -20,7 +20,8 @@ using namespace Gerenciadores;
 
 Stormtrooper::Stormtrooper(): 
     Inimigo(),
-    altura(1)
+    altura(1),
+    directionMov(true)
 {
     num_vidas = (rand()%5)+1;
     nivel_maldade = 4;
@@ -51,6 +52,28 @@ Stormtrooper::~Stormtrooper()
 }
 void Stormtrooper::executar()
 {
+    int sort = rand()%10;
+
+    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
+    {
+        if (x - (getBounds().width/2.0f) < 10 && sort > 1)
+            directionMov = true;
+        else if (x + (getBounds().width/2.0f) > 1270)
+            directionMov = false;
+        else if ((x>640 && sort > 3)||(x<640 && sort < 4))
+            directionMov=false;
+        else
+            directionMov=true;
+
+        aleatMov.restart();
+    }
+
+    if (directionMov)
+        velocidade.x = 100.0f;
+    else
+        velocidade.x = -100.0f;
+    
+    gravity();
     mover();
 }
 void Stormtrooper::salvar()
@@ -67,26 +90,12 @@ void Stormtrooper::danificar(Jogador* p)
 }
 void Stormtrooper::mover()
 {
-    gravity();
+    // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
+    // 220 px/s * 0,0167 s/frame = 3,67 pixels por frame
+    x += velocidade.x * dt;
+    y += velocidade.y * dt;
 
-    int sort = rand()%10;
-
-    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
-    {
-        if ((x>640 && sort > 3)||(x<640 && sort < 4))
-            directionMov=false;
-        else
-            directionMov=true;
-
-        aleatMov.restart();
-    }
-
-    if (directionMov)
-        x+=1;
-    else
-        x-=1;
-    
-    stormSkin.setPosition(x,y);
+    atualizarPosicaoSprite();
 }
 sf::FloatRect Stormtrooper::getBounds() const
 {
@@ -95,4 +104,10 @@ sf::FloatRect Stormtrooper::getBounds() const
 sf::Sprite Stormtrooper::getDrawData()
 {   
     return stormSkin;
+}
+
+void Stormtrooper::atualizarPosicaoSprite() 
+{
+    //void sf::Transformable::setPosition(const Vector2f &position)	
+    stormSkin.setPosition(x,y);
 }

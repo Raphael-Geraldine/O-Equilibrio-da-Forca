@@ -18,6 +18,7 @@ namespace TrabalhoJogo
                 private:
                     float altura;
                     sf::Sprite stormSkin;
+                    bool directionMov;
 
                 public:
                     Stormtrooper ();
@@ -28,6 +29,7 @@ namespace TrabalhoJogo
                     sf::FloatRect getBounds() const;
                     void salvar();
                     void mover();
+                    void atualizarPosicaoSprite();
             };
         }
     }

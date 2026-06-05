@@ -18,6 +18,7 @@ namespace TrabalhoJogo
                 private:
                     float altura;
                     sf::Sprite k2Skin;
+                    bool directionMov;
 
                 public:
                     K_2SO ();
@@ -29,6 +30,7 @@ namespace TrabalhoJogo
                     void salvar();
                     void mover();
                     void operator++(); //aumentar o dano com pouca vida
+                    void atualizarPosicaoSprite();
             };
         }
     }

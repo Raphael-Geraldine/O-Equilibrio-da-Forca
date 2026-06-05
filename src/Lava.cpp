@@ -9,6 +9,7 @@ using std::cerr;
 using std::endl;
 
 #include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 #include "../include/Lava.h"
 #include "../include/Obstaculo.h"
 #include "../include/Gerenciador_Grafico.h"
@@ -87,4 +88,9 @@ sf::Sprite Lava::getDrawData()
 sf::FloatRect Lava::getBounds() const
 {
     return lavaSkin.getGlobalBounds();
+}
+
+void Lava::obstaculizarInim(Inimigo* pInim)
+{
+    
 }

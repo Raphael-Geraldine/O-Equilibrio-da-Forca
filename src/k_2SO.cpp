@@ -20,7 +20,8 @@ using namespace Gerenciadores;
 
 K_2SO::K_2SO():
     Inimigo(),
-    altura(1)
+    altura(1),
+    directionMov(true)
 {
     num_vidas = (rand()%10)+1;
     nivel_maldade = 10;
@@ -51,7 +52,33 @@ K_2SO::~K_2SO()
 }
 void K_2SO::executar()
 {
+    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
+    salvarPosicaoAnterior();
+    velocidade.x = 0.0f;
+
+    int sort = rand()%10;
+
+    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
+    {   
+        if (x - (getBounds().width/2.0f) < 10 && sort > 1)
+            directionMov = true;
+        else if (x + (getBounds().width/2.0f) > 1270)
+            directionMov = false;
+        else if ((x>640 && sort > 3)||(x<640 && sort < 4))
+            directionMov=false;
+        else
+            directionMov=true;
+        aleatMov.restart();
+    }
+
+    if (directionMov)
+        velocidade.x = 100.0f;
+    else
+        velocidade.x = -100.0f;
+    
+    gravity();
     mover();
+
     this->operator++();
 }
 void K_2SO::danificar(Jogador* p)
@@ -76,29 +103,21 @@ void K_2SO::salvar()
 }
 void K_2SO::mover()
 {
-    gravity();
+    // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
+    // 220 px/s * 0,0167 s/frame = 3,67 pixels por frame
+    x += velocidade.x * dt;
+    y += velocidade.y * dt;
 
-    int sort = rand()%10;
-
-    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
-    {
-        if ((x>640 && sort > 3)||(x<640 && sort < 4))
-            directionMov=false;
-        else
-            directionMov=true;
-
-        aleatMov.restart();
-    }
-
-    if (directionMov)
-        x+=1;
-    else
-        x-=1;
-    
-    k2Skin.setPosition(x,y);
+    atualizarPosicaoSprite();
 }
 void K_2SO::operator++()
 {
     if (num_vidas < 3)
         nivel_maldade+=2;
+}
+
+void K_2SO::atualizarPosicaoSprite() 
+{
+    //void sf::Transformable::setPosition(const Vector2f &position)	
+    k2Skin.setPosition(x,y);
 }

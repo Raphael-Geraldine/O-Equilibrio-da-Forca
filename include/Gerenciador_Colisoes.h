@@ -3,6 +3,7 @@
 #include "../include/Entidade.h"
 #include "../include/ListaEntidades.h"
 #include "../include/Jogador.h"
+#include "../include/Personagem.h"
 #include "../include/Obstaculo.h"
 #include "../include/Plataforma.h"
 #include "../include/Inimigo.h"
@@ -38,7 +39,7 @@ namespace TrabalhoJogo
                 //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
 
             private:
-                void tratarColisaoJogChao(Jogador* pJog);
+                void tratarColisaoChao(Personagem* pP);
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
                 void tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pPlat);
                 void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);

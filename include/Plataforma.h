@@ -4,7 +4,9 @@
 using namespace std;
 
 #include "../include/Obstaculo.h"
+#include "../include/Personagem.h"
 #include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 
 namespace TrabalhoJogo
 {
@@ -37,7 +39,7 @@ namespace TrabalhoJogo
                     sf::Sprite platSkin;
                     sf::IntRect platSize;
 
-                    void fazEscorregar(Jogador* pJog, const sf::FloatRect& jogBounds, const sf::FloatRect& obsBounds); 
+                    void fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, const sf::FloatRect& obsBounds); 
 
                 public:
                     Plataforma(float l=0.0f);
@@ -46,6 +48,7 @@ namespace TrabalhoJogo
                     void salvar();
                     void mover();
                     void obstaculizar(Jogador* pJog);
+                    void obstaculizarInim(Inimigo* pInim);
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;
             };

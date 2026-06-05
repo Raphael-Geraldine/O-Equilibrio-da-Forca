@@ -4,6 +4,7 @@
 using namespace std;
 
 #include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 #include "../include/Obstaculo.h"
 
 #include "SFML/Graphics.hpp"
@@ -31,7 +32,8 @@ namespace TrabalhoJogo
                     ~Lava();
                     void executar();
                     void salvar();
-                    void obstaculizar (Jogador* pJog);
+                    void obstaculizar(Jogador* pJog);
+                    void obstaculizarInim(Inimigo* pInim);
                     void mover();
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;

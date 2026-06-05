@@ -4,11 +4,14 @@ using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
 
+#include <iostream>
+using namespace std;
+
 const float Personagem::PIXELS_POR_METRO = 50.0f;
 const float Personagem::GRAVIDADE_REAL = 9.8f;
 const float Personagem::GRAVIDADE = GRAVIDADE_REAL * PIXELS_POR_METRO;
 const float Personagem::VELOCIDADE_MAX_QUEDA = 900.0f;
-const float Personagem::VELOCIDADE_PULO = -420.0f;
+const float Personagem::VELOCIDADE_PULO = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
 
 Personagem::Personagem(ID identificador): 
     Entidade(identificador), 
@@ -122,9 +125,21 @@ void Personagem::gravity()
 
 void Personagem::pular() 
 {
+    bool plataformaFixa = false;
+
+    if (y + (getBounds().height/2.0f) > 705)
+        plataformaFixa = true;
     if (noChao) 
     {
-        velocidade.y = VELOCIDADE_PULO;
-        noChao = false;
+        if (plataformaFixa)
+        {
+            velocidade.y = VELOCIDADE_PULO-110; // negativo aumenta em y
+            noChao = false;
+        }
+        else
+        {
+            velocidade.y = VELOCIDADE_PULO;
+            noChao = false;
+        }
     }
 }

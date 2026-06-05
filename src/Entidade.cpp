@@ -23,7 +23,7 @@ void Entidade::setX(int i)
     x = i;
 }
 
-int Entidade::getX() const
+float Entidade::getX() const
 {
     return x;
 }
@@ -33,7 +33,7 @@ void Entidade::setY(int j)
     y = j;
 }
 
-int Entidade::getY() const 
+float Entidade::getY() const 
 {
     return y;
 }

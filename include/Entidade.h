@@ -23,8 +23,8 @@ namespace TrabalhoJogo
         {
             protected: //deve ser protected e ter get!!! está assim para testar
                 ID id;
-                int x;
-                int y;
+                float x;
+                float y;
                 //ostream buffer;
             
             protected:
@@ -36,9 +36,9 @@ namespace TrabalhoJogo
                 // Para evitar uso de "this" nesse caso.
                 int getID() const;
                 void setX(int i);
-                int getX() const;
+                float getX() const;
                 void setY(int j);
-                int getY() const;
+                float getY() const;
 
                 virtual ~Entidade();
                 virtual void executar() = 0;
