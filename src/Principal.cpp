@@ -84,5 +84,18 @@ Fase* TrabalhoJogo::Principal::getFase()
         else
             pFase = new Hoth(pAnakin1, pObi1);
     }
+    if(!(pFase->getVivos())) //ou seja, quando derrotar todos inimigos
+    {
+        Mustafar* pMustafar = dynamic_cast<Mustafar*>(pFase);
+        if (pMustafar != nullptr)
+        {
+            delete(pFase);
+            pFase = new Hoth(pAnakin1, pObi1);
+        }
+        else
+        {
+            cout<<"Cabou!"<<endl; //preparar caminho coltar menu
+        }
+    }
     return pFase;
 }

@@ -24,13 +24,14 @@ using std::endl;
 
 //short int Fase::cont(0);
 
+short int Fase::platGeradas(0);
+
 Fase::Fase(Jogador* pJ1, Jogador* pJ2): 
     minInimigosFaceis(3), 
     maxInimigosFaceis(15), 
     minPlat(3),
     maxPlat(6),
     entsAlive(0),
-    platGeradas(0),
     Ente(),
     //nFase(cont++), 
     pJogador1(pJ1),
@@ -191,12 +192,6 @@ void Fase::executar()
             i--; // pois não pode ser acrescido na prox. iteração
             entsAlive--;
         }
-
-        if(entsAlive == 0)
-        {
-            cout<<platGeradas<<endl;
-            cout<<"FIM DE FASE"<<endl;
-        }
     }
 
     listaEntidades.executar();
@@ -251,6 +246,11 @@ void Fase::criarPlataformas()
         else   
             incluirEntidade(static_cast<Obstaculo*>(pPlat));
     }
+}
+
+short int Fase::getVivos()
+{
+    return entsAlive;
 }
 
 sf::RectangleShape Fase::getChao()

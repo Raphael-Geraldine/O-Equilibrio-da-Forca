@@ -7,6 +7,7 @@
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
 #include "../include/Obstaculo.h"
+#include "../include/Plataforma.h"
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Hoth.h"
 using namespace TrabalhoJogo;
@@ -30,6 +31,12 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2):
 
     else
         fundo.setTexture(*pTexturaFundo); 
+    
+    for (int i = platGeradas; i < maxPlat; i++)
+    {
+        Plataforma* pClearList = new Plataforma();
+        delete (pClearList);
+    }
     
     inicializar(pJ1,pJ2);
     //criarObstaculos();

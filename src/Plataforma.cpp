@@ -39,6 +39,12 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
     largura(l), 
     platID(cont++)
 {
+    if (platID > 11)
+    {
+        platID=0;
+        cont=1;
+    }
+    
     aplicarGravidade = false;
 
     danoso=false;
