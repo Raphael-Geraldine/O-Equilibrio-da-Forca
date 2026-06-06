@@ -29,16 +29,20 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     maxInimigosFaceis(15), 
     minPlat(3),
     maxPlat(6),
-    Ente(),
     entsAlive(0),
     platGeradas(0),
+    Ente(),
     //nFase(cont++), 
-    gC(nullptr),
     pJogador1(pJ1),
     pJogador2(pJ2),
-    pPlat(nullptr) // Mudar depois eventualmente
+    gC(nullptr)
 {
-    gC = new Gerenciador_Colisoes(&listaJogadores, &listaObstaculos, &listaInimigos, &ground);
+    gC = new Gerenciador_Colisoes(pJogador1, &chao);
+
+    if (pJogador2 != nullptr)
+    {
+        gC->setJog2(pJogador2);
+    }
 }
 
 Fase::~Fase()
@@ -49,15 +53,12 @@ Fase::~Fase()
         gC = nullptr;
     }
 
-    if (pPlat != nullptr)
-    {
-        delete pPlat;
-        pPlat = nullptr;
-    }
-
-    if (listaInimigos.getTamanho() != 0)
-        listaInimigos.limpar();
-
+    // Ver se não é entidade.
+    //if (pPlat != nullptr)
+    //{
+    //    delete pPlat;
+    //    pPlat = nullptr;
+    //}
 
     int tamanhoEnt = listaEntidades.getTamanho();
     
@@ -75,7 +76,11 @@ Fase::~Fase()
             }
         }
     }
+
     listaEntidades.limpar();
+
+    pJogador1 = nullptr;
+    pJogador2 = nullptr;
 }
 
 void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
@@ -86,16 +91,72 @@ void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
     if (pJ2 != nullptr)
         incluirEntidade(pJ2);
     
-    criarInimigosFaceis();    
+    criarInimigosFaceis();   
+    criarInimigos();
     criarCenario(); //as plataformas são criadas a partir daqui
+    criarObstaculos();
+}
+
+void Fase::incluirEntidade(Entidade* pE)
+{
+    if (pE == nullptr)
+    {
+        cerr << "Erro: Tentativa de incluir entidade nula em fase." << endl;
+        return;
+    }
+
+    listaEntidades.incluir(pE);
+
+    // Dynamic_cast testa se conversão é razoável, senão retorna nulo.
+    Jogador* pJog = dynamic_cast<Jogador*>(pE); 
+
+    if (pJog != nullptr)
+    {
+        if (pJogador1 == nullptr)
+        {
+            pJogador1 = pJog;
+
+            if (gC != nullptr)
+                gC->setJog1(pJog);
+        }
+        else if (pJogador2 == nullptr && pJog != pJogador1)
+        {
+            pJogador2 = pJog;
+
+            if (gC != nullptr)
+                gC->setJog2(pJog);
+        }
+
+        return;
+    }
+
+    Inimigo* pInim = dynamic_cast<Inimigo*>(pE);
+
+    if (pInim != nullptr)
+    {
+        if (gC != nullptr)
+            gC->incluirInimigo(pInim);
+
+        return;
+    }
+
+    Obstaculo* pObs = dynamic_cast<Obstaculo*>(pE);
+
+    if (pObs != nullptr)
+    {
+        if (gC != nullptr)
+            gC->incluirObstaculo(pObs);
+
+        return;
+    }
 }
 
 void Fase::criarCenario()
 {
-    ground.setSize(sf::Vector2f(1280,15));
+    chao.setSize(sf::Vector2f(1280,15));
     sf::Color brown(27,14,10,255);
-    ground.setFillColor(brown);
-    ground.setPosition(0, 710);
+    chao.setFillColor(brown);
+    chao.setPosition(0, 710);
 
     criarPlataformas();
 }
@@ -106,21 +167,32 @@ ListaEntidades* Fase::getListaEntidades()
 }
 void Fase::executar()
 {
-    int tamInim = listaInimigos.getTamanho();
-    for (int i = 0; i < tamInim; i++)
+    int tamEnt = listaEntidades.getTamanho();
+
+    for (int i = 0; i < tamEnt; i++)
     {
-        if (listaInimigos[i]->getVida() <= 0)
+        if (listaEntidades[i] == nullptr) 
+            continue;
+        
+        Entidade* pEnt = listaEntidades[i];
+        
+        Inimigo* pInim = dynamic_cast<Inimigo*>(pEnt);
+
+        if (pInim != nullptr && pInim->getVida() <= 0)
         {
-            Inimigo* inimMorto = listaInimigos[i];
-            delete(inimMorto);
-            listaEntidades.remover(inimMorto);
-            listaInimigos.remover(i);
+            if (gC != nullptr)
+                gC->removerInimigo(pInim);
+
+            listaEntidades.remover(pInim);
+
+            delete(pInim);
+            pInim = nullptr;
+
             i--; // pois não pode ser acrescido na prox. iteração
-            tamInim--;
             entsAlive--;
         }
 
-        if (entsAlive == 0)
+        if(entsAlive == 0)
         {
             cout<<platGeradas<<endl;
             cout<<"FIM DE FASE"<<endl;
@@ -181,9 +253,9 @@ void Fase::criarPlataformas()
     }
 }
 
-sf::RectangleShape Fase::getGround()
+sf::RectangleShape Fase::getChao()
 {
-    return ground;
+    return chao;
 }
 
 /*

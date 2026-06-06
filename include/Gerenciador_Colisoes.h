@@ -1,13 +1,16 @@
 #pragma once
 
 #include "../include/Entidade.h"
-#include "../include/ListaEntidades.h"
-#include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 #include "../include/Personagem.h"
+#include "../include/Jogador.h"
 #include "../include/Obstaculo.h"
 #include "../include/Plataforma.h"
-#include "../include/Inimigo.h"
+#include "../include/Lista.h"
 
+#include <vector>
+#include <list>
+#include <set>
 
 #include <SFML/Graphics.hpp>
 
@@ -15,11 +18,10 @@ namespace TrabalhoJogo
 {
     namespace Gerenciadores
     {
-        using Listas::ListaEntidades;
-        using Entidades::Entidade;
-        using Entidades::Personagens::Jogador;
-        using Entidades::Obstaculos::Plataforma;
-        using Entidades::Obstaculos::Obstaculo;
+        //using Entidades::Entidade;
+        //using Entidades::Personagens::Jogador;
+        //using Entidades::Obstaculos::Plataforma;
+        //using Entidades::Obstaculos::Obstaculo;
 
         class Gerenciador_Colisoes
         {
@@ -31,40 +33,59 @@ namespace TrabalhoJogo
                 static const float epsilonJanela;
                 static const float coefRestTeto;
 
-                //ListaEntidades* pListaEntidades;
-                sf::RectangleShape* pGround;
-                Listas::Lista<Entidades::Personagens::Jogador>* pListaJogadores;
-                Listas::Lista<Entidades::Obstaculos::Obstaculo>* pListaObstaculos;
-                Listas::Lista<Entidades::Personagens::Inimigo>* pListaInimigos;
-                //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
+                std::vector<Entidades::Personagens::Inimigo*> LIs;
+                std::list<Entidades::Obstaculos::Obstaculo*> LOs;
+                // std::set<Entidade::Projetil*> LPjs;
+
+                Entidades::Personagens::Jogador* pJog1;
+                Entidades::Personagens::Jogador* pJog2;
+
+                sf::RectangleShape* pChao;                
 
             private:
-                const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
-                void tratarColisaoChao(Personagem* pP);
-                void tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pPlat);
-                void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
-                void tratarColisoesInimObstaculos(Inimigo* pInim, Obstaculo* pPlat);
+                const bool verificarColisao(Entidades::Entidade* pE1, 
+                Entidades::Entidade* pE2) const;
+                
+                // Colisões Jogadores
+                void tratarColisoesJogsObstaculos();
+                void tratarColisoesJogsInimigos();
                 void tratarColisoesJogsProjeteis();
-                // void tratarColisaoJogadorPlataforma(Jogador* pJog, Plataforma* pPlat);
-                void caracterOutOfBounds(Entidade* pe);
+                void tratarColisoesChaoJogadores();
+
+                // Colisões Inimigos:
+                void tratarColisoesInimObstaculos();
+                // void tratarColisoesInimProjeteis();
+                void tratarColisoesChaoInimigos();
+
+                // Colisão entre cada par:tratarColisao
+                void tratarColisaoJogObstaculo(Entidades::Personagens::Jogador* pJog, 
+                                               Entidades::Obstaculos::Obstaculo* pObs);
+  
+                void tratarColisaoJogInimigo(Entidades::Personagens::Jogador* pJog,
+                                             Entidades::Personagens::Inimigo* pInim);
+
+                void tratarColisaoInimObstaculo(Entidades::Personagens::Inimigo* pInim,
+                                                Entidades::Obstaculos::Obstaculo* pObs);
+
+                void tratarColisaoPersonagemChao(Entidades::Personagens::Personagem* pP);
+                
 
             public:
-                Gerenciador_Colisoes(Listas::Lista<Entidades::Personagens::Jogador>* pLJ = nullptr,
-                                     Listas::Lista<Entidades::Obstaculos::Obstaculo>* pLO = nullptr,
-                                     Listas::Lista<Entidades::Personagens::Inimigo>* pLI = nullptr,
-                                     sf::RectangleShape* pG = nullptr);
+                Gerenciador_Colisoes(Entidades::Personagens::Jogador* pJ1 = nullptr,
+                                     sf::RectangleShape* pC = nullptr);
+
+                ~Gerenciador_Colisoes();
+                 
+                void incluirInimigo(Entidades::Personagens::Inimigo* pI);
+                void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
+                // void incluirProjetil(Projetil* pJ);
+
+                void setJog1 (Entidades::Personagens::Jogador* pJ1);
+                void setJog2 (Entidades::Personagens::Jogador* pJ2);
                 
-                 ~Gerenciador_Colisoes();
-                //void incluirInimigo(Inimigo* pI);
-                //void incluirObstaculo(Obstaculo* pO);
-                //void incluirProjetil(Projetil* pJ);
-
-                //por enquanto estará na construtora
-                //void setJog1 (Jogador* pJ);
-                //void setJog2 (Jogador* pJ);
-
+                void removerInimigo(Entidades::Personagens::Inimigo* pI);
                 void executar();
-                
+                void caracterOutOfBounds(Entidades::Entidade* pE);                
         };
     }
 }

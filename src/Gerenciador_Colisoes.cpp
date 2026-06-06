@@ -1,7 +1,6 @@
 #include "../include/Gerenciador_Colisoes.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;
-using namespace Listas;
 using namespace Personagens;
 using namespace Obstaculos;
 using namespace Gerenciadores;
@@ -19,32 +18,149 @@ const float Gerenciador_Colisoes::lim_baixo = 720.0f;
 const float Gerenciador_Colisoes::epsilonJanela = 0.5f;
 const float Gerenciador_Colisoes::coefRestTeto = 0.15f;
 
-Gerenciador_Colisoes::Gerenciador_Colisoes(Lista<Jogador>* pLJ, Lista<Obstaculo>* pLO, Lista<Inimigo>* pLI,  sf::RectangleShape* pG): 
-    pListaJogadores(pLJ),
-    pListaObstaculos(pLO),
-    pListaInimigos(pLI),
-    pGround(pG)
-{
-
-}
+Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ1, sf::RectangleShape* pC):
+    LIs(),
+    LOs(),
+    pJog1(pJ1),
+    pJog2(nullptr),
+    pChao(pC)
+{}
 
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
 {
-    pListaJogadores = nullptr;
-    pListaObstaculos = nullptr;
-    pListaInimigos = nullptr;
-    pGround = nullptr;
+    LIs.clear();
+    LOs.clear();
+
+    pJog1 = nullptr;
+    pJog2 = nullptr;
+    pChao = nullptr;
 }
 
-void Gerenciador_Colisoes::tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pObs)
+const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
-    if (pJog == nullptr || pObs == nullptr) 
+    if (pe1 == nullptr || pe2 == nullptr)
+        return false;
+
+    return (pe1->getBounds()).intersects(pe2->getBounds());
+}
+
+void Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
+{
+    std::list<Obstaculo*>::iterator it; 
+    
+    for (it = LOs.begin(); it != LOs.end(); ++it)
+    {
+        if ((*it) == nullptr)
+            continue; // Deve ser tolerado de fato?
+
+        Obstaculo* pObs = (*it);
+
+        if (pJog1 != nullptr && verificarColisao (pJog1, pObs))
+            tratarColisaoJogObstaculo(pJog1, pObs);
+
+        if (pJog2 != nullptr && verificarColisao (pJog2, pObs))
+            tratarColisaoJogObstaculo(pJog2, pObs);
+    }
+}
+
+void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
+{
+    int tamanhoInim = static_cast<int>(LIs.size());
+
+    for (int i = 0; i < tamanhoInim; i++)
+    {
+        Inimigo* pInim = LIs[i];
+
+        if (LIs[i] == nullptr)
+            continue; // Deve-se tolerar de fato?
+    
+        if (pJog1 != nullptr && verificarColisao(pJog1, pInim))
+            tratarColisaoJogInimigo(pJog1, pInim);
+
+        if (pJog2 != nullptr && verificarColisao(pJog2, pInim))
+            tratarColisaoJogInimigo(pJog2, pInim);
+    }
+}
+
+void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
+{
+}
+
+void Gerenciador_Colisoes::tratarColisoesChaoJogadores()
+{
+    if (pChao == nullptr)
+        return;
+
+    if (pJog1 != nullptr)
+        tratarColisaoPersonagemChao(pJog1);
+
+    if (pJog2 != nullptr)
+        tratarColisaoPersonagemChao(pJog2);
+}
+
+void Gerenciador_Colisoes::tratarColisoesInimObstaculos()
+{
+    int tamanhoInim = static_cast<int>(LIs.size());
+
+    for (int i = 0; i < tamanhoInim; i++)
+    {
+        Inimigo* pInim = LIs[i];
+
+        if (LIs[i] == nullptr)
+            continue; // Deve-se tolerar de fato?
+    
+        std::list<Obstaculo*>::iterator it; 
+
+        for (it = LOs.begin(); it != LOs.end(); ++it)
+        {
+            if ((*it) == nullptr)
+                continue; // Deve ser tolerado de fato?
+
+            Obstaculo* pObs = (*it);
+
+            if (verificarColisao(pInim, pObs))
+                tratarColisaoInimObstaculo(pInim, pObs);
+        }
+    }
+}
+
+void Gerenciador_Colisoes::tratarColisoesChaoInimigos()
+{
+    if (pChao == nullptr)
+        return;
+
+    int tamanhoInim = static_cast<int>(LIs.size());
+    
+    for (int i = 0; i < tamanhoInim; i++)
+    {
+        Inimigo* pInim = LIs[i];
+
+        if (LIs[i] == nullptr)
+            continue; // Deve-se tolerar de fato?
+
+        if (pInim != nullptr) 
+            tratarColisaoPersonagemChao(pInim);
+    }
+}
+
+void Gerenciador_Colisoes::tratarColisaoJogObstaculo(Jogador* pJog, Obstaculo* pObs)
+{
+    if (pJog == nullptr || pObs == nullptr)
         return;
 
     pObs->obstaculizar(pJog);
 }
 
-void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Obstaculo* pObs)
+void Gerenciador_Colisoes::tratarColisaoJogInimigo(Jogador* pJog, Inimigo* pInim)
+{
+    if (pJog == nullptr || pInim == nullptr)
+        return;
+
+    pInim->tentarDanificar(pJog);
+    pJog->colidirInimigo(pInim);
+}
+
+void Gerenciador_Colisoes::tratarColisaoInimObstaculo(Inimigo* pInim, Obstaculo* pObs)
 {
     if (pInim == nullptr || pObs == nullptr)
         return;
@@ -52,13 +168,13 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos(Inimigo* pInim, Obstacul
     pObs->obstaculizarInim(pInim);
 }
 
-void Gerenciador_Colisoes::tratarColisaoChao(Personagem* pP)
+void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
 {
-    if (pP == nullptr || pGround == nullptr)
+    if (pP == nullptr || pChao == nullptr)
         return;
 
     sf::FloatRect pBounds = pP->getBounds();
-    sf::FloatRect chaoBounds = pGround->getGlobalBounds();
+    sf::FloatRect chaoBounds = pChao->getGlobalBounds();
     sf::FloatRect intersecao;
 
     if (!pBounds.intersects(chaoBounds, intersecao))
@@ -93,133 +209,116 @@ void Gerenciador_Colisoes::tratarColisaoChao(Personagem* pP)
 
         pP->setVelocidadeY(novaVelY);
 
-        float pBottom = pP->getY()+(pBounds.height/2.0f); 
-        float chaoTop = pGround->getPosition().y;
+        float personagemBaixo = pP->getY()+(pBounds.height/2.0f); 
+        float chaoCima = pChao->getPosition().y;
 
-        if (abs(pBottom-chaoTop) < 2.0f)
+        if (abs(personagemBaixo - chaoCima) < 2.0f)
             pP->setNoChao(true);
+
         else
             pP->setNoChao(false);
-        
-        /*
-        if (novaVelY < 0.0f)
-            pP->setNoChao(false);
-        else
-            pP->setNoChao(true);
-        */
 
         pP->atualizarPosicaoSprite();
     }
 }
 
+void Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)
+{
+    if (pI == nullptr) 
+    {
+        cerr << "Erro: Tentativa de incluir inimigo com ponteiro nulo." << endl;
+        return;
+    }
+
+    else
+        LIs.push_back(pI);
+}
+
+void Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
+{
+    if (pO == nullptr) 
+    {
+        cerr << "Erro: Tentativa de incluir obstáculo com ponteiro nulo." << endl;
+        return;
+    }
+
+    else
+        LOs.push_back(pO);
+}
+
+void Gerenciador_Colisoes::setJog1(Jogador* pJ1)
+{
+    if (pJ1 == nullptr) 
+    {
+        cerr << "Erro: Tentativa de incluir Jogador1 com ponteiro nulo." << endl;
+        return;
+    }
+
+    else
+        pJog1 = pJ1;
+}
+
+void Gerenciador_Colisoes::setJog2(Jogador* pJ2)
+{
+    if (pJ2 == nullptr) 
+    {
+        cerr << "Erro: Tentativa de incluir Jogador2 com ponteiro nulo." << endl;
+        return;
+    }
+
+    else
+        pJog2 = pJ2;
+}
+
 void Gerenciador_Colisoes::executar()
 {
-    //estou sempre caindo aqui, portanto aqui chamo todas as verificações necessárias
+    // Para cada jogador e inimigo, resetar estado com relação ao chão
+    // antes de recalcular colisões no frame e ver se está dentro dos limites.
 
-    if (pListaJogadores == nullptr || pListaObstaculos == nullptr || pListaInimigos == nullptr)
+    if (pJog1 == nullptr && pJog2 == nullptr)
     {
-        cerr << "Erro: Uma ou mais lista de derivados de entidades nula no Gerenciador de Colisoes." << endl;
+        cerr << "Erro: nenhum jogador cadastrado no Gerenciador de Colisoes." << endl;
         return;
     }
 
-    const int qtdJogadores = static_cast<int>(pListaJogadores->getTamanho());
-    const int qtdObstaculos = static_cast<int>(pListaObstaculos->getTamanho());
-    const int qtdInimigos = static_cast<int>(pListaInimigos->getTamanho());
-
-    if (qtdJogadores == 0) 
+    if (pJog1 != nullptr)
     {
-        cerr << "Erro: lista de jogadores vazia no Gerenciador de Colisoes." << endl;
-        return;
+        pJog1->setNoChao(false);
+        caracterOutOfBounds(pJog1);
     }
 
-    for (int i = 0; i < qtdJogadores; i++) 
+    if (pJog2 != nullptr)
     {
-        if ((*pListaJogadores)[i] == nullptr)
-        {
-            cerr << "Jogador nulo encontrado na lista de jogadores." << endl; // Ou não deve ser tolerado com continue?
-            continue;
-        }
-
-        Jogador* pJog = (*pListaJogadores)[i];
-
-        pJog->setNoChao(false);
-
-        for (int j = 0; j < qtdObstaculos; j++) 
-        {       
-            Obstaculo* pObs = (*pListaObstaculos)[j];
-
-            if (pObs == nullptr) continue;
-
-            if(verificarColisao(pJog, pObs)) 
-            {
-                tratarColisoesJogsObstaculos(pJog, pObs);
-                //aplicarGravidade = false;
-            }
-        }
-
-        tratarColisaoChao(pJog);
-
-        caracterOutOfBounds(pJog);
-
-        for (int k = 0; k < qtdInimigos; k++) 
-        {       
-            Inimigo* pInim = (*pListaInimigos)[k];
-
-            if (pInim == nullptr) continue;
-
-            caracterOutOfBounds(pInim);
-
-            if(verificarColisao(pJog, pInim)) 
-                tratarColisoesJogsInimigos(pJog, pInim);
-        }
+        pJog2->setNoChao(false);
+        caracterOutOfBounds(pJog2);
     }
-
-    for (int j = 0; j < qtdInimigos; j++)
-    {
-        if ((*pListaInimigos)[j] == nullptr)
-        {
-            cerr << "Inimigo nulo encontrado na lista de inimigos." << endl; // Ou não deve ser tolerado com continue?
-            continue;
-        }
-
-        Inimigo* pInim = (*pListaInimigos)[j];
-
-        for (int k = 0; k < qtdObstaculos; k++)
-        {
-            Obstaculo* pObs = (*pListaObstaculos)[k];
-
-            if (pObs == nullptr) continue;
-
-            pInim->setNoChao(false);
-
-            if(verificarColisao(pInim, pObs)) 
-            {
-                tratarColisoesInimObstaculos(pInim, pObs);
-                //aplicarGravidade = false;
-            }
-
-            tratarColisaoChao(pInim);
-        }
-    }
-}
-
-const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
-{
-    if (pe1 == nullptr || pe2 == nullptr)
-        return false;
-
-    return (pe1->getBounds()).intersects(pe2->getBounds());
-}
-
-void Gerenciador_Colisoes::tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim)
-{
-    pInim->tentarDanificar(pJog);
-    pJog->colidirInimigo(pInim);
-}
-void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
-{
     
+    int tamanhoInim = static_cast<int>(LIs.size());
+
+    for (int i = 0; i < tamanhoInim; i++)
+    {
+        Inimigo* pInim = LIs[i];
+
+        if (LIs[i] == nullptr)
+            continue; // Deve-se tolerar de fato?
+
+        if (pInim != nullptr) 
+        {
+            pInim->setNoChao(false);
+            caracterOutOfBounds(pInim);
+        }
+    }
+    
+    tratarColisoesChaoJogadores();
+    tratarColisoesChaoInimigos();
+
+    tratarColisoesJogsObstaculos();
+    tratarColisoesInimObstaculos();
+
+    tratarColisoesJogsInimigos();
+    tratarColisoesJogsProjeteis();
 }
+
 void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
     if (pe == nullptr) 
@@ -234,7 +333,6 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
     if (bounds.left < lim_esq)
     {
         pe->setX(lim_esq + (bounds.width/2.0f));
-        //pe->setX(pe->getX() + (lim_esq - bounds.left));
         corrigiu = true;
     }
 
@@ -242,7 +340,6 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
     else if (bounds.left + bounds.width > lim_dir)
     {
         pe->setX(lim_dir - (bounds.width/2.0f));
-        //pe->setX(pe->getX() - ((bounds.left + bounds.width) - lim_dir));
         corrigiu = true;
     }
 
@@ -296,23 +393,19 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
     }
 }
 
-/* void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)
+void Gerenciador_Colisoes::removerInimigo(Inimigo* pI)
 {
-    
+    if (pI == nullptr)
+        return;
+
+    int tamanhoInim = static_cast<int>(LIs.size());
+
+    for (int i = 0; i < tamanhoInim; i++)
+    {
+        if (LIs[i] == pI)
+        {
+            LIs.erase(LIs.begin() + i);
+            return;
+        }
+    }
 }
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
-{
-    
-}
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::incluirProjetil(Projetil* pJ)
-{
-    
-}
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::setJog1(Jogador* pJ)
-{
-    
-}
-void TrabalhoJogo::Gerenciadores::Gerenciador_Colisoes::setJog2(Jogador* pJ)
-{
-    
-}*/

@@ -87,9 +87,9 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
     pF->executar();
 
     janela.draw(pF->getDrawData());
-    janela.draw(pF->getGround());
+    janela.draw(pF->getChao());
     
-    ListaEntidades* lEntidades = pF->getListaEntidades();
+    Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
     
     if (lEntidades == NULL)
     {

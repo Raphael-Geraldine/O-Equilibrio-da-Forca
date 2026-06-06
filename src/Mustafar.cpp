@@ -32,8 +32,8 @@ Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2):
         fundo.setTexture(*pTexturaFundo); 
     
     inicializar(pJ1,pJ2);
-    criarObstaculos();
-    criarInimigos();
+    //criarObstaculos();
+    //criarInimigos();
 }
 
 Mustafar::~Mustafar()
@@ -52,7 +52,7 @@ void Mustafar::criarInimigos()
             cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
         else
         {
-            incluirEntidade(static_cast<Inimigo*>(pK2)); 
+            Fase::incluirEntidade(static_cast<Inimigo*>(pK2)); 
             entsAlive++;
         }
     }
@@ -67,10 +67,16 @@ void Mustafar::criarObstaculos()
         if (pLava == nullptr)
             cerr << "Tentativa de incluir lava nula na lista de entidades." << endl;
         else   
-            incluirEntidade(static_cast<Obstaculo*>(pLava));
+            Fase::incluirEntidade(static_cast<Obstaculo*>(pLava));
     }
 }
 
+sf::Sprite Mustafar::getDrawData()
+{
+    return fundo;
+}
+
+/*
 void Mustafar::incluirEntidade(Entidade* pE) 
 {
     if (pE == nullptr)
@@ -163,13 +169,4 @@ void Mustafar::incluirObstaculo(Obstaculo* pO)
     listaEntidades.incluir(static_cast<Entidade*>(pO));
     listaObstaculos.incluir(pO);
 }
-
-sf::Sprite Mustafar::getDrawData()
-{
-    //listaEntidades.executar();
-    //bool g = gC->executar();
-    //Em jogador por or:
-    // if (g)
-    //    pJog->gravity();
-    return fundo;
-}
+*/

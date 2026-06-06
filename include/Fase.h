@@ -25,49 +25,40 @@ namespace TrabalhoJogo
 
                 Entidades::Personagens::Jogador* pJogador1;
                 Entidades::Personagens::Jogador* pJogador2;
-                Entidades::Obstaculos::Plataforma* pPlat;
 
-                Listas::Lista<Entidades::Personagens::Jogador> listaJogadores;
-                Listas::Lista<Entidades::Personagens::Inimigo> listaInimigos;
-                Listas::Lista<Entidades::Obstaculos::Obstaculo> listaObstaculos;
+                Listas::ListaEntidades listaEntidades;
+                Gerenciadores::Gerenciador_Colisoes* gC;
 
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;
                 const int minPlat;
                 const int maxPlat;
                 
-                sf::RectangleShape ground;
+                sf::RectangleShape chao;
 
+            protected:   
                 void inicializar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
-                     Entidades::Personagens::Jogador* pJ2 = nullptr);
-
-                Listas::ListaEntidades listaEntidades;
-                Gerenciadores::Gerenciador_Colisoes* gC;
-
-            protected:
+                                 Entidades::Personagens::Jogador* pJ2 = nullptr);
+                void incluirEntidade(Entidades::Entidade* pE);
                 void criarInimigosFaceis();
                 void criarPlataformas(); //Obstáculo fácil
+                void criarCenario();
+
                 virtual void criarInimigos() = 0;
                 virtual void criarObstaculos() = 0;
-                void criarCenario();
             
             public:
                 Fase(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                      Entidades::Personagens::Jogador* pJ2 = nullptr);
 
-                ~Fase();
+                virtual ~Fase();
 
-                virtual void incluirJogador(TrabalhoJogo::Entidades::Personagens::Jogador* pJ) = 0;
-                virtual void incluirInimigo(TrabalhoJogo::Entidades::Personagens::Inimigo* pI) = 0;
-                virtual void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO) = 0;
-
-                virtual void incluirEntidade (Entidade* pE) = 0;
                 Listas::ListaEntidades* getListaEntidades();
 
                 virtual void executar();
 
                 virtual sf::Sprite getDrawData() = 0;
-                sf::RectangleShape getGround();
+                sf::RectangleShape getChao();
         };
     }
 }

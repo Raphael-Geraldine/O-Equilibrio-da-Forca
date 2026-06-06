@@ -24,10 +24,10 @@ namespace TrabalhoJogo
                 sf::Sprite fundo;
 
             private:
-                void incluirEntidade(Entidades::Entidade* pE);
-                void incluirJogador(Entidades::Personagens::Jogador* pJ);
-                void incluirInimigo(Entidades::Personagens::Inimigo* pI);
-                void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO);
+                //void incluirEntidade(Entidades::Entidade* pE);
+                //void incluirJogador(Entidades::Personagens::Jogador* pJ);
+                //void incluirInimigo(Entidades::Personagens::Inimigo* pI);
+                //void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO);
                 void criarInimigos(); //Chefoes: Dificil
                 void criarObstaculos(); //Dificil
                 void criarProjeteis();

@@ -32,8 +32,8 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2):
         fundo.setTexture(*pTexturaFundo); 
     
     inicializar(pJ1,pJ2);
-    criarObstaculos();
-    criarInimigos();
+    //criarObstaculos();
+    //criarInimigos();
 }
 
 Hoth::~Hoth()
@@ -52,7 +52,7 @@ void Hoth::criarInimigos()
             cerr << "Tentativa de incluir AT-ST nula na lista de entidades." << endl;
         else
         {
-            incluirEntidade(static_cast<Inimigo*>(pAT));
+            Fase::incluirEntidade(static_cast<Inimigo*>(pAT));
             entsAlive++;
         } 
     }
@@ -69,7 +69,7 @@ void Hoth::criarObstaculos()
         if (pGelo == nullptr)
             cerr << "Tentativa de incluir gelo nula na lista de entidades." << endl;
         else   
-            incluirEntidade(static_cast<Obstaculo*>(pGelo));
+            Fase::incluirEntidade(static_cast<Obstaculo*>(pGelo));
     }
     */
 }
@@ -79,6 +79,12 @@ void Hoth::criarProjeteis()
 
 }
 
+sf::Sprite Hoth::getDrawData()
+{
+    return fundo;
+}
+
+/*
 void Hoth::incluirEntidade(Entidade* pE) 
 {
     if (pE == nullptr)
@@ -171,8 +177,4 @@ void Hoth::incluirObstaculo(Obstaculo* pO)
     listaEntidades.incluir(static_cast<Entidade*>(pO));
     listaObstaculos.incluir(pO);
 }
-
-sf::Sprite Hoth::getDrawData()
-{
-    return fundo;
-}
+*/
