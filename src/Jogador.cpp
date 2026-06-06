@@ -41,7 +41,7 @@ Jogador::Jogador(): Personagem(jogador), playerID(cont++)
     sf::FloatRect bounds = playerSkin.getLocalBounds();
     playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     
-    playerSkin.setPosition(x,y);
+    atualizarPosicaoSprite();
 }
 
 Jogador::~Jogador()
@@ -55,8 +55,9 @@ sf::Sprite Jogador::getDrawData()
 }
 void Jogador::executar()
 {
-    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     salvarPosicaoAnterior();
+    
+    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
     
     // Para a esquerda.

@@ -44,7 +44,7 @@ Stormtrooper::Stormtrooper():
     stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     stormSkin.setScale(altura*0.12,altura*0.12);
-    stormSkin.setPosition(x,y);
+    atualizarPosicaoSprite();
 }
 Stormtrooper::~Stormtrooper()
 {
@@ -52,6 +52,11 @@ Stormtrooper::~Stormtrooper()
 }
 void Stormtrooper::executar()
 {
+    salvarPosicaoAnterior();
+
+    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
+    velocidade.x = 0.0f;
+
     int sort = rand()%10;
 
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)

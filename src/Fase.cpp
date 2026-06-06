@@ -159,7 +159,7 @@ void Fase::criarInimigosFaceis()
 void Fase::criarPlataformas()
 {
     int qntd = rand()%(maxPlat-minPlat+1) + minPlat;
-    for (int i = 0; i < qntd; i++)
+    for (int i = 0; i < 6; i++)
     {
         Plataforma* pPlat = new Plataforma();
         if (pPlat == nullptr)

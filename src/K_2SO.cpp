@@ -44,7 +44,7 @@ K_2SO::K_2SO():
     k2Skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     k2Skin.setScale(altura*0.15,altura*0.15);
-    k2Skin.setPosition(x,y);
+    atualizarPosicaoSprite();
 }
 K_2SO::~K_2SO()
 {
@@ -52,8 +52,9 @@ K_2SO::~K_2SO()
 }
 void K_2SO::executar()
 {
-    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     salvarPosicaoAnterior();
+    
+    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
 
     int sort = rand()%10;
