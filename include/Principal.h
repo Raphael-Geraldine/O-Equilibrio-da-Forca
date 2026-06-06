@@ -36,7 +36,7 @@ namespace TrabalhoJogo
             TrabalhoJogo::Listas::ListaEntidades LEntidades;
             // TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
             // TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
-           Fases::Fase* pFase;
+            Fases::Fase* pFases[2];
             //TrabalhoJogo::Fases::Hoth* hoth;
 
             Entidades::Personagens::Jogador* pAnakin;

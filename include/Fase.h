@@ -18,8 +18,10 @@ namespace TrabalhoJogo
         class Fase : public Ente
         {
             protected:
-                static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
-                short int nFase;
+                //static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
+                //short int nFase;
+                short int entsAlive;
+                short int platGeradas;
 
                 Entidades::Personagens::Jogador* pJogador1;
                 Entidades::Personagens::Jogador* pJogador2;

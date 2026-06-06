@@ -51,7 +51,10 @@ void Mustafar::criarInimigos()
         if (pK2 == nullptr)
             cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
         else
+        {
             incluirEntidade(static_cast<Inimigo*>(pK2)); 
+            entsAlive++;
+        }
     }
 }
 

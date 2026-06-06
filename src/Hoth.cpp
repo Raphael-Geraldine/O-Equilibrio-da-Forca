@@ -51,7 +51,10 @@ void Hoth::criarInimigos()
         if (pAT == nullptr)
             cerr << "Tentativa de incluir AT-ST nula na lista de entidades." << endl;
         else
-            incluirEntidade(static_cast<Inimigo*>(pAT)); 
+        {
+            incluirEntidade(static_cast<Inimigo*>(pAT));
+            entsAlive++;
+        } 
     }
     */
 }

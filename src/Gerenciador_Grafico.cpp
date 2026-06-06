@@ -1,7 +1,3 @@
-#define MENUINICIALPNG "../assets/images/MenuInicial.png"
-#define ANAKINPNG "../assets/images/Anakin.png"
-#define FONTE "../assets/fonts/PressStart2P.ttf"
-
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
@@ -39,7 +35,6 @@ Gerenciador_Grafico::Gerenciador_Grafico()
     janela.setFramerateLimit(120);
 
     textOptions.clear();
-    menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
 }
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
@@ -81,54 +76,6 @@ void Gerenciador_Grafico::desenharEnte (Ente* pE)
     janela.draw(spriteEntidade);
 }
 
-void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
-{
-    // Chamada fora do loop.
-    sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela)); 
-
-    for (int i=0; i<textOptions.size();i++)
-    {   
-        if (textOptions[i].getGlobalBounds().contains(mousePosition))
-        {
-            sf::Color hover(255,255,255,170);
-            textOptions[i].setFillColor(hover);
-        }
-        else
-        {
-            textOptions[i].setFillColor(sf::Color::White);
-        }
-
-        janela.draw(textOptions[i]); // Após ajuste de cores.
-    }
-}
-
-void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
-{
-    janela.draw(fundo);
-    janela.draw(anakin);
-
-    desenharTextoMenu (janela);
-        
-    janela.display();
-
-    if (pM->CliqueDeRedirecionamento(janela,textOptions[0]))
-        optionSelected=0;
-
-    if (pM->CliqueDeRedirecionamento(janela,textOptions[1]))
-        optionSelected=1;
-
-    if (pM->CliqueDeRedirecionamento(janela,textOptions[2]))
-        optionSelected=2;
-
-    if (pM->CliqueDeRedirecionamento(janela,textOptions[3]))
-        optionSelected=3; //falta implementar o clique específico
-
-    if (pM->CliqueDeRedirecionamento(janela,textOptions[4]))
-        optionSelected=4; //falta implementar o clique específico
-
-    if (pM->CliqueDeRedirecionamento(janela,textOptions[5]))
-        optionSelected=5;
-}
 void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
 {
     if (pF == NULL) 
@@ -192,9 +139,42 @@ void Gerenciador_Grafico::posicionarEnte (Ente* pE)
 
 }
 
-void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
+void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
 {
-    loadMenu(pM);
+    janela.draw(pM->getFundo());
+    janela.draw(pM->getDrawData());
+
+    desenharTextoMenu(janela);
+        
+    janela.display();
+
+    optionSelected = pM->manager(janela,textOptions);
+}
+
+void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
+{
+    // Chamada fora do loop.
+    sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela)); 
+
+    for (int i=0; i<textOptions.size();i++)
+    {   
+        if (textOptions[i].getGlobalBounds().contains(mousePosition))
+        {
+            sf::Color hover(255,255,255,170);
+            textOptions[i].setFillColor(hover);
+        }
+        else
+        {
+            textOptions[i].setFillColor(sf::Color::White);
+        }
+
+        janela.draw(textOptions[i]); // Após ajuste de cores.
+    }
+}
+
+void Gerenciador_Grafico::window(Menu* pM, Fase** pF)
+{
+    pM->loadMenu(textOptions);
 
     while (janela.isOpen())
     {
@@ -211,11 +191,11 @@ void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
         
         if (optionSelected == -1)
         {
-            desenharMenu (pM,janela);
+            desenharMenu(pM,janela);
         }
         if (optionSelected == 0)
         {
-            desenharFase(pF,janela);
+            desenharFase(pF[0],janela);
         }
         if (optionSelected == 1)
         {
@@ -242,46 +222,6 @@ void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
             cout<<"How to play, page"<<endl;
             optionSelected = -1; //temp, just to make it works
         }
-    }
-}
-
-void Gerenciador_Grafico::loadMenu(Menu* pM)
-{
-    fundo.setTexture(*carregarTextura(MENUINICIALPNG));
-    anakin.setTexture(*carregarTextura(ANAKINPNG));
-
-    anakin.setScale(0.5,0.5);
-    anakin.setPosition(50,170);
-
-    if (!fonteMenu.loadFromFile(FONTE))
-    {
-        cerr << "Erro de carregamento da Fonte no Menu" << endl;
-    }
-
-    else
-    {
-        //cout<<"tudo ok com a fonte"<<endl;
-    }
-
-    menuTextPlacement();
-}
-
-void Gerenciador_Grafico::menuTextPlacement()
-{
-    textOptions.clear();
-    list<string>::iterator it = menuOptions.begin();
-    int posX = 640, posY = 200;
-    while (it != menuOptions.end())
-    {
-        sf::Text text(*it, fonteMenu, 30);
-        sf::FloatRect bounds = text.getLocalBounds();
-        // Ponto de referência do meio do objeto texto.
-        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
-        // Coloca o ponto de referência na posição a seguir.
-        text.setPosition(posX,posY);
-        textOptions.push_back(text);
-        posY+=70;
-        it++;
     }
 }
 

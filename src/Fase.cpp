@@ -22,7 +22,7 @@ using std::endl;
 
 #include <stdlib.h>
 
-short int Fase::cont(0);
+//short int Fase::cont(0);
 
 Fase::Fase(Jogador* pJ1, Jogador* pJ2): 
     minInimigosFaceis(3), 
@@ -30,7 +30,9 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     minPlat(3),
     maxPlat(6),
     Ente(),
-    nFase(cont++), 
+    entsAlive(0),
+    platGeradas(0),
+    //nFase(cont++), 
     gC(nullptr),
     pJogador1(pJ1),
     pJogador2(pJ2),
@@ -115,6 +117,13 @@ void Fase::executar()
             listaInimigos.remover(i);
             i--; // pois não pode ser acrescido na prox. iteração
             tamInim--;
+            entsAlive--;
+        }
+
+        if (entsAlive == 0)
+        {
+            cout<<platGeradas<<endl;
+            cout<<"FIM DE FASE"<<endl;
         }
     }
 
@@ -152,14 +161,17 @@ void Fase::criarInimigosFaceis()
         if (pStorm == nullptr)
             cerr << "Tentativa de incluir Stormtrooper nula na lista de entidades." << endl;
         else
+        {
             incluirEntidade(static_cast<Inimigo*>(pStorm)); 
+            entsAlive++;
+        }
     }
 }
 
 void Fase::criarPlataformas()
 {
-    int qntd = rand()%(maxPlat-minPlat+1) + minPlat;
-    for (int i = 0; i < qntd; i++)
+    platGeradas = rand()%(maxPlat-minPlat+1) + minPlat;
+    for (int i = 0; i < platGeradas; i++)
     {
         Plataforma* pPlat = new Plataforma();
         if (pPlat == nullptr)

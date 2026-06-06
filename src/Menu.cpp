@@ -1,3 +1,8 @@
+#define MENUINICIALPNG "../assets/images/MenuInicial.png"
+#define ANAKINPNG "../assets/images/Anakin.png"
+
+#define FONTE "../assets/fonts/PressStart2P.ttf"
+
 #include <vector>
 #include <string>
 using namespace std;
@@ -17,22 +22,17 @@ using namespace Gerenciadores;
 
 Menu::Menu(): 
     pGGraf(nullptr),
-    qntdJogadores(1),
+    qntdJogs(1),
+    faseEscolhida(0),
     pJogo()
 {
-    fases.clear();
-    fases.push_back("Mustafar");
-    fases.push_back("Hoth");
-
-    faseEscolhida=fases.begin();
     executar();
 }
 
 Menu::~Menu()
 {
-    fases.clear();
-    faseEscolhida=fases.end();
-    qntdJogadores=-1;
+    faseEscolhida=-1;
+    qntdJogs=-1;
 
     // O Menu não deve deletá-lo, pois Gerenciador_Gráfico é singleton
     pGGraf = nullptr; 
@@ -40,20 +40,98 @@ Menu::~Menu()
 
 void Menu::executar()
 {
-    /*
-    while (pGGraf->isWindowOpen()) 
-    {
-        pGGraf->updateDeltaTime();
-        pGGraf->clear();
-        pGGraf->display();
-    }
-    */
-    //pGGraf=new Gerenciador_Grafico();
+    menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
     
-    //pGGraf->window(this);
+    faseString= "Fase 2: Hoth";
+    jogsString= "2 Jogadores";
 }
 
-bool Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
+short int Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
+{
+    if (cliqueEmOpcao(janela,text[0]))
+        return 0;
+
+    if (cliqueEmOpcao(janela,text[1]))
+        return 1;
+
+    if (cliqueEmOpcao(janela,text[2]))
+        return 2;
+
+    if (cliqueEmOpcao(janela,text[3]))
+    {
+        list<string>::iterator it = menuOptions.begin();
+        for (int i=0; i<3; i++)
+            ++it;
+
+        string tempString = *it;
+        *it=faseString;
+        faseString=tempString;
+
+        faseEscolhida == 0 ? faseEscolhida = 1 : faseEscolhida = 0;
+        
+        loadMenu(text);
+        
+        return 3;   
+    }
+    if (cliqueEmOpcao(janela,text[4]))
+    {
+        list<string>::iterator it = menuOptions.begin();
+        for (int i=0; i<4; i++)
+            ++it;
+
+        string tempString = *it;
+        *it=jogsString;
+        jogsString=tempString;
+
+        qntdJogs == 1 ? qntdJogs = 2 : qntdJogs = 1;
+        
+        loadMenu(text);
+
+        return 4;
+    }
+
+    if (cliqueEmOpcao(janela,text[5]))
+        return 5;
+
+    return -1;
+}
+
+void Menu::loadMenu(vector<sf::Text>& text)
+{
+    pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(MENUINICIALPNG);
+    pTexturaAnakin = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
+    fundo.setTexture(*pTexturaFundo);
+    anakin.setTexture(*pTexturaAnakin);
+
+    anakin.setScale(0.5,0.5);
+    anakin.setPosition(50,170);
+
+    if (!fonteMenu.loadFromFile(FONTE))
+        cerr << "Erro de carregamento da Fonte no Menu" << endl;
+
+    menuTextPlacement(text);
+}
+
+void Menu::menuTextPlacement(vector<sf::Text>& textToDisplay)
+{
+    textToDisplay.clear();
+    list<string>::iterator it = menuOptions.begin();
+    int posX = 640, posY = 200;
+    while (it != menuOptions.end())
+    {
+        sf::Text text(*it, fonteMenu, 30);
+        sf::FloatRect bounds = text.getLocalBounds();
+        // Ponto de referência do meio do objeto texto.
+        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
+        // Coloca o ponto de referência na posição a seguir.
+        text.setPosition(posX,posY);
+        textToDisplay.push_back(text);
+        posY+=70;
+        it++;
+    }
+}
+
+bool Menu::cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text)
 {
     sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela));
     if (text.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -66,8 +144,12 @@ bool Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
     return 0;
 }
 
+sf::Sprite Menu::getFundo()
+{
+    return fundo; 
+}
+
 sf::Sprite Menu::getDrawData()
 {
-    // Sprite vazia, porque em "Ente" getDrawData() é virtual pura.
-    return sf::Sprite(); 
+    return anakin; 
 }

@@ -70,12 +70,12 @@ namespace TrabalhoJogo
                 static Gerenciador_Grafico* pGrafico; // static Singleton* Instance();
 
                 // sf::Texture texturaFundo; 
-                sf::Sprite fundo;
+                //sf::Sprite fundo;
 
-                sf::Font fonteMenu;
+                //sf::Font fonteMenu;
 
                 // sf::Texture texturaAnakin;
-                sf::Sprite anakin;
+                //sf::Sprite anakin;
 
                 sf::Text textIniciar;
                 sf::Text textRank;
@@ -84,7 +84,6 @@ namespace TrabalhoJogo
                 sf::Text textPlayers;
                 sf::Text textRules;
 
-                list<string> menuOptions;
                 vector<sf::Text> textOptions;
                 static short int optionSelected;
                 static void destruirGGrafico();
@@ -99,15 +98,15 @@ namespace TrabalhoJogo
                 ~Gerenciador_Grafico();
                 static Gerenciador_Grafico* getGerenciadorGrafico(); // static Singleton* _instance;
                 void desenharEnte (Ente* pE);
-                void desenharTextoMenu (sf::RenderWindow & janela);
-                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
+                void desenharTextoMenu (sf::RenderWindow & janela); //out
+                void desenharMenu (Menu* pM, sf::RenderWindow & janela); //out
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
 
-                void window(Menu* pM, Fase* pF);
-                void loadMenu(Menu* pM);
-                void menuTextPlacement();
+                void window(Menu* pM, Fase** pF);
+                //void loadMenu(Menu* pM); //out
+                //void menuTextPlacement(); //out
                 
                 static float getDeltaTempo();
                 void atualizarTempoPercorrido();

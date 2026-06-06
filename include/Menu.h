@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <list>
 using namespace std;
 
 #include <SFML/Graphics.hpp>
@@ -24,16 +25,31 @@ namespace TrabalhoJogo
     {
         private:
             Principal* pJogo;
-            vector<string> fases;
-            vector<string>::iterator faseEscolhida;
-            int qntdJogadores;
             Gerenciadores::Gerenciador_Grafico* pGGraf;
+
+            string faseString;
+            string jogsString;
+            int faseEscolhida;
+            int qntdJogs;
+
+            sf::Texture* pTexturaFundo;
+            sf::Texture* pTexturaAnakin;
+            sf::Sprite fundo;
+            sf::Sprite anakin;
+
+            sf::Font fonteMenu;
+
+            list<string> menuOptions;
 
         public:
             Menu();
             ~Menu();
             void executar();
-            bool CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text);
+            short int manager(sf::RenderWindow& janela, vector<sf::Text>& text);
+            bool cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text);
+            void loadMenu(vector<sf::Text>& text);
+            void menuTextPlacement(vector<sf::Text>& textToDisplay);
+            sf::Sprite getFundo();
             sf::Sprite getDrawData();
     };
 }

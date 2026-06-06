@@ -9,6 +9,7 @@ using std::endl;
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Fase.h"
 #include "../include/Mustafar.h"
+#include "../include/Hoth.h"
 
 using namespace TrabalhoJogo;
 using namespace Entidades;
@@ -21,8 +22,7 @@ using namespace Fases;
 TrabalhoJogo::Principal::Principal(): 
     pGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pMenu(nullptr), 
-    pAnakin(nullptr),
-    pFase(nullptr)
+    pAnakin(nullptr)
 {
     executar();
 }
@@ -32,8 +32,11 @@ TrabalhoJogo::Principal::~Principal()
     delete (pMenu);
     pMenu = nullptr;
 
-    delete (pFase);
-    pFase = nullptr;
+    delete (pFases[0]);
+    pFases[0] = nullptr;
+
+    delete (pFases[1]);
+    pFases[1] = nullptr;
 
     delete (pAnakin);
     pAnakin = nullptr;
@@ -52,9 +55,12 @@ void TrabalhoJogo::Principal::executar()
 
     pMenu = new Menu();
     pAnakin = new Jogador();
-    pFase = new Mustafar(pAnakin);
+    Fase* pFase1 = new Mustafar(pAnakin);
+    Fase* pFase2 = new Hoth(pAnakin);
+    pFases[0] = pFase1;
+    pFases[1] = pFase2;
+
     //pMustafar->incluirEntidade(pAnakin);
 
-    pGG->window(pMenu, pFase);
-    //pGG->window(pMenu,static_cast<Fase*>(pMustafar)); //depois vai precisar passar uma lista de fases e entidades!!!
+    pGG->window(pMenu, pFases);
 }
