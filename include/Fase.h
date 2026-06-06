@@ -25,12 +25,9 @@ namespace TrabalhoJogo
                 Entidades::Personagens::Jogador* pJogador2;
                 Entidades::Obstaculos::Plataforma* pPlat;
 
-                Listas::ListaEntidades listaEntidades;
                 Listas::Lista<Entidades::Personagens::Jogador> listaJogadores;
                 Listas::Lista<Entidades::Personagens::Inimigo> listaInimigos;
                 Listas::Lista<Entidades::Obstaculos::Obstaculo> listaObstaculos;
-
-                Gerenciadores::Gerenciador_Colisoes* gC;
 
                 const int minInimigosFaceis;
                 const int maxInimigosFaceis;
@@ -42,7 +39,10 @@ namespace TrabalhoJogo
                 void inicializar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                      Entidades::Personagens::Jogador* pJ2 = nullptr);
 
-            private:
+                Listas::ListaEntidades listaEntidades;
+                Gerenciadores::Gerenciador_Colisoes* gC;
+
+            protected:
                 void criarInimigosFaceis();
                 void criarPlataformas(); //Obstáculo fácil
                 virtual void criarInimigos() = 0;

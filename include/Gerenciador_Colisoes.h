@@ -39,8 +39,8 @@ namespace TrabalhoJogo
                 //Listas::Lista<Entidades::Projetil>* pListaProjeteis;
 
             private:
-                void tratarColisaoChao(Personagem* pP);
                 const bool verificarColisao(Entidade* pe1, Entidade* pe2) const;
+                void tratarColisaoChao(Personagem* pP);
                 void tratarColisoesJogsObstaculos(Jogador* pJog, Obstaculo* pPlat);
                 void tratarColisoesJogsInimigos(Jogador* pJog, Inimigo* pInim);
                 void tratarColisoesInimObstaculos(Inimigo* pInim, Obstaculo* pPlat);
