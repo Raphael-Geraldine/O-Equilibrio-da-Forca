@@ -1,4 +1,5 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
+#define ANAKINDAMAGEPNG "../assets/images/AnakinDamage.png"
 
 #include <iostream>
 using std::cout;
@@ -27,9 +28,10 @@ Jogador::Jogador(): Personagem(jogador), playerID(cont++)
 
     if (!playerID)
     {
-        sf::Texture* pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
+        pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
+        pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINDAMAGEPNG);
 
-        if (pTexturaJogador == nullptr)
+        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
             cerr << "Erro de carregamento do PNG do Jogador 1" << endl;
 
         else
@@ -60,6 +62,9 @@ void Jogador::executar()
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
     
+    if ((playerSkin.getTexture() == pTexturaDanoJogador) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
+        playerSkin.setTexture(*pTexturaJogador);
+
     // Para a esquerda.
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         velocidade.x = -400.0f;
@@ -112,6 +117,8 @@ void Jogador::colidirInimigo(Inimigo* pIn)
 void Jogador::sofrerAtaque(int dano)
 {
     num_vidas-=dano;
+    playerSkin.setTexture(*pTexturaDanoJogador); 
+    textureClock.restart();
     cout<<num_vidas<<endl;
 }
 

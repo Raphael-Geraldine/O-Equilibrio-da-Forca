@@ -15,8 +15,10 @@ namespace TrabalhoJogo
                     static short int cont;
                     short int playerID; 
                     int pontos;
-                    sf::Texture playerTexture;
+                    sf::Texture* pTexturaJogador;
+                    sf::Texture* pTexturaDanoJogador;
                     sf::Sprite playerSkin;
+                    sf::Clock textureClock;
 
                 public:
                     Jogador();
