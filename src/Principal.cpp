@@ -22,7 +22,8 @@ using namespace Fases;
 TrabalhoJogo::Principal::Principal(): 
     pGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pMenu(nullptr), 
-    pAnakin(nullptr)
+    pAnakin1(nullptr),
+    pObi1(nullptr)
 {
     executar();
 }
@@ -32,14 +33,17 @@ TrabalhoJogo::Principal::~Principal()
     delete (pMenu);
     pMenu = nullptr;
 
-    delete (pFases[0]);
-    pFases[0] = nullptr;
+    if (pFase != nullptr)
+        delete (pFase);
+    pFase = nullptr;
 
-    delete (pFases[1]);
-    pFases[1] = nullptr;
+    if (pAnakin1 != nullptr)
+        delete (pAnakin1);
+    pAnakin1 = nullptr;
 
-    delete (pAnakin);
-    pAnakin = nullptr;
+    if (pObi1 != nullptr)
+        delete (pObi1);
+    pObi1 = nullptr;
 
     // Cuidado: Gerenciador_Grafico é singleton, não deleta aqui.
     pGG = nullptr;
@@ -54,13 +58,31 @@ void TrabalhoJogo::Principal::executar()
     Ente::staticSetGG(pGG);
 
     pMenu = new Menu();
-    pAnakin = new Jogador();
-    Fase* pFase1 = new Mustafar(pAnakin);
-    Fase* pFase2 = new Hoth(pAnakin);
-    pFases[0] = pFase1;
-    pFases[1] = pFase2;
-
+    
     //pMustafar->incluirEntidade(pAnakin);
 
-    pGG->window(pMenu, pFases);
+    pGG->window(pMenu, this);
+}
+
+Fase* TrabalhoJogo::Principal::getFase()
+{
+    if (pAnakin1 == nullptr) //ou seja, início de jogo
+    {
+        short int qntd = pMenu->getJogsEscolhido();
+        short int fase = pMenu->getFaseEscolhida();
+        
+        pAnakin1 = new Jogador();
+        
+        //É isso mesmo! Só está comentado, pois Jogador não suporta isso ainda
+        /*
+        if(qntd != 1)
+            pObi1 = new Jogador();
+        */
+        
+        if (!fase) //0 é Mustafar
+            pFase = new Mustafar(pAnakin1, pObi1);
+        else
+            pFase = new Hoth(pAnakin1, pObi1);
+    }
+    return pFase;
 }

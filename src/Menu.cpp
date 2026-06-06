@@ -144,6 +144,16 @@ bool Menu::cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text)
     return 0;
 }
 
+short int Menu::getFaseEscolhida()
+{
+    return faseEscolhida;
+}
+
+short int Menu::getJogsEscolhido()
+{
+    return qntdJogs;
+}
+
 sf::Sprite Menu::getFundo()
 {
     return fundo; 

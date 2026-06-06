@@ -36,15 +36,17 @@ namespace TrabalhoJogo
             TrabalhoJogo::Listas::ListaEntidades LEntidades;
             // TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
             // TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
-            Fases::Fase* pFases[2];
+            Fases::Fase* pFase;
             //TrabalhoJogo::Fases::Hoth* hoth;
 
-            Entidades::Personagens::Jogador* pAnakin;
+            Entidades::Personagens::Jogador* pAnakin1;
+            Entidades::Personagens::Jogador* pObi1;
 
         public:
             Principal();
             ~Principal();
 
             void executar();
+            Fases::Fase* getFase();
     };
 }

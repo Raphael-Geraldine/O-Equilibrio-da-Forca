@@ -34,6 +34,7 @@ using namespace Gerenciadores;
 
 namespace TrabalhoJogo
 {
+    class Principal;
     class Menu;
     class Ente;
 
@@ -104,7 +105,7 @@ namespace TrabalhoJogo
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
 
-                void window(Menu* pM, Fase** pF);
+                void window(Menu* pM, Principal* pP);
                 //void loadMenu(Menu* pM); //out
                 //void menuTextPlacement(); //out
                 

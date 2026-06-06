@@ -1,3 +1,4 @@
+#include "../include/Principal.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
@@ -172,7 +173,7 @@ void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
     }
 }
 
-void Gerenciador_Grafico::window(Menu* pM, Fase** pF)
+void Gerenciador_Grafico::window(Menu* pM, Principal* pP)
 {
     pM->loadMenu(textOptions);
 
@@ -195,7 +196,7 @@ void Gerenciador_Grafico::window(Menu* pM, Fase** pF)
         }
         if (optionSelected == 0)
         {
-            desenharFase(pF[0],janela);
+            desenharFase(pP->getFase(),janela);
         }
         if (optionSelected == 1)
         {

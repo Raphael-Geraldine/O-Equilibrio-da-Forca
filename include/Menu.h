@@ -29,8 +29,8 @@ namespace TrabalhoJogo
 
             string faseString;
             string jogsString;
-            int faseEscolhida;
-            int qntdJogs;
+            short int faseEscolhida;
+            short int qntdJogs;
 
             sf::Texture* pTexturaFundo;
             sf::Texture* pTexturaAnakin;
@@ -51,5 +51,7 @@ namespace TrabalhoJogo
             void menuTextPlacement(vector<sf::Text>& textToDisplay);
             sf::Sprite getFundo();
             sf::Sprite getDrawData();
+            short int getFaseEscolhida();
+            short int getJogsEscolhido();
     };
 }
