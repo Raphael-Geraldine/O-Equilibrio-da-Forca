@@ -65,3 +65,9 @@ bool Menu::CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text)
     }
     return 0;
 }
+
+sf::Sprite Menu::getDrawData()
+{
+    // Sprite vazia, porque em "Ente" getDrawData() é virtual pura.
+    return sf::Sprite(); 
+}

@@ -52,9 +52,9 @@ Jogador::~Jogador()
 
 sf::Sprite Jogador::getDrawData()
 {
-
     return playerSkin;
 }
+
 void Jogador::executar()
 {
     salvarPosicaoAnterior();

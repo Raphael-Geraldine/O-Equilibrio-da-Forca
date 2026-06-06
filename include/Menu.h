@@ -34,6 +34,6 @@ namespace TrabalhoJogo
             ~Menu();
             void executar();
             bool CliqueDeRedirecionamento(sf::RenderWindow& janela, sf::Text& text);
-
+            sf::Sprite getDrawData();
     };
 }

@@ -14,6 +14,25 @@ float Gerenciador_Grafico::dt = 0;
 
 Gerenciador_Grafico* Gerenciador_Grafico::pGrafico = nullptr;
 
+void Gerenciador_Grafico::destruirGGrafico() 
+{
+    if (pGrafico != nullptr) 
+    {
+        delete pGrafico;
+        pGrafico = nullptr;
+    }
+}
+
+/*
+void Gerenciador_Grafico::destruirGGrafico() 
+{
+    if (Gerenciador_Grafico::getGerenciadorGrafico() != nullptr) 
+    {
+        delete (Gerenciador_Grafico::getGerenciadorGrafico());
+    }
+}
+*/
+
 Gerenciador_Grafico::Gerenciador_Grafico()
 {
     janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
@@ -34,35 +53,12 @@ Gerenciador_Grafico::~Gerenciador_Grafico()
 
         ((*it).second) = nullptr;
     }
-    
-    /*
-    //fixing carregarTextura Memory Leaks
-    delete(fundo.getTexture());
-    delete(anakin.getTexture());
-    */
 
     mapaTexturas.clear();
     textOptions.clear();
 }
 
-void Gerenciador_Grafico::destruirGGrafico() 
-{
-    if (pGrafico != nullptr) 
-    {
-        delete pGrafico;
-        pGrafico = nullptr;
-    }
-}
 
-/*
-void Gerenciador_Grafico::destruirGGrafico() 
-{
-    if (Gerenciador_Grafico::getGerenciadorGrafico() != nullptr) 
-    {
-        delete (Gerenciador_Grafico::getGerenciadorGrafico());
-    }
-}
-*/
 Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 {
     if (pGrafico == nullptr) 
@@ -73,63 +69,16 @@ Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 
     return pGrafico;
 }
-
-float Gerenciador_Grafico::getDeltaTempo() 
+void Gerenciador_Grafico::desenharEnte (Ente* pE)
 {
-    return dt;
-}
-
-void Gerenciador_Grafico::atualizarTempoPercorrido() 
-{
-    dt = relogio.getElapsedTime().asSeconds();
-    relogio.restart();
-}
-
-sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path) 
-{
-    map<const char*, sf::Texture*>::iterator it;
-    for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it)
+    if (pE == NULL)
     {
-        if (strcmp((*it).first, path) == 0)
-            return ((*it).second);
+        cerr << "Erro: ponteiro para Ente nulo." << endl;
+        return;
     }
 
-    sf::Texture* textura = new sf::Texture();
-    
-    if ((*textura).loadFromFile(path) == false) 
-    {
-        cerr << "Erro: Nao foi possivel carregar textura!" << endl;
-
-        delete (textura);
-        textura = nullptr;
-
-        return nullptr;
-    }
-
-
-    mapaTexturas.insert(pair<const char*, sf::Texture*>(path, textura));
-
-    return textura;
-}
-
-// Sem iterador i
-void Gerenciador_Grafico::menuTextPlacement()
-{
-    textOptions.clear();
-    list<string>::iterator it = menuOptions.begin();
-    int posX = 640, posY = 200;
-    while (it != menuOptions.end())
-    {
-        sf::Text text(*it, fonteMenu, 30);
-        sf::FloatRect bounds = text.getLocalBounds();
-        // Ponto de referência do meio do objeto texto.
-        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
-        // Coloca o ponto de referência na posição a seguir.
-        text.setPosition(posX,posY);
-        textOptions.push_back(text);
-        posY+=70;
-        it++;
-    }
+    sf::Sprite spriteEntidade = pE->getDrawData();
+    janela.draw(spriteEntidade);
 }
 
 void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
@@ -151,45 +100,6 @@ void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
 
         janela.draw(textOptions[i]); // Após ajuste de cores.
     }
-}
-
-void Gerenciador_Grafico::loadMenu(Menu* pM)
-{
-    fundo.setTexture(*carregarTextura(MENUINICIALPNG));
-    
-    anakin.setTexture(*carregarTextura(ANAKINPNG));
-    anakin.setScale(0.5,0.5);
-    anakin.setPosition(50,170);
-    /*
-    if (!texturaFundo.loadFromFile(MENUINICIALPNG))
-    {
-        cerr << "Erro de carregamento do Plano de Fundo do Menu Inicial" << endl;
-    }
-    else
-    {
-        fundo.setTexture(texturaFundo); 
-    }
-
-    if (!texturaAnakin.loadFromFile(ANAKINPNG))
-    {
-        cerr << "Erro de carregamento do Personagem de exemplo" << endl;
-    }
-    else
-    {
-        anakin.setTexture(texturaAnakin); 
-    }
-    */
-
-    if (!fonteMenu.loadFromFile(FONTE))
-    {
-        cerr << "Erro de carregamento da Fonte no Menu" << endl;
-    }
-    else
-    {
-        //cout<<"tudo ok com a fonte"<<endl;
-    }
-
-    menuTextPlacement();
 }
 
 void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
@@ -218,6 +128,68 @@ void Gerenciador_Grafico::desenharMenu (Menu* pM, sf::RenderWindow & janela)
 
     if (pM->CliqueDeRedirecionamento(janela,textOptions[5]))
         optionSelected=5;
+}
+void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
+{
+    if (pF == NULL) 
+    {
+        cerr << "Erro: Ponteiro para fase nulo." << endl;
+        return;
+    }
+
+    pF->executar();
+
+    janela.draw(pF->getDrawData());
+    janela.draw(pF->getGround());
+    
+    ListaEntidades* lEntidades = pF->getListaEntidades();
+    
+    if (lEntidades == NULL)
+    {
+        std::cerr << "Lista de entidades nula." << std::endl;
+        return;
+    }
+
+    int tamanho = static_cast<int> (lEntidades->getTamanho());
+
+    for (int i = 0; i < tamanho; i++) 
+    {
+        if ((*lEntidades)[i] == NULL) 
+        {
+            cerr << "Entidade nula no indice " << i << "." << endl;
+            continue;
+        }
+        
+        Ente* pE = (*lEntidades)[i];
+
+        desenharEnte (pE);
+    }
+
+    janela.display();
+}
+
+void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
+    sf::FloatRect bounds = sprite.getGlobalBounds();
+    sf::RectangleShape hitbox(sf::Vector2f(bounds.width, bounds.height));
+    
+    hitbox.setPosition(bounds.left, bounds.top);
+    hitbox.setFillColor(sf::Color::Transparent);
+    hitbox.setOutlineColor(sf::Color::Red);
+    hitbox.setOutlineThickness(1.f);
+    
+    float raio = 4.f;
+    sf::CircleShape ponto(raio);
+    ponto.setFillColor(sf::Color::Red);
+    ponto.setOrigin(raio, raio);
+    ponto.setPosition(sprite.getPosition());
+    
+    window.draw(hitbox);
+    window.draw(ponto);
+}
+
+void Gerenciador_Grafico::posicionarEnte (Ente* pE)
+{
+
 }
 
 void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
@@ -273,57 +245,97 @@ void Gerenciador_Grafico::window(Menu* pM, Fase* pF)
     }
 }
 
-void Gerenciador_Grafico::desenharEnte (Ente* pE)
+void Gerenciador_Grafico::loadMenu(Menu* pM)
 {
+    fundo.setTexture(*carregarTextura(MENUINICIALPNG));
+    anakin.setTexture(*carregarTextura(ANAKINPNG));
 
-}
-void Gerenciador_Grafico::posicionarEnte (Ente* pE)
-{
+    anakin.setScale(0.5,0.5);
+    anakin.setPosition(50,170);
 
-}
-
-void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
-{
-    if (pF == NULL) 
+    if (!fonteMenu.loadFromFile(FONTE))
     {
-        cerr << "Erro: Ponteiro para fase nulo." << endl;
-        return;
+        cerr << "Erro de carregamento da Fonte no Menu" << endl;
     }
 
-    pF->executar();
+    else
+    {
+        //cout<<"tudo ok com a fonte"<<endl;
+    }
 
-    janela.draw(pF->getFundo());
-    janela.draw(pF->getGround());
-    // janela.draw(pF->getPlataforma()); É entidade.
+    menuTextPlacement();
+}
+
+void Gerenciador_Grafico::menuTextPlacement()
+{
+    textOptions.clear();
+    list<string>::iterator it = menuOptions.begin();
+    int posX = 640, posY = 200;
+    while (it != menuOptions.end())
+    {
+        sf::Text text(*it, fonteMenu, 30);
+        sf::FloatRect bounds = text.getLocalBounds();
+        // Ponto de referência do meio do objeto texto.
+        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
+        // Coloca o ponto de referência na posição a seguir.
+        text.setPosition(posX,posY);
+        textOptions.push_back(text);
+        posY+=70;
+        it++;
+    }
+}
+
+float Gerenciador_Grafico::getDeltaTempo() 
+{
+    return dt;
+}
+
+void Gerenciador_Grafico::atualizarTempoPercorrido() 
+{
+    dt = relogio.getElapsedTime().asSeconds();
+    relogio.restart();
+}
+
+sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path) 
+{
+    map<const char*, sf::Texture*>::iterator it;
+    for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it)
+    {
+        if (strcmp((*it).first, path) == 0)
+            return ((*it).second);
+    }
+
+    sf::Texture* textura = new sf::Texture();
     
-    ListaEntidades* lEntidades = pF->getListaEntidades();
-    
-    if (lEntidades == NULL)
+    if ((*textura).loadFromFile(path) == false) 
     {
-        std::cerr << "Lista de entidades nula." << std::endl;
-        return;
+        cerr << "Erro: Nao foi possivel carregar textura!" << endl;
+
+        delete (textura);
+        textura = nullptr;
+
+        return nullptr;
     }
 
-    // desenharOrigem(janela, pF->getPlataforma()); É entidade.
 
-    int tamanho = static_cast<int> ((pF->getListaEntidades())->getTamanho());
+    mapaTexturas.insert(pair<const char*, sf::Texture*>(path, textura));
 
-    for (int i = 0; i < tamanho; i++) 
-    {
-        if ((*lEntidades)[i] == NULL) 
-        {
-            cerr << "Entidade nula no indice " << i << "." << endl;
-            continue;
-        }
-        
-        sf::Sprite spriteEntidade = (*lEntidades)[i]->getDrawData();
-
-        janela.draw(spriteEntidade);
-        //desenharOrigem(janela, spriteEntidade);
-    }
-
-    janela.display();
+    return textura;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
@@ -354,21 +366,3 @@ void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
 }
 */
 
-void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
-    sf::FloatRect bounds = sprite.getGlobalBounds();
-    sf::RectangleShape hitbox(sf::Vector2f(bounds.width, bounds.height));
-    
-    hitbox.setPosition(bounds.left, bounds.top);
-    hitbox.setFillColor(sf::Color::Transparent);
-    hitbox.setOutlineColor(sf::Color::Red);
-    hitbox.setOutlineThickness(1.f);
-    
-    float raio = 4.f;
-    sf::CircleShape ponto(raio);
-    ponto.setFillColor(sf::Color::Red);
-    ponto.setOrigin(raio, raio);
-    ponto.setPosition(sprite.getPosition());
-    
-    window.draw(hitbox);
-    window.draw(ponto);
-}

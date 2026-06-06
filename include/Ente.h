@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 namespace TrabalhoJogo
 {
     // Forward declaration:
@@ -23,5 +25,6 @@ namespace TrabalhoJogo
             virtual void executar() = 0;
             void desenhar();
             static void staticSetGG(Gerenciadores::Gerenciador_Grafico* pG);
+            virtual sf::Sprite getDrawData() = 0;
     };
 }

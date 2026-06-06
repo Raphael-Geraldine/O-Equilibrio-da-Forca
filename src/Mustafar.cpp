@@ -161,7 +161,7 @@ void Mustafar::incluirObstaculo(Obstaculo* pO)
     listaObstaculos.incluir(pO);
 }
 
-sf::Sprite Mustafar::getFundo()
+sf::Sprite Mustafar::getDrawData()
 {
     //listaEntidades.executar();
     //bool g = gC->executar();

@@ -98,24 +98,21 @@ namespace TrabalhoJogo
                 
                 ~Gerenciador_Grafico();
                 static Gerenciador_Grafico* getGerenciadorGrafico(); // static Singleton* _instance;
+                void desenharEnte (Ente* pE);
+                void desenharTextoMenu (sf::RenderWindow & janela);
+                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
+                void desenharFase(Fase* pF, sf::RenderWindow & janela);
+                void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
+                void posicionarEnte(Ente* pE);
 
                 void window(Menu* pM, Fase* pF);
+                void loadMenu(Menu* pM);
+                void menuTextPlacement();
                 
                 static float getDeltaTempo();
                 void atualizarTempoPercorrido();
                 
                 sf::Texture* carregarTextura (const char* path);
-
-
-                void loadMenu(Menu* pM);
-                void menuTextPlacement();
-                void desenharTextoMenu (sf::RenderWindow & janela);
-                void desenharMenu (Menu* pM, sf::RenderWindow & janela);
-
-                void desenharFase(Fase* pF, sf::RenderWindow & janela);
-                void posicionarEnte(Ente* pE);
-                void desenharEnte (Ente* pE);
-                void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
         };
     }
 }

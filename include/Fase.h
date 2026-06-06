@@ -64,7 +64,7 @@ namespace TrabalhoJogo
 
                 virtual void executar();
 
-                virtual sf::Sprite getFundo() = 0;
+                virtual sf::Sprite getDrawData() = 0;
                 sf::RectangleShape getGround();
         };
     }
