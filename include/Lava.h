@@ -21,6 +21,7 @@ namespace TrabalhoJogo
                     short int danosidade;
                     static short int cont;
                     static vector<sf::Vector2i> lavaPositions;
+                    static const float VETOR_AFUNDAMENTO;
                     short int lavaID;
                     float largura;
                     sf::Texture lavaTexture;
@@ -35,6 +36,7 @@ namespace TrabalhoJogo
                     void obstaculizar(Jogador* pJog);
                     void obstaculizarInim(Inimigo* pInim);
                     void mover();
+                    void danificar(Jogador* pJog, int dano);
                     sf::Sprite getDrawData();
                     sf::FloatRect getBounds() const;
             };

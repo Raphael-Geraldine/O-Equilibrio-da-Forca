@@ -21,6 +21,8 @@ using namespace Gerenciadores;
 
 #include "SFML/Graphics.hpp"
 
+const float Lava::VETOR_AFUNDAMENTO(185.0f);
+
 short int TrabalhoJogo::Entidades::Obstaculos::Lava::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Lava::lavaPositions={
     {250, 720}, {500, 720}, {750, 720}, {950, 720}, {1180, 720},
@@ -69,13 +71,34 @@ void Lava::obstaculizar (Jogador* pJog)
 {
     if (pJog == nullptr)
         return;
-
-    executar();
     
     sf::FloatRect playerBounds = pJog->getBounds();
-    sf::FloatRect platBounds = this->getBounds();
+    sf::FloatRect lavaBounds = this->getBounds();
     
-    //......   
+    //Quando jogador estiver 100% em cima
+    if (((pJog->getX() + (playerBounds.width/2.0f)) < (this->getX() + (lavaBounds.width/2.0f))) 
+        && 
+        ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (lavaBounds.width/2.0f))))
+    {
+        pJog->setY(710); //pode exagerar no valor, pois em Colisões não deixa sair da tela
+        danificar(pJog,(int)danosidade);
+        //não tem o pJog->setNoChao(true), para ele não poder pular
+    }
+    else
+    {
+        pJog->setY(710-(playerBounds.height/1.9f));
+        danificar(pJog,(int)danosidade/2);
+        pJog->setNoChao(true);
+    }
+  
+    pJog->atualizarPosicaoSprite();
+}
+void Lava::danificar(Jogador* pJog, int dano)
+{
+    if (pJog == nullptr)
+        return;
+
+    pJog->sofrerAtaque(dano);
 }
 void Lava::mover()
 {
