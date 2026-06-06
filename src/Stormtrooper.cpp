@@ -73,10 +73,13 @@ void Stormtrooper::executar()
         aleatMov.restart();
     }
 
-    if (directionMov)
-        velocidade.x = 100.0f;
-    else
-        velocidade.x = -100.0f;
+    if (y + (getBounds().height/2.0f) > 700)
+    {
+        if (directionMov)
+            velocidade.x = 100.0f;
+        else
+            velocidade.x = -100.0f;   
+    }
     
     gravity();
     mover();

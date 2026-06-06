@@ -25,8 +25,8 @@ const float Lava::VETOR_AFUNDAMENTO(185.0f);
 
 short int TrabalhoJogo::Entidades::Obstaculos::Lava::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Lava::lavaPositions={
-    {250, 720}, {500, 720}, {750, 720}, {950, 720}, {1180, 720},
-    {300, 720}, {420, 720}, {610, 720}, {850, 720}, {1050, 720}
+    {250, 720}, {500, 720}, {750, 720}, {1180, 720}, {950, 720},
+    {300, 720}, {420, 720}, {650, 720}, {850, 720}, {1050, 720}
 };
 
 Lava::Lava(): 

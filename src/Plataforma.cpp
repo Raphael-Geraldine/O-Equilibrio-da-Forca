@@ -31,7 +31,7 @@ const float Plataforma::velocidadeEscorrega = 80.0f;
 short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={
     {250, 520}, {1030, 520}, {640, 400}, {100, 280}, {1180, 280}, {860, 320},
-    {300, 480}, {980, 480}, {640, 140}, {150, 300}, {1130, 300}, {440, 220}
+    {430, 520}, {980, 480}, {150, 400}, {1130, 360}, {440, 280}, {640, 170}
 };
 
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
@@ -290,6 +290,13 @@ void Plataforma::obstaculizarInim(Inimigo* pInim)
     // Veio de cima, antes estava acima da plataforma.
     if ((anteriorBaixo - (2*epsilonColisao)) <= obsCima) 
     {
+        float porcentagemApoio = intersecao.width / inimBounds.width;
+
+        if (porcentagemApoio < apoioMinimo)
+        {
+            fazEscorregar(pInim, inimBounds, obsBounds);  //Como inim não tem movimentação brusca, está funcionando legal aqui
+            return;
+        }
 
         pInim->setY(pInim->getY() - intersecao.height - epsilonColisao);
         float novaVelY = (-1.0f) * vel.y * coefRestPiso;
