@@ -319,7 +319,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
         sf::Sprite spriteEntidade = (*lEntidades)[i]->getDrawData();
 
         janela.draw(spriteEntidade);
-        desenharOrigem(janela, spriteEntidade);
+        //desenharOrigem(janela, spriteEntidade);
     }
 
     janela.display();
