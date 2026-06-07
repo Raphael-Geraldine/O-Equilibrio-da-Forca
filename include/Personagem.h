@@ -28,7 +28,7 @@ namespace TrabalhoJogo
                     static const float VELOCIDADE_PULO;
 
                 public:
-                    Personagem(ID identificador = empty);
+                    Personagem();
                     ~Personagem();
 
                     void setDeltaTempo (const float tempo);

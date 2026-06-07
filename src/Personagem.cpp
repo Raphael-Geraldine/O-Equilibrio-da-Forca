@@ -13,8 +13,8 @@ const float Personagem::GRAVIDADE = GRAVIDADE_REAL * PIXELS_POR_METRO;
 const float Personagem::VELOCIDADE_MAX_QUEDA = 900.0f;
 const float Personagem::VELOCIDADE_PULO = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
 
-Personagem::Personagem(ID identificador): 
-    Entidade(identificador), 
+Personagem::Personagem(): 
+    Entidade(), 
     num_vidas(0),
     velocidade(0.0f, 0.0f),
     noChao(false),

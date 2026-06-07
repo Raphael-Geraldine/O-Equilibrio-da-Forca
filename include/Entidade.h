@@ -7,28 +7,15 @@ namespace TrabalhoJogo
 {
     namespace Entidades
     {
-        // Descoberta de enum e, naturalmente, implementação
-        // inspirada no vídeo 4 do canal do Burda.
-
-        enum ID 
-        {
-            empty = 0,
-            obstaculo,
-            inimigo,
-            jogador,
-            projetil
-        };
-
         class Entidade : public Ente
         {
             protected: //deve ser protected e ter get!!! está assim para testar
-                ID id;
                 float x;
                 float y;
                 //ostream buffer;
             
             protected:
-                Entidade(ID identificador = empty);
+                Entidade();
                 void salvarDataBuffer();
 
             public:

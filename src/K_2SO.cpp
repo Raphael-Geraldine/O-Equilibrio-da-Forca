@@ -70,6 +70,8 @@ void K_2SO::executar()
         else
             directionMov=true;
         aleatMov.restart();
+
+        this->operator++();
     }
 
     if (y + (getBounds().height/2.0f) > 700)
@@ -82,8 +84,6 @@ void K_2SO::executar()
 
     gravity();
     mover();
-
-    this->operator++();
 }
 void K_2SO::danificar(Jogador* p)
 {

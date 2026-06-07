@@ -19,7 +19,7 @@ using namespace Gerenciadores;
 
 short int Jogador::cont(0);
 
-Jogador::Jogador(): Personagem(jogador), playerID(cont++)
+Jogador::Jogador(): Personagem(), playerID(cont++)
 {
     num_vidas = 100;
     
