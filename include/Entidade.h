@@ -21,7 +21,6 @@ namespace TrabalhoJogo
             public:
                 // Parâmetros remetem a vetores unitários.
                 // Para evitar uso de "this" nesse caso.
-                int getID() const;
                 void setX(int i);
                 float getX() const;
                 void setY(int j);

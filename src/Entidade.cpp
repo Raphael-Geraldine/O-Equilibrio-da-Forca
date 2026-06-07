@@ -37,8 +37,3 @@ float Entidade::getY() const
 {
     return y;
 }
-
-int Entidade::getID() const
-{
-    return id;
-}
