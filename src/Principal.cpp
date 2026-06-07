@@ -73,11 +73,8 @@ Fase* TrabalhoJogo::Principal::getFase()
         
         pAnakin1 = new Jogador();
         
-        //É isso mesmo! Só está comentado, pois Jogador não suporta isso ainda
-        /*
         if(qntd != 1)
             pObi1 = new Jogador();
-        */
         
         if (!fase) //0 é Mustafar
             pFase = new Mustafar(pAnakin1, pObi1);

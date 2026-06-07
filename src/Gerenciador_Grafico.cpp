@@ -75,6 +75,7 @@ void Gerenciador_Grafico::desenharEnte (Ente* pE)
 
     sf::Sprite spriteEntidade = pE->getDrawData();
     janela.draw(spriteEntidade);
+    //desenharOrigem(janela, spriteEntidade);
 }
 
 void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
