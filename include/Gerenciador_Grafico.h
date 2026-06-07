@@ -78,12 +78,12 @@ namespace TrabalhoJogo
                 // sf::Texture texturaAnakin;
                 //sf::Sprite anakin;
 
-                sf::Text textIniciar;
-                sf::Text textRank;
-                sf::Text textLoad;
-                sf::Text textFase;
-                sf::Text textPlayers;
-                sf::Text textRules;
+                //sf::Text textIniciar;
+                //sf::Text textRank;
+                //sf::Text textLoad;
+                //sf::Text textFase;
+                //sf::Text textPlayers;
+                //sf::Text textRules;
 
                 vector<sf::Text> textOptions;
                 static short int optionSelected;
