@@ -22,6 +22,7 @@ using namespace Fases;
 TrabalhoJogo::Principal::Principal(): 
     pGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pMenu(nullptr), 
+    pFase(nullptr),
     pAnakin1(nullptr),
     pObi1(nullptr)
 {
