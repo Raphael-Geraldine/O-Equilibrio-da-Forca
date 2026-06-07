@@ -37,11 +37,11 @@ vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositi
 TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
     Obstaculo(),
     largura(l), 
-    platID(cont++)
+    nPlat(cont++)
 {
-    if (platID > 11)
+    if (nPlat > 11)
     {
-        platID=0;
+        nPlat=0;
         cont=1;
     }
     
@@ -62,8 +62,8 @@ TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l):
     sf::FloatRect bounds = platSkin.getLocalBounds();
     platSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    x=(platPositions[platID]).x;
-    y=(platPositions[platID]).y;
+    x=(platPositions[nPlat]).x;
+    y=(platPositions[nPlat]).y;
 
     platSkin.setPosition(x,y);
 }

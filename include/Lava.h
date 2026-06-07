@@ -21,8 +21,7 @@ namespace TrabalhoJogo
                     short int danosidade;
                     static short int cont;
                     static vector<sf::Vector2i> lavaPositions;
-                    static const float VETOR_AFUNDAMENTO;
-                    short int lavaID;
+                    short int nLava;
                     float largura;
                     sf::Texture lavaTexture;
                     sf::Sprite lavaSkin;

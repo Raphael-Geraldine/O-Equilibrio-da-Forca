@@ -13,7 +13,7 @@ namespace TrabalhoJogo
             {
                 protected:
                     static short int cont;
-                    short int playerID; 
+                    short int nPlayer; 
                     int pontos;
                     sf::Texture* pTexturaJogador;
                     sf::Texture* pTexturaDanoJogador;

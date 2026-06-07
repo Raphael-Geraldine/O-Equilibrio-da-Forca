@@ -19,7 +19,7 @@ using namespace Gerenciadores;
 
 short int Jogador::cont(0);
 
-Jogador::Jogador(): Personagem(), playerID(cont++)
+Jogador::Jogador(): Personagem(), nPlayer(cont++)
 {
     num_vidas = 100;
     
@@ -27,7 +27,7 @@ Jogador::Jogador(): Personagem(), playerID(cont++)
 
     y=570;
 
-    if (!playerID)
+    if (!nPlayer)
     {
         x=20;
 
@@ -80,7 +80,7 @@ void Jogador::executar()
     if ((playerSkin.getTexture() == pTexturaDanoJogador) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
         playerSkin.setTexture(*pTexturaJogador);
 
-    if (!playerID)
+    if (!nPlayer)
     {
         // Para a esquerda.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -113,7 +113,7 @@ void Jogador::executar()
     
     mover();
 
-    if (!playerID)
+    if (!nPlayer)
     {
         if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::F)))
         clockAtaque.restart();
@@ -146,7 +146,7 @@ sf::FloatRect Jogador::getBounds() const
 
 void Jogador::colidirInimigo(Inimigo* pIn)
 {
-    if (!playerID)
+    if (!nPlayer)
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
         {

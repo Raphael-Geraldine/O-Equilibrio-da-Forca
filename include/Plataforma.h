@@ -33,7 +33,7 @@ namespace TrabalhoJogo
 
                     static short int cont;
                     static vector<sf::Vector2i> platPositions;
-                    short int platID;
+                    short int nPlat;
                     float largura;
                     sf::Texture platTexture;
                     sf::Sprite platSkin;

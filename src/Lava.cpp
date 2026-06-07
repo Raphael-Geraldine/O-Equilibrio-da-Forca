@@ -21,8 +21,6 @@ using namespace Gerenciadores;
 
 #include "SFML/Graphics.hpp"
 
-const float Lava::VETOR_AFUNDAMENTO(185.0f);
-
 short int TrabalhoJogo::Entidades::Obstaculos::Lava::cont(0);
 vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Lava::lavaPositions={
     {250, 720}, {500, 720}, {750, 720}, {1180, 720}, {950, 720},
@@ -33,7 +31,7 @@ Lava::Lava():
     Obstaculo(), 
     largura(1), 
     danosidade(5),
-    lavaID(cont++)
+    nLava(cont++)
 {
     danoso=true;
 
@@ -50,8 +48,8 @@ Lava::Lava():
     sf::FloatRect bounds = lavaSkin.getLocalBounds();
     lavaSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    x=(lavaPositions[lavaID]).x;
-    y=(lavaPositions[lavaID]).y;
+    x=(lavaPositions[nLava]).x;
+    y=(lavaPositions[nLava]).y;
 
     lavaSkin.setPosition(x,y);
 }
