@@ -57,15 +57,15 @@ void K_2SO::executar()
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
 
-    int sort = rand()%10;
+    int chance = rand()%10;
 
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
     {   
-        if (x - (getBounds().width/2.0f) < 10 && sort > 1)
+        if (x - (getBounds().width/2.0f) < 10 && chance > 1)
             directionMov = true;
-        else if (x + (getBounds().width/2.0f) > 1270)
+        else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
             directionMov = false;
-        else if ((x>640 && sort > 3)||(x<640 && sort < 4))
+        else if ((x>640 && chance > 3)||(x<640 && chance < 4))
             directionMov=false;
         else
             directionMov=true;
