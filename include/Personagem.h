@@ -21,11 +21,11 @@ namespace TrabalhoJogo
                     float dt;
 
                     // Pensar em usar: constexpr é valor constante, conhecido em tempo de compilação.
-                    static const float PIXELS_POR_METRO;
-                    static const float GRAVIDADE_REAL;
-                    static const float GRAVIDADE;
-                    static const float VELOCIDADE_MAX_QUEDA;
-                    static const float VELOCIDADE_PULO;
+                    static const float pixelsPorMetro;
+                    static const float gravidadeReal;
+                    static const float gravidade;
+                    static const float velocidadeMaxQueda;
+                    static const float velocidadePulo;
 
                 public:
                     Personagem();

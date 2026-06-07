@@ -7,11 +7,11 @@ using namespace Personagens;
 #include <iostream>
 using namespace std;
 
-const float Personagem::PIXELS_POR_METRO = 50.0f;
-const float Personagem::GRAVIDADE_REAL = 9.8f;
-const float Personagem::GRAVIDADE = GRAVIDADE_REAL * PIXELS_POR_METRO;
-const float Personagem::VELOCIDADE_MAX_QUEDA = 900.0f;
-const float Personagem::VELOCIDADE_PULO = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
+const float Personagem::pixelsPorMetro = 50.0f;
+const float Personagem::gravidadeReal = 9.8f;
+const float Personagem::gravidade = gravidadeReal * pixelsPorMetro;
+const float Personagem::velocidadeMaxQueda = 900.0f;
+const float Personagem::velocidadePulo = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
 
 Personagem::Personagem(): 
     Entidade(), 
@@ -116,10 +116,10 @@ void Personagem::gravity()
     {
         // v = v0 + gt;
         // y > 0 para baixo.
-        velocidade.y += GRAVIDADE * dt;
+        velocidade.y += gravidade * dt;
 
-        if (velocidade.y > VELOCIDADE_MAX_QUEDA) 
-            velocidade.y = VELOCIDADE_MAX_QUEDA;
+        if (velocidade.y > velocidadeMaxQueda) 
+            velocidade.y = velocidadeMaxQueda;
     }
 }
 
@@ -133,12 +133,12 @@ void Personagem::pular()
     {
         if (plataformaFixa)
         {
-            velocidade.y = VELOCIDADE_PULO-110; // negativo aumenta em y
+            velocidade.y = velocidadePulo-110; // negativo aumenta em y
             noChao = false;
         }
         else
         {
-            velocidade.y = VELOCIDADE_PULO;
+            velocidade.y = velocidadePulo;
             noChao = false;
         }
     }
