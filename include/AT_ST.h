@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "../include/Projetil.h"
 #include "../include/Entidade.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
@@ -12,6 +11,9 @@ namespace TrabalhoJogo
 {
     namespace Entidades
     {
+
+        class Projetil;
+
         namespace Personagens
         {
             class AT_ST : public Inimigo
@@ -32,7 +34,7 @@ namespace TrabalhoJogo
                     void mover();
                     void operator++(); //aumentar o dano com pouca vida
                     void atualizarPosicaoSprite();
-                    //void atirar(Jogador* pJog, Projetil* pP)
+                    void atirar(Jogador* pJog, Projetil* pP);
             };
         }
     }

@@ -5,7 +5,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-//#include "../include/Projetil.h"
+#include "../include/Projetil.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
@@ -127,9 +127,7 @@ void AT_ST::atualizarPosicaoSprite()
     atSkin.setPosition(x,y);
 }
 
-/*
 void AT_ST::atirar(Jogador* pJog, Projetil* pP)
 {
 
 }
-*/
