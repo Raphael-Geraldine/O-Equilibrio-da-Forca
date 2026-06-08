@@ -34,7 +34,7 @@ Lava::Lava():
     nLava(cont++)
 {
     danoso=true;
-
+    noChao = true;
     lavaSkin.setScale(0.20,0.20);
 
     sf::Texture* pTexturaLava = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(LAVAPNG);
@@ -59,7 +59,8 @@ Lava::~Lava()
 }
 void Lava::executar()
 {
-
+    gravity();
+    mover();
 }
 void Lava::salvar()
 {
@@ -100,7 +101,8 @@ void Lava::danificar(Jogador* pJog, int dano)
 }
 void Lava::mover()
 {
-    //não faz nada, mas precisa ter pois a classe pai tem virtual void mover()
+    y+=velocidade.y * dt;
+    lavaSkin.setPosition(x,y);
 }
 sf::Sprite Lava::getDrawData()
 {

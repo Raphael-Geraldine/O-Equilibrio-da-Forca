@@ -7,19 +7,12 @@ using namespace Personagens;
 #include <iostream>
 using namespace std;
 
-const float Personagem::pixelsPorMetro = 50.0f;
-const float Personagem::gravidadeReal = 9.8f;
-const float Personagem::gravidade = gravidadeReal * pixelsPorMetro;
-const float Personagem::velocidadeMaxQueda = 900.0f;
 const float Personagem::velocidadePulo = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
 
 Personagem::Personagem(): 
     Entidade(), 
-    num_vidas(0),
-    velocidade(0.0f, 0.0f),
-    noChao(false),
+    num_vidas(0)
     // 1 segundo / 60 frames = 0,16666... segundos por frame
-    dt(1.0f/ 60.0f) 
 {
 
 }
@@ -108,19 +101,6 @@ void Personagem::salvarPosicaoAnterior()
 sf::Vector2f Personagem::getPosicaoAnterior() const
 {
     return posicaoAnterior;
-}
-
-void Personagem::gravity()
-{
-    if (!noChao)
-    {
-        // v = v0 + gt;
-        // y > 0 para baixo.
-        velocidade.y += gravidade * dt;
-
-        if (velocidade.y > velocidadeMaxQueda) 
-            velocidade.y = velocidadeMaxQueda;
-    }
 }
 
 void Personagem::pular() 

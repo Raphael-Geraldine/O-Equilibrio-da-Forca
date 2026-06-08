@@ -12,6 +12,13 @@ namespace TrabalhoJogo
             protected: //deve ser protected e ter get!!! está assim para testar
                 float x;
                 float y;
+                bool noChao;
+                float dt;
+                sf::Vector2f velocidade;
+                static const float velocidadeMaxQueda;
+                static const float gravidade;
+                static const float pixelsPorMetro;
+                static const float gravidadeReal;
                 //ostream buffer;
             
             protected:
@@ -27,6 +34,7 @@ namespace TrabalhoJogo
                 float getY() const;
 
                 virtual ~Entidade();
+                void gravity();
                 virtual void executar() = 0;
                 virtual void salvar() = 0;
                 virtual void mover() = 0; //lembrar que apenas personagens movem!

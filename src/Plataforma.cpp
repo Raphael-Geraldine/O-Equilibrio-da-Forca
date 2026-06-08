@@ -72,12 +72,22 @@ Plataforma::~Plataforma()
     // TIRAR SEG FAULT: delete(platSkin.getTexture());
 }
 void Plataforma::executar()
-{}
+{
+    gravity();
+    propulsao();
+    mover();
+}
 void Plataforma::salvar()
 {}
 void Plataforma::mover()
-{}
-
+{
+    y+=velocidade.y * dt;
+    platSkin.setPosition(x,y);
+}
+void Plataforma::propulsao()
+{
+    velocidade.y += velocidade.y*(-1);
+}
 void Plataforma::obstaculizar(Jogador* pJog)
 {
     if (pJog == nullptr) 

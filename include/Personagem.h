@@ -15,16 +15,9 @@ namespace TrabalhoJogo
                     int num_vidas;
                     
                     sf::Clock clockAtaque;
-                    sf::Vector2f velocidade;
                     sf::Vector2f posicaoAnterior;
-                    bool noChao;
-                    float dt;
 
                     // Pensar em usar: constexpr é valor constante, conhecido em tempo de compilação.
-                    static const float pixelsPorMetro;
-                    static const float gravidadeReal;
-                    static const float gravidade;
-                    static const float velocidadeMaxQueda;
                     static const float velocidadePulo;
 
                 public:
@@ -43,7 +36,6 @@ namespace TrabalhoJogo
                     sf::Vector2f getPosicaoAnterior() const;
 
                     void salvarDataBuffer();
-                    void gravity();
                     void pular();
                     int getVida();
                     virtual sf::Sprite getDrawData() = 0;
