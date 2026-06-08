@@ -1,7 +1,7 @@
 #define HOTHPNG "../assets/images/Hoth.png"
 
-//#include "../include/Gelo.h"
 //#include "../include/AT_ST.h"
+#include "../include/Gelo.h"
 #include "../include/Entidade.h"
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
@@ -22,7 +22,7 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2):
     minChefoes(3),
     maxChefoes(7),
     minObstDificil(3),
-    maxObstDificil(5)
+    maxObstDificil(4)
 {   
     sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(HOTHPNG);
         
@@ -68,7 +68,6 @@ void Hoth::criarInimigos()
 
 void Hoth::criarObstaculos()
 {
-    /*
     int qntd = rand()%(maxObstDificil-minObstDificil+1) + minObstDificil;
     for (int i = 0; i < qntd; i++)
     {
@@ -78,7 +77,6 @@ void Hoth::criarObstaculos()
         else   
             Fase::incluirEntidade(static_cast<Obstaculo*>(pGelo));
     }
-    */
 }
 
 void Hoth::criarProjeteis()

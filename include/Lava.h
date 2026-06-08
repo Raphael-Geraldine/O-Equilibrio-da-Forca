@@ -23,9 +23,7 @@ namespace TrabalhoJogo
                     static vector<sf::Vector2i> lavaPositions;
                     short int nLava;
                     float largura;
-                    sf::Texture lavaTexture;
                     sf::Sprite lavaSkin;
-                    sf::IntRect lavaSize;
 
                 public:
                     Lava();

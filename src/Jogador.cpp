@@ -131,10 +131,15 @@ void Jogador::salvar()
 
 void Jogador::mover()
 {
+    deslocar(velocidade.x,velocidade.y);
+}
+
+void Jogador::deslocar(float velx, float vely)
+{
     // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
     // 220 px/s * 0,0167 s/frame = 3,67 pixels por frame
-    x += velocidade.x * dt;
-    y += velocidade.y * dt;
+    x += velx * dt;
+    y += vely * dt;
 
     atualizarPosicaoSprite();
 }

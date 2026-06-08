@@ -1,6 +1,13 @@
 #pragma once
 
+#include <vector>
+using namespace std;
+
+#include "../include/Jogador.h"
+#include "../include/Inimigo.h"
 #include "../include/Obstaculo.h"
+
+#include "SFML/Graphics.hpp"
 
 namespace TrabalhoJogo
 {
@@ -12,16 +19,24 @@ namespace TrabalhoJogo
             {
                 private:
                     short int danosidade;
+                    static short int cont;
+                    static vector<sf::Vector2i> geloPositions;
+                    short int nGelo;
                     float largura;
+                    sf::Sprite geloSkin;
 
                 public:
                     Gelo();
                     ~Gelo();
-                    void desacelerar();
+                    void desacelerar(Jogador* pJog);
                     void executar();
                     void salvar();
-                    void salvarDataBuffer();
-                    void obstaculizar(Jogador* p);
+                    void obstaculizar(Jogador* pJog);
+                    void obstaculizarInim(Inimigo* pInim);
+                    void mover();
+                    void danificar(Jogador* pJog, int dano);
+                    sf::Sprite getDrawData();
+                    sf::FloatRect getBounds() const;
             };
         }
     }
