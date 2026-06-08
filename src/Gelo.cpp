@@ -39,7 +39,7 @@ Gelo::Gelo():
     sf::Texture* pTexturaGelo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(GELOPNG);
     
     if (pTexturaGelo == nullptr)
-        cerr << "Erro de carregamento do PNG da Gelo" << endl;
+        cerr << "Erro de carregamento do PNG do Gelo" << endl;
         
     else
         geloSkin.setTexture(*pTexturaGelo); 

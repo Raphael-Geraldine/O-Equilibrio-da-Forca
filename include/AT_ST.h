@@ -1,5 +1,13 @@
 #pragma once
 
+//#include "../include/Projetil.h"
+#include "../include/Entidade.h"
+#include "../include/Personagem.h"
+#include "../include/Jogador.h"
+#include "../include/Inimigo.h"
+
+#include <SFML/Graphics.hpp>
+
 namespace TrabalhoJogo
 {
     namespace Entidades
@@ -9,22 +17,22 @@ namespace TrabalhoJogo
             class AT_ST : public Inimigo
             {
                 private:
-                    const short int altura;
-                    short int dano;
-                    short int vida;
-                    short int forca;
+                    float altura;
+                    sf::Sprite atSkin;
+                    bool directionMov;
 
                 public:
-                    AT_ST (short int v=100, short int f = 80);
-                    ~AT_ST ();
+                    AT_ST();
+                    ~AT_ST();
                     void executar();
                     void danificar(Jogador* p);
+                    sf::Sprite getDrawData();
+                    sf::FloatRect getBounds() const;
                     void salvar();
-                    void recuperarVida();
-                    short int calculaRaio();
-                    void soltarRaio();
-                    void enfurecer();
                     void mover();
+                    void operator++(); //aumentar o dano com pouca vida
+                    void atualizarPosicaoSprite();
+                    //void atirar(Jogador* pJog, Projetil* pP)
             };
         }
     }

@@ -1,6 +1,6 @@
 #define HOTHPNG "../assets/images/Hoth.png"
 
-//#include "../include/AT_ST.h"
+#include "../include/AT_ST.h"
 #include "../include/Gelo.h"
 #include "../include/Entidade.h"
 #include "../include/Fase.h"
@@ -20,7 +20,7 @@ using namespace Gerenciadores;
 Hoth::Hoth(Jogador* pJ1, Jogador* pJ2): 
     Fase(pJ1, pJ2),
     minChefoes(3),
-    maxChefoes(7),
+    maxChefoes(6),
     minObstDificil(3),
     maxObstDificil(4)
 {   
@@ -50,7 +50,6 @@ Hoth::~Hoth()
 
 void Hoth::criarInimigos()
 {
-    /*
     int qntd = rand()%(maxChefoes-minChefoes+1) + minChefoes;
     for (int i = 0; i < qntd; i++)
     {
@@ -63,7 +62,6 @@ void Hoth::criarInimigos()
             entsAlive++;
         } 
     }
-    */
 }
 
 void Hoth::criarObstaculos()
