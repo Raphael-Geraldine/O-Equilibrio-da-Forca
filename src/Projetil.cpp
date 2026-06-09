@@ -51,20 +51,18 @@ Projetil::~Projetil()
 void Projetil::executar()
 {
     if (ativo)
-    {
         mover();
-    }
-    else
+}
+void Projetil::danificar(Jogador* p)
+{
+    if (ativo)
     {
+        p->sofrerAtaque(dano);
+        ativo=false;
         x=1700;
         y=800;
         atualizarPosicaoSprite();
     }
-}
-void Projetil::danificar(Jogador* p)
-{
-    p->sofrerAtaque(dano);
-    ativo=false;
 }
 sf::Sprite Projetil::getDrawData()
 {
@@ -84,6 +82,14 @@ void Projetil::mover()
     // 220 px/s * 0,0167 s/frame = 3,67 pixels por frame
     x += velocidade.x * dt;
     y += velocidade.y * dt;
+
+    if((x+(getBounds().width/2.0f))<0 || (x-(getBounds().width/2.0f))>1280 
+        || (y+(getBounds().height/2.0f))<0 || (y-(getBounds().height/2.0f))>720)
+    {
+        ativo=false;
+        x=1700;
+        y=800;
+    }
 
     atualizarPosicaoSprite();
 }
@@ -115,9 +121,4 @@ void Projetil::perseguir(Jogador* pJog, AT_ST* pAT)
 bool Projetil::getAtivo() const
 {
     return ativo;
-}
-
-void Projetil::setAtivo(bool a)
-{
-    ativo=a;
 }

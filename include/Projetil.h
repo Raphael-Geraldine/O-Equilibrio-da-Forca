@@ -31,7 +31,6 @@ namespace TrabalhoJogo
                 sf::Sprite getDrawData();
                 sf::FloatRect getBounds() const;
                 bool getAtivo() const;
-                void setAtivo(bool a); //a princípio não será usado
         };
     }
 }

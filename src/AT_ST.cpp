@@ -142,7 +142,7 @@ void AT_ST::atirar()
     else
         lockAlvo = alvo1;
 
-    cout<<"atirando"<<endl;
+    //cout<<"atirando"<<endl;
     pProj->perseguir(lockAlvo,this);
     clockTiro.restart();
 }
