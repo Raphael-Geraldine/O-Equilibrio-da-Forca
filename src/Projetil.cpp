@@ -41,6 +41,8 @@ Projetil::Projetil(short int d):
     projetilSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     projetilSkin.setScale(0.15,0.15);
+
+    atualizarPosicaoSprite();
 }
 Projetil::~Projetil()
 {
@@ -56,10 +58,12 @@ void Projetil::executar()
     {
         x=1700;
         y=800;
+        atualizarPosicaoSprite();
     }
 }
 void Projetil::danificar(Jogador* p)
 {
+    p->sofrerAtaque(dano);
     ativo=false;
 }
 sf::Sprite Projetil::getDrawData()

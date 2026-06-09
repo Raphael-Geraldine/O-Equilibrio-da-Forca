@@ -150,6 +150,16 @@ void Fase::incluirEntidade(Entidade* pE)
 
         return;
     }
+
+    Projetil* pProj = dynamic_cast<Projetil*>(pE);
+
+    if (pProj != nullptr)
+    {
+        if (gC != nullptr)
+            gC->incluirProjetil(pProj);
+
+        return;
+    }
 }
 
 void Fase::criarCenario()
