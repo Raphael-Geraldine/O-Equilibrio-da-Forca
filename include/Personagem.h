@@ -23,12 +23,6 @@ namespace TrabalhoJogo
                 public:
                     Personagem();
                     ~Personagem();
-
-                    void setDeltaTempo (const float tempo);
-                    void setVelocidade (const sf::Vector2f vel);
-                    void setVelocidadeX (const float vx);
-                    void setVelocidadeY (const float vy);
-                    sf::Vector2f getVelocidade() const;
                     
                     void setNoChao(const bool emChao);
                     bool getNoChao() const;

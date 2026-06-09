@@ -20,7 +20,7 @@ namespace TrabalhoJogo
                 short int dano;
 
             public:
-                Projetil(short int d);
+                Projetil(short int d = 20);
                 ~Projetil();
                 void executar();
                 void salvar();
@@ -30,6 +30,8 @@ namespace TrabalhoJogo
                 void atualizarPosicaoSprite();
                 sf::Sprite getDrawData();
                 sf::FloatRect getBounds() const;
+                bool getAtivo() const;
+                void setAtivo(bool a); //a princípio não será usado
         };
     }
 }

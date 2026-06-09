@@ -33,6 +33,12 @@ namespace TrabalhoJogo
                 void setY(int j);
                 float getY() const;
 
+                void setDeltaTempo (const float tempo);
+                void setVelocidade (const sf::Vector2f vel);
+                void setVelocidadeX (const float vx);
+                void setVelocidadeY (const float vy);
+                sf::Vector2f getVelocidade() const;
+
                 virtual ~Entidade();
                 void gravity();
                 virtual void executar() = 0;

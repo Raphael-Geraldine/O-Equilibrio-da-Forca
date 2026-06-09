@@ -1,6 +1,7 @@
 #pragma once
 
-//#include "../include/AT_ST.h"
+#include "../include/AT_ST.h"
+#include "../include/Projetil.h"
 #include "../include/Lista.h"
 #include "../include/ListaEntidades.h"
 #include "../include/Inimigo.h"
@@ -30,7 +31,7 @@ namespace TrabalhoJogo
                 //void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO);
                 void criarInimigos(); //Chefoes: Dificil
                 void criarObstaculos(); //Dificil
-                void criarProjeteis();
+                void criarProjeteis(int qntd, AT_ST* pAT);
 
             public:
                 Hoth(Entidades::Personagens::Jogador* pJ1 = nullptr, 
