@@ -35,9 +35,7 @@ namespace TrabalhoJogo
                     static vector<sf::Vector2i> platPositions;
                     short int nPlat;
                     float largura;
-                    sf::Texture platTexture;
                     sf::Sprite platSkin;
-                    sf::IntRect platSize;
 
                     void fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, const sf::FloatRect& obsBounds); 
 
