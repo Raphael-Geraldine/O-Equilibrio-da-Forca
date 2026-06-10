@@ -6,6 +6,7 @@
 #include "../include/Fase.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
+#include "../include/Projetil.h"
 #include "../include/Obstaculo.h"
 #include "../include/Plataforma.h"
 #include "../include/Gerenciador_Grafico.h"
@@ -16,6 +17,8 @@ using namespace Entidades;
 using namespace Obstaculos;
 using namespace Fases;
 using namespace Gerenciadores;
+
+#include <stdlib.h>
 
 Hoth::Hoth(Jogador* pJ1, Jogador* pJ2): 
     Fase(pJ1, pJ2),
@@ -59,6 +62,8 @@ void Hoth::criarInimigos()
         else
         {
             Fase::incluirEntidade(static_cast<Inimigo*>(pAT));
+            criarProjeteis(qntd, pAT);
+            pAT->setAlvos(pJogador1, pJogador2);
             entsAlive++;
         } 
     }
@@ -77,9 +82,17 @@ void Hoth::criarObstaculos()
     }
 }
 
-void Hoth::criarProjeteis()
+void Hoth::criarProjeteis(int qntd, AT_ST* pAT)
 {
-
+    int random = rand()%11;
+    Projetil* pProj = new Projetil(20+random);
+    if (pProj == nullptr)
+        cerr << "Tentativa de incluir projetil nulo na lista de entidades." << endl;
+    else
+    {
+        Fase::incluirEntidade(pProj); 
+        pAT->setProjetil(pProj);           
+    }   
 }
 
 sf::Sprite Hoth::getDrawData() const

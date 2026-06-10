@@ -22,7 +22,10 @@ using namespace Gerenciadores;
 AT_ST::AT_ST():
     Inimigo(),
     altura(1),
-    directionMov(true)
+    directionMov(true),
+    pProj(nullptr),
+    alvo1(nullptr),
+    alvo2(nullptr)
 {
     num_vidas = (rand()%20)+1;
     nivel_maldade = 15;
@@ -83,6 +86,10 @@ void AT_ST::executar()
             velocidade.x = -100.0f;
     }
 
+    if((!(pProj->getAtivo())) && clockTiro.getElapsedTime().asSeconds()>=6.0f)
+        atirar();
+
+
     gravity();
     mover();
 }
@@ -127,7 +134,26 @@ void AT_ST::atualizarPosicaoSprite()
     atSkin.setPosition(x,y);
 }
 
-void AT_ST::atirar(Jogador* pJog, Projetil* pP)
+void AT_ST::atirar()
 {
+    Jogador* lockAlvo;
+    if (alvo2 != nullptr && rand()%2)
+        lockAlvo = alvo2;
+    else
+        lockAlvo = alvo1;
 
+    //cout<<"atirando"<<endl;
+    pProj->perseguir(lockAlvo,this);
+    clockTiro.restart();
+}
+
+void AT_ST::setProjetil(Projetil* pP)
+{
+    pProj=pP;
+}
+
+void AT_ST::setAlvos(Jogador* pJog1, Jogador* pJog2)
+{
+    alvo1=pJog1;
+    alvo2=pJog2;
 }

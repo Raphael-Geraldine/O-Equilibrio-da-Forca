@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../include/Projetil.h"
 #include "../include/Entidade.h"
 #include "../include/Inimigo.h"
 #include "../include/Personagem.h"
@@ -35,7 +36,7 @@ namespace TrabalhoJogo
 
                 std::vector<Entidades::Personagens::Inimigo*> LIs;
                 std::list<Entidades::Obstaculos::Obstaculo*> LOs;
-                // std::set<Entidade::Projetil*> LPjs;
+                std::set<Entidades::Projetil*> LPjs;
 
                 Entidades::Personagens::Jogador* pJog1;
                 Entidades::Personagens::Jogador* pJog2;
@@ -67,6 +68,9 @@ namespace TrabalhoJogo
                 void tratarColisaoInimObstaculo(Entidades::Personagens::Inimigo* pInim,
                                                 Entidades::Obstaculos::Obstaculo* pObs);
 
+                void tratarColisaoJogProjetil(Entidades::Personagens::Jogador* pJog, 
+                                               Entidades::Projetil* pProj);
+
                 void tratarColisaoPersonagemChao(Entidades::Personagens::Personagem* pP);
                 
 
@@ -78,7 +82,7 @@ namespace TrabalhoJogo
                  
                 void incluirInimigo(Entidades::Personagens::Inimigo* pI);
                 void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
-                // void incluirProjetil(Projetil* pJ);
+                void incluirProjetil(Projetil* pJ);
 
                 void setJog1 (Entidades::Personagens::Jogador* pJ1);
                 void setJog2 (Entidades::Personagens::Jogador* pJ2);

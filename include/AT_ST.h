@@ -22,6 +22,10 @@ namespace TrabalhoJogo
                     float altura;
                     sf::Sprite atSkin;
                     bool directionMov;
+                    Projetil* pProj;
+                    Jogador* alvo1;
+                    Jogador* alvo2;
+                    sf::Clock clockTiro;
 
                 public:
                     AT_ST();
@@ -34,7 +38,9 @@ namespace TrabalhoJogo
                     void mover();
                     void operator++(); //aumentar o dano com pouca vida
                     void atualizarPosicaoSprite();
-                    void atirar(Jogador* pJog, Projetil* pP);
+                    void atirar();
+                    void setProjetil(Projetil* pP);
+                    void setAlvos(Jogador* pJog1, Jogador* pJog2);
             };
         }
     }

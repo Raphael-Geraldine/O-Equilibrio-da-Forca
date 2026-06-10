@@ -84,6 +84,31 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
 
 void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 {
+    //int tamanhoProj = static_cast<int>(LPjs.size());
+
+    set<Projetil*>::iterator it;
+
+    //for (int i = 0; i < tamanhoProj; i++)
+    for (it = LPjs.cbegin(); it != LPjs.cend(); ++it)
+    {
+        //Projetil* pProj = LPjs[i];
+        Projetil* pProj = *it;
+
+        //if (LPjs[i] == nullptr)
+        if (pProj == nullptr)
+            continue; // Deve-se tolerar de fato?
+    
+        if (pJog1 != nullptr && verificarColisao(pJog1, pProj))
+            tratarColisaoJogProjetil(pJog1, pProj);
+
+        if (pJog2 != nullptr && verificarColisao(pJog2, pProj))
+            tratarColisaoJogProjetil(pJog2, pProj);
+    }
+}
+
+void Gerenciador_Colisoes::tratarColisaoJogProjetil(Jogador* pJog, Projetil* pProj)
+{
+    pProj->danificar(pJog);
 }
 
 void Gerenciador_Colisoes::tratarColisoesChaoJogadores()
@@ -244,6 +269,18 @@ void Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
 
     else
         LOs.push_back(pO);
+}
+
+void Gerenciador_Colisoes::incluirProjetil(Projetil* pJ)
+{
+    if (pJ == nullptr) 
+    {
+        cerr << "Erro: Tentativa de incluir projétil com ponteiro nulo." << endl;
+        return;
+    }
+
+    else
+        LPjs.insert(pJ);
 }
 
 void Gerenciador_Colisoes::setJog1(Jogador* pJ1)
