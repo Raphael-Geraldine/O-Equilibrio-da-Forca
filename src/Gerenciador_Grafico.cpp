@@ -193,10 +193,11 @@ void Gerenciador_Grafico::desenharSolicitar1Nome(sf::RenderWindow& janela, sf::E
             if (!nome.empty())
                 nome.pop_back();
         }
-        else if (event.text.unicode > 96 && event.text.unicode < 123 && nome.size()<15)
+        else if ((event.text.unicode > 64 && event.text.unicode < 91 ||
+                  event.text.unicode > 96 && event.text.unicode < 123)
+                  && nome.size()<15)
             nome += static_cast<char>(event.text.unicode);
-
-        
+ 
         nameType.setString(nome);
         nameType.setFillColor(sf::Color::White);
         sf::FloatRect bounds = nameType.getLocalBounds();
