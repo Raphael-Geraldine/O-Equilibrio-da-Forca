@@ -52,7 +52,7 @@ namespace TrabalhoJogo
                 
                 // Inspiração na implementação do Burda, 
                 // vide vídeo 8 da playlist Tutorial Jogo SFML.
-                TL* operator[](int indice);
+                TL* operator[](int indice) const;
 
                 void remover(int id);
                 void remover(TL* pinfo);
@@ -184,7 +184,8 @@ namespace TrabalhoJogo
         }
 
         template <class TL>
-        TL* Lista<TL>::operator[] (int indice) {
+        TL* Lista<TL>::operator[] (int indice) const 
+        {
             if (indice < 0 || indice >= tamanhoLista) 
             {
                 cerr << "Indice fora dos limites da lista. " << endl;
@@ -203,14 +204,16 @@ namespace TrabalhoJogo
         }
 
         template <class TL>
-        size_t Lista<TL>::getTamanho() const {
+        size_t Lista<TL>::getTamanho() const 
+        {
             return tamanhoLista;
         }
 
         // Sobrecarga pertinente de método remover.
 
         template <class TL>
-        void Lista<TL>::remover(int indice) {
+        void Lista<TL>::remover(int indice) 
+        {
             if (indice < 0 || indice >= tamanhoLista)
             {
                 cerr << "Indice fora dos limites da lista. " << endl;
@@ -253,7 +256,8 @@ namespace TrabalhoJogo
         }
 
         template <class TL>
-        void Lista<TL>::remover(TL* pinfo) {
+        void Lista<TL>::remover(TL* pinfo) 
+        {
 
             if(pPrimeiro == NULL) {
                 return; // Lista vazia.

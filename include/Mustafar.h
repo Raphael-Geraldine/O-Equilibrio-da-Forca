@@ -37,7 +37,7 @@ namespace TrabalhoJogo
                 Mustafar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                          Entidades::Personagens::Jogador* pJ2 = nullptr);
                 ~Mustafar();
-                sf::Sprite getDrawData();
+                sf::Sprite getDrawData()const;
         };
     }
 }

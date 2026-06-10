@@ -36,7 +36,7 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
     pChao = nullptr;
 }
 
-const bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
+bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
     if (pe1 == nullptr || pe2 == nullptr)
         return false;

@@ -53,13 +53,13 @@ namespace TrabalhoJogo
 
                 virtual ~Fase();
 
-                Listas::ListaEntidades* getListaEntidades();
+                const Listas::ListaEntidades* getListaEntidades() const;
 
                 virtual void executar();
 
-                virtual sf::Sprite getDrawData() = 0;
-                short int getVivos();
-                sf::RectangleShape getChao();
+                virtual sf::Sprite getDrawData() const = 0;
+                short int getVivos() const;
+                sf::RectangleShape getChao() const;
         };
     }
 }

@@ -49,9 +49,9 @@ namespace TrabalhoJogo
             bool cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text);
             void loadMenu(vector<sf::Text>& text);
             void menuTextPlacement(vector<sf::Text>& textToDisplay);
-            sf::Sprite getFundo();
-            sf::Sprite getDrawData();
-            short int getFaseEscolhida();
-            short int getJogsEscolhido();
+            sf::Sprite getFundo() const;
+            sf::Sprite getDrawData() const;
+            short int getFaseEscolhida() const;
+            short int getJogsEscolhido() const;
     };
 }

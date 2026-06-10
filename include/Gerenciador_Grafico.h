@@ -98,7 +98,7 @@ namespace TrabalhoJogo
                 
                 ~Gerenciador_Grafico();
                 static Gerenciador_Grafico* getGerenciadorGrafico(); // static Singleton* _instance;
-                void desenharEnte (Ente* pE);
+                void desenharEnte (const Ente* pE);
                 void desenharTextoMenu (sf::RenderWindow & janela); //out
                 void desenharMenu (Menu* pM, sf::RenderWindow & janela); //out
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);

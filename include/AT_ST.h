@@ -28,7 +28,7 @@ namespace TrabalhoJogo
                     ~AT_ST();
                     void executar();
                     void danificar(Jogador* p);
-                    sf::Sprite getDrawData();
+                    sf::Sprite getDrawData() const;
                     sf::FloatRect getBounds() const;
                     void salvar();
                     void mover();

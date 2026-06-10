@@ -144,22 +144,22 @@ bool Menu::cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text)
     return 0;
 }
 
-short int Menu::getFaseEscolhida()
+short int Menu::getFaseEscolhida() const 
 {
     return faseEscolhida;
 }
 
-short int Menu::getJogsEscolhido()
+short int Menu::getJogsEscolhido() const 
 {
     return qntdJogs;
 }
 
-sf::Sprite Menu::getFundo()
+sf::Sprite Menu::getFundo() const 
 {
     return fundo; 
 }
 
-sf::Sprite Menu::getDrawData()
+sf::Sprite Menu::getDrawData() const 
 {
     return anakin; 
 }

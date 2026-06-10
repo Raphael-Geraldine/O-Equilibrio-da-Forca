@@ -65,35 +65,51 @@ void TrabalhoJogo::Principal::executar()
     pGG->window(pMenu, this);
 }
 
-Fase* TrabalhoJogo::Principal::getFase()
+Fase* TrabalhoJogo::Principal::getFase() const
 {
-    if (pAnakin1 == nullptr) //ou seja, início de jogo
-    {
-        short int qntd = pMenu->getJogsEscolhido();
-        short int fase = pMenu->getFaseEscolhida();
-        
-        pAnakin1 = new Jogador();
-        
-        if(qntd != 1)
-            pObi1 = new Jogador();
-        
-        if (!fase) //0 é Mustafar
-            pFase = new Mustafar(pAnakin1, pObi1);
-        else
-            pFase = new Hoth(pAnakin1, pObi1);
-    }
-    if(!(pFase->getVivos())) //ou seja, quando derrotar todos inimigos
+    return pFase;
+}
+
+void Principal::inicializarJogo()
+{
+    if (pAnakin1 != nullptr)
+        return;
+
+    short int qntd = pMenu->getJogsEscolhido();
+    short int fase = pMenu->getFaseEscolhida();
+
+    pAnakin1 = new Jogador();
+
+    if (qntd != 1)
+        pObi1 = new Jogador();
+    else
+        pObi1 = nullptr;
+
+    if (!fase)
+        pFase = new Mustafar(pAnakin1, pObi1);
+
+    else
+        pFase = new Hoth(pAnakin1, pObi1);
+}
+
+void Principal::atualizarFase()
+{
+    if (pFase == nullptr)
+        return;
+
+    if (!(pFase->getVivos())) //ou seja, quando derrotar todos inimigos
     {
         Mustafar* pMustafar = dynamic_cast<Mustafar*>(pFase);
+
         if (pMustafar != nullptr)
         {
-            delete(pFase);
+            delete pFase;
             pFase = new Hoth(pAnakin1, pObi1);
         }
         else
         {
-            cout<<"Cabou!"<<endl; //preparar caminho coltar menu
+            cout << "Cabou!" << endl; //preparar caminho voltar menu
+            // Depois preparar retorno ao menu.
         }
     }
-    return pFase;
 }

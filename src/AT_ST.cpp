@@ -94,7 +94,7 @@ void AT_ST::danificar(Jogador* p)
         p->sofrerAtaque(nivel_maldade/3);
     }
 }
-sf::Sprite AT_ST::getDrawData()
+sf::Sprite AT_ST::getDrawData() const
 {
     return atSkin;
 }

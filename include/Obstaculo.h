@@ -27,7 +27,7 @@ namespace TrabalhoJogo
                     virtual void mover() = 0;
                     virtual void obstaculizar(Jogador* p) = 0;
                     virtual void obstaculizarInim(Inimigo* pInim) = 0;
-                    virtual sf::Sprite getDrawData()=0;
+                    virtual sf::Sprite getDrawData() const = 0;
                     virtual sf::FloatRect getBounds() const = 0;
             };
         }

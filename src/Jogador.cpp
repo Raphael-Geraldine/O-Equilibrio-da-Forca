@@ -65,7 +65,7 @@ Jogador::~Jogador()
     
 }
 
-sf::Sprite Jogador::getDrawData()
+sf::Sprite Jogador::getDrawData() const
 {
     return playerSkin;
 }

@@ -263,10 +263,11 @@ void Plataforma::fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, con
     pP->atualizarPosicaoSprite();
 }
 
-sf::Sprite Plataforma::getDrawData()
+sf::Sprite Plataforma::getDrawData() const 
 {   
     return platSkin;
 }
+
 sf::FloatRect Plataforma::getBounds() const
 {
     return platSkin.getGlobalBounds();

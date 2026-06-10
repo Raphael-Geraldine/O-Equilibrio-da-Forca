@@ -28,7 +28,7 @@ namespace TrabalhoJogo
                 void danificar(Personagens::Jogador* pJog);
                 void perseguir(Personagens::Jogador* pJog, Personagens::AT_ST* pAT);
                 void atualizarPosicaoSprite();
-                sf::Sprite getDrawData();
+                sf::Sprite getDrawData() const;
                 sf::FloatRect getBounds() const;
         };
     }

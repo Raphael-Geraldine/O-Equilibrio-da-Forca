@@ -43,7 +43,7 @@ namespace TrabalhoJogo
                 sf::RectangleShape* pChao;                
 
             private:
-                const bool verificarColisao(Entidades::Entidade* pE1, 
+                bool verificarColisao(Entidades::Entidade* pE1, 
                 Entidades::Entidade* pE2) const;
                 
                 // Colisões Jogadores

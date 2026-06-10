@@ -47,6 +47,8 @@ namespace TrabalhoJogo
             ~Principal();
 
             void executar();
-            Fases::Fase* getFase();
+            Fases::Fase* getFase() const;
+            void inicializarJogo();
+            void atualizarFase();
     };
 }

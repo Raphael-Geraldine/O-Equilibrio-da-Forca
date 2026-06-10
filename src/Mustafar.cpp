@@ -71,7 +71,7 @@ void Mustafar::criarObstaculos()
     }
 }
 
-sf::Sprite Mustafar::getDrawData()
+sf::Sprite Mustafar::getDrawData() const 
 {
     return fundo;
 }

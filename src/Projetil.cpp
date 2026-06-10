@@ -50,7 +50,7 @@ void Projetil::executar()
 void Projetil::danificar(Jogador* p)
 {
 }
-sf::Sprite Projetil::getDrawData()
+sf::Sprite Projetil::getDrawData() const 
 {
     return projetilSkin;
 }

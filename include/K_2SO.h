@@ -25,7 +25,7 @@ namespace TrabalhoJogo
                     ~K_2SO ();
                     void executar();
                     void danificar(Jogador* p);
-                    sf::Sprite getDrawData();
+                    sf::Sprite getDrawData() const;
                     sf::FloatRect getBounds() const;
                     void salvar();
                     void mover();

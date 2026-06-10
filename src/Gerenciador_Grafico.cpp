@@ -65,7 +65,7 @@ Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 
     return pGrafico;
 }
-void Gerenciador_Grafico::desenharEnte (Ente* pE)
+void Gerenciador_Grafico::desenharEnte (const Ente* pE)
 {
     if (pE == NULL)
     {
@@ -91,7 +91,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
     janela.draw(pF->getDrawData());
     janela.draw(pF->getChao());
     
-    Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
+    const Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
     
     if (lEntidades == NULL)
     {
@@ -109,7 +109,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
             continue;
         }
         
-        Ente* pE = (*lEntidades)[i];
+        const Ente* pE = (*lEntidades)[i];
 
         desenharEnte (pE);
     }
@@ -197,7 +197,11 @@ void Gerenciador_Grafico::window(Menu* pM, Principal* pP)
         }
         if (optionSelected == 0)
         {
-            desenharFase(pP->getFase(),janela);
+            pP->inicializarJogo();
+            pP->atualizarFase();
+
+            if (pP->getFase() != nullptr)
+                desenharFase(pP->getFase(), janela);
         }
         if (optionSelected == 1)
         {
@@ -227,7 +231,7 @@ void Gerenciador_Grafico::window(Menu* pM, Principal* pP)
     }
 }
 
-float Gerenciador_Grafico::getDeltaTempo() 
+float Gerenciador_Grafico::getDeltaTempo()
 {
     return dt;
 }
@@ -238,7 +242,7 @@ void Gerenciador_Grafico::atualizarTempoPercorrido()
     relogio.restart();
 }
 
-sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path) 
+sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
 {
     map<const char*, sf::Texture*>::iterator it;
     for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it)

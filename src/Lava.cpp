@@ -103,10 +103,11 @@ void Lava::mover()
     y+=velocidade.y * dt;
     lavaSkin.setPosition(x,y);
 }
-sf::Sprite Lava::getDrawData()
+sf::Sprite Lava::getDrawData() const 
 {
     return lavaSkin;
 }
+
 sf::FloatRect Lava::getBounds() const
 {
     return lavaSkin.getGlobalBounds();

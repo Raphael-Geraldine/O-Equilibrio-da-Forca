@@ -48,21 +48,21 @@ size_t ListaEntidades::getTamanho() const
     return LEs.getTamanho();
 }
 
-Entidades::Entidade* ListaEntidades::operator[](int indice) 
+Entidades::Entidade* ListaEntidades::operator[](int indice) const
 {
     return LEs[indice];
 }
 
 // Lista elemento por elemento (template).
-void ListaEntidades::percorrer() 
+void ListaEntidades::percorrer()
 {
     LEs.percorrer();
 }
 
 // Chama executar de cada Entidade.
-void ListaEntidades::executar() 
+void ListaEntidades::executar()
 {
-    int tamanho = static_cast<int>(getTamanho());
+    const int tamanho = static_cast<int>(getTamanho());
     for (int i = 0; i < tamanho; i++)
     {
         LEs[i]->executar();

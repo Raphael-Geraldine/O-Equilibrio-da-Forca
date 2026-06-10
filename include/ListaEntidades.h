@@ -22,9 +22,9 @@ namespace TrabalhoJogo
                 size_t getTamanho() const;
 
                 // Também inspirada na implementação do Burda, 
-                // vide vídeo 8 da playlist Tutorial Jogo SFM,
+                // vide vídeo 8 da playlist Tutorial Jogo SFML,
                 // como no header "Lista.h", naturalmente.
-                Entidades::Entidade* operator[](int indice);
+                Entidades::Entidade* operator[](int indice) const;
 
                 void limpar();
                 void percorrer(); // Lista elemento por elemento (template).

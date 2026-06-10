@@ -109,7 +109,7 @@ sf::FloatRect Stormtrooper::getBounds() const
 {
     return stormSkin.getGlobalBounds();
 }
-sf::Sprite Stormtrooper::getDrawData()
+sf::Sprite Stormtrooper::getDrawData() const
 {   
     return stormSkin;
 }

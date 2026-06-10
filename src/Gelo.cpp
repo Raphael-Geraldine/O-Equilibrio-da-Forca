@@ -108,7 +108,7 @@ void Gelo::mover()
     y+=velocidade.y * dt;
     geloSkin.setPosition(x,y);
 }
-sf::Sprite Gelo::getDrawData()
+sf::Sprite Gelo::getDrawData() const 
 {
     return geloSkin;
 }

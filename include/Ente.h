@@ -25,6 +25,6 @@ namespace TrabalhoJogo
             virtual void executar() = 0;
             void desenhar();
             static void staticSetGG(Gerenciadores::Gerenciador_Grafico* pG);
-            virtual sf::Sprite getDrawData() = 0;
+            virtual sf::Sprite getDrawData() const = 0;
     };
 }

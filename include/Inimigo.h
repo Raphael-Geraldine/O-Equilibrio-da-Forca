@@ -27,7 +27,7 @@ namespace TrabalhoJogo
                     void sofrerAtaque(int dano);
                     void tentarDanificar(Jogador* pJ);
                     virtual void danificar(Jogador* pJ);
-                    virtual sf::Sprite getDrawData() = 0;
+                    virtual sf::Sprite getDrawData() const = 0;
                     virtual sf::FloatRect getBounds() const = 0;
                     virtual void mover() = 0;
                     virtual void executar() = 0;

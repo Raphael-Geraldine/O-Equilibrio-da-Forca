@@ -162,10 +162,11 @@ void Fase::criarCenario()
     criarPlataformas();
 }
 
-ListaEntidades* Fase::getListaEntidades() 
+const ListaEntidades* Fase::getListaEntidades() const
 {
     return &listaEntidades;
 }
+
 void Fase::executar()
 {
     int tamEnt = listaEntidades.getTamanho();
@@ -248,12 +249,12 @@ void Fase::criarPlataformas()
     }
 }
 
-short int Fase::getVivos()
+short int Fase::getVivos() const
 {
     return entsAlive;
 }
 
-sf::RectangleShape Fase::getChao()
+sf::RectangleShape Fase::getChao() const
 {
     return chao;
 }

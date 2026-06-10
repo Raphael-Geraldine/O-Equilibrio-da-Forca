@@ -38,7 +38,7 @@ namespace TrabalhoJogo
                     void salvarDataBuffer();
                     void pular();
                     int getVida();
-                    virtual sf::Sprite getDrawData() = 0;
+                    virtual sf::Sprite getDrawData() const = 0;
                     virtual sf::FloatRect getBounds() const = 0;
                     virtual void executar() = 0;
                     virtual void salvar() = 0;

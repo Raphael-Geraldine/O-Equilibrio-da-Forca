@@ -48,7 +48,7 @@ namespace TrabalhoJogo
                     void obstaculizar(Jogador* pJog);
                     void obstaculizarInim(Inimigo* pInim);
                     void propulsao();
-                    sf::Sprite getDrawData();
+                    sf::Sprite getDrawData() const;
                     sf::FloatRect getBounds() const;
             };
         }

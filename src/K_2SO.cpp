@@ -93,7 +93,7 @@ void K_2SO::danificar(Jogador* p)
         p->sofrerAtaque(nivel_maldade/3);
     }
 }
-sf::Sprite K_2SO::getDrawData()
+sf::Sprite K_2SO::getDrawData() const
 {
     return k2Skin;
 }

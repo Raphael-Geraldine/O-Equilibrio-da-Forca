@@ -82,7 +82,7 @@ void Hoth::criarProjeteis()
 
 }
 
-sf::Sprite Hoth::getDrawData()
+sf::Sprite Hoth::getDrawData() const
 {
     return fundo;
 }

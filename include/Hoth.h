@@ -36,7 +36,7 @@ namespace TrabalhoJogo
                 Hoth(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                      Entidades::Personagens::Jogador* pJ2 = nullptr);
                 ~Hoth();
-                sf::Sprite getDrawData();
+                sf::Sprite getDrawData() const;
 
         };
     }
