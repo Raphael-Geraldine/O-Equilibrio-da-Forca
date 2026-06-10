@@ -75,14 +75,14 @@ namespace TrabalhoJogo
                 
 
             public:
-                Gerenciador_Colisoes(Entidades::Personagens::Jogador* pJ1 = nullptr,
-                                     sf::RectangleShape* pC = nullptr);
+                Gerenciador_Colisoes();
 
                 ~Gerenciador_Colisoes();
                  
                 void incluirInimigo(Entidades::Personagens::Inimigo* pI);
                 void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
                 void incluirProjetil(Projetil* pJ);
+                void incluirChao(sf::RectangleShape* pC);
 
                 void setJog1 (Entidades::Personagens::Jogador* pJ1);
                 void setJog2 (Entidades::Personagens::Jogador* pJ2);

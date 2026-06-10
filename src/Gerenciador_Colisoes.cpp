@@ -18,12 +18,12 @@ const float Gerenciador_Colisoes::lim_baixo = 720.0f;
 const float Gerenciador_Colisoes::epsilonJanela = 0.5f;
 const float Gerenciador_Colisoes::coefRestTeto = 0.15f;
 
-Gerenciador_Colisoes::Gerenciador_Colisoes(Jogador* pJ1, sf::RectangleShape* pC):
+Gerenciador_Colisoes::Gerenciador_Colisoes():
     LIs(),
     LOs(),
-    pJog1(pJ1),
+    pJog1(nullptr),
     pJog2(nullptr),
-    pChao(pC)
+    pChao(nullptr)
 {}
 
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
@@ -250,11 +250,7 @@ void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
 void Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)
 {
     if (pI == nullptr) 
-    {
         cerr << "Erro: Tentativa de incluir inimigo com ponteiro nulo." << endl;
-        return;
-    }
-
     else
         LIs.push_back(pI);
 }
@@ -262,11 +258,7 @@ void Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)
 void Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
 {
     if (pO == nullptr) 
-    {
         cerr << "Erro: Tentativa de incluir obstáculo com ponteiro nulo." << endl;
-        return;
-    }
-
     else
         LOs.push_back(pO);
 }
@@ -274,13 +266,17 @@ void Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
 void Gerenciador_Colisoes::incluirProjetil(Projetil* pJ)
 {
     if (pJ == nullptr) 
-    {
         cerr << "Erro: Tentativa de incluir projétil com ponteiro nulo." << endl;
-        return;
-    }
-
     else
         LPjs.insert(pJ);
+}
+
+void Gerenciador_Colisoes::incluirChao(sf::RectangleShape* pC)
+{
+    if (pC == nullptr) 
+        cerr << "Erro: Tentativa de incluir chão com ponteiro nulo." << endl;
+    else
+        pChao=pC;
 }
 
 void Gerenciador_Colisoes::setJog1(Jogador* pJ1)

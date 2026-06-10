@@ -62,6 +62,7 @@ void Hoth::criarInimigos()
         else
         {
             Fase::incluirEntidade(static_cast<Inimigo*>(pAT));
+            incluirGCInimigo(static_cast<Inimigo*>(pAT)); 
             criarProjeteis(qntd, pAT);
             pAT->setAlvos(pJogador1, pJogador2);
             entsAlive++;
@@ -78,7 +79,10 @@ void Hoth::criarObstaculos()
         if (pGelo == nullptr)
             cerr << "Tentativa de incluir gelo nula na lista de entidades." << endl;
         else   
+        {
             Fase::incluirEntidade(static_cast<Obstaculo*>(pGelo));
+            incluirGCObstaculo(static_cast<Obstaculo*>(pGelo));
+        }
     }
 }
 
@@ -91,6 +95,7 @@ void Hoth::criarProjeteis(int qntd, AT_ST* pAT)
     else
     {
         Fase::incluirEntidade(pProj); 
+        incluirGCProjetil(pProj);
         pAT->setProjetil(pProj);           
     }   
 }

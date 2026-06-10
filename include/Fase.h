@@ -6,6 +6,7 @@
 #include "../include/Inimigo.h"
 #include "../include/Plataforma.h"
 #include "../include/Obstaculo.h"
+#include "../include/Projetil.h"
 #include "../include/Gerenciador_Colisoes.h"
 #include "../include/Ente.h"
 
@@ -43,6 +44,10 @@ namespace TrabalhoJogo
                 void criarInimigosFaceis();
                 void criarPlataformas(); //Obstáculo fácil
                 void criarCenario();
+
+                void incluirGCInimigo(Entidades::Personagens::Inimigo* pInim);
+                void incluirGCObstaculo(Entidades::Obstaculos::Obstaculo* pObs);
+                void incluirGCProjetil(Projetil* pProj);
 
                 virtual void criarInimigos() = 0;
                 virtual void criarObstaculos() = 0;

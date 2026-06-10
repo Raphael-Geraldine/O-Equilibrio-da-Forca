@@ -52,7 +52,8 @@ void Mustafar::criarInimigos()
             cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
         else
         {
-            Fase::incluirEntidade(static_cast<Inimigo*>(pK2)); 
+            Fase::incluirEntidade(static_cast<Inimigo*>(pK2));
+            incluirGCInimigo(static_cast<Inimigo*>(pK2));  
             entsAlive++;
         }
     }
@@ -67,7 +68,10 @@ void Mustafar::criarObstaculos()
         if (pLava == nullptr)
             cerr << "Tentativa de incluir lava nula na lista de entidades." << endl;
         else   
+        {
             Fase::incluirEntidade(static_cast<Obstaculo*>(pLava));
+            incluirGCObstaculo(static_cast<Obstaculo*>(pLava));
+        }
     }
 }
 

@@ -4,6 +4,7 @@
 #include "../include/Inimigo.h"
 #include "../include/Stormtrooper.h"
 #include "../include/Plataforma.h"
+#include "../include/Projetil.h"
 #include "../include/Obstaculo.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
@@ -38,12 +39,10 @@ Fase::Fase(Jogador* pJ1, Jogador* pJ2):
     pJogador2(pJ2),
     gC(nullptr)
 {
-    gC = new Gerenciador_Colisoes(pJogador1, &chao);
-
-    if (pJogador2 != nullptr)
-    {
-        gC->setJog2(pJogador2);
-    }
+    gC = new Gerenciador_Colisoes();
+    
+    if (gC != nullptr)
+        gC->incluirChao(&chao); 
 }
 
 Fase::~Fase()
@@ -87,10 +86,19 @@ Fase::~Fase()
 void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
 {
     if (pJ1 != nullptr)
+    {
         incluirEntidade(pJ1);
+        if (gC != nullptr)
+            gC->setJog1(pJ1);
+    }
 
     if (pJ2 != nullptr)
+    {
         incluirEntidade(pJ2);
+        if (gC != nullptr)
+            gC->setJog2(pJ2);
+
+    }
     
     criarInimigosFaceis();   
     criarInimigos();
@@ -101,65 +109,33 @@ void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
 void Fase::incluirEntidade(Entidade* pE)
 {
     if (pE == nullptr)
-    {
         cerr << "Erro: Tentativa de incluir entidade nula em fase." << endl;
-        return;
-    }
+    else
+        listaEntidades.incluir(pE);
+}
 
-    listaEntidades.incluir(pE);
+void Fase::incluirGCInimigo(Inimigo* pInim)
+{
+    if (pInim == nullptr)
+        cerr << "Erro: Tentativa de incluir inimigo nulo em GC." << endl;
+    else if (gC != nullptr)
+        gC->incluirInimigo(pInim); 
+}
 
-    // Dynamic_cast testa se conversão é razoável, senão retorna nulo.
-    Jogador* pJog = dynamic_cast<Jogador*>(pE); 
+void Fase::incluirGCObstaculo(Obstaculo* pObs)
+{
+    if (pObs == nullptr)
+        cerr << "Erro: Tentativa de incluir obstaculo nulo em GC." << endl;
+    else if (gC != nullptr)
+        gC->incluirObstaculo(pObs);
+}
 
-    if (pJog != nullptr)
-    {
-        if (pJogador1 == nullptr)
-        {
-            pJogador1 = pJog;
-
-            if (gC != nullptr)
-                gC->setJog1(pJog);
-        }
-        else if (pJogador2 == nullptr && pJog != pJogador1)
-        {
-            pJogador2 = pJog;
-
-            if (gC != nullptr)
-                gC->setJog2(pJog);
-        }
-
-        return;
-    }
-
-    Inimigo* pInim = dynamic_cast<Inimigo*>(pE);
-
-    if (pInim != nullptr)
-    {
-        if (gC != nullptr)
-            gC->incluirInimigo(pInim);
-
-        return;
-    }
-
-    Obstaculo* pObs = dynamic_cast<Obstaculo*>(pE);
-
-    if (pObs != nullptr)
-    {
-        if (gC != nullptr)
-            gC->incluirObstaculo(pObs);
-
-        return;
-    }
-
-    Projetil* pProj = dynamic_cast<Projetil*>(pE);
-
-    if (pProj != nullptr)
-    {
-        if (gC != nullptr)
-            gC->incluirProjetil(pProj);
-
-        return;
-    }
+void Fase::incluirGCProjetil(Projetil* pProj)
+{
+    if (pProj == nullptr)
+        cerr << "Erro: Tentativa de incluir projétil nulo em GC." << endl;
+    else if (gC != nullptr)
+        gC->incluirProjetil(pProj);
 }
 
 void Fase::criarCenario()
@@ -240,7 +216,8 @@ void Fase::criarInimigosFaceis()
             cerr << "Tentativa de incluir Stormtrooper nula na lista de entidades." << endl;
         else
         {
-            incluirEntidade(static_cast<Inimigo*>(pStorm)); 
+            incluirEntidade(static_cast<Inimigo*>(pStorm));
+            incluirGCInimigo(static_cast<Inimigo*>(pStorm)); 
             entsAlive++;
         }
     }
@@ -254,8 +231,11 @@ void Fase::criarPlataformas()
         Plataforma* pPlat = new Plataforma();
         if (pPlat == nullptr)
             cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
-        else   
+        else
+        {
             incluirEntidade(static_cast<Obstaculo*>(pPlat));
+            incluirGCObstaculo(static_cast<Obstaculo*>(pPlat));
+        }   
     }
 }
 
