@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+using namespace std;
+
 #include "../include/ListaEntidades.h"
 
 namespace TrabalhoJogo 
@@ -41,6 +44,8 @@ namespace TrabalhoJogo
 
             Entidades::Personagens::Jogador* pAnakin1;
             Entidades::Personagens::Jogador* pObi1;
+            string nomeJog1;
+            string nomeJog2;
 
         public:
             Principal();
@@ -50,5 +55,6 @@ namespace TrabalhoJogo
             Fases::Fase* getFase() const;
             void inicializarJogo();
             void atualizarFase();
+            string& getNome(short int n);
     };
 }

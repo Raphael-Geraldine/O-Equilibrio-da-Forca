@@ -66,6 +66,7 @@ namespace TrabalhoJogo
                 // Funções conhecidas pelos vídeos do Burda:
                 map<const char*, sf::Texture*> mapaTexturas;
                 sf::Clock relogio;
+                sf::Clock typingDelay;
                 static float dt;
 
                 static Gerenciador_Grafico* pGrafico; // static Singleton* Instance();
@@ -74,6 +75,8 @@ namespace TrabalhoJogo
                 //sf::Sprite fundo;
 
                 //sf::Font fonteMenu;
+                sf::Font fonteName;
+                sf::Text nameType;
 
                 // sf::Texture texturaAnakin;
                 //sf::Sprite anakin;
@@ -104,6 +107,9 @@ namespace TrabalhoJogo
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
+
+                void desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome, short int n);
+                void desenharSolicitar2Nomes();
 
                 void window(Menu* pM, Principal* pP);
                 //void loadMenu(Menu* pM); //out

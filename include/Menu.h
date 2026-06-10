@@ -39,6 +39,10 @@ namespace TrabalhoJogo
 
             sf::Font fonteMenu;
 
+            sf::Texture* pTexturaNome1;
+            sf::Texture* pTexturaNome2;
+            sf::Sprite fundoNome;
+
             list<string> menuOptions;
 
         public:
@@ -51,6 +55,7 @@ namespace TrabalhoJogo
             void menuTextPlacement(vector<sf::Text>& textToDisplay);
             sf::Sprite getFundo() const;
             sf::Sprite getDrawData() const;
+            sf::Sprite getNomeBack(short int n);
             short int getFaseEscolhida() const;
             short int getJogsEscolhido() const;
     };

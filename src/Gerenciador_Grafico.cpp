@@ -1,8 +1,12 @@
+#define FONTE "../assets/fonts/PressStart2P.ttf"
+
 #include "../include/Principal.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
 
+#include <string>
+using namespace std;
 #include <stdlib.h>
 #include <SFML/Graphics.hpp>
 
@@ -34,6 +38,10 @@ Gerenciador_Grafico::Gerenciador_Grafico()
 {
     janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
     janela.setFramerateLimit(120);
+
+    if (!fonteName.loadFromFile(FONTE))
+        cerr << "Erro de carregamento da Fonte no Menu" << endl;
+    nameType.setFont(fonteName);
 
     textOptions.clear();
 }
@@ -174,6 +182,51 @@ void Gerenciador_Grafico::desenharTextoMenu (sf::RenderWindow & janela)
     }
 }
 
+void Gerenciador_Grafico::desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome, short int n)
+{
+    janela.draw(fundo);
+
+    if (event.type == sf::Event::TextEntered && typingDelay.getElapsedTime().asMilliseconds()>=200) 
+    {       
+        if (event.text.unicode == '\b') 
+        {
+            if (!nome.empty())
+                nome.pop_back();
+        }
+        else if (event.text.unicode > 96 && event.text.unicode < 123 && nome.size()<15)
+            nome += static_cast<char>(event.text.unicode);
+
+        
+        nameType.setString(nome);
+        nameType.setFillColor(sf::Color::White);
+        sf::FloatRect bounds = nameType.getLocalBounds();
+        nameType.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
+        nameType.setPosition(640,315);
+
+        typingDelay.restart();
+    }
+
+    janela.draw(nameType);
+
+    //cout<<nome<<endl;
+
+    janela.display();
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
+    {
+        if (n==1)
+            optionSelected=7;
+        else
+        {
+            string s = "";
+            nameType.setString(s);
+            optionSelected=6;
+        }
+
+        typingDelay.restart();
+    }
+}
+
 void Gerenciador_Grafico::window(Menu* pM, Principal* pP)
 {
     pM->loadMenu(textOptions);
@@ -195,14 +248,18 @@ void Gerenciador_Grafico::window(Menu* pM, Principal* pP)
         {
             desenharMenu(pM,janela);
         }
+
         if (optionSelected == 0)
         {
-            pP->inicializarJogo();
-            pP->atualizarFase();
-
-            if (pP->getFase() != nullptr)
-                desenharFase(pP->getFase(), janela);
+            int qntd = pM->getJogsEscolhido();
+            if (qntd == 1)
+                desenharSolicitar1Nome(janela, event, pM->getNomeBack(1), pP->getNome(1),1);
+            else
+                desenharSolicitar1Nome(janela, event, pM->getNomeBack(1), pP->getNome(1),2);
         }
+        if (optionSelected == 6)
+            desenharSolicitar1Nome(janela, event, pM->getNomeBack(2), pP->getNome(2),1);
+        
         if (optionSelected == 1)
         {
             cout<<"Rank page"<<endl;
@@ -227,6 +284,15 @@ void Gerenciador_Grafico::window(Menu* pM, Principal* pP)
         {
             cout<<"How to play, page"<<endl;
             optionSelected = -1; //temp, just to make it works
+        }
+
+        if (optionSelected == 7)
+        {
+            pP->inicializarJogo();
+            pP->atualizarFase();
+
+            if (pP->getFase() != nullptr)
+                desenharFase(pP->getFase(), janela);
         }
     }
 }

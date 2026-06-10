@@ -1,5 +1,7 @@
 #define MENUINICIALPNG "../assets/images/MenuInicial.png"
 #define ANAKINPNG "../assets/images/Anakin.png"
+#define NOME1JOG "../assets/images/EnterNameP1.png"
+#define NOME2JOG "../assets/images/EnterNameP2.png"
 
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
@@ -49,7 +51,21 @@ void Menu::executar()
 short int Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
 {
     if (cliqueEmOpcao(janela,text[0]))
+    {
+        pTexturaNome1 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME1JOG);
+        if (pTexturaNome1 == nullptr)
+            cerr << "Erro de carregamento do fundo solicitando nome 1 jogador" << endl;
+        if (qntdJogs != 1)
+        {
+            pTexturaNome2 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME2JOG);
+            if (pTexturaNome2 == nullptr)
+                cerr << "Erro de carregamento do fundo solicitando nome 2 jogador" << endl;
+        }
+        
+        fundoNome.setTexture(*pTexturaNome1);
+
         return 0;
+    }    
 
     if (cliqueEmOpcao(janela,text[1]))
         return 1;
@@ -162,4 +178,12 @@ sf::Sprite Menu::getFundo() const
 sf::Sprite Menu::getDrawData() const 
 {
     return anakin; 
+}
+
+sf::Sprite Menu::getNomeBack(short int n)
+{
+    if (n==1)
+        return fundoNome;
+    fundoNome.setTexture(*pTexturaNome2);
+    return fundoNome;
 }

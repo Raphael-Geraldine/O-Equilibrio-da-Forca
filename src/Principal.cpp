@@ -90,6 +90,16 @@ void Principal::inicializarJogo()
 
     else
         pFase = new Hoth(pAnakin1, pObi1);
+
+
+    /*
+    bool emptySpaces = false;
+    while (emptySpaces)
+    {
+        string[2] nomesJogs = pGG->desenharSolicitarNome();
+        emptySpaces=true;
+    }
+    */
 }
 
 void Principal::atualizarFase()
@@ -112,4 +122,11 @@ void Principal::atualizarFase()
             // Depois preparar retorno ao menu.
         }
     }
+}
+
+string& Principal::getNome(short int n)
+{
+    if (n==1)
+        return this->nomeJog1;
+    return this->nomeJog2;
 }
