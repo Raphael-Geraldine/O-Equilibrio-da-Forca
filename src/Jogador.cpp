@@ -109,7 +109,7 @@ void Jogador::executar()
             pular();
     }
 
-    gravity();
+    gravitar();
     
     mover();
 

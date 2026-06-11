@@ -15,6 +15,23 @@ namespace TrabalhoJogo
             private:
                 sf::Sprite projetilSkin;
 
+                float massa;
+                float coefArrasto;
+                float densidadeAr;
+                float areaSecao;
+                float moduloVelLancamento;
+
+            private:
+                float calcularModulo (const sf::Vector2f& vetor) const;
+                sf::Vector2f normalizar (const sf::Vector2f& vetor) const;
+
+                float calcularVelTerminal() const;
+                sf::Vector2f calcularAcelArrasto() const;
+
+                void aplicarFisica();
+                void desativar();
+                void atualizarRotacaoSprite();
+
             protected:
                 bool ativo;
                 short int dano;

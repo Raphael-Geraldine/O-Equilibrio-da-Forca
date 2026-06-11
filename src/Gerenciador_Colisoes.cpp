@@ -1,3 +1,11 @@
+/* Para a física e matemática que seguem foram utilizados como referências de ensino superior:
+   
+   1. Colisões e coeficiente de Restituição:  Fundamentos de Física, Halliday, Resnick, Walker, Oitava Edição, Volume 2
+
+   Quanto aos conceitos de ensino médio, advém naturalmente de conhecimento prévio ao ingresso
+   na universidade, mas, para todos os efeitos, todos estão contidos nos mesmos livros acima (diretamente ou não).
+*/
+
 #include "../include/Gerenciador_Colisoes.h"
 using namespace TrabalhoJogo;
 using namespace Entidades;

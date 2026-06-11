@@ -38,6 +38,9 @@ namespace TrabalhoJogo
                     void mover();
                     void operator++(); //aumentar o dano com pouca vida
                     void atualizarPosicaoSprite();
+                    sf::Vector2f calcularPontoAlvo (const Jogador* pJog) const;
+                    sf::Vector2f calcularPontoAtirador() const;
+                    sf::Vector2f calcularLancamento(const Jogador* pJog, float velocidadeLancamento) const;
                     void atirar();
                     void setProjetil(Projetil* pP);
                     void setAlvos(Jogador* pJog1, Jogador* pJog2);

@@ -18,17 +18,19 @@ Entidade::~Entidade()
     y = INT_MIN;
 }
 
-void Entidade::gravity()
+void Entidade::aplicarFisica()
 {
-    if (!noChao)
-    {
-        // v = v0 + gt;
-        // y > 0 para baixo.
-        velocidade.y += gravidade * dt;
+    gravitar();
+    // Aqui usa o método sem parâmetro, pois o ajuste é manual.
+    limitarVelTerminal();
+}
 
-        if (velocidade.y > velocidadeMaxQueda) 
-            velocidade.y = velocidadeMaxQueda;
-    }
+void Entidade::gravitar() 
+{
+    // v = v0 + gt;
+    // y > 0 para baixo.
+    if (!noChao)
+        velocidade.y += gravidade * dt;
 }
 
 void Entidade::salvarDataBuffer()
@@ -36,7 +38,7 @@ void Entidade::salvarDataBuffer()
     
 }
 
-void Entidade::setX(int i) 
+void Entidade::setX(float i) 
 {
     x = i;
 }
@@ -46,7 +48,7 @@ float Entidade::getX() const
     return x;
 }
 
-void Entidade::setY(int j) 
+void Entidade::setY(float j) 
 {
     y = j;
 }
@@ -91,4 +93,22 @@ void Entidade::setVelocidadeY (const float vy)
 sf::Vector2f Entidade::getVelocidade () const
 {
     return velocidade;
+}
+
+// Esse será usado para o projétil, que tem
+// velocidade terminal propriamente calculada.
+void Entidade::limitarVelTerminal(float limiteVel)
+{
+    // Não aplica para projétil, pois seu limite é -1.0f.
+    if (limiteVel <= 0.0f) 
+        return;
+
+    if (velocidade.y > limiteVel) 
+        velocidade.y = limiteVel;
+}
+
+void Entidade::limitarVelTerminal()
+{
+    if (velocidade.y > velocidadeMaxQueda)
+        velocidade.y = velocidadeMaxQueda;
 }

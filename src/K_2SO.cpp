@@ -82,7 +82,7 @@ void K_2SO::executar()
             velocidade.x = -100.0f;
     }
 
-    gravity();
+    aplicarFisica();
     mover();
 }
 void K_2SO::danificar(Jogador* p)

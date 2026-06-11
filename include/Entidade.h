@@ -15,6 +15,7 @@ namespace TrabalhoJogo
                 bool noChao;
                 float dt;
                 sf::Vector2f velocidade;
+
                 static const float velocidadeMaxQueda;
                 static const float gravidade;
                 static const float pixelsPorMetro;
@@ -25,22 +26,29 @@ namespace TrabalhoJogo
                 Entidade();
                 void salvarDataBuffer();
 
+                // Sobrecarga de métodos
+                void limitarVelTerminal();
+                void limitarVelTerminal(float limite);
+
             public:
+                virtual ~Entidade();
                 // Parâmetros remetem a vetores unitários.
                 // Para evitar uso de "this" nesse caso.
-                void setX(int i);
+                void setX(float i); // Estava int
                 float getX() const;
-                void setY(int j);
-                float getY() const;
+                void setY(float j); 
+                float getY() const; // Estava int
 
                 void setDeltaTempo (const float tempo);
+                
+                void gravitar();
+
                 void setVelocidade (const sf::Vector2f vel);
                 void setVelocidadeX (const float vx);
                 void setVelocidadeY (const float vy);
                 sf::Vector2f getVelocidade() const;
 
-                virtual ~Entidade();
-                void gravity();
+                virtual void aplicarFisica();
                 virtual void executar() = 0;
                 virtual void salvar() = 0;
                 virtual void mover() = 0; //lembrar que apenas personagens movem!

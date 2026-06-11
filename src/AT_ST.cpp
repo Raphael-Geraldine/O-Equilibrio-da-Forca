@@ -5,6 +5,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+#include <cmath>
+using std::sqrt;
+
 #include "../include/Projetil.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
@@ -89,8 +92,7 @@ void AT_ST::executar()
     if((!(pProj->getAtivo())) && clockTiro.getElapsedTime().asSeconds()>=6.0f)
         atirar();
 
-
-    gravity();
+    aplicarFisica();
     mover();
 }
 void AT_ST::danificar(Jogador* p)
@@ -134,11 +136,55 @@ void AT_ST::atualizarPosicaoSprite()
     atSkin.setPosition(x,y);
 }
 
+sf::Vector2f AT_ST::calcularPontoAtirador() const
+{
+    const sf::FloatRect bounds = this->getBounds();
+
+    return sf::Vector2f (x, y);
+}
+
+sf::Vector2f AT_ST::calcularPontoAlvo (const Jogador* pJog) const
+{
+    if (pJog == nullptr)
+        return calcularPontoAtirador();
+
+    const sf::FloatRect boundsJog = pJog->getBounds();
+    
+    return sf::Vector2f(
+        boundsJog.left + boundsJog.width / 2.0f,
+        boundsJog.top + boundsJog.height / 2.0f
+    );
+}
+
+sf::Vector2f AT_ST::calcularLancamento(const Jogador* pJog, float velocidadeLancamento) const
+{
+    if (pJog == nullptr || velocidadeLancamento <= 0.0f)
+        return calcularPontoAtirador();
+
+    const sf::Vector2f origem = calcularPontoAtirador();
+    const sf::FloatRect boundsJog = pJog->getBounds();
+
+    sf::Vector2f alvo = calcularPontoAlvo(pJog);
+
+    const float dx = alvo.x - origem.x;
+    const float dy = alvo.y - origem.y;
+
+    const float distancia = sqrt(dx * dx + dy * dy);
+    const float tempoEstimado = distancia/velocidadeLancamento;
+
+    const float quedaEstimativa = 0.5f * gravidade * tempoEstimado * tempoEstimado;   
+    alvo.y -= quedaEstimativa; // Mira mais para cima
+
+    return alvo;
+}
+
 void AT_ST::atirar()
 {
     Jogador* lockAlvo;
+
     if (alvo2 != nullptr && rand()%2)
         lockAlvo = alvo2;
+
     else
         lockAlvo = alvo1;
 

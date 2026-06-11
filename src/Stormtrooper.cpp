@@ -81,7 +81,7 @@ void Stormtrooper::executar()
             velocidade.x = -100.0f;   
     }
     
-    gravity();
+    aplicarFisica();
     mover();
 }
 void Stormtrooper::salvar()
