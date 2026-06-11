@@ -21,7 +21,7 @@ using namespace Gerenciadores;
 #include <stdlib.h>
 
 Hoth::Hoth(Jogador* pJ1, Jogador* pJ2): 
-    Fase(pJ1, pJ2),
+    Fase(),
     minChefoes(3),
     maxChefoes(6),
     minObstDificil(3),
@@ -38,6 +38,7 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2):
     for (int i = platGeradas; i < maxPlat; i++)
     {
         Plataforma* pClearList = new Plataforma();
+        platGeradas++;
         delete (pClearList);
     }
     
@@ -48,7 +49,12 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2):
 
 Hoth::~Hoth()
 {
-
+    for (int i = platGeradas; i < 2*maxPlat; i++)
+    {
+        Plataforma* pClearList = new Plataforma();
+        delete (pClearList);
+    }
+    platGeradas=0;
 }
 
 void Hoth::criarInimigos()

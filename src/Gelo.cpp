@@ -54,7 +54,7 @@ Gelo::Gelo():
 }
 Gelo::~Gelo()
 {
-
+    cont=0;
 }
 void Gelo::executar()
 {

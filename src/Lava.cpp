@@ -54,7 +54,7 @@ Lava::Lava():
 }
 Lava::~Lava()
 {
-
+    cont=0;
 }
 void Lava::executar()
 {

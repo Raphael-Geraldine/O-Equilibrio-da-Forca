@@ -17,7 +17,7 @@ using namespace Fases;
 using namespace Gerenciadores;
 
 Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2): 
-    Fase(pJ1, pJ2),
+    Fase(),
     minInimigosMedios(3),
     maxInimigosMedios(7),
     minObstMedios(3),

@@ -19,7 +19,7 @@ using namespace Gerenciadores;
 
 short int Jogador::cont(0);
 
-Jogador::Jogador(): Personagem(), nPlayer(cont++)
+Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
 {
     num_vidas = 100;
     
@@ -62,7 +62,8 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++)
 
 Jogador::~Jogador()
 {
-    
+    pontos=-1;
+    cont=0;
 }
 
 sf::Sprite Jogador::getDrawData() const
@@ -151,22 +152,29 @@ sf::FloatRect Jogador::getBounds() const
 
 void Jogador::colidirInimigo(Inimigo* pIn)
 {
-    if (!nPlayer)
+    if (getVida()>0)
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
+        if (!nPlayer)
         {
-            pIn->sofrerAtaque(10);
-            y-=10; //recuo pós ataque, arrumar a física aqui tbm
-            x-=20;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
+            {
+                pIn->sofrerAtaque(10);
+                if (pIn->getVida() <= 0)
+                    pontos++;
+                y-=10; //recuo pós ataque, arrumar a física aqui tbm
+                x-=20;
+            }
         }
-    }
-    else
-    {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
+        else
         {
-            pIn->sofrerAtaque(10);
-            y-=10; //recuo pós ataque, arrumar a física aqui tbm
-            x-=20;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
+            {
+                pIn->sofrerAtaque(10);
+                if (pIn->getVida() <= 0)
+                    pontos++;
+                y-=10; //recuo pós ataque, arrumar a física aqui tbm
+                x-=20;
+            }
         }
     }
 }
@@ -184,6 +192,12 @@ void Jogador::atualizarPosicaoSprite()
     //void sf::Transformable::setPosition(const Vector2f &position)	
     playerSkin.setPosition(x,y);
 }
+
+int Jogador::getPontos() const
+{
+    return pontos;
+}
+
 /*
 void Jogador::colidirObstaculo(Obstaculo* pOb)
 {

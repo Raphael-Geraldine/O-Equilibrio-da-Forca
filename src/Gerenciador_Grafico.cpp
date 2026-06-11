@@ -1,6 +1,7 @@
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
 #include "../include/Principal.h"
+#include "../include/Personagem.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace TrabalhoJogo;
 using namespace Gerenciadores;
@@ -120,9 +121,10 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
             continue;
         }
         
-        const Ente* pE = (*lEntidades)[i];
-
-        desenharEnte (pE);
+        Ente* pE = (*lEntidades)[i];
+        Personagem* pP = dynamic_cast<Personagem*>(pE);
+        if ((pP != nullptr && pP->getVida() > 0) || pP==nullptr)
+            desenharEnte (pE);
     }
 
     janela.display();

@@ -168,7 +168,8 @@ void Principal::atualizarFase()
     if (pFase == nullptr)
         return;
 
-    if (!(pFase->getVivos())) //ou seja, quando derrotar todos inimigos
+    //cout<<pFase->numJogsVivos()<<endl;
+    if (!(pFase->getInimVivos()) && pFase->numJogsVivos()) //ou seja, quando derrotar todos inimigos
     {
         Mustafar* pMustafar = dynamic_cast<Mustafar*>(pFase);
 
@@ -179,9 +180,47 @@ void Principal::atualizarFase()
         }
         else
         {
-            cout << "Cabou!" << endl; //preparar caminho voltar menu
-            // Depois preparar retorno ao menu.
+            cout << "Cabou!" << endl; //continuar caminho voltar menu
+
+            delete pFase;
+            pFase = nullptr;
+
+            estadoAtual=Estado::Menu;
+
+            //salvarRank();
+
+            if (pAnakin1 != nullptr)
+                delete (pAnakin1);
+            pAnakin1 = nullptr;
+
+            if (pObi1 != nullptr)
+                delete (pObi1);
+            pObi1 = nullptr;
+
+            nomeJog1.clear();
+            nomeJog2.clear();
         }
+    }
+    else if (!(pFase->numJogsVivos()))
+    {
+        cout << "Cabou!" << endl; //continuar caminho voltar menu
+
+        delete pFase;
+        pFase = nullptr;
+        estadoAtual=Estado::Menu;
+
+        //salvarRank();
+
+        if (pAnakin1 != nullptr)
+            delete (pAnakin1);
+        pAnakin1 = nullptr;
+
+        if (pObi1 != nullptr)
+            delete (pObi1);
+        pObi1 = nullptr;
+
+        nomeJog1.clear();
+        nomeJog2.clear();
     }
 }
 
