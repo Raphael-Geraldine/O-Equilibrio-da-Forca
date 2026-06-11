@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <string>
 using namespace std;
 
@@ -31,9 +32,24 @@ namespace TrabalhoJogo
 
 namespace TrabalhoJogo
 {
+    enum class Estado
+    {
+        Menu,
+        Nomejog1,
+        Nomejog2,
+        Jogando,
+        Ranking,
+        Carregar,
+        Comojogar
+    };
+
     class Principal
     {
         private:
+            Estado estadoAtual;
+            vector<sf::Text> textOptions;
+            sf::Clock typingDelay;
+
             Gerenciadores::Gerenciador_Grafico* pGG;
             Menu* pMenu;
             TrabalhoJogo::Listas::ListaEntidades LEntidades;

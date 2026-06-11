@@ -19,13 +19,22 @@ using namespace Fases;
 
 #include "../include/Principal.h"
 
+#include <vector>
+using namespace std;
+#include <SFML/Graphics.hpp>
+
 TrabalhoJogo::Principal::Principal(): 
     pGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pMenu(nullptr), 
     pFase(nullptr),
     pAnakin1(nullptr),
-    pObi1(nullptr)
+    pObi1(nullptr),
+    estadoAtual(Estado::Menu)
 {
+    pGG = Gerenciador_Grafico::getGerenciadorGrafico();
+    Ente::staticSetGG(pGG);
+
+    pMenu = new Menu();
     executar();
 }
 
@@ -54,15 +63,80 @@ TrabalhoJogo::Principal::~Principal()
 
 void TrabalhoJogo::Principal::executar()
 {
-    pGG = Gerenciador_Grafico::getGerenciadorGrafico();
-    
-    Ente::staticSetGG(pGG);
+    pMenu->loadMenu(textOptions);
+    sf::RenderWindow* janela = pGG->getJanela();
+    while (janela->isOpen())
+    {
+        pGG->atualizarTempoPercorrido();
 
-    pMenu = new Menu();
-    
-    //pMustafar->incluirEntidade(pAnakin);
+        sf::Event event;
+        while (janela->pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                janela->close();
+        }
 
-    pGG->window(pMenu, this);
+        janela->clear(sf::Color::Black);
+        
+        switch(estadoAtual)
+        {
+            case Estado::Menu:
+            {
+                estadoAtual = pMenu->manager(*janela,textOptions);
+                pGG->desenharMenu(pMenu,textOptions);
+                break;
+            }
+            case Estado::Nomejog1:
+            {
+                short int qntd = pMenu->getJogsEscolhido();
+                if (qntd == 1)
+                    pGG->desenharSolicitar1Nome(*janela, event, pMenu->getNomeBack(1), getNome(1));
+                else
+                    pGG->desenharSolicitar1Nome(*janela, event, pMenu->getNomeBack(1), getNome(1));
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
+                {
+                    if (qntd==1)
+                    {
+                        inicializarJogo();
+                        estadoAtual=Estado::Jogando;
+                    }
+                    else
+                        estadoAtual=Estado::Nomejog2;
+
+                    typingDelay.restart();
+                }
+                break;
+            }
+            case Estado::Nomejog2:
+            {
+                pGG->desenharSolicitar1Nome(*janela, event, pMenu->getNomeBack(2), getNome(2));
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
+                {
+                    inicializarJogo();
+                    estadoAtual=Estado::Jogando;
+                }    
+                break;
+            }
+            case Estado::Ranking:
+                estadoAtual=Estado::Menu;
+                break;
+            case Estado::Carregar:
+                estadoAtual=Estado::Menu;
+                break;
+            case Estado::Comojogar:
+                estadoAtual=Estado::Menu;
+                break;
+            case Estado::Jogando:
+            {
+                atualizarFase();
+
+                if (getFase() != nullptr)
+                    pGG->desenharFase(getFase(), *janela);
+                break;
+            }
+        }
+    }
 }
 
 Fase* TrabalhoJogo::Principal::getFase() const
@@ -72,9 +146,6 @@ Fase* TrabalhoJogo::Principal::getFase() const
 
 void Principal::inicializarJogo()
 {
-    if (pAnakin1 != nullptr)
-        return;
-
     short int qntd = pMenu->getJogsEscolhido();
     short int fase = pMenu->getFaseEscolhida();
 
@@ -90,16 +161,6 @@ void Principal::inicializarJogo()
 
     else
         pFase = new Hoth(pAnakin1, pObi1);
-
-
-    /*
-    bool emptySpaces = false;
-    while (emptySpaces)
-    {
-        string[2] nomesJogs = pGG->desenharSolicitarNome();
-        emptySpaces=true;
-    }
-    */
 }
 
 void Principal::atualizarFase()

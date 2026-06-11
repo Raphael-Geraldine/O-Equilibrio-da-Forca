@@ -48,7 +48,7 @@ void Menu::executar()
     jogsString= "2 Jogadores";
 }
 
-short int Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
+TrabalhoJogo::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
 {
     if (cliqueEmOpcao(janela,text[0]))
     {
@@ -64,14 +64,14 @@ short int Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
         
         fundoNome.setTexture(*pTexturaNome1);
 
-        return 0;
+        return Estado::Nomejog1;
     }    
 
     if (cliqueEmOpcao(janela,text[1]))
-        return 1;
+        return Estado::Ranking;
 
     if (cliqueEmOpcao(janela,text[2]))
-        return 2;
+        return Estado::Carregar;
 
     if (cliqueEmOpcao(janela,text[3]))
     {
@@ -87,7 +87,7 @@ short int Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
         
         loadMenu(text);
         
-        return 3;   
+        return Estado::Menu;   
     }
     if (cliqueEmOpcao(janela,text[4]))
     {
@@ -103,13 +103,13 @@ short int Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
         
         loadMenu(text);
 
-        return 4;
+        return Estado::Menu;
     }
 
     if (cliqueEmOpcao(janela,text[5]))
-        return 5;
+        return Estado::Comojogar;
 
-    return -1;
+    return Estado::Menu;
 }
 
 void Menu::loadMenu(vector<sf::Text>& text)

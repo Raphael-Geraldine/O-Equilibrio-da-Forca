@@ -12,11 +12,10 @@ namespace TrabalhoJogo
     { 
         class Gerenciador_Grafico;
     }
-
-    class Principal;
 }
 
 #include"../include/Ente.h"
+#include "../include/Principal.h"
 using namespace TrabalhoJogo;
 
 namespace TrabalhoJogo
@@ -49,7 +48,7 @@ namespace TrabalhoJogo
             Menu();
             ~Menu();
             void executar();
-            short int manager(sf::RenderWindow& janela, vector<sf::Text>& text);
+            TrabalhoJogo::Estado manager(sf::RenderWindow& janela, vector<sf::Text>& text);
             bool cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text);
             void loadMenu(vector<sf::Text>& text);
             void menuTextPlacement(vector<sf::Text>& textToDisplay);

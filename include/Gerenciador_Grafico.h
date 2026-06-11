@@ -88,8 +88,6 @@ namespace TrabalhoJogo
                 //sf::Text textPlayers;
                 //sf::Text textRules;
 
-                vector<sf::Text> textOptions;
-                static short int optionSelected;
                 static void destruirGGrafico();
 
             protected:
@@ -101,17 +99,17 @@ namespace TrabalhoJogo
                 
                 ~Gerenciador_Grafico();
                 static Gerenciador_Grafico* getGerenciadorGrafico(); // static Singleton* _instance;
+                sf::RenderWindow* getJanela();
                 void desenharEnte (const Ente* pE);
-                void desenharTextoMenu (sf::RenderWindow & janela); //out
-                void desenharMenu (Menu* pM, sf::RenderWindow & janela); //out
+                void desenharTextoMenu (vector<sf::Text>& text);
+                void desenharMenu (Menu* pM, vector<sf::Text>& text);
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
 
-                void desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome, short int n);
-                void desenharSolicitar2Nomes();
+                void desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome);
 
-                void window(Menu* pM, Principal* pP);
+                //void window(Menu* pM, Principal* pP);
                 //void loadMenu(Menu* pM); //out
                 //void menuTextPlacement(); //out
                 
