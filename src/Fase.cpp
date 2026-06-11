@@ -27,16 +27,17 @@ using std::endl;
 
 short int Fase::platGeradas(0);
 
-Fase::Fase(Jogador* pJ1, Jogador* pJ2): 
+Fase::Fase(): 
     minInimigosFaceis(3), 
     maxInimigosFaceis(15), 
     minPlat(3),
     maxPlat(6),
     entsAlive(0),
+    nJogs(0),
     Ente(),
     //nFase(cont++), 
-    pJogador1(pJ1),
-    pJogador2(pJ2),
+    pJogador1(nullptr),
+    pJogador2(nullptr),
     gC(nullptr)
 {
     gC = new Gerenciador_Colisoes();
@@ -90,6 +91,8 @@ void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
         incluirEntidade(pJ1);
         if (gC != nullptr)
             gC->setJog1(pJ1);
+        pJogador1=pJ1;
+        nJogs++;
     }
 
     if (pJ2 != nullptr)
@@ -97,7 +100,8 @@ void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
         incluirEntidade(pJ2);
         if (gC != nullptr)
             gC->setJog2(pJ2);
-
+        pJogador2=pJ2;
+        nJogs++;
     }
     
     criarInimigosFaceis();   
@@ -181,6 +185,18 @@ void Fase::executar()
         }
     }
 
+    if (pJogador1 != nullptr && pJogador1->getVida() <= 0)
+    {
+        nJogs--;
+        pJogador1=nullptr;
+    }
+    
+    if (pJogador2 != nullptr && pJogador2->getVida() <= 0)
+    {
+        nJogs--;
+        pJogador2=nullptr;
+    }
+
     listaEntidades.executar();
 
     if (gC != nullptr)
@@ -225,8 +241,9 @@ void Fase::criarInimigosFaceis()
 
 void Fase::criarPlataformas()
 {
-    platGeradas = rand()%(maxPlat-minPlat+1) + minPlat;
-    for (int i = 0; i < platGeradas; i++)
+    int qntd = rand()%(maxPlat-minPlat+1) + minPlat;
+    platGeradas += qntd;
+    for (int i = 0; i < qntd; i++)
     {
         Plataforma* pPlat = new Plataforma();
         if (pPlat == nullptr)
@@ -239,7 +256,12 @@ void Fase::criarPlataformas()
     }
 }
 
-short int Fase::getVivos() const
+short int Fase::numJogsVivos() const
+{
+    return nJogs;
+}
+
+short int Fase::getInimVivos() const
 {
     return entsAlive;
 }

@@ -22,6 +22,7 @@ namespace TrabalhoJogo
                 //static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
                 //short int nFase;
                 short int entsAlive;
+                short int nJogs;
                 static short int platGeradas;
 
                 Entidades::Personagens::Jogador* pJogador1;
@@ -53,8 +54,7 @@ namespace TrabalhoJogo
                 virtual void criarObstaculos() = 0;
             
             public:
-                Fase(Entidades::Personagens::Jogador* pJ1 = nullptr, 
-                     Entidades::Personagens::Jogador* pJ2 = nullptr);
+                Fase();
 
                 virtual ~Fase();
 
@@ -63,7 +63,8 @@ namespace TrabalhoJogo
                 virtual void executar();
 
                 virtual sf::Sprite getDrawData() const = 0;
-                short int getVivos() const;
+                short int getInimVivos() const;
+                short int numJogsVivos() const;
                 sf::RectangleShape getChao() const;
         };
     }

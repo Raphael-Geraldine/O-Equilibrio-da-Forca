@@ -54,11 +54,11 @@ Lava::Lava():
 }
 Lava::~Lava()
 {
-
+    cont=0;
 }
 void Lava::executar()
 {
-    gravity();
+    gravitar();
     mover();
 }
 void Lava::salvar()

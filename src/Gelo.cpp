@@ -54,11 +54,11 @@ Gelo::Gelo():
 }
 Gelo::~Gelo()
 {
-
+    cont=0;
 }
 void Gelo::executar()
 {
-    gravity();
+    gravitar();
     mover();
 }
 void Gelo::salvar()
