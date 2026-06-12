@@ -58,7 +58,7 @@ Lava::~Lava()
 }
 void Lava::executar()
 {
-    gravitar();
+    aplicarFisica();
     mover();
 }
 void Lava::salvar()

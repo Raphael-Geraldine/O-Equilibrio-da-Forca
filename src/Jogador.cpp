@@ -110,7 +110,7 @@ void Jogador::executar()
             pular();
     }
 
-    gravitar();
+    aplicarFisica();
     
     mover();
 

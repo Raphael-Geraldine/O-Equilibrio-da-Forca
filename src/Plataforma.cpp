@@ -73,7 +73,7 @@ Plataforma::~Plataforma()
 }
 void Plataforma::executar()
 {
-    gravitar();
+    aplicarFisica();
     propulsao();
     mover();
 }
