@@ -74,6 +74,8 @@ namespace TrabalhoJogo
             vector<Ranking*> rank;
             sf::Sprite rankSprite;
 
+            sf::Sprite howSprite;
+
         public:
             Principal();
             ~Principal();

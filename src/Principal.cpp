@@ -1,4 +1,5 @@
 #define RANKPNG "../assets/images/Ranking.png"
+#define HOWPNG "../assets/images/ComoJogarDEMO.png"
 
 #include <iostream>
 using std::cout;
@@ -46,6 +47,13 @@ TrabalhoJogo::Principal::Principal():
 
     else
         rankSprite.setTexture(*pTextRank);
+
+    sf::Texture* pTextHow = pGG->carregarTextura(HOWPNG);
+    if (pTextHow == 0)
+        cerr << "Erro de carregamento do Plano de Fundo de 'Como jogar?' " << endl;
+
+    else
+        howSprite.setTexture(*pTextHow);
 
     pMenu = new Menu();
     executar();
@@ -150,14 +158,21 @@ void TrabalhoJogo::Principal::executar()
                 estadoAtual=Estado::Menu;
                 break;
             case Estado::Comojogar:
-                estadoAtual=Estado::Menu;
-                break;
+            {
+                pGG->desenharComoJogar(*janela, howSprite);
+                if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+                    estadoAtual=Estado::Menu;
+                break; 
+            }
             case Estado::Jogando:
             {
                 atualizarFase();
 
                 if (getFase() != nullptr)
+                {
                     pGG->desenharFase(getFase(), *janela);
+                    pGG->desenharVida(*janela,pAnakin1,pObi1);
+                }
                 break;
             }
         }
@@ -202,6 +217,17 @@ void Principal::atualizarFase()
         {
             delete pFase;
             pFase = new Hoth(pAnakin1, pObi1);
+
+            if (pAnakin1 != nullptr)
+            {
+                pAnakin1->setX(20);
+                pAnakin1->setY(570);
+            }
+            if (pObi1 != nullptr)
+            {
+                pObi1->setX(100);
+                pObi1->setY(570);
+            }
         }
         else
         {

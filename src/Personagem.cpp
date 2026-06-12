@@ -42,6 +42,8 @@ void Personagem::salvarDataBuffer()
 
 int Personagem::getVida()
 {
+    if(num_vidas < 0)
+        num_vidas = 0;
     return num_vidas;
 }
 

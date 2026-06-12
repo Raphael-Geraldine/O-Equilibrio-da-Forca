@@ -127,7 +127,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
             desenharEnte (pE);
     }
 
-    janela.display();
+    //janela.display(); o display é dado após desenhar a vida
 }
 
 void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
@@ -278,13 +278,34 @@ void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, vector<Ranking*
     janela.display();
 }
 
-/*
+void Gerenciador_Grafico::desenharVida(sf::RenderWindow& janela, Jogador* pJ1, Jogador* pJ2)
+{
+    if(pJ1 != nullptr)
+    {
+        string vida = "VIDA JOG1: " + to_string(pJ1->getVida()) + "%";
+        sf::Text textToDisplay(vida,fonteName,16);
+        textToDisplay.setFillColor(sf::Color::Yellow);
+        textToDisplay.setPosition(20,20);
+        janela.draw(textToDisplay);
+    }
+    if(pJ2 != nullptr)
+    {
+        string vida = "VIDA JOG2: " + to_string(pJ2->getVida()) + "%";
+        sf::Text textToDisplay(vida,fonteName,16);
+        textToDisplay.setFillColor(sf::Color::Yellow);
+        sf::FloatRect bounds = textToDisplay.getLocalBounds();
+        textToDisplay.setOrigin(bounds.left + bounds.width, bounds.top); 
+        textToDisplay.setPosition(1260,20);
+        janela.draw(textToDisplay);
+    }
+    janela.display();
+}
+
 void Gerenciador_Grafico::desenharComoJogar(sf::RenderWindow& janela, sf::Sprite& fundo)
 {
     janela.draw(fundo);
     janela.display();
 }
-*/
 
 
 
