@@ -298,6 +298,7 @@ void Principal::salvarRank(Jogador* pJ, string nome)
         {
             if(pJ->getPontos() > (*it)->pontos)
             {
+                delete(rank.back());
                 rank.pop_back();
                 rank.insert(it,new Ranking(nome,pJ->getPontos()));
                 break;
