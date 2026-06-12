@@ -256,12 +256,35 @@ sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
     return textura;
 }
 
+void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, vector<Ranking*> jogsRank, sf::Sprite& fundo)
+{
+    janela.draw(fundo);
 
+    vector<Ranking*>::iterator it;
+    int i=1;
+    for(it=jogsRank.begin();it!=jogsRank.end();++it)
+    {
+        string jogador = to_string(i) + "o lugar: " + (*it)->nome + " - " + to_string((*it)->pontos) + " pontos";
+        sf::Text textToDisplay(jogador,fonteName);
+        textToDisplay.setFillColor(sf::Color::White);
+        sf::FloatRect bounds = textToDisplay.getLocalBounds();
+        textToDisplay.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
+        float y = 130 + (70*i);
+        textToDisplay.setPosition(640,y);
+        i++;
+        janela.draw(textToDisplay);
+    }
 
+    janela.display();
+}
 
-
-
-
+/*
+void Gerenciador_Grafico::desenharComoJogar(sf::RenderWindow& janela, sf::Sprite& fundo)
+{
+    janela.draw(fundo);
+    janela.display();
+}
+*/
 
 
 

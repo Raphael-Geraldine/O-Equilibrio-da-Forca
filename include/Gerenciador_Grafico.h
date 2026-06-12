@@ -103,6 +103,7 @@ namespace TrabalhoJogo
                 void desenharEnte (const Ente* pE);
                 void desenharTextoMenu (vector<sf::Text>& text);
                 void desenharMenu (Menu* pM, vector<sf::Text>& text);
+                void desenharRank(sf::RenderWindow& janela, vector<Ranking*> jogsRank, sf::Sprite& fundo);
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);

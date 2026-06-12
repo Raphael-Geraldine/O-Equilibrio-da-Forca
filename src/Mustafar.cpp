@@ -38,6 +38,13 @@ Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2):
 
 Mustafar::~Mustafar()
 {
+    for (int i = platGeradas; i < 2*maxPlat; i++)
+    {
+        Plataforma* pClearList = new Plataforma();
+        delete (pClearList);
+    }
+    platGeradas=0;
+    
     //fixing memory leaks
     //delete(fundo.getTexture());
 }

@@ -1,3 +1,5 @@
+#define RANKPNG "../assets/images/Ranking.png"
+
 #include <iostream>
 using std::cout;
 using std::cerr;
@@ -34,6 +36,17 @@ TrabalhoJogo::Principal::Principal():
     pGG = Gerenciador_Grafico::getGerenciadorGrafico();
     Ente::staticSetGG(pGG);
 
+    rank.clear();
+    nomeJog1.clear();
+    nomeJog2.clear();
+
+    sf::Texture* pTextRank = pGG->carregarTextura(RANKPNG);
+    if (pTextRank == 0)
+        cerr << "Erro de carregamento do Plano de Fundo do Ranking" << endl;
+
+    else
+        rankSprite.setTexture(*pTextRank);
+
     pMenu = new Menu();
     executar();
 }
@@ -59,6 +72,14 @@ TrabalhoJogo::Principal::~Principal()
     pGG = nullptr;
 
     LEntidades.limpar();
+
+    nomeJog1.clear();
+    nomeJog2.clear();
+
+    vector<Ranking*>::iterator it;
+    for(it=rank.begin(); it!=rank.end();++it)
+        delete(*it);
+    rank.clear();
 }
 
 void TrabalhoJogo::Principal::executar()
@@ -119,8 +140,12 @@ void TrabalhoJogo::Principal::executar()
                 break;
             }
             case Estado::Ranking:
-                estadoAtual=Estado::Menu;
-                break;
+            {
+                pGG->desenharRank(*janela, rank, rankSprite);
+                if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+                    estadoAtual=Estado::Menu;
+                break; 
+            }
             case Estado::Carregar:
                 estadoAtual=Estado::Menu;
                 break;
@@ -187,7 +212,8 @@ void Principal::atualizarFase()
 
             estadoAtual=Estado::Menu;
 
-            //salvarRank();
+            salvarRank(pAnakin1,nomeJog1);
+            salvarRank(pObi1,nomeJog2);
 
             if (pAnakin1 != nullptr)
                 delete (pAnakin1);
@@ -209,7 +235,8 @@ void Principal::atualizarFase()
         pFase = nullptr;
         estadoAtual=Estado::Menu;
 
-        //salvarRank();
+        salvarRank(pAnakin1,nomeJog1);
+        salvarRank(pObi1,nomeJog2);
 
         if (pAnakin1 != nullptr)
             delete (pAnakin1);
@@ -229,4 +256,42 @@ string& Principal::getNome(short int n)
     if (n==1)
         return this->nomeJog1;
     return this->nomeJog2;
+}
+
+void Principal::salvarRank(Jogador* pJ, string nome)
+{
+    if ( nome.empty() || pJ == nullptr )
+        return;
+
+    rank.push_back(new Ranking(nome,pJ->getPontos()));
+    if(!(rank.empty()))
+    {
+        vector<Ranking*>::iterator it;
+
+        for (it=rank.begin(); *it != rank.back(); ++it)
+        {
+            if(pJ->getPontos() > (*it)->pontos)
+            {
+                rank.pop_back();
+                rank.insert(it,new Ranking(nome,pJ->getPontos()));
+                break;
+            }
+        }
+
+        if (rank.size()>5)
+        {
+            delete(rank.back());
+            rank.pop_back();
+        }
+    }
+
+    /* for de testes
+    for (int i = 0; i < rank.size(); ++i) 
+    {
+        if (rank[i] != NULL) 
+        {
+            cout << i + 1 << "o Lugar: " << rank[i]->nome << " - " << rank[i]->pontos << " pts"<<endl;
+        }
+    }
+    */
 }
