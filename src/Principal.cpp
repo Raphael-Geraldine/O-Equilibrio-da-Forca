@@ -20,6 +20,7 @@ using namespace Fases;
 #include "../include/Principal.h"
 
 #include <vector>
+#include <fstream>
 using namespace std;
 #include <SFML/Graphics.hpp>
 
@@ -90,6 +91,13 @@ void TrabalhoJogo::Principal::executar()
             {
                 estadoAtual = pMenu->manager(*janela,textOptions);
                 pGG->desenharMenu(pMenu,textOptions);
+                if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
+                      && ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))) 
+                      && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
+                {
+                    salvarRank();
+                    janela->close();
+                }
                 break;
             }
             case Estado::Nomejog1:
@@ -132,8 +140,10 @@ void TrabalhoJogo::Principal::executar()
                 break; 
             }
             case Estado::Carregar:
-                estadoAtual=Estado::Menu;
+            {
+                carregarSave();
                 break;
+            }
             case Estado::Comojogar:
             {
                 pGG->desenharComoJogar(*janela, pMenu->getHowSprite());
@@ -215,16 +225,19 @@ void Principal::atualizarFase()
 
             estadoAtual=Estado::Menu;
 
-            pMenu->salvarRank(pAnakin1,nomeJog1);
-            pMenu->salvarRank(pObi1,nomeJog2);
-
             if (pAnakin1 != nullptr)
+            {
+                pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
                 delete (pAnakin1);
-            pAnakin1 = nullptr;
+                pAnakin1 = nullptr;
+            }
 
             if (pObi1 != nullptr)
+            {
+                pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
                 delete (pObi1);
-            pObi1 = nullptr;
+                pObi1 = nullptr;
+            }
 
             nomeJog1.clear();
             nomeJog2.clear();
@@ -238,16 +251,19 @@ void Principal::atualizarFase()
         pFase = nullptr;
         estadoAtual=Estado::Menu;
 
-        pMenu->salvarRank(pAnakin1,nomeJog1);
-        pMenu->salvarRank(pObi1,nomeJog2);
-
         if (pAnakin1 != nullptr)
+        {
+            pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
             delete (pAnakin1);
-        pAnakin1 = nullptr;
+            pAnakin1 = nullptr;
+        }
 
         if (pObi1 != nullptr)
+        {
+            pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
             delete (pObi1);
-        pObi1 = nullptr;
+            pObi1 = nullptr;
+        }
 
         nomeJog1.clear();
         nomeJog2.clear();
@@ -259,4 +275,75 @@ string& Principal::getNome(short int n)
     if (n==1)
         return this->nomeJog1;
     return this->nomeJog2;
+}
+
+void Principal::salvarRank()
+{
+    ofstream data("../assets/data/data.txt", ios::out); 
+    
+    if (!data) 
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        return;
+    }
+
+    data << "menu" << '%';
+
+    vector<Ranking*> rankSave = pMenu->getRank();
+    vector<Ranking*>::iterator it = rankSave.begin();
+    int i = 0;
+    while(it != rankSave.end())
+    {
+        data << (*it)->nome << ' '
+             << to_string((*it)->pontos);
+
+        i++;
+
+        if(i==5)
+            data<<'%';
+        else
+            data<<' ';
+
+        ++it;
+    }
+    while (i<5)
+    {
+        data << '-' << ' ' << '-';
+        i++;
+        if(i==5)
+            data<<'%';
+        else
+            data<<' ';
+    }
+
+    data.close();
+}
+
+void Principal::carregarSave()
+{
+    ifstream data("../assets/data/data.txt", ios::in);
+
+    if (!data) 
+    {
+        cerr << "Arquivo não pode ser aberto ou não existe" << endl;
+        return;
+    }
+
+    string estado;
+    string nome;
+    string pontos;
+
+    getline(data,estado,'%');
+
+    if (estado == "menu")
+    {
+        while(data>>nome>>pontos)
+        {
+            if(nome!= "-" && pontos!="-")
+            {
+                pMenu->salvarRank(stoi(pontos),nome);
+            }
+        }
+        estadoAtual=Estado::Menu;
+    }
 }

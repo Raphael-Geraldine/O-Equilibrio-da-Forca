@@ -218,23 +218,23 @@ sf::Sprite& Menu::getRankSprite()
 {
     return rankSprite;
 }
-void Menu::salvarRank(Jogador* pJ, string nome)
+void Menu::salvarRank(int pontos, string nome)
 {
-    if ( nome.empty() || pJ == nullptr )
+    if (nome.empty())
         return;
 
-    rank.push_back(new Ranking(nome,pJ->getPontos()));
+    rank.push_back(new Ranking(nome,pontos));
     if(!(rank.empty()))
     {
         vector<Ranking*>::iterator it;
 
         for (it=rank.begin(); *it != rank.back(); ++it)
         {
-            if(pJ->getPontos() > (*it)->pontos)
+            if(pontos > (*it)->pontos)
             {
                 delete(rank.back());
                 rank.pop_back();
-                rank.insert(it,new Ranking(nome,pJ->getPontos()));
+                rank.insert(it,new Ranking(nome,pontos));
                 break;
             }
         }

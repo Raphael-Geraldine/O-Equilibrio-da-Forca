@@ -72,5 +72,8 @@ namespace TrabalhoJogo
             void inicializarJogo();
             void atualizarFase();
             string& getNome(short int n);
+
+            void salvarRank();
+            void carregarSave();
     };
 }

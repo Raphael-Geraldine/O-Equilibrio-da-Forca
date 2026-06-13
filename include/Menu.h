@@ -72,7 +72,7 @@ namespace TrabalhoJogo
             short int getFaseEscolhida() const;
             short int getJogsEscolhido() const;
 
-            void salvarRank(Entidades::Personagens::Jogador* pJ, string nome);
+            void salvarRank(int pontos, string nome);
             vector<Ranking*> getRank();
             sf::Sprite& getRankSprite();
 
