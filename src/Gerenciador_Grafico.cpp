@@ -124,7 +124,11 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
         Ente* pE = (*lEntidades)[i];
         Personagem* pP = dynamic_cast<Personagem*>(pE);
         if ((pP != nullptr && pP->getVida() > 0) || pP==nullptr)
+        {
             desenharEnte (pE);
+            //desenharOrigem(janela,pE->getDrawData());
+        }
+            
     }
 
     //janela.display(); o display é dado após desenhar a vida
