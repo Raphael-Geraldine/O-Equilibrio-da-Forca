@@ -279,7 +279,7 @@ string& Principal::getNome(short int n)
 
 void Principal::salvarRank()
 {
-    ofstream data("../assets/data/data.txt", ios::out); 
+    ofstream data("../assets/data.txt", ios::out); 
     
     if (!data) 
     {
@@ -321,22 +321,24 @@ void Principal::salvarRank()
 
 void Principal::carregarSave()
 {
-    ifstream data("../assets/data/data.txt", ios::in);
+    ifstream data("../assets/data.txt", ios::in);
 
     if (!data) 
     {
         cerr << "Arquivo não pode ser aberto ou não existe" << endl;
+        estadoAtual=Estado::Menu;
         return;
     }
 
     string estado;
-    string nome;
-    string pontos;
 
     getline(data,estado,'%');
 
     if (estado == "menu")
     {
+        string nome;
+        string pontos;
+
         while(data>>nome>>pontos)
         {
             if(nome!= "-" && pontos!="-")
