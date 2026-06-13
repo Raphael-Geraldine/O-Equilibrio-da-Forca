@@ -1,4 +1,6 @@
 #define MENUINICIALPNG "../assets/images/MenuInicial.png"
+#define RANKPNG "../assets/images/Ranking.png"
+#define HOWPNG "../assets/images/ComoJogarDEMO.png"
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define NOME1JOG "../assets/images/EnterNameP1.png"
 #define NOME2JOG "../assets/images/EnterNameP2.png"
@@ -28,6 +30,22 @@ Menu::Menu():
     faseEscolhida(0),
     pJogo()
 {
+    rank.clear();
+
+    sf::Texture* pTextRank = pGG->carregarTextura(RANKPNG);
+    if (pTextRank == 0)
+        cerr << "Erro de carregamento do Plano de Fundo do Ranking" << endl;
+
+    else
+        rankSprite.setTexture(*pTextRank);
+
+    sf::Texture* pTextHow = pGG->carregarTextura(HOWPNG);
+    if (pTextHow == 0)
+        cerr << "Erro de carregamento do Plano de Fundo de 'Como jogar?' " << endl;
+
+    else
+        howSprite.setTexture(*pTextHow);
+    
     executar();
 }
 
@@ -38,6 +56,11 @@ Menu::~Menu()
 
     // O Menu não deve deletá-lo, pois Gerenciador_Gráfico é singleton
     pGGraf = nullptr; 
+
+    vector<Ranking*>::iterator it;
+    for(it=rank.begin(); it!=rank.end();++it)
+        delete(*it);
+    rank.clear();
 }
 
 void Menu::executar()
@@ -186,4 +209,55 @@ sf::Sprite Menu::getNomeBack(short int n)
         return fundoNome;
     fundoNome.setTexture(*pTexturaNome2);
     return fundoNome;
+}
+vector<Ranking*> Menu::getRank()
+{
+    return rank;
+}
+sf::Sprite& Menu::getRankSprite()
+{
+    return rankSprite;
+}
+void Menu::salvarRank(Jogador* pJ, string nome)
+{
+    if ( nome.empty() || pJ == nullptr )
+        return;
+
+    rank.push_back(new Ranking(nome,pJ->getPontos()));
+    if(!(rank.empty()))
+    {
+        vector<Ranking*>::iterator it;
+
+        for (it=rank.begin(); *it != rank.back(); ++it)
+        {
+            if(pJ->getPontos() > (*it)->pontos)
+            {
+                delete(rank.back());
+                rank.pop_back();
+                rank.insert(it,new Ranking(nome,pJ->getPontos()));
+                break;
+            }
+        }
+
+        if (rank.size()>5)
+        {
+            delete(rank.back());
+            rank.pop_back();
+        }
+    }
+
+    /* for de testes
+    for (int i = 0; i < rank.size(); ++i) 
+    {
+        if (rank[i] != NULL) 
+        {
+            cout << i + 1 << "o Lugar: " << rank[i]->nome << " - " << rank[i]->pontos << " pts"<<endl;
+        }
+    }
+    */
+}
+
+sf::Sprite& Menu::getHowSprite()
+{
+    return howSprite;
 }

@@ -43,14 +43,6 @@ namespace TrabalhoJogo
         Comojogar
     };
 
-    struct Ranking
-    {
-        string nome;
-        int pontos;
-
-        Ranking(string n, int p): nome(n), pontos(p) {}
-    };
-
     class Principal
     {
         private:
@@ -71,11 +63,6 @@ namespace TrabalhoJogo
             string nomeJog1;
             string nomeJog2;
 
-            vector<Ranking*> rank;
-            sf::Sprite rankSprite;
-
-            sf::Sprite howSprite;
-
         public:
             Principal();
             ~Principal();
@@ -84,7 +71,6 @@ namespace TrabalhoJogo
             Fases::Fase* getFase() const;
             void inicializarJogo();
             void atualizarFase();
-            void salvarRank(Entidades::Personagens::Jogador* pJ, string nome);
             string& getNome(short int n);
     };
 }

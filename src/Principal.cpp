@@ -1,6 +1,3 @@
-#define RANKPNG "../assets/images/Ranking.png"
-#define HOWPNG "../assets/images/ComoJogarDEMO.png"
-
 #include <iostream>
 using std::cout;
 using std::cerr;
@@ -37,23 +34,8 @@ TrabalhoJogo::Principal::Principal():
     pGG = Gerenciador_Grafico::getGerenciadorGrafico();
     Ente::staticSetGG(pGG);
 
-    rank.clear();
     nomeJog1.clear();
     nomeJog2.clear();
-
-    sf::Texture* pTextRank = pGG->carregarTextura(RANKPNG);
-    if (pTextRank == 0)
-        cerr << "Erro de carregamento do Plano de Fundo do Ranking" << endl;
-
-    else
-        rankSprite.setTexture(*pTextRank);
-
-    sf::Texture* pTextHow = pGG->carregarTextura(HOWPNG);
-    if (pTextHow == 0)
-        cerr << "Erro de carregamento do Plano de Fundo de 'Como jogar?' " << endl;
-
-    else
-        howSprite.setTexture(*pTextHow);
 
     pMenu = new Menu();
     executar();
@@ -83,11 +65,6 @@ TrabalhoJogo::Principal::~Principal()
 
     nomeJog1.clear();
     nomeJog2.clear();
-
-    vector<Ranking*>::iterator it;
-    for(it=rank.begin(); it!=rank.end();++it)
-        delete(*it);
-    rank.clear();
 }
 
 void TrabalhoJogo::Principal::executar()
@@ -149,7 +126,7 @@ void TrabalhoJogo::Principal::executar()
             }
             case Estado::Ranking:
             {
-                pGG->desenharRank(*janela, rank, rankSprite);
+                pGG->desenharRank(*janela, pMenu->getRank(), pMenu->getRankSprite());
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
                 break; 
@@ -159,7 +136,7 @@ void TrabalhoJogo::Principal::executar()
                 break;
             case Estado::Comojogar:
             {
-                pGG->desenharComoJogar(*janela, howSprite);
+                pGG->desenharComoJogar(*janela, pMenu->getHowSprite());
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
                 break; 
@@ -238,8 +215,8 @@ void Principal::atualizarFase()
 
             estadoAtual=Estado::Menu;
 
-            salvarRank(pAnakin1,nomeJog1);
-            salvarRank(pObi1,nomeJog2);
+            pMenu->salvarRank(pAnakin1,nomeJog1);
+            pMenu->salvarRank(pObi1,nomeJog2);
 
             if (pAnakin1 != nullptr)
                 delete (pAnakin1);
@@ -261,8 +238,8 @@ void Principal::atualizarFase()
         pFase = nullptr;
         estadoAtual=Estado::Menu;
 
-        salvarRank(pAnakin1,nomeJog1);
-        salvarRank(pObi1,nomeJog2);
+        pMenu->salvarRank(pAnakin1,nomeJog1);
+        pMenu->salvarRank(pObi1,nomeJog2);
 
         if (pAnakin1 != nullptr)
             delete (pAnakin1);
@@ -282,43 +259,4 @@ string& Principal::getNome(short int n)
     if (n==1)
         return this->nomeJog1;
     return this->nomeJog2;
-}
-
-void Principal::salvarRank(Jogador* pJ, string nome)
-{
-    if ( nome.empty() || pJ == nullptr )
-        return;
-
-    rank.push_back(new Ranking(nome,pJ->getPontos()));
-    if(!(rank.empty()))
-    {
-        vector<Ranking*>::iterator it;
-
-        for (it=rank.begin(); *it != rank.back(); ++it)
-        {
-            if(pJ->getPontos() > (*it)->pontos)
-            {
-                delete(rank.back());
-                rank.pop_back();
-                rank.insert(it,new Ranking(nome,pJ->getPontos()));
-                break;
-            }
-        }
-
-        if (rank.size()>5)
-        {
-            delete(rank.back());
-            rank.pop_back();
-        }
-    }
-
-    /* for de testes
-    for (int i = 0; i < rank.size(); ++i) 
-    {
-        if (rank[i] != NULL) 
-        {
-            cout << i + 1 << "o Lugar: " << rank[i]->nome << " - " << rank[i]->pontos << " pts"<<endl;
-        }
-    }
-    */
 }
