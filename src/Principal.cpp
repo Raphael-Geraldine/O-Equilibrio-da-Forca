@@ -352,9 +352,17 @@ void Principal::salvar()
 
 //================== FASE E JOGADORES ================================
 
-    data<<nomeJog1;
+    if(nomeJog1.empty())
+        data<<'-';
+    else
+        data<<nomeJog1;
     if (qntdJogsSave != 1)
+    {
+        if(nomeJog2.empty())
+            data<<' '<<'-';
+        else
         data<<' '<<nomeJog2;
+    }
     data<<'%';
 
 //================== NOMES JOGADORES ================================
@@ -394,7 +402,6 @@ void Principal::carregarSave()
     string d5;
     string d6;
     string d7;
-    string d8;
 
     while(read>>d1>>d2)
     {
@@ -428,12 +435,14 @@ void Principal::carregarSave()
     read.clear(); 
     read.str(preRead);
     read>>d1;
-    nomeJog1=d1;
+    if(d1 != "-")
+        nomeJog1=d1;
 
     if (jogs != 1)
     {
         read>>d1;
-        nomeJog2=d1;
+        if(d1 != "-")
+            nomeJog2=d1;
     }
     
     getline(data,preRead,'%');
