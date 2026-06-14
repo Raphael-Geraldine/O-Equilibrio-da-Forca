@@ -561,7 +561,8 @@ void Principal::carregarSave()
             }
             else
             {
-                cerr<<"Ops, ocorreu um erro, arquivo corrompido!"<<endl;
+                if (d7 != "Projetil")
+                    cerr<<"Ops, ocorreu um erro, arquivo corrompido!"<<endl;
             }
         }
     }

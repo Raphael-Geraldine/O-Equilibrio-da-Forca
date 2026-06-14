@@ -31,6 +31,7 @@ using namespace Entidades;
 using namespace Personagens;
 using namespace Gerenciadores;
 
+#include <pthread.h>
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
@@ -43,6 +44,7 @@ Projetil::Projetil(short int d):
     areaSecao(0.006f),
     moduloVelLancamento(800.0f),
     ativo(false),
+    executando(false),
     dano(d)
 {
     x=1700;
@@ -63,6 +65,8 @@ Projetil::Projetil(short int d):
     projetilSkin.setScale(0.15,0.15);
 
     atualizarPosicaoSprite();
+
+    //pthread_create(&thread, NULL, Projetil::execThread, this);
 }
 
 Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool a):
@@ -74,6 +78,7 @@ Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool 
     areaSecao(0.006f),
     moduloVelLancamento(800.0f),
     ativo(a),
+    executando(false),
     dano(d)
 {
     x=sx;
@@ -95,10 +100,13 @@ Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool 
     projetilSkin.setScale(0.15,0.15);
 
     atualizarPosicaoSprite();
+
+    //pthread_create(&thread, NULL, Projetil::execThread, this);
 }
 
 Projetil::~Projetil()
 {
+    //pthread_exit(&thread);
     ativo=false;
 }
 
@@ -200,11 +208,16 @@ void Projetil::atualizarRotacaoSprite()
 
 void Projetil::executar()
 {
-    if (ativo)
+    if (ativo && (!executando))
     {
-        aplicarFisica();
-        atualizarRotacaoSprite();
-        mover();
+        //aplicarFisica();
+        //atualizarRotacaoSprite();
+        //mover();
+        //atualizarPosicaoSprite();
+
+        pthread_create(&thread, NULL, Projetil::execThread, this); //Threads!
+        pthread_detach(thread);
+        executando=true;
     }
 }
 
@@ -217,9 +230,15 @@ void Projetil::salvar()
     }
 }
 
-// Física de Ensino Médio: Movimento Retilínio Uniforme
+// funçao vazia, necessita-se existir. Pois mover() é virtual void em entidade
 void Projetil::mover()
-{
+{}
+
+// Física de Ensino Médio: Movimento Retilínio Uniforme
+void* Projetil::moverComThread()
+{   
+    aplicarFisica();
+    atualizarRotacaoSprite();
     // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
     // 220 px/s * 0,0167 s/frame = 3,67 pixels por frame
     x += velocidade.x * dt;
@@ -229,10 +248,24 @@ void Projetil::mover()
         || (y+(getBounds().height/2.0f))<0 || (y-(getBounds().height/2.0f))>720)
     {
         desativar();
-        return;
+        executando=false;
+        return NULL;
     }
 
     atualizarPosicaoSprite();
+
+    executando=false;
+    return NULL;
+}
+
+void* Projetil::execThread(void *p)
+{
+    Projetil* pProj = static_cast<Projetil*>(p);
+    
+    if (pProj == nullptr)
+        cout<<"thread falhou!"<<endl;
+    
+    return pProj->moverComThread();
 }
 
 void Projetil::danificar(Jogador* p)

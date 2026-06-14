@@ -4,6 +4,7 @@
 #include "../include/AT_ST.h"
 #include "../include/Jogador.h"
 
+#include <pthread.h>
 #include <SFML/Graphics.hpp>
 
 namespace TrabalhoJogo
@@ -13,6 +14,8 @@ namespace TrabalhoJogo
         class Projetil : public Entidade
         {
             private:
+                bool executando;
+
                 sf::Sprite projetilSkin;
 
                 float massa;
@@ -20,6 +23,8 @@ namespace TrabalhoJogo
                 float densidadeAr;
                 float areaSecao;
                 float moduloVelLancamento;
+
+                pthread_t thread;
 
             private:
                 float calcularModulo (const sf::Vector2f& vetor) const;
@@ -43,6 +48,8 @@ namespace TrabalhoJogo
                 void executar();
                 void salvar();
                 void mover();
+                static void* execThread(void* p);
+                void* moverComThread();
                 void danificar(Personagens::Jogador* pJog);
                 void perseguir(Personagens::Jogador* pJog, Personagens::AT_ST* pAT);
                 void atualizarPosicaoSprite();
