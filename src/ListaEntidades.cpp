@@ -2,11 +2,6 @@
 using namespace TrabalhoJogo; 
 using namespace Listas;
 
-#include <iostream> 
-using std::cout;
-using std::cerr;
-using std::endl;
-
 ListaEntidades::ListaEntidades() 
 {}
 
@@ -66,5 +61,16 @@ void ListaEntidades::executar()
     for (int i = 0; i < tamanho; i++)
     {
         LEs[i]->executar();
+    }
+}
+
+void ListaEntidades::salvar(ostream* arquivo)
+{
+    const int tamanho = static_cast<int>(getTamanho());
+    for (int i = 0; i < tamanho; i++)
+    {
+        LEs[i]->setBuffer(arquivo);
+        LEs[i]->salvar();
+        LEs[i]->setBuffer(nullptr);
     }
 }

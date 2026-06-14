@@ -47,6 +47,52 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2):
     //criarInimigos();
 }
 
+Hoth::Hoth(Jogador* pJ1, Jogador* pJ2, char c): 
+    Fase(),
+    minChefoes(3),
+    maxChefoes(6),
+    minObstDificil(3),
+    maxObstDificil(4)
+{   
+    sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(HOTHPNG);
+        
+    if (pTexturaFundo == 0)
+        cerr << "Erro de carregamento do Plano de Fundo de Hoth" << endl;
+
+    else
+        fundo.setTexture(*pTexturaFundo); 
+    
+    for (int i = platGeradas; i < maxPlat; i++)
+    {
+        Plataforma* pClearList = new Plataforma();
+        platGeradas++;
+        delete (pClearList);
+    }
+    
+    if (pJ1 != nullptr)
+    {
+        incluirEntidade(pJ1);
+        if (gC != nullptr)
+            gC->setJog1(pJ1);
+        pJogador1=pJ1;
+        nJogs++;
+    }
+
+    if (pJ2 != nullptr)
+    {
+        incluirEntidade(pJ2);
+        if (gC != nullptr)
+            gC->setJog2(pJ2);
+        pJogador2=pJ2;
+        nJogs++;
+    }
+
+    chao.setSize(sf::Vector2f(1280,15));
+    sf::Color brown(27,14,10,255);
+    chao.setFillColor(brown);
+    chao.setPosition(0, 710);
+}
+
 Hoth::~Hoth()
 {
     for (int i = platGeradas; i < 2*maxPlat; i++)

@@ -63,7 +63,11 @@ void Gelo::executar()
 }
 void Gelo::salvar()
 {
-
+    Obstaculo::salvarDataBuffer();
+    if (buffer != nullptr)
+    {
+        *buffer<<cont<<' '<< ' '<< 'O' <<' '<< "Gelo" <<'%';
+    }
 }
 void Gelo::obstaculizar (Jogador* pJog)
 {

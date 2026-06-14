@@ -20,7 +20,12 @@ Inimigo::~Inimigo()
 }
 void Inimigo::salvarDataBuffer()
 {
-
+    Personagem::salvarDataBuffer();
+    
+    if (buffer != nullptr)
+    {
+        *buffer << to_string(nivel_maldade) << ' ';
+    }
 }
 
 void Inimigo::tentarDanificar(Jogador* pJ)

@@ -78,7 +78,13 @@ void Plataforma::executar()
     mover();
 }
 void Plataforma::salvar()
-{}
+{
+    Obstaculo::salvarDataBuffer();
+    if (buffer != nullptr)
+    {
+        *buffer<<cont<<' '<< 'O' <<' '<< "Plataforma" <<'%';
+    }
+}
 void Plataforma::mover()
 {
     y+=velocidade.y * dt;

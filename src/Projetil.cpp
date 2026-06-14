@@ -18,6 +18,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+#include <string>
+using namespace std;
+
 #include "../include/Projetil.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
@@ -45,6 +48,38 @@ Projetil::Projetil(short int d):
     x=1700;
 
     y=800;
+
+    sf::Texture* pTexturaP = pGG->carregarTextura(PROJETILPNG);
+
+    if (pTexturaP == nullptr)
+        cerr << "Erro de carregamento do PNG do Projetil" << endl;
+
+    else
+        projetilSkin.setTexture(*pTexturaP); 
+
+    sf::FloatRect bounds = projetilSkin.getLocalBounds();
+    projetilSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+
+    projetilSkin.setScale(0.15,0.15);
+
+    atualizarPosicaoSprite();
+}
+
+Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool a):
+    Entidade(),
+    projetilSkin(),
+    massa(0.12f),
+    coefArrasto(0.25f),
+    densidadeAr(1.225f),
+    areaSecao(0.006f),
+    moduloVelLancamento(800.0f),
+    ativo(a),
+    dano(d)
+{
+    x=sx;
+    y=sy;
+    velocidade.x=velx;
+    velocidade.y=vely;
 
     sf::Texture* pTexturaP = pGG->carregarTextura(PROJETILPNG);
 
@@ -175,7 +210,11 @@ void Projetil::executar()
 
 void Projetil::salvar()
 {
-
+    Entidade::salvarDataBuffer();
+    if (buffer != nullptr)
+    {
+        *buffer<<to_string(dano)<<' '<<to_string(ativo)<<' '<< "Projetil" <<'%';
+    }
 }
 
 // Física de Ensino Médio: Movimento Retilínio Uniforme

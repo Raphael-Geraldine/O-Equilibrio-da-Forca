@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream> 
+using namespace std;
+
 #include "Lista.h"
 #include "Entidade.h"
 
@@ -29,6 +32,8 @@ namespace TrabalhoJogo
                 void limpar();
                 void percorrer(); // Lista elemento por elemento (template).
                 void executar(); // Chama executar de cada Entidade.
+
+                void salvar(ostream* arquivo);
         };
     }
 }

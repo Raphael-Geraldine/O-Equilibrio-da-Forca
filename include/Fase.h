@@ -41,14 +41,9 @@ namespace TrabalhoJogo
             protected:   
                 void inicializar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                                  Entidades::Personagens::Jogador* pJ2 = nullptr);
-                void incluirEntidade(Entidades::Entidade* pE);
                 void criarInimigosFaceis();
                 void criarPlataformas(); //Obstáculo fácil
                 void criarCenario();
-
-                void incluirGCInimigo(Entidades::Personagens::Inimigo* pInim);
-                void incluirGCObstaculo(Entidades::Obstaculos::Obstaculo* pObs);
-                void incluirGCProjetil(Projetil* pProj);
 
                 virtual void criarInimigos() = 0;
                 virtual void criarObstaculos() = 0;
@@ -58,14 +53,23 @@ namespace TrabalhoJogo
 
                 virtual ~Fase();
 
-                const Listas::ListaEntidades* getListaEntidades() const;
+                Listas::ListaEntidades* getListaEntidades();
 
                 virtual void executar();
 
                 virtual sf::Sprite getDrawData() const = 0;
+                void increaseInimVivos();
                 short int getInimVivos() const;
                 short int numJogsVivos() const;
                 sf::RectangleShape getChao() const;
+
+                void increasePlatGeradas();
+
+                void incluirGCInimigo(Entidades::Personagens::Inimigo* pInim);
+                void incluirGCObstaculo(Entidades::Obstaculos::Obstaculo* pObs);
+                void incluirGCProjetil(Projetil* pProj);
+
+                void incluirEntidade(Entidades::Entidade* pE);
         };
     }
 }

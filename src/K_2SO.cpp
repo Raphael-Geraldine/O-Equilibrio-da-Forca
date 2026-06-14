@@ -5,6 +5,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+#include <string>
+using namespace std;
+
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
@@ -46,6 +49,38 @@ K_2SO::K_2SO():
     k2Skin.setScale(altura*0.15,altura*0.15);
     atualizarPosicaoSprite();
 }
+
+K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
+    Inimigo(),
+    altura(1),
+    directionMov(true)
+{
+    num_vidas = numVidas;
+    nivel_maldade = nivelMal;
+
+    x = sx;
+    y = sy;
+    velocidade.x=velx;
+    velocidade.y=vely;
+
+    sf::Texture* pTexturaK2 = pGG->carregarTextura(K2PNG);
+
+    if (pTexturaK2 == nullptr)
+    {
+        cerr << "Erro de carregamento do PNG do K-2SO" << endl;
+    }
+    else
+    {
+        k2Skin.setTexture(*pTexturaK2); 
+    }
+
+    sf::FloatRect bounds = k2Skin.getLocalBounds();
+    k2Skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+
+    k2Skin.setScale(altura*0.15,altura*0.15);
+    atualizarPosicaoSprite();
+}
+
 K_2SO::~K_2SO()
 {
     num_vidas=-1;
@@ -103,7 +138,12 @@ sf::FloatRect K_2SO::getBounds() const
 }
 void K_2SO::salvar()
 {
+    Inimigo::salvarDataBuffer();
 
+    if (buffer != nullptr)
+    {
+        *buffer << "K_2SO" << '%';
+    }
 }
 void K_2SO::mover()
 {

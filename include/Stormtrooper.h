@@ -22,6 +22,7 @@ namespace TrabalhoJogo
 
                 public:
                     Stormtrooper ();
+                    Stormtrooper (float sx, float sy, float velx, float vely, int numVidas, int nivelMal);
                     ~Stormtrooper ();
                     void executar();
                     void danificar(Jogador* p);

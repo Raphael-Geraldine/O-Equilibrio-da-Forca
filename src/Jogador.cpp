@@ -60,6 +60,46 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
     atualizarPosicaoSprite();
 }
 
+Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int n,int pontos): Personagem(), nPlayer(cont++), pontos(pontos)
+{
+    num_vidas = numVidas;
+
+    x=sx;
+    y=sy;
+    velocidade.x = velx;
+    velocidade.y = vely;
+    
+    playerSkin.setScale(0.125f,0.125f);
+
+    if (!nPlayer)
+    {
+        pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
+        pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINDAMAGEPNG);
+
+        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
+            cerr << "Erro de carregamento do PNG do Jogador 1 (Anakin)" << endl;
+
+        else
+            playerSkin.setTexture(*pTexturaJogador); 
+    }
+    else
+    {
+        pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(OBIWANPNG);
+        pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(OBIWANDAMAGEPNG);
+
+        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
+            cerr << "Erro de carregamento do PNG do Jogador 2 (Obi Wan)" << endl;
+
+        else
+            playerSkin.setTexture(*pTexturaJogador); 
+    }
+
+    sf::FloatRect bounds = playerSkin.getLocalBounds();
+    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    
+    atualizarPosicaoSprite(); 
+}
+
 Jogador::~Jogador()
 {
     pontos=-1;
@@ -127,7 +167,12 @@ void Jogador::executar()
 }
 void Jogador::salvar()
 {
-    
+    Personagem::salvarDataBuffer();
+
+    if (buffer != nullptr)
+    {
+        *buffer << to_string(nPlayer) << ' ' << to_string(pontos) << ' '<< "Jogador" <<'%';
+    } 
 }
 
 void Jogador::mover()

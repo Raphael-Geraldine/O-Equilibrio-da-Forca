@@ -71,6 +71,8 @@ namespace TrabalhoJogo
             sf::Sprite getNomeBack(short int n);
             short int getFaseEscolhida() const;
             short int getJogsEscolhido() const;
+            void setFaseEscolhida(short int f, vector<sf::Text>& text);
+            void setJogsEscolhido(short int j, vector<sf::Text>& text);
 
             void salvarRank(int pontos, string nome);
             vector<Ranking*> getRank();

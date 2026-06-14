@@ -36,6 +36,45 @@ Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2):
     //criarInimigos();
 }
 
+Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2, char c): 
+    Fase(),
+    minInimigosMedios(3),
+    maxInimigosMedios(7),
+    minObstMedios(3),
+    maxObstMedios(5)
+{   
+    sf::Texture* pTexturaFundo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(MUSTAFARPNG);
+        
+    if (pTexturaFundo == 0)
+        cerr << "Erro de carregamento do Plano de Fundo de Mustafar" << endl;
+
+    else
+        fundo.setTexture(*pTexturaFundo); 
+    
+    if (pJ1 != nullptr)
+    {
+        incluirEntidade(pJ1);
+        if (gC != nullptr)
+            gC->setJog1(pJ1);
+        pJogador1=pJ1;
+        nJogs++;
+    }
+
+    if (pJ2 != nullptr)
+    {
+        incluirEntidade(pJ2);
+        if (gC != nullptr)
+            gC->setJog2(pJ2);
+        pJogador2=pJ2;
+        nJogs++;
+    }
+
+    chao.setSize(sf::Vector2f(1280,15));
+    sf::Color brown(27,14,10,255);
+    chao.setFillColor(brown);
+    chao.setPosition(0, 710);
+}
+
 Mustafar::~Mustafar()
 {
     for (int i = platGeradas; i < 2*maxPlat; i++)

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+using namespace std;
+
 #include"../include/Ente.h"
 #include <SFML/Graphics.hpp>
 
@@ -20,7 +23,7 @@ namespace TrabalhoJogo
                 static const float gravidade;
                 static const float pixelsPorMetro;
                 static const float gravidadeReal;
-                //ostream buffer;
+                ostream* buffer;
             
             protected:
                 Entidade();
@@ -47,6 +50,8 @@ namespace TrabalhoJogo
                 void setVelocidadeX (const float vx);
                 void setVelocidadeY (const float vy);
                 sf::Vector2f getVelocidade() const;
+
+                void setBuffer(ostream* arquivo);
 
                 virtual void aplicarFisica();
                 virtual void executar() = 0;

@@ -73,7 +73,7 @@ namespace TrabalhoJogo
             void atualizarFase();
             string& getNome(short int n);
 
-            void salvarRank();
+            void salvar();
             void carregarSave();
     };
 }

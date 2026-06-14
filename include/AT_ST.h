@@ -29,6 +29,7 @@ namespace TrabalhoJogo
 
                 public:
                     AT_ST();
+                    AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivelMal);
                     ~AT_ST();
                     void executar();
                     void danificar(Jogador* p);

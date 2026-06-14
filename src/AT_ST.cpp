@@ -8,6 +8,9 @@ using std::endl;
 #include <cmath>
 using std::sqrt;
 
+#include <string>
+using namespace std;
+
 #include "../include/Projetil.h"
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
@@ -53,6 +56,41 @@ AT_ST::AT_ST():
     atSkin.setScale(altura*0.15,altura*0.15);
     atualizarPosicaoSprite();
 }
+
+AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
+    Inimigo(),
+    altura(1),
+    directionMov(true),
+    pProj(nullptr),
+    alvo1(nullptr),
+    alvo2(nullptr)
+{
+    num_vidas = numVidas;
+    nivel_maldade = nivelMal;
+
+    x = sx;
+    y = sy;
+    velocidade.x=velx;
+    velocidade.y=vely;
+
+    sf::Texture* pTexturaAT = pGG->carregarTextura(ATPNG);
+
+    if (pTexturaAT == nullptr)
+    {
+        cerr << "Erro de carregamento do PNG do AT-ST" << endl;
+    }
+    else
+    {
+        atSkin.setTexture(*pTexturaAT); 
+    }
+
+    sf::FloatRect bounds = atSkin.getLocalBounds();
+    atSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+
+    atSkin.setScale(altura*0.15,altura*0.15);
+    atualizarPosicaoSprite();
+}
+
 AT_ST::~AT_ST()
 {
     num_vidas=-1;
@@ -113,7 +151,12 @@ sf::FloatRect AT_ST::getBounds() const
 }
 void AT_ST::salvar()
 {
+    Inimigo::salvarDataBuffer();
 
+    if (buffer != nullptr)
+    {
+        *buffer << "AT_ST" << '%';
+    }
 }
 void AT_ST::mover()
 {

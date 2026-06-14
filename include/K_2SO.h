@@ -22,6 +22,7 @@ namespace TrabalhoJogo
 
                 public:
                     K_2SO ();
+                    K_2SO (float sx, float sy, float velx, float vely, int numVidas, int nivelMal);
                     ~K_2SO ();
                     void executar();
                     void danificar(Jogador* p);

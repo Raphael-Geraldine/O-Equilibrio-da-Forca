@@ -193,6 +193,38 @@ short int Menu::getJogsEscolhido() const
     return qntdJogs;
 }
 
+void Menu::setFaseEscolhida(short int f, vector<sf::Text>& text)
+{
+    faseEscolhida = f;
+    if(f)
+    {
+        list<string>::iterator it = menuOptions.begin();
+        for (int i=0; i<3; i++)
+            ++it;
+
+        string tempString = *it;
+        *it=faseString;
+        faseString=tempString;
+    }
+    loadMenu(text);
+}
+
+void Menu::setJogsEscolhido(short int j, vector<sf::Text>& text) 
+{
+    qntdJogs = j;
+    if(j!=1)
+    {
+        list<string>::iterator it = menuOptions.begin();
+        for (int i=0; i<4; i++)
+            ++it;
+
+        string tempString = *it;
+        *it=jogsString;
+        jogsString=tempString;
+    }
+    loadMenu(text);
+}
+
 sf::Sprite Menu::getFundo() const 
 {
     return fundo; 

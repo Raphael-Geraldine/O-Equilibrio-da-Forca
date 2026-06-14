@@ -9,4 +9,6 @@ Obstaculo::~Obstaculo()
 {}
 
 void Obstaculo::salvarDataBuffer()
-{}
+{
+    Entidade::salvarDataBuffer();
+}

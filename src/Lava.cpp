@@ -63,7 +63,11 @@ void Lava::executar()
 }
 void Lava::salvar()
 {
-
+    Obstaculo::salvarDataBuffer();
+    if (buffer != nullptr)
+    {
+        *buffer<<cont<<' '<< 'O' <<' '<<"Lava"<<'%';
+    }
 }
 void Lava::obstaculizar (Jogador* pJog)
 {

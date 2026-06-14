@@ -38,6 +38,7 @@ namespace TrabalhoJogo
 
             public:
                 Projetil(short int d = 20);
+                Projetil(float sx, float sy, float velx, float vely,short int d, bool a);
                 ~Projetil();
                 void executar();
                 void salvar();

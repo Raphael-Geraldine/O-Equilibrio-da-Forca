@@ -5,6 +5,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+#include <string>
+using namespace std;
+
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
@@ -46,6 +49,38 @@ Stormtrooper::Stormtrooper():
     stormSkin.setScale(altura*0.12,altura*0.12);
     atualizarPosicaoSprite();
 }
+
+Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVidas, int nivelMal): 
+    Inimigo(),
+    altura(1),
+    directionMov(true)
+{
+    num_vidas = numVidas;
+    nivel_maldade = nivelMal;
+
+    x = sx;
+    y = sy;
+    velocidade.x=velx;
+    velocidade.y=vely;
+
+    sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
+
+    if (pTexturaStormtrooper == nullptr)
+    {
+        cerr << "Erro de carregamento do PNG do Stormtrooper" << endl;
+    }
+    else
+    {
+        stormSkin.setTexture(*pTexturaStormtrooper); 
+    }
+
+    sf::FloatRect bounds = stormSkin.getLocalBounds();
+    stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+
+    stormSkin.setScale(altura*0.12,altura*0.12);
+    atualizarPosicaoSprite();
+}
+
 Stormtrooper::~Stormtrooper()
 {
     num_vidas=-1;
@@ -86,7 +121,12 @@ void Stormtrooper::executar()
 }
 void Stormtrooper::salvar()
 {
+    Inimigo::salvarDataBuffer();
 
+    if (buffer != nullptr)
+    {
+        *buffer << "Stormtrooper" << '%';
+    }
 }
 void Stormtrooper::danificar(Jogador* p)
 {

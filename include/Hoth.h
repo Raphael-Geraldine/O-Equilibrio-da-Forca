@@ -36,6 +36,9 @@ namespace TrabalhoJogo
             public:
                 Hoth(Entidades::Personagens::Jogador* pJ1 = nullptr, 
                      Entidades::Personagens::Jogador* pJ2 = nullptr);
+                Hoth(Entidades::Personagens::Jogador* pJ1, 
+                     Entidades::Personagens::Jogador* pJ2,
+                     char c);
                 ~Hoth();
                 sf::Sprite getDrawData() const;
 

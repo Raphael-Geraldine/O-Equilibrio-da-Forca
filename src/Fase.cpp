@@ -152,7 +152,7 @@ void Fase::criarCenario()
     criarPlataformas();
 }
 
-const ListaEntidades* Fase::getListaEntidades() const
+ListaEntidades* Fase::getListaEntidades()
 {
     return &listaEntidades;
 }
@@ -266,11 +266,19 @@ short int Fase::getInimVivos() const
     return entsAlive;
 }
 
+void Fase::increaseInimVivos()
+{
+    entsAlive++;
+}
+
 sf::RectangleShape Fase::getChao() const
 {
     return chao;
 }
-
+void Fase::increasePlatGeradas()
+{
+    platGeradas++;
+}
 /*
 sf::Sprite Fase::getPlataforma() // a princípo não usamos mais, pode apagar
 {

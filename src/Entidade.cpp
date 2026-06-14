@@ -1,3 +1,6 @@
+#include <string>
+using namespace std;
+
 #include "limits.h"
 #include"../include/Ente.h"
 #include "../include/Entidade.h"
@@ -9,7 +12,7 @@ const float Entidade::pixelsPorMetro (50.0f);
 const float Entidade::gravidadeReal (9.8f);
 const float Entidade::gravidade (gravidadeReal * pixelsPorMetro);
 
-Entidade::Entidade(): Ente(), x(0), y(0), velocidade(0.0f, 0.0f), dt(1.0f/ 60.0f), noChao(false)
+Entidade::Entidade(): Ente(), buffer(nullptr), x(0), y(0), velocidade(0.0f, 0.0f), dt(1.0f/ 60.0f), noChao(false)
 {}
 
 Entidade::~Entidade()
@@ -35,7 +38,15 @@ void Entidade::gravitar()
 
 void Entidade::salvarDataBuffer()
 {
-    
+    if (buffer != nullptr)
+    {
+        *buffer<<to_string(x)<<' '<<to_string(y)<<' '<<to_string(velocidade.x)<<' '<<to_string(velocidade.y)<<' ';
+    }
+}
+
+void Entidade::setBuffer(ostream* arquivo) 
+{ 
+    buffer = arquivo; 
 }
 
 void Entidade::setX(float i) 

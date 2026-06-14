@@ -3,6 +3,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+#include "../include/ListaEntidades.h"
 #include "../include/Menu.h"
 #include "../include/Entidade.h"
 #include "../include/Jogador.h"
@@ -10,7 +11,10 @@ using std::endl;
 #include "../include/Fase.h"
 #include "../include/Mustafar.h"
 #include "../include/Hoth.h"
-
+#include "../include/Lava.h"
+#include "../include/Gelo.h"
+#include "../include/Stormtrooper.h"
+using namespace Listas;
 using namespace TrabalhoJogo;
 using namespace Entidades;
 using namespace Personagens;
@@ -21,6 +25,7 @@ using namespace Fases;
 
 #include <vector>
 #include <fstream>
+#include <sstream>
 using namespace std;
 #include <SFML/Graphics.hpp>
 
@@ -95,7 +100,7 @@ void TrabalhoJogo::Principal::executar()
                       && ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))) 
                       && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
                 {
-                    salvarRank();
+                    salvar();
                     janela->close();
                 }
                 break;
@@ -160,6 +165,15 @@ void TrabalhoJogo::Principal::executar()
                     pGG->desenharFase(getFase(), *janela);
                     pGG->desenharVida(*janela,pAnakin1,pObi1);
                 }
+
+                if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
+                      && ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))) 
+                      && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
+                {
+                    salvar();
+                    janela->close();
+                }
+
                 break;
             }
         }
@@ -277,7 +291,7 @@ string& Principal::getNome(short int n)
     return this->nomeJog2;
 }
 
-void Principal::salvarRank()
+void Principal::salvar()
 {
     ofstream data("../assets/data.txt", ios::out); 
     
@@ -287,7 +301,10 @@ void Principal::salvarRank()
         return;
     }
 
-    data << "menu" << '%';
+    if (estadoAtual == Estado::Menu)
+        data << "menu" << '%';
+    else 
+        data << "jogo" << '%';
 
     vector<Ranking*> rankSave = pMenu->getRank();
     vector<Ranking*>::iterator it = rankSave.begin();
@@ -316,6 +333,37 @@ void Principal::salvarRank()
             data<<' ';
     }
 
+    if (estadoAtual == Estado::Menu)
+    {
+        data.close();
+        return;
+    }
+
+
+//================== ESTADO E RANK ================================
+
+    //short int plat = pFase->getPlatGeradas();
+    //data<<to_string(plat)<<'%';
+
+    int qntdJogsSave = pMenu->getJogsEscolhido();
+
+    data<<to_string(pMenu->getFaseEscolhida())<<' '<<to_string(qntdJogsSave)<<'%';
+
+//================== FASE E JOGADORES ================================
+
+    data<<nomeJog1;
+    if (qntdJogsSave != 1)
+        data<<' '<<nomeJog2;
+    data<<'%';
+
+//================== NOMES JOGADORES ================================
+
+    ListaEntidades* allEnts = pFase->getListaEntidades();
+
+    allEnts->salvar(&data);
+
+//================== ALL DATA ================================
+
     data.close();
 }
 
@@ -334,18 +382,190 @@ void Principal::carregarSave()
 
     getline(data,estado,'%');
 
+    string preRead;
+    getline(data,preRead,'%');
+    stringstream read(preRead);
+
+    string d1;
+    string d2;
+    string d3;
+    string d4;
+    string d5;
+    string d6;
+    string d7;
+    string d8;
+
+    while(read>>d1>>d2)
+    {
+        if(d1!= "-" && d2!="-")
+        {
+            pMenu->salvarRank(stoi(d2),d1);
+        }
+    }
+
+//================== ESTADO E RANK ================================
+
     if (estado == "menu")
     {
-        string nome;
-        string pontos;
+        estadoAtual=Estado::Menu;
+        return;
+    }
 
-        while(data>>nome>>pontos)
+    getline(data,preRead,'%');
+    read.clear(); 
+    read.str(preRead);
+
+    read>>d1>>d2;
+
+    pMenu->setFaseEscolhida(stoi(d1),textOptions);
+    pMenu->setJogsEscolhido(stoi(d2),textOptions);
+
+    int fase = stoi(d1); 
+    int jogs = stoi(d2);
+
+    getline(data,preRead,'%');
+    read.clear(); 
+    read.str(preRead);
+    read>>d1;
+    nomeJog1=d1;
+
+    if (jogs != 1)
+    {
+        read>>d1;
+        nomeJog2=d1;
+    }
+    
+    getline(data,preRead,'%');
+    read.clear(); 
+    read.str(preRead);
+    read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
+    pAnakin1 = new Jogador(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),(short)(stoi(d6)),stoi(d7));
+
+    if (jogs != 1)
+    {
+        getline(data,preRead,'%');
+        read.clear(); 
+        read.str(preRead);
+        read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
+        pObi1 = new Jogador(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),(short)(stoi(d6)),stoi(d7));
+    }
+
+    if(!fase)
+        pFase = new Mustafar(pAnakin1,pObi1,'s');
+    else
+        pFase = new Hoth(pAnakin1,pObi1,'s');
+
+//================== FASE E JOGADORES ================================
+    
+    while(getline(data,preRead,'%'))
+    {
+        read.clear(); 
+        read.str(preRead);
+        read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
+
+        if(d6 == "O")
         {
-            if(nome!= "-" && pontos!="-")
+            if (d7 == "Plataforma")
             {
-                pMenu->salvarRank(stoi(pontos),nome);
+                Plataforma* pPlat = new Plataforma();
+                if (pPlat == nullptr)
+                    cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
+                else
+                {
+                    pFase->incluirEntidade(static_cast<Obstaculo*>(pPlat));
+                    pFase->incluirGCObstaculo(static_cast<Obstaculo*>(pPlat));
+                    pFase->increasePlatGeradas();
+                }  
+            }
+            else if (d7 == "Lava")
+            {
+                Lava* pLava = new Lava();
+                if (pLava == nullptr)
+                    cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
+                else
+                {
+                    pFase->incluirEntidade(static_cast<Obstaculo*>(pLava));
+                    pFase->incluirGCObstaculo(static_cast<Obstaculo*>(pLava));
+                } 
+            }
+            else if (d7 == "Gelo")
+            {
+                Gelo* pGelo = new Gelo();
+                if (pGelo == nullptr)
+                    cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
+                else
+                {
+                    pFase->incluirEntidade(static_cast<Obstaculo*>(pGelo));
+                    pFase->incluirGCObstaculo(static_cast<Obstaculo*>(pGelo));
+                } 
+            }
+            else
+            {
+                cerr<<"Ops, ocorreu um erro, arquivo corrompido!"<<endl;
             }
         }
-        estadoAtual=Estado::Menu;
+        else
+        {
+            if (d7 == "Stormtrooper")
+            {
+                Stormtrooper* pStorm = new Stormtrooper(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),stoi(d6));
+                if (pStorm == nullptr)
+                    cerr << "Tentativa de incluir Stormtrooper nula na lista de entidades." << endl;
+                else
+                {
+                    pFase->incluirEntidade(static_cast<Inimigo*>(pStorm));
+                    pFase->incluirGCInimigo(static_cast<Inimigo*>(pStorm)); 
+                    pFase->increaseInimVivos();
+                }
+            }
+            else if (d7 == "K_2SO")
+            {
+                K_2SO* pK2 = new K_2SO(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),stoi(d6));
+                if (pK2 == nullptr)
+                    cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
+                else
+                {
+                    pFase->incluirEntidade(static_cast<Inimigo*>(pK2));
+                    pFase->incluirGCInimigo(static_cast<Inimigo*>(pK2));  
+                    pFase->increaseInimVivos();
+                }
+            }
+            else if (d7 == "AT_ST")
+            {
+                AT_ST* pAT = new AT_ST(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),stoi(d6));
+                if (pAT == nullptr)
+                    cerr << "Tentativa de incluir AT-ST nula na lista de entidades." << endl;
+                else
+                {
+                    pFase->incluirEntidade(static_cast<Inimigo*>(pAT));
+                    pFase->incluirGCInimigo(static_cast<Inimigo*>(pAT)); 
+                    pAT->setAlvos(pAnakin1, pObi1);
+                    pFase->increaseInimVivos();
+                    
+                    getline(data,preRead,'%');
+                    read.clear(); 
+                    read.str(preRead);
+                    read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
+
+                    Projetil* pProj = new Projetil(stof(d1),stof(d2),stof(d3),stof(d4),(short int)(stoi(d5)),(bool)(stoi(d6)));
+                    if (pProj == nullptr)
+                        cerr << "Tentativa de incluir projetil nulo na lista de entidades." << endl;
+                    else
+                    {
+                        pFase->incluirEntidade(pProj); 
+                        pFase->incluirGCProjetil(pProj);
+                        pAT->setProjetil(pProj);           
+                    } 
+                } 
+            }
+            else
+            {
+                cerr<<"Ops, ocorreu um erro, arquivo corrompido!"<<endl;
+            }
+        }
     }
+
+//================== ALL DATA ================================
+
+    estadoAtual=Estado::Jogando;
 }

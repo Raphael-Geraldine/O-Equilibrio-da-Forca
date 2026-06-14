@@ -22,6 +22,7 @@ namespace TrabalhoJogo
 
                 public:
                     Jogador();
+                    Jogador(float sx,float sy,float velx,float vely,int numVidas,short int n,int pontos);
                     ~Jogador();
                     void colidirInimigo(Inimigo* pIn);
                     int getPontos() const;

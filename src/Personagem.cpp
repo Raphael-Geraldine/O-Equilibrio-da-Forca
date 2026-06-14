@@ -5,6 +5,7 @@ using namespace Entidades;
 using namespace Personagens;
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 const float Personagem::velocidadePulo = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
@@ -37,7 +38,11 @@ void Personagem::atualizarPosicao()
 
 void Personagem::salvarDataBuffer()
 {
-    
+    Entidade::salvarDataBuffer();
+    if (buffer != nullptr)
+    {
+        *buffer<<to_string(num_vidas)<<' ';
+    }
 }
 
 int Personagem::getVida()
