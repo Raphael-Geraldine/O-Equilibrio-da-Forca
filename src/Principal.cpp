@@ -218,6 +218,7 @@ void Principal::atualizarFase()
         {
             delete pFase;
             pFase = new Hoth(pAnakin1, pObi1);
+            pMenu->setFaseEscolhida(1,textOptions);
 
             if (pAnakin1 != nullptr)
             {
