@@ -17,18 +17,11 @@ namespace TrabalhoJogo
 #include "../include/Ente.h"
 #include "../include/Jogador.h"
 #include "../include/Principal.h"
+#include "../include/ElemRank.h"
 using namespace TrabalhoJogo;
 
 namespace TrabalhoJogo
-{
-    struct Ranking
-    {
-        string nome;
-        int pontos;
-
-        Ranking(string n, int p): nome(n), pontos(p) {}
-    };
-   
+{  
     class Menu : public Ente
     {
         private:
@@ -53,7 +46,7 @@ namespace TrabalhoJogo
 
             list<string> menuOptions;
 
-            vector<Ranking*> rank;
+            vector<ElemRank*> rank;
             sf::Sprite rankSprite;
 
             sf::Sprite howSprite;
@@ -75,7 +68,8 @@ namespace TrabalhoJogo
             void setJogsEscolhido(short int j, vector<sf::Text>& text);
 
             void salvarRank(int pontos, string nome);
-            vector<Ranking*> getRank();
+            vector<ElemRank*> getRank();
+            void limparRank();
             sf::Sprite& getRankSprite();
 
             sf::Sprite& getHowSprite();

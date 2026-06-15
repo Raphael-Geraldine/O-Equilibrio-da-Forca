@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "../include/ListaEntidades.h"
+#include "../include/ElemRank.h"
 
 namespace TrabalhoJogo 
 { 
