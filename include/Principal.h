@@ -6,7 +6,7 @@ using namespace std;
 
 #include "../include/ListaEntidades.h"
 
-namespace TrabalhoJogo 
+namespace OEquilibrioDaForca 
 { 
     class Menu;
 
@@ -30,7 +30,7 @@ namespace TrabalhoJogo
     }
 }
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     enum class Estado
     {
@@ -52,11 +52,11 @@ namespace TrabalhoJogo
 
             Gerenciadores::Gerenciador_Grafico* pGG;
             Menu* pMenu;
-            TrabalhoJogo::Listas::ListaEntidades LEntidades;
-            // TrabalhoJogo::Entidades::Personagens::Jogador* pAnakin;
-            // TrabalhoJogo::Entidades::Personagens::Jogador* pObiWan;
+            OEquilibrioDaForca::Listas::ListaEntidades LEntidades;
+            // OEquilibrioDaForca::Entidades::Personagens::Jogador* pAnakin;
+            // OEquilibrioDaForca::Entidades::Personagens::Jogador* pObiWan;
             Fases::Fase* pFase;
-            //TrabalhoJogo::Fases::Hoth* hoth;
+            //OEquilibrioDaForca::Fases::Hoth* hoth;
 
             Entidades::Personagens::Jogador* pAnakin1;
             Entidades::Personagens::Jogador* pObi1;

@@ -7,7 +7,7 @@ using std::endl;
 #include<time.h>
 
 #include "../include/Principal.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 
 int main()
 {

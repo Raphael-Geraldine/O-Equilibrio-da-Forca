@@ -1,6 +1,6 @@
 #include "../include/Entidade.h"
 #include "../include/Personagem.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 

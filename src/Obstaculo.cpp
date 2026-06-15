@@ -1,5 +1,5 @@
 #include "../include/Obstaculo.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Obstaculos;
 
 Obstaculo::Obstaculo():Entidade(), danoso(false)

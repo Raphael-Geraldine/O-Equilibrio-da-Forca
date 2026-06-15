@@ -9,7 +9,7 @@ using namespace std;
 
 #include "SFML/Graphics.hpp"
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Entidades
     {

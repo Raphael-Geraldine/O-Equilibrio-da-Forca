@@ -19,7 +19,7 @@ using std::endl;
 #include "../include/Principal.h"
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Menu.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Gerenciadores;
 
 #include <SFML/Graphics.hpp>
@@ -71,7 +71,7 @@ void Menu::executar()
     jogsString= "2 Jogadores";
 }
 
-TrabalhoJogo::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
+OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
 {
     if (cliqueEmOpcao(janela,text[0]))
     {

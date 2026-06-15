@@ -26,7 +26,7 @@ using namespace std;
 #include "../include/Jogador.h"
 #include "../include/AT_ST.h"
 #include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 using namespace Gerenciadores;

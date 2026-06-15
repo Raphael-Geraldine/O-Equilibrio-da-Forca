@@ -13,7 +13,7 @@ using std::endl;
 #include "../include/Lava.h"
 #include "../include/Obstaculo.h"
 #include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 using namespace Obstaculos;
@@ -21,8 +21,8 @@ using namespace Gerenciadores;
 
 #include "SFML/Graphics.hpp"
 
-short int TrabalhoJogo::Entidades::Obstaculos::Lava::cont(0);
-vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Lava::lavaPositions={
+short int OEquilibrioDaForca::Entidades::Obstaculos::Lava::cont(0);
+vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Lava::lavaPositions={
     {250, 720}, {500, 720}, {750, 720}, {1180, 720}, {950, 720}
 };
 

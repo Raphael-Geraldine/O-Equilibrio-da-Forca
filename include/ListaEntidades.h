@@ -6,7 +6,7 @@ using namespace std;
 #include "Lista.h"
 #include "Entidade.h"
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Listas
     {

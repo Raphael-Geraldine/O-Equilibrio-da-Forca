@@ -6,7 +6,7 @@ using namespace std;
 
 #include <SFML/Graphics.hpp>
 
-namespace TrabalhoJogo 
+namespace OEquilibrioDaForca 
 { 
     namespace Gerenciadores 
     { 
@@ -17,9 +17,9 @@ namespace TrabalhoJogo
 #include "../include/Ente.h"
 #include "../include/Jogador.h"
 #include "../include/Principal.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     struct Ranking
     {
@@ -62,7 +62,7 @@ namespace TrabalhoJogo
             Menu();
             ~Menu();
             void executar();
-            TrabalhoJogo::Estado manager(sf::RenderWindow& janela, vector<sf::Text>& text);
+            OEquilibrioDaForca::Estado manager(sf::RenderWindow& janela, vector<sf::Text>& text);
             bool cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text);
             void loadMenu(vector<sf::Text>& text);
             void menuTextPlacement(vector<sf::Text>& textToDisplay);

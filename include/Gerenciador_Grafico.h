@@ -21,7 +21,7 @@ using std::map;
 #include "../include/Entidade.h"
 #include "../include/Plataforma.h"
 #include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Fases;
 using namespace Entidades;
 using namespace Obstaculos;
@@ -32,7 +32,7 @@ using namespace Gerenciadores;
 
 //Dá pra usar um tal de drawable, mais simples q o Sprite (assim tá ok, mas o outro é perfeccionismo)
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     class Principal;
     class Menu;
@@ -54,7 +54,7 @@ namespace TrabalhoJogo
     }
 }
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Gerenciadores
     {

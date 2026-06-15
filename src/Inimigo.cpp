@@ -6,7 +6,7 @@ using std::endl;
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 

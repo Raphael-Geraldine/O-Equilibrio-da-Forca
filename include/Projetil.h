@@ -7,7 +7,7 @@
 #include <pthread.h>
 #include <SFML/Graphics.hpp>
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Entidades
     {

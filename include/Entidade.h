@@ -6,7 +6,7 @@ using namespace std;
 #include"../include/Ente.h"
 #include <SFML/Graphics.hpp>
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Entidades
     {

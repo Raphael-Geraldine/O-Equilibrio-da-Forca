@@ -1,5 +1,5 @@
 #include "../include/ListaEntidades.h"
-using namespace TrabalhoJogo; 
+using namespace OEquilibrioDaForca; 
 using namespace Listas;
 
 ListaEntidades::ListaEntidades() 

@@ -10,7 +10,7 @@ using std::endl;
 // de conhecer o próximo para garantir que a lista opere como simplesmente
 // encadeada.
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Listas
     {

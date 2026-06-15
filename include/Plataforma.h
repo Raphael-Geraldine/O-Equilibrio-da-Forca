@@ -8,7 +8,7 @@ using namespace std;
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Entidades
     {

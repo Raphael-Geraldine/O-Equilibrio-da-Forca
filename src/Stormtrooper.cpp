@@ -13,7 +13,7 @@ using namespace std;
 #include "../include/Inimigo.h"
 #include "../include/Stormtrooper.h"
 #include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 using namespace Gerenciadores;

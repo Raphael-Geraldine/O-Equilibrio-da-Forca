@@ -9,7 +9,7 @@
 #include "../include/Lava.h"
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Mustafar.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Listas;
 using namespace Entidades;
 using namespace Obstaculos;

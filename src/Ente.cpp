@@ -6,26 +6,26 @@ using std::cout;
 using std::endl;
 
 // Inicializacao de atributos estaticos:
-int TrabalhoJogo::Ente::cont = 0;
+int OEquilibrioDaForca::Ente::cont = 0;
 
-TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* TrabalhoJogo::Ente::pGG = nullptr;
+OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico* OEquilibrioDaForca::Ente::pGG = nullptr;
 
-TrabalhoJogo::Ente::Ente(): 
+OEquilibrioDaForca::Ente::Ente(): 
     id(cont++)
 {
 }
 
-TrabalhoJogo::Ente::~Ente()
+OEquilibrioDaForca::Ente::~Ente()
 {
 }
 
-void TrabalhoJogo::Ente::desenhar()
+void OEquilibrioDaForca::Ente::desenhar()
 {
     cout << id << endl;
 }
 
-void TrabalhoJogo::Ente::staticSetGG(
-    TrabalhoJogo::Gerenciadores::Gerenciador_Grafico* pG
+void OEquilibrioDaForca::Ente::staticSetGG(
+    OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico* pG
 )
 {
     pGG = pG;

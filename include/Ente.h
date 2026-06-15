@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     // Forward declaration:
     namespace Gerenciadores

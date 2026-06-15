@@ -10,7 +10,7 @@
 #include "../include/Ente.h"
 #include "../include/Fase.h"
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Fases
     {
@@ -28,7 +28,7 @@ namespace TrabalhoJogo
                 //void incluirEntidade(Entidades::Entidade* pE);
                 //void incluirJogador(Entidades::Personagens::Jogador* pJ);
                 //void incluirInimigo(Entidades::Personagens::Inimigo* pI);
-                //void incluirObstaculo(TrabalhoJogo::Entidades::Obstaculos::Obstaculo* pO);
+                //void incluirObstaculo(OEquilibrioDaForca::Entidades::Obstaculos::Obstaculo* pO);
                 void criarInimigos(); //Chefoes: Dificil
                 void criarObstaculos(); //Dificil
                 void criarProjeteis(int qntd, AT_ST* pAT);

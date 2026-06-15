@@ -3,7 +3,7 @@
 #include "../include/Principal.h"
 #include "../include/Personagem.h"
 #include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Gerenciadores;
 
 #include <string>
@@ -329,7 +329,7 @@ void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
 
     desenharOrigem(janela, pF->getPlataforma());
     
-    TrabalhoJogo::Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
+    OEquilibrioDaForca::Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
     int tamanho = static_cast<int>(lEntidades->getTamanho());
     for (int i = 0; i < tamanho; i++) 
     {

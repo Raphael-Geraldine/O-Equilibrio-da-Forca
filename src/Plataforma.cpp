@@ -14,7 +14,7 @@ using std::endl;
 #include "../include/Inimigo.h"
 #include "../include/Plataforma.h"
 #include "../include/Gerenciador_Grafico.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 using namespace Obstaculos;
@@ -28,13 +28,13 @@ const float Plataforma::apoioMinimo = 0.5f;
 const float Plataforma::deslocamentoEscorrega = 2.0f;
 const float Plataforma::velocidadeEscorrega = 80.0f;
 
-short int TrabalhoJogo::Entidades::Obstaculos::Plataforma::cont(0);
-vector<sf::Vector2i> TrabalhoJogo::Entidades::Obstaculos::Plataforma::platPositions={
+short int OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::cont(0);
+vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::platPositions={
     {250, 520}, {1030, 520}, {640, 400}, {100, 280}, {1180, 280}, {860, 320},
     {430, 520}, {980, 480}, {150, 400}, {1130, 360}, {440, 280}, {640, 170}
 };
 
-TrabalhoJogo::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
+OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
     Obstaculo(),
     largura(l), 
     nPlat(cont++)

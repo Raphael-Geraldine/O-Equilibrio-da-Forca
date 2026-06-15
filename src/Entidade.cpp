@@ -4,7 +4,7 @@ using namespace std;
 #include "limits.h"
 #include"../include/Ente.h"
 #include "../include/Entidade.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 
 const float Entidade::velocidadeMaxQueda (900.0f);

@@ -7,7 +7,7 @@
 */
 
 #include "../include/Gerenciador_Colisoes.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 using namespace Obstaculos;

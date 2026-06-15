@@ -15,7 +15,7 @@ using std::endl;
 #include "../include/Gelo.h"
 #include "../include/Stormtrooper.h"
 using namespace Listas;
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 using namespace Gerenciadores;
@@ -29,8 +29,8 @@ using namespace Fases;
 using namespace std;
 #include <SFML/Graphics.hpp>
 
-TrabalhoJogo::Principal::Principal(): 
-    pGG(TrabalhoJogo::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
+OEquilibrioDaForca::Principal::Principal(): 
+    pGG(OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pMenu(nullptr), 
     pFase(nullptr),
     pAnakin1(nullptr),
@@ -47,7 +47,7 @@ TrabalhoJogo::Principal::Principal():
     executar();
 }
 
-TrabalhoJogo::Principal::~Principal()
+OEquilibrioDaForca::Principal::~Principal()
 {
     delete (pMenu);
     pMenu = nullptr;
@@ -73,7 +73,7 @@ TrabalhoJogo::Principal::~Principal()
     nomeJog2.clear();
 }
 
-void TrabalhoJogo::Principal::executar()
+void OEquilibrioDaForca::Principal::executar()
 {
     pMenu->loadMenu(textOptions);
     sf::RenderWindow* janela = pGG->getJanela();
@@ -180,7 +180,7 @@ void TrabalhoJogo::Principal::executar()
     }
 }
 
-Fase* TrabalhoJogo::Principal::getFase() const
+Fase* OEquilibrioDaForca::Principal::getFase() const
 {
     return pFase;
 }

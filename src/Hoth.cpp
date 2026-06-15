@@ -11,7 +11,7 @@
 #include "../include/Plataforma.h"
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Hoth.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Listas;
 using namespace Entidades;
 using namespace Obstaculos;

@@ -2,11 +2,11 @@
 
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     namespace Entidades
     {
