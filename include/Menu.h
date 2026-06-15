@@ -17,7 +17,8 @@ namespace OEquilibrioDaForca
 #include "../include/Ente.h"
 #include "../include/Jogador.h"
 #include "../include/Principal.h"
-using namespace OEquilibrioDaForca;
+#include "../include/ElemRank.h"
+using namespace OEquilibriodaForca;
 
 namespace OEquilibrioDaForca
 {
@@ -53,7 +54,7 @@ namespace OEquilibrioDaForca
 
             list<string> menuOptions;
 
-            vector<Ranking*> rank;
+            vector<ElemRank*> rank;
             sf::Sprite rankSprite;
 
             sf::Sprite howSprite;
@@ -75,7 +76,8 @@ namespace OEquilibrioDaForca
             void setJogsEscolhido(short int j, vector<sf::Text>& text);
 
             void salvarRank(int pontos, string nome);
-            vector<Ranking*> getRank();
+            vector<ElemRank*> getRank();
+            void limparRank();
             sf::Sprite& getRankSprite();
 
             sf::Sprite& getHowSprite();

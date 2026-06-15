@@ -260,15 +260,15 @@ sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
     return textura;
 }
 
-void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, vector<Ranking*> jogsRank, sf::Sprite& fundo)
+void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, vector<ElemRank*> jogsRank, sf::Sprite& fundo)
 {
     janela.draw(fundo);
 
-    vector<Ranking*>::iterator it;
+    vector<ElemRank*>::iterator it;
     int i=1;
     for(it=jogsRank.begin();it!=jogsRank.end();++it)
     {
-        string jogador = to_string(i) + "o lugar: " + (*it)->nome + " - " + to_string((*it)->pontos) + " pontos";
+        string jogador = to_string(i) + "o lugar: " + (*it)->getNome() + " - " + to_string((*it)->getPontos()) + " pontos";
         sf::Text textToDisplay(jogador,fonteName);
         textToDisplay.setFillColor(sf::Color::White);
         sf::FloatRect bounds = textToDisplay.getLocalBounds();

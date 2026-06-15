@@ -57,7 +57,7 @@ Menu::~Menu()
     // O Menu não deve deletá-lo, pois Gerenciador_Gráfico é singleton
     pGGraf = nullptr; 
 
-    vector<Ranking*>::iterator it;
+    vector<ElemRank*>::iterator it;
     for(it=rank.begin(); it!=rank.end();++it)
         delete(*it);
     rank.clear();
@@ -242,7 +242,7 @@ sf::Sprite Menu::getNomeBack(short int n)
     fundoNome.setTexture(*pTexturaNome2);
     return fundoNome;
 }
-vector<Ranking*> Menu::getRank()
+vector<ElemRank*> Menu::getRank()
 {
     return rank;
 }
@@ -255,18 +255,18 @@ void Menu::salvarRank(int pontos, string nome)
     if (nome.empty())
         return;
 
-    rank.push_back(new Ranking(nome,pontos));
+    rank.push_back(new ElemRank(nome,pontos));
     if(!(rank.empty()))
     {
-        vector<Ranking*>::iterator it;
+        vector<ElemRank*>::iterator it;
 
         for (it=rank.begin(); *it != rank.back(); ++it)
         {
-            if(pontos > (*it)->pontos)
+            if(pontos > (*it)->getPontos())
             {
                 delete(rank.back());
                 rank.pop_back();
-                rank.insert(it,new Ranking(nome,pontos));
+                rank.insert(it,new ElemRank(nome,pontos));
                 break;
             }
         }
@@ -283,10 +283,20 @@ void Menu::salvarRank(int pontos, string nome)
     {
         if (rank[i] != NULL) 
         {
-            cout << i + 1 << "o Lugar: " << rank[i]->nome << " - " << rank[i]->pontos << " pts"<<endl;
+            cout << i + 1 << "o Lugar: " << rank[i]->getNome() << " - " << rank[i]->getPontos() << " pts"<<endl;
         }
     }
     */
+}
+
+void Menu::limparRank()
+{
+    vector<ElemRank*>::iterator it;
+    for (it=rank.begin(); it != rank.end(); ++it)
+    {
+        delete(*it);
+    }
+    rank.clear();
 }
 
 sf::Sprite& Menu::getHowSprite()

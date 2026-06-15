@@ -307,13 +307,13 @@ void Principal::salvar()
     else 
         data << "jogo" << '%';
 
-    vector<Ranking*> rankSave = pMenu->getRank();
-    vector<Ranking*>::iterator it = rankSave.begin();
+    vector<ElemRank*> rankSave = pMenu->getRank();
+    vector<ElemRank*>::iterator it = rankSave.begin();
     int i = 0;
     while(it != rankSave.end())
     {
-        data << (*it)->nome << ' '
-             << to_string((*it)->pontos);
+        data << (*it)->getNome() << ' '
+             << to_string((*it)->getPontos());
 
         i++;
 
@@ -380,6 +380,8 @@ void Principal::carregarSave()
 {
     ifstream data("../assets/data.txt", ios::in);
 
+    pMenu->limparRank();
+    
     if (!data) 
     {
         cerr << "Arquivo não pode ser aberto ou não existe" << endl;
