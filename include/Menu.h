@@ -18,7 +18,6 @@ namespace OEquilibrioDaForca
 #include "../include/Jogador.h"
 #include "../include/Principal.h"
 #include "../include/ElemRank.h"
-using namespace OEquilibriodaForca;
 
 namespace OEquilibrioDaForca
 {

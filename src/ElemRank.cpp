@@ -1,5 +1,5 @@
 #include "../include/ElemRank.h"
-using namespace TrabalhoJogo;
+using namespace OEquilibrioDaForca;
 
 ElemRank::ElemRank(): pontos(0)
 {

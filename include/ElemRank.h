@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-namespace TrabalhoJogo
+namespace OEquilibrioDaForca
 {
     class ElemRank
     {
