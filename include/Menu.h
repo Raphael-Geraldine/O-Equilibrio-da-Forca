@@ -18,17 +18,10 @@ namespace OEquilibrioDaForca
 #include "../include/Jogador.h"
 #include "../include/Principal.h"
 #include "../include/ElemRank.h"
+using namespace OEquilibrioDaForca;
 
 namespace OEquilibrioDaForca
-{
-    struct Ranking
-    {
-        string nome;
-        int pontos;
-
-        Ranking(string n, int p): nome(n), pontos(p) {}
-    };
-   
+{  
     class Menu : public Ente
     {
         private:

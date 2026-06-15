@@ -4,6 +4,7 @@
 #include "../include/Personagem.h"
 #include "../include/Jogador.h"
 #include "../include/Inimigo.h"
+#include "../include/Thread.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -16,7 +17,7 @@ namespace OEquilibrioDaForca
 
         namespace Personagens
         {
-            class AT_ST : public Inimigo
+            class AT_ST : public Inimigo, Thread
             {
                 private:
                     float altura;
@@ -45,6 +46,8 @@ namespace OEquilibrioDaForca
                     void atirar();
                     void setProjetil(Projetil* pP);
                     void setAlvos(Jogador* pJog1, Jogador* pJog2);
+                    void* run();
+                    void execThreadMutex();
             };
         }
     }

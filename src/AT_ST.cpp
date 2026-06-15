@@ -27,12 +27,15 @@ using namespace Gerenciadores;
 
 AT_ST::AT_ST():
     Inimigo(),
+    Thread(),
     altura(1),
     directionMov(true),
     pProj(nullptr),
     alvo1(nullptr),
     alvo2(nullptr)
 {
+    derivadoThread=true;
+    
     num_vidas = (rand()%20)+1;
     nivel_maldade = 15;
 
@@ -59,12 +62,15 @@ AT_ST::AT_ST():
 
 AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
     Inimigo(),
+    Thread(),
     altura(1),
     directionMov(true),
     pProj(nullptr),
     alvo1(nullptr),
     alvo2(nullptr)
 {
+    derivadoThread=true;
+    
     num_vidas = numVidas;
     nivel_maldade = nivelMal;
 
@@ -97,6 +103,7 @@ AT_ST::~AT_ST()
 }
 void AT_ST::executar()
 {
+    /*
     salvarPosicaoAnterior();
     
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
@@ -132,6 +139,7 @@ void AT_ST::executar()
 
     aplicarFisica();
     mover();
+    */
 }
 void AT_ST::danificar(Jogador* p)
 {
@@ -245,4 +253,56 @@ void AT_ST::setAlvos(Jogador* pJog1, Jogador* pJog2)
 {
     alvo1=pJog1;
     alvo2=pJog2;
+}
+
+void AT_ST::execThreadMutex()
+{
+    start();
+    join();
+}
+
+void* AT_ST::run()
+{
+    lock();
+    
+    salvarPosicaoAnterior();
+    
+    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
+    velocidade.x = 0.0f;
+
+    int chance = rand()%10;
+
+    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
+    {   
+        if (x - (getBounds().width/2.0f) < 10 && chance > 1)
+            directionMov = true;
+        else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
+            directionMov = false;
+        else if ((x>640 && chance > 3)||(x<640 && chance < 4))
+            directionMov=false;
+        else
+            directionMov=true;
+        aleatMov.restart();
+
+        this->operator++();
+    }
+
+    if (y + (getBounds().height/2.0f) > 700)
+    {
+        if (directionMov)
+            velocidade.x = 100.0f;
+        else
+            velocidade.x = -100.0f;
+    }
+
+    if((!(pProj->getAtivo())) && clockTiro.getElapsedTime().asSeconds()>=6.0f)
+        atirar();
+
+    aplicarFisica();
+    mover();
+
+    semaforoAberto=false;
+    unlock();
+    yield();
+    return NULL;
 }

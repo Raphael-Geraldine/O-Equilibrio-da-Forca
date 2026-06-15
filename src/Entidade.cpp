@@ -12,7 +12,7 @@ const float Entidade::pixelsPorMetro (50.0f);
 const float Entidade::gravidadeReal (9.8f);
 const float Entidade::gravidade (gravidadeReal * pixelsPorMetro);
 
-Entidade::Entidade(): Ente(), buffer(nullptr), x(0), y(0), velocidade(0.0f, 0.0f), dt(1.0f/ 60.0f), noChao(false)
+Entidade::Entidade(): Ente(), buffer(nullptr), x(0), y(0), velocidade(0.0f, 0.0f), dt(1.0f/ 60.0f), derivadoThread(false), semaforoAberto(false),noChao(false)
 {}
 
 Entidade::~Entidade()
@@ -123,3 +123,26 @@ void Entidade::limitarVelTerminal()
     if (velocidade.y > velocidadeMaxQueda)
         velocidade.y = velocidadeMaxQueda;
 }
+
+const bool Entidade::getDerivadoThread() const
+{
+    return derivadoThread;
+}
+
+bool Entidade::getSemaforo()
+{
+    return semaforoAberto;
+}
+
+void Entidade::setSemaforo(bool b)
+{
+    semaforoAberto=b;
+}
+
+void* Entidade::run()
+{
+    return NULL;
+}
+
+void Entidade::execThreadMutex()
+{}

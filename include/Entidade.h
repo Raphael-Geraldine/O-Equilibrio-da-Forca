@@ -16,6 +16,8 @@ namespace OEquilibrioDaForca
                 float x;
                 float y;
                 bool noChao;
+                bool derivadoThread;
+                bool semaforoAberto;
                 float dt;
                 sf::Vector2f velocidade;
 
@@ -53,7 +55,15 @@ namespace OEquilibrioDaForca
 
                 void setBuffer(ostream* arquivo);
 
+                const bool getDerivadoThread() const;
+                bool getSemaforo();
+                void setSemaforo(bool b);
+
                 virtual void aplicarFisica();
+
+                virtual void* run();
+                virtual void execThreadMutex();
+
                 virtual void executar() = 0;
                 virtual void salvar() = 0;
                 virtual void mover() = 0; //lembrar que apenas personagens movem!

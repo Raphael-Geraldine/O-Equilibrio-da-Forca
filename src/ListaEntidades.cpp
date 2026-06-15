@@ -60,7 +60,16 @@ void ListaEntidades::executar()
     const int tamanho = static_cast<int>(getTamanho());
     for (int i = 0; i < tamanho; i++)
     {
-        LEs[i]->executar();
+        if (!(LEs[i]->getDerivadoThread()))
+            LEs[i]->executar();
+        else
+        {
+            if(!(LEs[i]->getSemaforo()))
+            {
+                LEs[i]->setSemaforo(true);
+                LEs[i]->execThreadMutex();
+            }
+        }
     }
 }
 
