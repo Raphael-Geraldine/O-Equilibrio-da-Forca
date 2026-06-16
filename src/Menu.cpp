@@ -368,7 +368,12 @@ vector<string> Menu::getLinhasRank() const
 
     for (int i = 0; i < tamanhoRank; i++)
     {
-        string jogador = to_string (i + 1) + "o lugar " + rank[i]->getNome() + " - " + to_string(rank[i]->getPontos()) + " pontos";
+        int pts = rank[i]->getPontos();
+        string jogador = to_string (i + 1) + "o lugar: " + rank[i]->getNome() + " - " + to_string(pts);
+        if (pts == 1)
+            jogador += " ponto";
+        else
+            jogador += " pontos";
         linhasRank.push_back(jogador);
     }
 

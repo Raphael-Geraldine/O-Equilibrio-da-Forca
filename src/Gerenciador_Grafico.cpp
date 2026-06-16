@@ -276,6 +276,8 @@ void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, const vector<st
         
         float y = 130 + (70*i);
         textToDisplay.setPosition(640,y);
+
+        i++;
         
         janela.draw(textToDisplay);
     }
