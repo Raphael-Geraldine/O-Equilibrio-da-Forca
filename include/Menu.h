@@ -51,6 +51,8 @@ namespace OEquilibrioDaForca
 
             sf::Sprite howSprite;
 
+            sf::Sprite pauseSprite;
+
         public:
             Menu();
             ~Menu();
@@ -71,7 +73,7 @@ namespace OEquilibrioDaForca
             vector<ElemRank*> getRank();
             void limparRank();
             sf::Sprite& getRankSprite();
-
+            sf::Sprite& getMenuPause();
             sf::Sprite& getHowSprite();
     };
 }

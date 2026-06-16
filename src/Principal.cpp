@@ -89,6 +89,8 @@ void OEquilibrioDaForca::Principal::executar()
         }
 
         janela->clear(sf::Color::Black);
+
+        cout<<pMenu->getFaseEscolhida()<<endl;
         
         switch(estadoAtual)
         {
@@ -96,13 +98,6 @@ void OEquilibrioDaForca::Principal::executar()
             {
                 estadoAtual = pMenu->manager(*janela,textOptions);
                 pGG->desenharMenu(pMenu,textOptions);
-                if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
-                      && ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))) 
-                      && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
-                {
-                    salvar();
-                    janela->close();
-                }
                 break;
             }
             case Estado::Nomejog1:
@@ -140,6 +135,13 @@ void OEquilibrioDaForca::Principal::executar()
             case Estado::Ranking:
             {
                 pGG->desenharRank(*janela, pMenu->getRank(), pMenu->getRankSprite());
+                /*
+                if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
+                      && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
+                {
+                    salvar();
+                    janela->close();
+                }*/
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
                 break; 
@@ -162,16 +164,38 @@ void OEquilibrioDaForca::Principal::executar()
 
                 if (getFase() != nullptr)
                 {
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
+                    {
+                        estadoAtual=Estado::Pause;
+                        typingDelay.restart();
+                    }
+                    getFase()->executar();
                     pGG->desenharFase(getFase(), *janela);
                     pGG->desenharVida(*janela,pAnakin1,pObi1);
+                    pGG->mostrar(*janela);
                 }
 
-                if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
-                      && ((sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))) 
-                      && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
+                break;
+            }
+            case Estado::Pause:
+            {
+                pGG->desenharFase(getFase(), *janela);
+                pGG->desenharVida(*janela,pAnakin1,pObi1);
+                pGG->desenharMenuPause(*janela, pMenu->getMenuPause());
+                pGG->mostrar(*janela);
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
+                {
+                    estadoAtual=Estado::Jogando;
+                    typingDelay.restart();
+                }
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                 {
                     salvar();
-                    janela->close();
+                    limparFase();
+                    estadoAtual=Estado::Menu;
+                    typingDelay.restart();
                 }
 
                 break;
@@ -202,6 +226,36 @@ void Principal::inicializarJogo()
 
     else
         pFase = new Hoth(pAnakin1, pObi1);
+}
+
+void Principal::limparFase()
+{
+    if (pFase == nullptr)
+        return;
+
+    cout << "Retorno do jogador" << endl; //continuar caminho voltar menu
+
+    delete pFase;
+    pFase = nullptr;
+
+    //estadoAtual=Estado::Menu;
+
+    if (pAnakin1 != nullptr)
+    {
+        //pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
+        delete (pAnakin1);
+        pAnakin1 = nullptr;
+    }
+
+    if (pObi1 != nullptr)
+    {
+        //pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
+        delete (pObi1);
+        pObi1 = nullptr;
+    }
+
+    nomeJog1.clear();
+    nomeJog2.clear();
 }
 
 void Principal::atualizarFase()
