@@ -46,8 +46,8 @@ namespace OEquilibrioDaForca
         private:
             Principal* pJogo;
 
-            string faseString;
-            string jogsString;
+            //string faseString;
+            //string jogsString;
             short int faseEscolhida;
             short int qntdJogs;
 

@@ -77,8 +77,8 @@ void Menu::executar()
 {
     menuOptions = {"Iniciar novo jogo", "Ver o ranking", "Retomar jogo anterior", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
     
-    faseString= "Fase 2: Hoth";
-    jogsString= "2 Jogadores";
+    //faseString= "Fase 2: Hoth";
+    //jogsString= "2 Jogadores";
 }
 
 OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
@@ -128,6 +128,8 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
         for (int i=0; i<4; i++)
             ++it;
 
+        qntdJogs == 1 ? qntdJogs = 2 : qntdJogs = 1;
+        
         qntdJogs == 1 ? *it="1 jogador" : *it="2 Jogadores";
         
         loadMenu(text);
