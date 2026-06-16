@@ -51,15 +51,18 @@ Menu::Menu():
 
 Menu::~Menu()
 {
-    faseEscolhida=-1;
-    qntdJogs=-1;
+    faseEscolhida = -1;
+    qntdJogs = -1;
 
     // O Menu não deve deletá-lo, pois Gerenciador_Gráfico é singleton
     pGGraf = nullptr; 
 
     vector<ElemRank*>::iterator it;
-    for(it=rank.begin(); it!=rank.end();++it)
+    for(it = rank.begin(); it != rank.end(); ++it)
+    {
         delete(*it);
+    }
+    
     rank.clear();
 }
 
@@ -78,6 +81,7 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
         pTexturaNome1 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME1JOG);
         if (pTexturaNome1 == nullptr)
             cerr << "Erro de carregamento do fundo solicitando nome 1 jogador" << endl;
+        
         if (qntdJogs != 1)
         {
             pTexturaNome2 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME2JOG);
@@ -99,12 +103,12 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
     if (cliqueEmOpcao(janela,text[3]))
     {
         list<string>::iterator it = menuOptions.begin();
-        for (int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
             ++it;
 
         string tempString = *it;
-        *it=faseString;
-        faseString=tempString;
+        *it = faseString;
+        faseString = tempString;
 
         faseEscolhida == 0 ? faseEscolhida = 1 : faseEscolhida = 0;
         
@@ -112,6 +116,7 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
         
         return Estado::Menu;   
     }
+
     if (cliqueEmOpcao(janela,text[4]))
     {
         list<string>::iterator it = menuOptions.begin();
@@ -119,8 +124,8 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
             ++it;
 
         string tempString = *it;
-        *it=jogsString;
-        jogsString=tempString;
+        *it = jogsString;
+        jogsString = tempString;
 
         qntdJogs == 1 ? qntdJogs = 2 : qntdJogs = 1;
         
@@ -163,9 +168,9 @@ void Menu::menuTextPlacement(vector<sf::Text>& textToDisplay)
         // Ponto de referência do meio do objeto texto.
         text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
         // Coloca o ponto de referência na posição a seguir.
-        text.setPosition(posX,posY);
+        text.setPosition(posX, posY);
         textToDisplay.push_back(text);
-        posY+=70;
+        posY += 70;
         it++;
     }
 }
@@ -237,19 +242,53 @@ sf::Sprite Menu::getDrawData() const
 
 sf::Sprite Menu::getNomeBack(short int n)
 {
-    if (n==1)
+    if (n == 1)
         return fundoNome;
+
     fundoNome.setTexture(*pTexturaNome2);
     return fundoNome;
 }
-vector<ElemRank*> Menu::getRank()
+// vector<ElemRank*> Menu::getRank()
+// {
+//     return rank;
+// }
+
+void Menu::salvarRank(int pontos, string nome)
 {
-    return rank;
+    if (nome.empty())
+        return;
+
+    vector<ElemRank*>::iterator it;
+
+    for (it = rank.begin(); it != rank.end(); ++it)
+    {
+        if (pontos > (*it)->getPontos())
+        {
+            // Insere antes do elemento na posição especificada.
+            ElemRank* novo = new ElemRank(nome,pontos);
+            rank.insert(it, novo);
+
+            if (rank.size() > 5)
+            {
+                delete(rank.back());
+                rank.pop_back();
+            }
+
+            return;
+        }
+    }
+
+    ElemRank* novo = new ElemRank(nome,pontos);
+    rank.push_back(novo);
+
+    if (rank.size() > 5)
+    {
+        delete rank.back();
+        rank.pop_back();
+    }
 }
-sf::Sprite& Menu::getRankSprite()
-{
-    return rankSprite;
-}
+
+/*
 void Menu::salvarRank(int pontos, string nome)
 {
     if (nome.empty())
@@ -286,8 +325,9 @@ void Menu::salvarRank(int pontos, string nome)
             cout << i + 1 << "o Lugar: " << rank[i]->getNome() << " - " << rank[i]->getPontos() << " pts"<<endl;
         }
     }
-    */
 }
+
+*/
 
 void Menu::limparRank()
 {
@@ -299,7 +339,84 @@ void Menu::limparRank()
     rank.clear();
 }
 
+size_t Menu::getTamanhoRank() const 
+{
+    return rank.size();
+}
+
+string Menu::getNomeRank (int indice) const
+{
+    if (indice < 0 || indice >= static_cast<int> (rank.size()))
+    {
+        cerr << "Indice fora do ranking." << endl;
+        return "";
+    }
+
+    return rank[indice]->getNome();
+}
+
+int Menu::getPontosRank (int indice) const
+{
+    if (indice < 0 || indice >= static_cast<int> (rank.size()))
+    {
+        cerr << "Indice fora do ranking." << endl;
+        return 0;
+    }
+
+    return rank[indice]->getPontos();
+}
+
+vector<string> Menu::getLinhasRank() const
+{
+    vector<string> linhasRank;
+    int tamanhoRank = static_cast<int>(rank.size());
+
+    for (int i = 0; i < tamanhoRank; i++)
+    {
+        string jogador = to_string (i + 1) + "o lugar " + rank[i]->getNome() + " - " + to_string(rank[i]->getPontos()) + " pontos";
+        linhasRank.push_back(jogador);
+    }
+
+    return linhasRank;
+}
+
+sf::Sprite& Menu::getRankSprite()
+{
+    return rankSprite;
+}
+
 sf::Sprite& Menu::getHowSprite()
 {
     return howSprite;
+}
+
+Menu::ElemRank::ElemRank(): pontos(0)
+{
+    nome.clear();
+}
+Menu::ElemRank::ElemRank(string n, int p): 
+    nome(n),
+    pontos(p)
+{}
+
+Menu::ElemRank::~ElemRank()
+{
+    nome.clear();
+}
+
+void Menu::ElemRank::setNome(string n)
+{
+    nome = n;
+}
+void Menu::ElemRank::setPontos(int p)
+{
+    pontos = p;
+}
+string Menu::ElemRank::getNome() const
+{
+    return nome;
+}
+int Menu::ElemRank::getPontos() const
+{
+    return pontos;
 }

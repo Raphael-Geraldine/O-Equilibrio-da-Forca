@@ -13,7 +13,7 @@ using std::endl;
 using std::pair;
 using std::map;
 
-#include "../include/ElemRank.h"
+//#include "../include/ElemRank.h"
 #include "../include/Menu.h"
 #include "../include/Ente.h"
 #include "../include/Fase.h"
@@ -103,7 +103,7 @@ namespace OEquilibrioDaForca
                 void desenharEnte (const Ente* pE);
                 void desenharTextoMenu (vector<sf::Text>& text);
                 void desenharMenu (Menu* pM, vector<sf::Text>& text);
-                void desenharRank(sf::RenderWindow& janela, vector<ElemRank*> jogsRank, sf::Sprite& fundo);
+                void desenharRank(sf::RenderWindow& janela, const vector<string>& linhasRank, sf::Sprite& fundo);
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void desenharVida(sf::RenderWindow& janela, Jogador* pJ1, Jogador* pJ2);
                 void desenharComoJogar(sf::RenderWindow& janela, sf::Sprite& fundo);

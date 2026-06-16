@@ -139,7 +139,7 @@ void OEquilibrioDaForca::Principal::executar()
             }
             case Estado::Ranking:
             {
-                pGG->desenharRank(*janela, pMenu->getRank(), pMenu->getRankSprite());
+                pGG->desenharRank(*janela, pMenu->getLinhasRank(), pMenu->getRankSprite());
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
                 break; 
@@ -307,9 +307,31 @@ void Principal::salvar()
     else 
         data << "jogo" << '%';
 
+    int tamanhoRank = static_cast<int>(pMenu->getTamanhoRank());
+    int i = 0;
+
+    while (i < tamanhoRank) 
+    {
+        string nome = pMenu->getNomeRank(i);
+        int pontuacao = pMenu->getPontosRank(i);
+
+        data << nome << ' ' << to_string(pontuacao);
+
+        i++;
+
+        // i == tamanhoRank - 1 e menos 1 porque começa em zero
+        if (i == 5)
+            data << '%';
+
+        else
+            data << ' ';
+    }
+
+    /*
     vector<ElemRank*> rankSave = pMenu->getRank();
     vector<ElemRank*>::iterator it = rankSave.begin();
     int i = 0;
+
     while(it != rankSave.end())
     {
         data << (*it)->getNome() << ' '
@@ -324,11 +346,13 @@ void Principal::salvar()
 
         ++it;
     }
-    while (i<5)
+    */
+
+    while (i < 5)
     {
         data << '-' << ' ' << '-';
         i++;
-        if(i==5)
+        if(i == 5)
             data<<'%';
         else
             data<<' ';
@@ -339,7 +363,6 @@ void Principal::salvar()
         data.close();
         return;
     }
-
 
 //================== ESTADO E RANK ================================
 

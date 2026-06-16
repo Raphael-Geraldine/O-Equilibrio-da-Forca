@@ -17,13 +17,32 @@ namespace OEquilibrioDaForca
 #include "../include/Ente.h"
 #include "../include/Jogador.h"
 #include "../include/Principal.h"
-#include "../include/ElemRank.h"
+// #include "../include/ElemRank.h"
 using namespace OEquilibrioDaForca;
 
 namespace OEquilibrioDaForca
 {  
     class Menu : public Ente
     {
+        private:
+            class ElemRank
+            {
+                private:
+                    string nome;
+                    int pontos;
+
+                public:
+                    ElemRank();
+                    ElemRank(string n, int p);
+                    ~ElemRank();
+
+                    void setNome(string n);
+                    void setPontos(int p);
+
+                    string getNome() const;
+                    int getPontos() const;   
+            };
+
         private:
             Principal* pJogo;
             Gerenciadores::Gerenciador_Grafico* pGGraf;
@@ -54,24 +73,35 @@ namespace OEquilibrioDaForca
         public:
             Menu();
             ~Menu();
+
             void executar();
+
             OEquilibrioDaForca::Estado manager(sf::RenderWindow& janela, vector<sf::Text>& text);
             bool cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text);
+
             void loadMenu(vector<sf::Text>& text);
             void menuTextPlacement(vector<sf::Text>& textToDisplay);
+
             sf::Sprite getFundo() const;
             sf::Sprite getDrawData() const;
             sf::Sprite getNomeBack(short int n);
+
             short int getFaseEscolhida() const;
             short int getJogsEscolhido() const;
+
             void setFaseEscolhida(short int f, vector<sf::Text>& text);
             void setJogsEscolhido(short int j, vector<sf::Text>& text);
 
             void salvarRank(int pontos, string nome);
-            vector<ElemRank*> getRank();
+            //vector<ElemRank*> getRank();
             void limparRank();
-            sf::Sprite& getRankSprite();
 
+            size_t getTamanhoRank() const;
+            string getNomeRank (int indice) const;
+            int getPontosRank (int indice) const;
+            vector<string> getLinhasRank() const;
+
+            sf::Sprite& getRankSprite();
             sf::Sprite& getHowSprite();
     };
 }

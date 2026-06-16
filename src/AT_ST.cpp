@@ -45,13 +45,10 @@ AT_ST::AT_ST():
     sf::Texture* pTexturaAT = pGG->carregarTextura(ATPNG);
 
     if (pTexturaAT == nullptr)
-    {
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
-    }
+
     else
-    {
         atSkin.setTexture(*pTexturaAT); 
-    }
 
     sf::FloatRect bounds = atSkin.getLocalBounds();
     atSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
@@ -76,19 +73,16 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
 
     x = sx;
     y = sy;
-    velocidade.x=velx;
-    velocidade.y=vely;
+    velocidade.x = velx;
+    velocidade.y = vely;
 
     sf::Texture* pTexturaAT = pGG->carregarTextura(ATPNG);
 
     if (pTexturaAT == nullptr)
-    {
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
-    }
+
     else
-    {
         atSkin.setTexture(*pTexturaAT); 
-    }
 
     sf::FloatRect bounds = atSkin.getLocalBounds();
     atSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
@@ -99,8 +93,9 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
 
 AT_ST::~AT_ST()
 {
-    num_vidas=-1;
+    num_vidas = -1;
 }
+
 void AT_ST::executar()
 {
     /*
@@ -141,6 +136,7 @@ void AT_ST::executar()
     mover();
     */
 }
+
 void AT_ST::danificar(Jogador* p)
 {
     int chance = rand()%10; 
@@ -149,14 +145,17 @@ void AT_ST::danificar(Jogador* p)
         p->sofrerAtaque(nivel_maldade/3);
     }
 }
+
 sf::Sprite AT_ST::getDrawData() const
 {
     return atSkin;
 }
+
 sf::FloatRect AT_ST::getBounds() const
 {
     return atSkin.getGlobalBounds();
 }
+
 void AT_ST::salvar()
 {
     Inimigo::salvarDataBuffer();
@@ -166,6 +165,7 @@ void AT_ST::salvar()
         *buffer << "AT_ST" << '%';
     }
 }
+
 void AT_ST::mover()
 {
     // Em FPS maior, o personagem anda mais rápido. Para 60 FPS:
@@ -175,10 +175,11 @@ void AT_ST::mover()
 
     atualizarPosicaoSprite();
 }
+
 void AT_ST::operator++()
 {
     if (num_vidas < 3)
-        nivel_maldade+=4;
+        nivel_maldade += 4;
 }
 
 void AT_ST::atualizarPosicaoSprite() 
@@ -246,13 +247,13 @@ void AT_ST::atirar()
 
 void AT_ST::setProjetil(Projetil* pP)
 {
-    pProj=pP;
+    pProj = pP;
 }
 
 void AT_ST::setAlvos(Jogador* pJog1, Jogador* pJog2)
 {
-    alvo1=pJog1;
-    alvo2=pJog2;
+    alvo1 = pJog1;
+    alvo2 = pJog2;
 }
 
 void AT_ST::execThreadMutex()
@@ -278,7 +279,7 @@ void* AT_ST::run()
             directionMov = true;
         else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
             directionMov = false;
-        else if ((x>640 && chance > 3)||(x<640 && chance < 4))
+        else if ((x > 640 && chance > 3)||(x < 640 && chance < 4))
             directionMov=false;
         else
             directionMov=true;
