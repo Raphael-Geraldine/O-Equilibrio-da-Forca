@@ -47,7 +47,7 @@ namespace OEquilibrioDaForca
                     void setProjetil(Projetil* pP);
                     void setAlvos(Jogador* pJog1, Jogador* pJog2);
                     void* run();
-                    void execThreadMutex();
+                    //void execThreadMutex();
             };
         }
     }

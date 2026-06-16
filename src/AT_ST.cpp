@@ -98,6 +98,8 @@ AT_ST::~AT_ST()
 
 void AT_ST::executar()
 {
+    start();
+    join();
     /*
     salvarPosicaoAnterior();
     
@@ -256,11 +258,12 @@ void AT_ST::setAlvos(Jogador* pJog1, Jogador* pJog2)
     alvo2 = pJog2;
 }
 
+/*
 void AT_ST::execThreadMutex()
 {
     start();
     join();
-}
+}*/
 
 void* AT_ST::run()
 {

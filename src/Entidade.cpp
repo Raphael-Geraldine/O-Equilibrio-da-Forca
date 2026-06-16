@@ -144,5 +144,7 @@ void* Entidade::run()
     return NULL;
 }
 
+/*
 void Entidade::execThreadMutex()
 {}
+*/

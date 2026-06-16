@@ -376,7 +376,7 @@ void Principal::salvar()
         return;
     }
 
-    if (estadoAtual != Estado::Menu)
+    if (estadoAtual == Estado::Pause)
         data << "jogo" << '%';
     else 
         data << "menu" << '%';

@@ -67,7 +67,7 @@ void ListaEntidades::executar()
             if(!(LEs[i]->getSemaforo()))
             {
                 LEs[i]->setSemaforo(true);
-                LEs[i]->execThreadMutex();
+                LEs[i]->executar();
             }
         }
     }
