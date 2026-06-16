@@ -98,8 +98,6 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
         return;
     }
 
-    pF->executar();
-
     janela.draw(pF->getDrawData());
     janela.draw(pF->getChao());
     
@@ -319,6 +317,11 @@ void Gerenciador_Grafico::desenharVida(sf::RenderWindow& janela, Jogador* pJ1, J
         textToDisplay.setPosition(1260,20);
         janela.draw(textToDisplay);
     }
+    //janela.display();
+}
+
+void Gerenciador_Grafico::mostrar(sf::RenderWindow& janela)
+{
     janela.display();
 }
 
@@ -328,6 +331,14 @@ void Gerenciador_Grafico::desenharComoJogar(sf::RenderWindow& janela, sf::Sprite
     janela.display();
 }
 
+void Gerenciador_Grafico::desenharMenuPause(sf::RenderWindow& janela, sf::Sprite& pause)
+{
+    sf::RectangleShape fundo(sf::Vector2f(1280, 720));
+    sf::Color cor(160,160,160,100);
+    fundo.setFillColor(cor);
+    janela.draw(fundo);
+    janela.draw(pause);
+}
 
 
 

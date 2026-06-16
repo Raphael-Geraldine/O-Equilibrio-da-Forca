@@ -40,6 +40,7 @@ namespace OEquilibrioDaForca
         Nomejog2,
         Jogando,
         Ranking,
+        Pause,
         Carregar,
         Comojogar
     };
@@ -72,6 +73,7 @@ namespace OEquilibrioDaForca
             Fases::Fase* getFase() const;
             void inicializarJogo();
             void atualizarFase();
+            void limparFase();
             string& getNome(short int n);
 
             void salvar();

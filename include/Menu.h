@@ -45,7 +45,6 @@ namespace OEquilibrioDaForca
 
         private:
             Principal* pJogo;
-            Gerenciadores::Gerenciador_Grafico* pGGraf;
 
             string faseString;
             string jogsString;
@@ -69,6 +68,8 @@ namespace OEquilibrioDaForca
             sf::Sprite rankSprite;
 
             sf::Sprite howSprite;
+
+            sf::Sprite pauseSprite;
 
         public:
             Menu();
@@ -102,6 +103,7 @@ namespace OEquilibrioDaForca
             vector<string> getLinhasRank() const;
 
             sf::Sprite& getRankSprite();
+            sf::Sprite& getMenuPause();
             sf::Sprite& getHowSprite();
     };
 }

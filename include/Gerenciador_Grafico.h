@@ -107,6 +107,8 @@ namespace OEquilibrioDaForca
                 void desenharFase(Fase* pF, sf::RenderWindow & janela);
                 void desenharVida(sf::RenderWindow& janela, Jogador* pJ1, Jogador* pJ2);
                 void desenharComoJogar(sf::RenderWindow& janela, sf::Sprite& fundo);
+                void desenharMenuPause(sf::RenderWindow& janela, sf::Sprite& pause);
+                void mostrar(sf::RenderWindow& janela);
                 void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
 

@@ -4,6 +4,7 @@
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define NOME1JOG "../assets/images/EnterNameP1.png"
 #define NOME2JOG "../assets/images/EnterNameP2.png"
+#define PAUSEPNG "../assets/images/Pause.png"
 
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
@@ -25,7 +26,6 @@ using namespace Gerenciadores;
 #include <SFML/Graphics.hpp>
 
 Menu::Menu(): 
-    pGGraf(nullptr),
     qntdJogs(1),
     faseEscolhida(0),
     pJogo()
@@ -45,6 +45,16 @@ Menu::Menu():
 
     else
         howSprite.setTexture(*pTextHow);
+
+    try
+    {
+        sf::Texture* pTextPause = pGG->carregarTextura(PAUSEPNG);
+        pauseSprite.setTexture(*pTextPause);
+    }
+    catch(const exception &e)
+    {
+        cerr << "Erro de carregamento do Plano de Fundo de 'Como jogar?' " << endl;
+    }
     
     executar();
 }
@@ -53,9 +63,6 @@ Menu::~Menu()
 {
     faseEscolhida = -1;
     qntdJogs = -1;
-
-    // O Menu não deve deletá-lo, pois Gerenciador_Gráfico é singleton
-    pGGraf = nullptr; 
 
     vector<ElemRank*>::iterator it;
     for(it = rank.begin(); it != rank.end(); ++it)
@@ -68,7 +75,7 @@ Menu::~Menu()
 
 void Menu::executar()
 {
-    menuOptions = {"Iniciar o jogo", "Ver o ranking", "Carregar o jogo", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
+    menuOptions = {"Iniciar novo jogo", "Ver o ranking", "Retomar jogo anterior", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
     
     faseString= "Fase 2: Hoth";
     jogsString= "2 Jogadores";
@@ -106,11 +113,9 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
         for (int i = 0; i < 3; i++)
             ++it;
 
-        string tempString = *it;
-        *it = faseString;
-        faseString = tempString;
-
         faseEscolhida == 0 ? faseEscolhida = 1 : faseEscolhida = 0;
+
+        faseEscolhida == 0 ? *it = "Fase 1: Mustafar" : *it = "Fase 2: Hoth";
         
         loadMenu(text);
         
@@ -123,11 +128,7 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
         for (int i=0; i<4; i++)
             ++it;
 
-        string tempString = *it;
-        *it = jogsString;
-        jogsString = tempString;
-
-        qntdJogs == 1 ? qntdJogs = 2 : qntdJogs = 1;
+        qntdJogs == 1 ? *it="1 jogador" : *it="2 Jogadores";
         
         loadMenu(text);
 
@@ -201,32 +202,26 @@ short int Menu::getJogsEscolhido() const
 void Menu::setFaseEscolhida(short int f, vector<sf::Text>& text)
 {
     faseEscolhida = f;
-    if(f)
-    {
-        list<string>::iterator it = menuOptions.begin();
-        for (int i=0; i<3; i++)
-            ++it;
 
-        string tempString = *it;
-        *it=faseString;
-        faseString=tempString;
-    }
+    list<string>::iterator it = menuOptions.begin();
+    for (int i=0; i<3; i++)
+        ++it;
+
+    faseEscolhida == 0 ? *it="Fase 1: Mustafar" : *it="Fase 2: Hoth";
+    
     loadMenu(text);
 }
 
 void Menu::setJogsEscolhido(short int j, vector<sf::Text>& text) 
 {
     qntdJogs = j;
-    if(j!=1)
-    {
-        list<string>::iterator it = menuOptions.begin();
-        for (int i=0; i<4; i++)
-            ++it;
 
-        string tempString = *it;
-        *it=jogsString;
-        jogsString=tempString;
-    }
+    list<string>::iterator it = menuOptions.begin();
+    for (int i=0; i<4; i++)
+        ++it;
+
+    qntdJogs == 1 ? *it="1 jogador" : *it="2 Jogadores";
+
     loadMenu(text);
 }
 
@@ -388,6 +383,10 @@ sf::Sprite& Menu::getRankSprite()
 sf::Sprite& Menu::getHowSprite()
 {
     return howSprite;
+}
+sf::Sprite& Menu::getMenuPause()
+{
+    return pauseSprite;
 }
 
 Menu::ElemRank::ElemRank(): pontos(0)
