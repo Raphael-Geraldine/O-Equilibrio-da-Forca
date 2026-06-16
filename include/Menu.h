@@ -26,7 +26,6 @@ namespace OEquilibrioDaForca
     {
         private:
             Principal* pJogo;
-            Gerenciadores::Gerenciador_Grafico* pGGraf;
 
             string faseString;
             string jogsString;
