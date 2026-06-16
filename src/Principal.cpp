@@ -77,6 +77,7 @@ void OEquilibrioDaForca::Principal::executar()
 {
     pMenu->loadMenu(textOptions);
     sf::RenderWindow* janela = pGG->getJanela();
+    carregarSaveMenu();
     while (janela->isOpen())
     {
         pGG->atualizarTempoPercorrido();
@@ -85,7 +86,10 @@ void OEquilibrioDaForca::Principal::executar()
         while (janela->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
+                salvarFechamento();
                 janela->close();
+            }
         }
 
         janela->clear(sf::Color::Black);
@@ -346,6 +350,22 @@ string& Principal::getNome(short int n)
     return this->nomeJog2;
 }
 
+void Principal::salvarFechamento()
+{
+    ifstream dataIn("../assets/data.txt", ios::in);
+
+    string estado;
+    getline(dataIn,estado,'%');
+
+    if (estado == "jogo")
+    {
+        cout<<"Tudo necessário já foi salvo"<<endl;
+        return;
+    }
+
+    salvar();
+}
+
 void Principal::salvar()
 {
     ofstream data("../assets/data.txt", ios::out); 
@@ -356,10 +376,10 @@ void Principal::salvar()
         return;
     }
 
-    if (estadoAtual == Estado::Menu)
-        data << "menu" << '%';
-    else 
+    if (estadoAtual != Estado::Menu)
         data << "jogo" << '%';
+    else 
+        data << "menu" << '%';
 
     int tamanhoRank = static_cast<int>(pMenu->getTamanhoRank());
     int i = 0;
@@ -412,7 +432,7 @@ void Principal::salvar()
             data<<' ';
     }
 
-    if (estadoAtual == Estado::Menu)
+    if (estadoAtual != Estado::Pause)
     {
         data.close();
         return;
@@ -453,11 +473,43 @@ void Principal::salvar()
     data.close();
 }
 
+void Principal::carregarSaveMenu()
+{
+    ifstream data("../assets/data.txt", ios::in);
+
+    if (!data) 
+    {
+        cerr << "Arquivo não pode ser aberto ou não existe" << endl;
+        estadoAtual=Estado::Menu;
+        return;
+    }
+    
+    pMenu->limparRank();
+
+    string preRead;
+
+    getline(data,preRead,'%');
+
+    getline(data,preRead,'%');
+    stringstream read(preRead);
+
+    string nome;
+    string pts;
+
+    while(read>>nome>>pts)
+    {
+        if(nome!= "-" && pts!="-")
+        {
+            pMenu->salvarRank(stoi(pts),nome);
+        }
+    }
+}
+
 void Principal::carregarSave()
 {
     ifstream data("../assets/data.txt", ios::in);
 
-    pMenu->limparRank();
+    //pMenu->limparRank();
     
     if (!data) 
     {
@@ -472,7 +524,7 @@ void Principal::carregarSave()
 
     string preRead;
     getline(data,preRead,'%');
-    stringstream read(preRead);
+    //stringstream read(preRead);
 
     string d1;
     string d2;
@@ -482,25 +534,27 @@ void Principal::carregarSave()
     string d6;
     string d7;
 
-    while(read>>d1>>d2)
+    /*while(read>>d1>>d2)
     {
         if(d1!= "-" && d2!="-")
         {
             pMenu->salvarRank(stoi(d2),d1);
         }
-    }
+    }*/
 
 //================== ESTADO E RANK ================================
 
-    if (estado == "menu")
+    if (estado != "jogo")
     {
         estadoAtual=Estado::Menu;
+        cerr<<"Nada a ser lido!"<<endl;
         return;
     }
 
     getline(data,preRead,'%');
-    read.clear(); 
-    read.str(preRead);
+    //read.clear(); 
+    //read.str(preRead);
+    stringstream read(preRead);
 
     read>>d1>>d2;
 
@@ -657,5 +711,7 @@ void Principal::carregarSave()
 
 //================== ALL DATA ================================
 
+    ofstream dataOut("../assets/data.txt", ios::out); 
+    dataOut.close();
     estadoAtual=Estado::Jogando;
 }

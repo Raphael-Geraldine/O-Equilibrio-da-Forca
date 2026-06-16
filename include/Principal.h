@@ -77,6 +77,8 @@ namespace OEquilibrioDaForca
             string& getNome(short int n);
 
             void salvar();
+            void salvarFechamento();
             void carregarSave();
+            void carregarSaveMenu();
     };
 }

@@ -312,7 +312,6 @@ void Menu::salvarRank(int pontos, string nome)
         }
     }
 
-    /* for de testes
     for (int i = 0; i < rank.size(); ++i) 
     {
         if (rank[i] != NULL) 
