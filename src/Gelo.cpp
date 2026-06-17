@@ -94,8 +94,9 @@ void Gelo::obstaculizar (Jogador* pJog)
             danificar(pJog,(int)danosidade/2);
     
         clockDano.restart();
-        pJog->atualizarPosicaoSprite();
     }
+
+    pJog->atualizarPosicaoSprite();
 }
 void Gelo::danificar(Jogador* pJog, int dano)
 {
