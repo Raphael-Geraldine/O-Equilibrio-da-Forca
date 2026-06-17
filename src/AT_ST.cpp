@@ -1,4 +1,5 @@
 #define ATPNG "../assets/images/AT_ST.png"
+#define ATDANOPNG "../assets/images/AT_STDamage.png"
 
 #include <iostream>
 using std::cout;
@@ -36,17 +37,17 @@ AT_ST::AT_ST():
 {
     derivadoThread=true;
     
-    num_vidas = (rand()%20)+1;
+    num_vidas = (rand()%10)+10;
     nivel_maldade = 15;
 
     x = (rand()%1100)+100;
     y = 600;
 
-    sf::Texture* pTexturaAT = pGG->carregarTextura(ATPNG);
+    pTexturaAT = pGG->carregarTextura(ATPNG);
+    pTexturaDanoAT = pGG->carregarTextura(ATDANOPNG);
 
-    if (pTexturaAT == nullptr)
+    if (pTexturaAT == nullptr || pTexturaDanoAT == nullptr)
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
-
     else
         atSkin.setTexture(*pTexturaAT); 
 
@@ -76,11 +77,11 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     velocidade.x = velx;
     velocidade.y = vely;
 
-    sf::Texture* pTexturaAT = pGG->carregarTextura(ATPNG);
+    pTexturaAT = pGG->carregarTextura(ATPNG);
+    pTexturaDanoAT = pGG->carregarTextura(ATDANOPNG);
 
-    if (pTexturaAT == nullptr)
+    if (pTexturaAT == nullptr || pTexturaDanoAT == nullptr)
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
-
     else
         atSkin.setTexture(*pTexturaAT); 
 
@@ -180,8 +181,7 @@ void AT_ST::mover()
 
 void AT_ST::operator++()
 {
-    if (num_vidas < 3)
-        nivel_maldade += 4;
+    nivel_maldade += 4;
 }
 
 void AT_ST::atualizarPosicaoSprite() 
@@ -243,13 +243,17 @@ void AT_ST::atirar()
         lockAlvo = alvo1;
 
     //cout<<"atirando"<<endl;
-    pProj->perseguir(lockAlvo,this);
+    pProj->perseguir(lockAlvo);
     clockTiro.restart();
 }
 
 void AT_ST::setProjetil(Projetil* pP)
 {
-    pProj = pP;
+    if(pP != nullptr)
+    {
+        pP->setAT(this);
+        pProj = pP;
+    }
 }
 
 void AT_ST::setAlvos(Jogador* pJog1, Jogador* pJog2)
@@ -274,6 +278,9 @@ void* AT_ST::run()
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
 
+    if ((atSkin.getTexture() == pTexturaDanoAT) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
+        atSkin.setTexture(*pTexturaAT);
+
     int chance = rand()%10;
 
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
@@ -287,8 +294,6 @@ void* AT_ST::run()
         else
             directionMov=true;
         aleatMov.restart();
-
-        this->operator++();
     }
 
     if (y + (getBounds().height/2.0f) > 700)
@@ -309,4 +314,11 @@ void* AT_ST::run()
     unlock();
     yield();
     return NULL;
+}
+
+void AT_ST::sofrerAtaque(int dano)
+{
+    num_vidas-=dano;
+    atSkin.setTexture(*pTexturaDanoAT); 
+    textureClock.restart();
 }

@@ -22,6 +22,7 @@ short int Jogador::cont(0);
 Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
 {
     num_vidas = 100;
+    cooldownAtaque = 0.3f;
     
     playerSkin.setScale(0.125f,0.125f);
 
@@ -63,6 +64,7 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
 Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int n,int pontos): Personagem(), nPlayer(cont++), pontos(pontos)
 {
     num_vidas = numVidas;
+    cooldownAtaque = 0.3f;
 
     x=sx;
     y=sy;
@@ -154,6 +156,7 @@ void Jogador::executar()
     
     mover();
 
+    /*
     if (!nPlayer)
     {
         if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::F)))
@@ -163,7 +166,7 @@ void Jogador::executar()
     {
         if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::L)))
         clockAtaque.restart();
-    }
+    }*/
 }
 void Jogador::salvar()
 {
@@ -199,24 +202,27 @@ void Jogador::colidirInimigo(Inimigo* pIn)
 {
     if (getVida()>0)
     {
+        cout<<cooldownAtaque<<endl;
         if (!nPlayer)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && ((clockAtaque.getElapsedTime().asSeconds())>cooldownAtaque))
             {
-                pIn->sofrerAtaque(10);
+                pIn->sofrerAtaque(5);
                 if (pIn->getVida() <= 0)
                     pontos++;
+                clockAtaque.restart();
                 y-=10; //recuo pós ataque, arrumar a física aqui tbm
                 x-=20;
             }
         }
         else
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && clockAtaque.getElapsedTime().asSeconds()<0.2f)
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && ((clockAtaque.getElapsedTime().asSeconds())>cooldownAtaque))
             {
-                pIn->sofrerAtaque(10);
+                pIn->sofrerAtaque(5);
                 if (pIn->getVida() <= 0)
                     pontos++;
+                clockAtaque.restart();
                 y-=10; //recuo pós ataque, arrumar a física aqui tbm
                 x-=20;
             }

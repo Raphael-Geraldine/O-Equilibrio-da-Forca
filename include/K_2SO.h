@@ -18,12 +18,15 @@ namespace OEquilibrioDaForca
                 private:
                     float altura;
                     sf::Sprite k2Skin;
+                    sf::Texture* pTexturaK2;
+                    sf::Texture* pTexturaDanoK2;
                     bool directionMov;
 
                 public:
                     K_2SO ();
                     K_2SO (float sx, float sy, float velx, float vely, int numVidas, int nivelMal);
                     ~K_2SO ();
+                    void sofrerAtaque(int dano);
                     void executar();
                     void danificar(Jogador* p);
                     sf::Sprite getDrawData() const;

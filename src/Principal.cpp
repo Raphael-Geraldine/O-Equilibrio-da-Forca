@@ -94,7 +94,7 @@ void OEquilibrioDaForca::Principal::executar()
 
         janela->clear(sf::Color::Black);
 
-        cout<<pMenu->getFaseEscolhida()<<endl;
+        //cout<<pMenu->getFaseEscolhida()<<endl;
         
         switch(estadoAtual)
         {

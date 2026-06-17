@@ -10,7 +10,7 @@ using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 
-Inimigo::Inimigo(): Personagem(), nivel_maldade(50), cooldownAtaque(1.0f), directionMov(false)
+Inimigo::Inimigo(): Personagem(), nivel_maldade(50), directionMov(false)
 {
 
 }

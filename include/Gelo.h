@@ -25,6 +25,8 @@ namespace OEquilibrioDaForca
                     float largura;
                     sf::Sprite geloSkin;
 
+                    sf::Clock clockDano;
+
                 public:
                     Gelo();
                     ~Gelo();

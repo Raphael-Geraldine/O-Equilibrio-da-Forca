@@ -273,11 +273,12 @@ void Projetil::danificar(Jogador* p)
     if (ativo && p != nullptr)
     {
         p->sofrerAtaque(dano);
+        pAT->operator++();
         desativar();
     }
 }
 
-void Projetil::perseguir(Jogador* pJog, AT_ST* pAT)
+void Projetil::perseguir(Jogador* pJog)
 {
     if (pJog == nullptr || pAT == nullptr)
         return;
@@ -342,3 +343,8 @@ bool Projetil::getAtivo() const
     return ativo;
 }
 
+void Projetil::setAT(AT_ST* pA)
+{
+    if (pA != nullptr)
+        pAT = pA;
+}

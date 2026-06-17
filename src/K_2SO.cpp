@@ -1,4 +1,5 @@
 #define K2PNG "../assets/images/K-2SO.png"
+#define K2DANOPNG "../assets/images/K-2SODamage.png"
 
 #include <iostream>
 using std::cout;
@@ -26,15 +27,16 @@ K_2SO::K_2SO():
     altura(1),
     directionMov(true)
 {
-    num_vidas = (rand()%10)+1;
+    num_vidas = (rand()%5)+5;
     nivel_maldade = 10;
 
     x = (rand()%1100)+100;
     y = 200;
 
-    sf::Texture* pTexturaK2 = pGG->carregarTextura(K2PNG);
+    pTexturaK2 = pGG->carregarTextura(K2PNG);
+    pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
 
-    if (pTexturaK2 == nullptr)
+    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr)
     {
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
     }
@@ -63,9 +65,10 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
     velocidade.x=velx;
     velocidade.y=vely;
 
-    sf::Texture* pTexturaK2 = pGG->carregarTextura(K2PNG);
+    pTexturaK2 = pGG->carregarTextura(K2PNG);
+    pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
 
-    if (pTexturaK2 == nullptr)
+    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr)
     {
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
     }
@@ -91,6 +94,9 @@ void K_2SO::executar()
     
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
+
+    if ((k2Skin.getTexture() == pTexturaDanoK2) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
+        k2Skin.setTexture(*pTexturaK2);
 
     int chance = rand()%10;
 
@@ -164,4 +170,11 @@ void K_2SO::atualizarPosicaoSprite()
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
     k2Skin.setPosition(x,y);
+}
+
+void K_2SO::sofrerAtaque(int dano)
+{
+    num_vidas-=dano;
+    k2Skin.setTexture(*pTexturaDanoK2); 
+    textureClock.restart();
 }

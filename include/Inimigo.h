@@ -15,7 +15,6 @@ namespace OEquilibrioDaForca
             class Inimigo : public Personagem
             {
                 protected:
-                    float cooldownAtaque;
                     sf::Clock aleatMov;
                     bool directionMov; //1 direita, 0 esquerda
                     int nivel_maldade;
@@ -24,8 +23,8 @@ namespace OEquilibrioDaForca
                     Inimigo();
                     ~Inimigo();
                     void salvarDataBuffer();
-                    void sofrerAtaque(int dano);
                     void tentarDanificar(Jogador* pJ);
+                    virtual void sofrerAtaque(int dano);
                     virtual void danificar(Jogador* pJ);
                     virtual sf::Sprite getDrawData() const = 0;
                     virtual sf::FloatRect getBounds() const = 0;

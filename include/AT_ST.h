@@ -22,6 +22,8 @@ namespace OEquilibrioDaForca
                 private:
                     float altura;
                     sf::Sprite atSkin;
+                    sf::Texture* pTexturaAT;
+                    sf::Texture* pTexturaDanoAT;
                     bool directionMov;
                     Projetil* pProj;
                     Jogador* alvo1;
@@ -34,6 +36,7 @@ namespace OEquilibrioDaForca
                     ~AT_ST();
                     void executar();
                     void danificar(Jogador* p);
+                    void sofrerAtaque(int dano);
                     sf::Sprite getDrawData() const;
                     sf::FloatRect getBounds() const;
                     void salvar();

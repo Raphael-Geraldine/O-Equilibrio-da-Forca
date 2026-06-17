@@ -29,7 +29,7 @@ vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Gelo::geloPositi
 Gelo::Gelo(): 
     Obstaculo(), 
     largura(1), 
-    danosidade(7),
+    danosidade(6),
     nGelo(cont++)
 {
     danoso=true;
@@ -81,17 +81,21 @@ void Gelo::obstaculizar (Jogador* pJog)
     //pJog->setNoChao(true);
     desacelerar(pJog);
 
-    //Quando jogador estiver 100% em cima
-    if (((pJog->getX() + (playerBounds.width/2.0f)) < (this->getX() + (GeloBounds.width/2.0f))) 
-        && 
-        ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (GeloBounds.width/2.0f))))
+    if (clockDano.getElapsedTime().asSeconds()>0.5f)
     {
-        danificar(pJog,(int)danosidade);
+        //Quando jogador estiver 100% em cima
+        if (((pJog->getX() + (playerBounds.width/2.0f)) < (this->getX() + (GeloBounds.width/2.0f))) 
+            && 
+            ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (GeloBounds.width/2.0f))))
+        {
+            danificar(pJog,(int)danosidade);
+        }
+        else
+            danificar(pJog,(int)danosidade/2);
+    
+        clockDano.restart();
+        pJog->atualizarPosicaoSprite();
     }
-    else
-        danificar(pJog,(int)danosidade/2);
-  
-    pJog->atualizarPosicaoSprite();
 }
 void Gelo::danificar(Jogador* pJog, int dano)
 {

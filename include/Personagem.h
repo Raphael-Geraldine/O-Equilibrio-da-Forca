@@ -13,9 +13,12 @@ namespace OEquilibrioDaForca
             {
                 protected:
                     int num_vidas;
+                    float cooldownAtaque;
                     
                     sf::Clock clockAtaque;
                     sf::Vector2f posicaoAnterior;
+
+                    sf::Clock textureClock;
 
                     // Pensar em usar: constexpr é valor constante, conhecido em tempo de compilação.
                     static const float velocidadePulo;

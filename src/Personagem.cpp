@@ -12,6 +12,7 @@ const float Personagem::velocidadePulo = -370.0f; //alterei de -420.0f para 370.
 
 Personagem::Personagem(): 
     Entidade(), 
+    cooldownAtaque(1.0f),
     num_vidas(0)
     // 1 segundo / 60 frames = 0,16666... segundos por frame
 {

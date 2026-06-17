@@ -25,6 +25,8 @@ namespace OEquilibrioDaForca
                     float largura;
                     sf::Sprite lavaSkin;
 
+                    sf::Clock clockDano;
+
                 public:
                     Lava();
                     ~Lava();

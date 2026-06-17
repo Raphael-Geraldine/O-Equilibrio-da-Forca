@@ -141,7 +141,7 @@ void Hoth::criarObstaculos()
 void Hoth::criarProjeteis(int qntd, AT_ST* pAT)
 {
     int random = rand()%11;
-    Projetil* pProj = new Projetil(20+random);
+    Projetil* pProj = new Projetil(5+random);
     if (pProj == nullptr)
         cerr << "Tentativa de incluir projetil nulo na lista de entidades." << endl;
     else

@@ -24,6 +24,8 @@ namespace OEquilibrioDaForca
                 float areaSecao;
                 float moduloVelLancamento;
 
+                Personagens::AT_ST* pAT;
+
                 pthread_t thread;
 
             private:
@@ -50,8 +52,9 @@ namespace OEquilibrioDaForca
                 void mover();
                 static void* execThread(void* p);
                 void* moverComThread();
+                void setAT(Personagens::AT_ST*);
                 void danificar(Personagens::Jogador* pJog);
-                void perseguir(Personagens::Jogador* pJog, Personagens::AT_ST* pAT);
+                void perseguir(Personagens::Jogador* pJog);
                 void atualizarPosicaoSprite();
                 sf::Sprite getDrawData() const;
                 sf::FloatRect getBounds() const;
