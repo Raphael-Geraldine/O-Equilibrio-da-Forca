@@ -16,7 +16,7 @@ namespace OEquilibrioDaForca
 
 #include "../include/Ente.h"
 #include "../include/Jogador.h"
-#include "../include/Principal.h"
+#include "../include/Jogo.h"
 // #include "../include/ElemRank.h"
 using namespace OEquilibrioDaForca;
 
@@ -44,7 +44,7 @@ namespace OEquilibrioDaForca
             };
 
         private:
-            Principal* pJogo;
+            Jogo* pJogo;
 
             //string faseString;
             //string jogsString;

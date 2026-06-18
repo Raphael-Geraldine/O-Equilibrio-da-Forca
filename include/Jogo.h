@@ -45,7 +45,7 @@ namespace OEquilibrioDaForca
         Comojogar
     };
 
-    class Principal
+    class Jogo
     {
         private:
             Estado estadoAtual;
@@ -66,8 +66,8 @@ namespace OEquilibrioDaForca
             string nomeJog2;
 
         public:
-            Principal();
-            ~Principal();
+            Jogo();
+            ~Jogo();
 
             void executar();
             Fases::Fase* getFase() const;

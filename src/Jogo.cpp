@@ -21,7 +21,7 @@ using namespace Personagens;
 using namespace Gerenciadores;
 using namespace Fases;
 
-#include "../include/Principal.h"
+#include "../include/Jogo.h"
 
 #include <vector>
 #include <fstream>
@@ -29,7 +29,7 @@ using namespace Fases;
 using namespace std;
 #include <SFML/Graphics.hpp>
 
-OEquilibrioDaForca::Principal::Principal(): 
+OEquilibrioDaForca::Jogo::Jogo(): 
     pGG(OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pMenu(nullptr), 
     pFase(nullptr),
@@ -47,7 +47,7 @@ OEquilibrioDaForca::Principal::Principal():
     executar();
 }
 
-OEquilibrioDaForca::Principal::~Principal()
+OEquilibrioDaForca::Jogo::~Jogo()
 {
     delete (pMenu);
     pMenu = nullptr;
@@ -73,7 +73,7 @@ OEquilibrioDaForca::Principal::~Principal()
     nomeJog2.clear();
 }
 
-void OEquilibrioDaForca::Principal::executar()
+void OEquilibrioDaForca::Jogo::executar()
 {
     pMenu->loadMenu(textOptions);
     sf::RenderWindow* janela = pGG->getJanela();
@@ -208,12 +208,12 @@ void OEquilibrioDaForca::Principal::executar()
     }
 }
 
-Fase* OEquilibrioDaForca::Principal::getFase() const
+Fase* OEquilibrioDaForca::Jogo::getFase() const
 {
     return pFase;
 }
 
-void Principal::inicializarJogo()
+void Jogo::inicializarJogo()
 {
     short int qntd = pMenu->getJogsEscolhido();
     short int fase = pMenu->getFaseEscolhida();
@@ -232,7 +232,7 @@ void Principal::inicializarJogo()
         pFase = new Hoth(pAnakin1, pObi1);
 }
 
-void Principal::limparFase()
+void Jogo::limparFase()
 {
     if (pFase == nullptr)
         return;
@@ -262,7 +262,7 @@ void Principal::limparFase()
     nomeJog2.clear();
 }
 
-void Principal::atualizarFase()
+void Jogo::atualizarFase()
 {
     if (pFase == nullptr)
         return;
@@ -343,14 +343,14 @@ void Principal::atualizarFase()
     }
 }
 
-string& Principal::getNome(short int n)
+string& Jogo::getNome(short int n)
 {
     if (n==1)
         return this->nomeJog1;
     return this->nomeJog2;
 }
 
-void Principal::salvarFechamento()
+void Jogo::salvarFechamento()
 {
     ifstream dataIn("../assets/data.txt", ios::in);
 
@@ -366,7 +366,7 @@ void Principal::salvarFechamento()
     salvar();
 }
 
-void Principal::salvar()
+void Jogo::salvar()
 {
     ofstream data("../assets/data.txt", ios::out); 
     
@@ -473,7 +473,7 @@ void Principal::salvar()
     data.close();
 }
 
-void Principal::carregarSaveMenu()
+void Jogo::carregarSaveMenu()
 {
     ifstream data("../assets/data.txt", ios::in);
 
@@ -505,7 +505,7 @@ void Principal::carregarSaveMenu()
     }
 }
 
-void Principal::carregarSave()
+void Jogo::carregarSave()
 {
     ifstream data("../assets/data.txt", ios::in);
 

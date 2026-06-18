@@ -97,7 +97,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
     set<Projetil*>::iterator it;
 
     //for (int i = 0; i < tamanhoProj; i++)
-    for (it = LPjs.cbegin(); it != LPjs.cend(); ++it)
+    for (it = LPjs.begin(); it != LPjs.end(); ++it)
     {
         //Projetil* pProj = LPjs[i];
         Projetil* pProj = *it;

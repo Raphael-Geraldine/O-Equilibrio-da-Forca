@@ -1,6 +1,6 @@
 #define FONTE "../assets/fonts/PressStart2P.ttf"
 
-#include "../include/Principal.h"
+#include "../include/Jogo.h"
 #include "../include/Personagem.h"
 #include "../include/Gerenciador_Grafico.h"
 using namespace OEquilibrioDaForca;

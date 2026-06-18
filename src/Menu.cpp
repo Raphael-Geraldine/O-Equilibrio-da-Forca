@@ -17,7 +17,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#include "../include/Principal.h"
+#include "../include/Jogo.h"
 #include "../include/Gerenciador_Grafico.h"
 #include "../include/Menu.h"
 using namespace OEquilibrioDaForca;

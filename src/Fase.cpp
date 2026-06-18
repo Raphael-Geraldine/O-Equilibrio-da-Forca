@@ -68,12 +68,11 @@ Fase::~Fase()
         Entidade* pEnt = listaEntidades[i];
         
         if (pEnt != nullptr) 
-        {
-            Jogador* testPlayer = dynamic_cast<Jogador*>(pEnt);
-            
-            if (testPlayer == nullptr) 
+        {   
+            if (pEnt != pJogador1 && pEnt != pJogador2) 
             {
-                delete pEnt; 
+                delete pEnt;
+                pEnt = nullptr; 
             }
         }
     }
@@ -201,6 +200,7 @@ void Fase::executar()
 
     if (gC != nullptr)
         gC->executar();
+
     /*
     NÃO FUNCIONOU:
     bool aplicarGravidade = true;

@@ -6,13 +6,13 @@ using std::endl;
 #include<stdlib.h>
 #include<time.h>
 
-#include "../include/Principal.h"
+#include "../include/Jogo.h"
 using namespace OEquilibrioDaForca;
 
 int main()
 {
     cout<<"Hello World! This will be a game."<<endl;
     srand(time(0));
-    Principal principal;
+    Jogo jogo;
     return 0;
 }

@@ -34,7 +34,7 @@ using namespace Gerenciadores;
 
 namespace OEquilibrioDaForca
 {
-    class Principal;
+    class Jogo;
     class Menu;
     class Ente;
 
@@ -114,7 +114,7 @@ namespace OEquilibrioDaForca
 
                 void desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome);
 
-                //void window(Menu* pM, Principal* pP);
+                //void window(Menu* pM, Jogo* pP);
                 //void loadMenu(Menu* pM); //out
                 //void menuTextPlacement(); //out
                 
