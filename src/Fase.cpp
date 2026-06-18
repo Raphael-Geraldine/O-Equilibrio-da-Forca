@@ -66,13 +66,17 @@ Fase::~Fase()
     for (int i = 0; i < tamanhoEnt; i++) 
     {
         Entidade* pEnt = listaEntidades[i];
-        
-        if (pEnt != nullptr) 
+
+        if (pEnt != nullptr)
         {   
-            if (pEnt != pJogador1 && pEnt != pJogador2) 
-            {
-                delete pEnt;
-                pEnt = nullptr; 
+            if (pJogador1 != nullptr && (pEnt->getID() != pJogador1->getID()))
+            {   
+                if (pJogador2 == nullptr)
+                {
+                    delete pEnt;
+                }
+                else if (pEnt->getID() != pJogador2->getID())
+                    delete pEnt;
             }
         }
     }
@@ -187,13 +191,13 @@ void Fase::executar()
     if (pJogador1 != nullptr && pJogador1->getVida() <= 0)
     {
         nJogs--;
-        pJogador1=nullptr;
+        //pJogador1=nullptr;
     }
     
     if (pJogador2 != nullptr && pJogador2->getVida() <= 0)
     {
         nJogs--;
-        pJogador2=nullptr;
+        //pJogador2=nullptr;
     }
 
     listaEntidades.executar();

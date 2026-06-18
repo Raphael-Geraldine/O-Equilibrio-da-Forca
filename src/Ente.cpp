@@ -30,3 +30,8 @@ void OEquilibrioDaForca::Ente::staticSetGG(
 {
     pGG = pG;
 }
+
+int OEquilibrioDaForca::Ente::getID()
+{
+    return id;
+}
