@@ -19,7 +19,7 @@ namespace OEquilibrioDaForca
                     int nivel_maldade;
                     float coolDownAtaque;
                     sf::Clock aleatMov;
-                    bool directionMovee; //1 direita, 0 esquerda
+                    bool directionMove; //1 direita, 0 esquerda
 
                 public:
                     Inimigo();

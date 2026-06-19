@@ -13,7 +13,7 @@ using namespace Personagens;
 Inimigo::Inimigo(): 
     Personagem(),
     coolDownAtaque(0.0f),
-    directionMovee(false),
+    directionMove(false),
     nivel_maldade(1)
 {}
 

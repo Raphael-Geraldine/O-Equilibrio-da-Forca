@@ -21,6 +21,14 @@ namespace OEquilibrioDaForca
                     sf::Texture* pTexturaK2;
                     sf::Texture* pTexturaDanoK2;
 
+                    // Salto e pouso pesado.
+                    sf::Clock clockSalto;
+                    float cooldownSalto;
+                    float impulsaoSalto;
+
+                private:
+                    void tentarPular();
+
                 public:
                     K_2SO ();
                     K_2SO (float sx, float sy, float velx, float vely, int numVidas, int nivelMal);

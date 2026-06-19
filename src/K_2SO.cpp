@@ -25,9 +25,11 @@ using namespace Gerenciadores;
 // Construtora sem saving:
 K_2SO::K_2SO():
     Inimigo(),
-    altura(1)
+    altura(1),
+    cooldownSalto(3.0f),
+    impulsaoSalto(520.0f)
 {
-    directionMovee = true;
+    directionMove = true;
 
     num_vidas = (rand() % 5) + 6; // 5 a 10 vidas
     nivel_maldade = 10;
@@ -52,9 +54,11 @@ K_2SO::K_2SO():
 
 K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
     Inimigo(),
-    altura(1)
+    altura(1),
+    cooldownSalto(3.0f),
+    impulsaoSalto(520.0f)
 {
-    directionMovee = true;
+    directionMove = true;
 
     num_vidas = numVidas;
     nivel_maldade = nivelMal;
@@ -100,30 +104,32 @@ void K_2SO::executar()
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
     {   
         if (x - (getBounds().width/2.0f) < 10 && chance > 1)
-            directionMovee = true;
+            directionMove = true;
 
         else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
-            directionMovee = false;
+            directionMove = false;
 
         else if ((x>640 && chance > 3)||(x<640 && chance < 4))
-            directionMovee=false;
+            directionMove=false;
         else
-            directionMovee=true;
+            directionMove=true;
 
         aleatMov.restart();
 
         this->operator++();
     }
 
+    // VER SE NÃO DÁ PARA USAR DE PERSONAGEM
     if (y + (getBounds().height/2.0f) > 700)
     {
-        if (directionMovee)
+        if (directionMove)
             velocidade.x = 100.0f;
             
         else
             velocidade.x = -100.0f;
     }
 
+    tentarPular();
     aplicarFisica();
     mover();
 }
@@ -163,7 +169,7 @@ void K_2SO::mover()
 }
 void K_2SO::operator++()
 {
-    if (num_vidas < 3)
+    if (num_vidas < 3 && nivel_maldade < 20)
         nivel_maldade+=2;
 }
 
@@ -178,4 +184,16 @@ void K_2SO::sofrerAtaque(int dano)
     num_vidas-=dano;
     k2Skin.setTexture(*pTexturaDanoK2); 
     textureClock.restart();
+}
+
+void K_2SO::tentarPular()
+{
+    if (!getNoChao())
+        return;
+
+    if (clockSalto.getElapsedTime().asSeconds() < cooldownSalto)
+        return;
+
+    velocidade.y = - impulsaoSalto;
+    clockSalto.restart();
 }
