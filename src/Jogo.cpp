@@ -48,9 +48,12 @@ Jogo::Jogo():
     nomeJog2.clear();
 
     pMenu = new Menu();
+
     pGerEventos = new Gerenciador_Eventos();
+
     pObsTeclado = new Observador_Teclado();
     pObsTeclado->setJogo(this);
+
     pGerEventos->anexar(pObsTeclado);
 
     executar();
@@ -109,7 +112,8 @@ void OEquilibrioDaForca::Jogo::executar()
         sf::Event evento;
         while (janela->pollEvent(evento))
         {
-            pGerEventos->notificar(evento, *janela);
+            pGerEventos->setEvento(evento, janela);
+            pGerEventos->notificar();
             /*
             if (evento.type == sf::Event::Closed)
             {
@@ -127,7 +131,7 @@ void OEquilibrioDaForca::Jogo::executar()
         {
             case Estado::Menu:
             {
-                estadoAtual = pMenu->manager(*janela,textOptions);
+                estadoAtual = pMenu->manager(*janela,textOptions); // Muda o estado do observado.
                 pGG->desenharMenu(pMenu,textOptions);
                 break;
             }
@@ -407,7 +411,7 @@ void Jogo::salvarFechamento()
 
     if (estado == "jogo")
     {
-        cout<<"Tudo necessário já foi salvo"<<endl;
+        cout<<"Tudo necessario ja foi salvo"<<endl;
         return;
     }
 
@@ -785,10 +789,14 @@ void Jogo::alternarPause()
     {
         estadoAtual = Estado::Pause;
         typingDelay.restart();
+        return;
     }
+
+    if (estadoAtual == Estado::Pause)
     {
-        estadoAtual=Estado::Pause;
+        estadoAtual = Estado::Jogando;
         typingDelay.restart();
+        return;
     }
 }
 

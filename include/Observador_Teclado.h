@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../include/Observador.h"
+#include "../include/Observador_Eventos.h"
 
 namespace OEquilibrioDaForca 
 {
@@ -8,7 +8,7 @@ namespace OEquilibrioDaForca
 
     namespace Gerenciadores 
     {
-        class Observador_Teclado: public Observador
+        class Observador_Teclado: public Observador_Eventos
         {
             private:
                 Jogo* pJogo;
@@ -18,7 +18,7 @@ namespace OEquilibrioDaForca
                 ~Observador_Teclado();
 
                 void setJogo (Jogo* pJ);
-                void atualizar (const sf::Event& evento, sf::RenderWindow& janela);
+                void atualizar (Observado* pObservado);
         };
     }
 }

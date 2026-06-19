@@ -1,4 +1,5 @@
 #include "../include/Observador_Teclado.h"
+#include "../include/Gerenciador_Eventos.h"
 #include "../include/Jogo.h"
 using namespace OEquilibrioDaForca;
 using namespace Gerenciadores;
@@ -18,23 +19,38 @@ void Observador_Teclado::setJogo(Jogo* pJ)
     pJogo = pJ;
 }
 
-void Observador_Teclado::atualizar(const sf::Event& evento, sf::RenderWindow& janela) 
+void Observador_Teclado::atualizar(Observado* pObservado) 
 {
     if (pJogo == nullptr)
-        return;
-
-    if (evento.type == sf::Event::Closed)
     {
-        pJogo->fecharJogo(janela);
+        cerr << "Ponteiro de jogo nulo. " << endl;
         return;
     }
 
-    if (evento.type == sf::Event::KeyPressed) 
+    if (pObservado == nullptr) 
+    {
+        cerr << "Ponteiro de observado nulo. " << endl;
+        return;
+    }
+
+    Gerenciador_Eventos* pGerEventos = static_cast<Gerenciador_Eventos*>(pObservado);
+
+    const sf::Event& evento = pGerEventos->getEvento();
+    sf::RenderWindow* pJanela = pGerEventos->getJanela();
+
+    if (evento.type == sf::Event::Closed)
+    {
+        pJogo->fecharJogo(*pJanela);
+        return;
+    }
+
+    else if (evento.type == sf::Event::KeyPressed) 
     {   
-        if (((evento.key.code == sf::Keyboard::LControl) || (evento.key.code == sf::Keyboard::RControl))
+        if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) 
+            || sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
             && (evento.key.code == sf::Keyboard::S))
         {
-            pJogo->atalhoSalvarESair(janela);
+            pJogo->atalhoSalvarESair(*pJanela);
             return;
         }
 
@@ -62,4 +78,7 @@ void Observador_Teclado::atualizar(const sf::Event& evento, sf::RenderWindow& ja
             return;
         }     
     }
+
+    else
+        return;
 }
