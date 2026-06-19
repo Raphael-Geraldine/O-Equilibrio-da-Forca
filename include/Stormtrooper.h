@@ -18,7 +18,7 @@ namespace OEquilibrioDaForca
                 private:
                     float altura;
                     sf::Sprite stormSkin;
-                    bool directionMov;
+                    bool directionMove;
 
                 public:
                     Stormtrooper ();

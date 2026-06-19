@@ -24,7 +24,7 @@ namespace OEquilibrioDaForca
                     sf::Sprite atSkin;
                     sf::Texture* pTexturaAT;
                     sf::Texture* pTexturaDanoAT;
-                    bool directionMov;
+                    bool directionMove;
                     Projetil* pProj;
                     Jogador* alvo1;
                     Jogador* alvo2;

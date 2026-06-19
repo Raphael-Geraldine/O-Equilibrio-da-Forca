@@ -15,19 +15,23 @@ namespace OEquilibrioDaForca
             class Inimigo : public Personagem
             {
                 protected:
-                    sf::Clock aleatMov;
-                    bool directionMov; //1 direita, 0 esquerda
+
                     int nivel_maldade;
+                    float coolDownAtaque;
+                    sf::Clock aleatMov;
+                    bool directionMovee; //1 direita, 0 esquerda
 
                 public:
                     Inimigo();
                     ~Inimigo();
-                    void salvarDataBuffer();
+
                     void tentarDanificar(Jogador* pJ);
                     virtual void sofrerAtaque(int dano);
                     virtual void danificar(Jogador* pJ);
                     virtual sf::Sprite getDrawData() const = 0;
                     virtual sf::FloatRect getBounds() const = 0;
+                    
+                    void salvarDataBuffer();
                     virtual void mover() = 0;
                     virtual void executar() = 0;
                     virtual void salvar() = 0;

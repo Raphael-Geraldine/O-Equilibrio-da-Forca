@@ -22,46 +22,46 @@ using namespace Gerenciadores;
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
+// Construtora sem saving:
 K_2SO::K_2SO():
     Inimigo(),
-    altura(1),
-    directionMov(true)
+    altura(1)
 {
-    num_vidas = (rand()%5)+5;
+    directionMovee = true;
+
+    num_vidas = (rand() % 5) + 6; // 5 a 10 vidas
     nivel_maldade = 10;
 
-    x = (rand()%1100)+100;
-    y = 200;
+    x = (rand() % 1101) + 100; // x: 100 a 1100 
+    y = 200; 
 
     pTexturaK2 = pGG->carregarTextura(K2PNG);
     pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
 
     if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr)
-    {
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
-    }
     else
-    {
         k2Skin.setTexture(*pTexturaK2); 
-    }
 
     sf::FloatRect bounds = k2Skin.getLocalBounds();
     k2Skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    k2Skin.setScale(altura*0.15,altura*0.15);
+    k2Skin.setScale(altura*0.15f, altura*0.15f); // Adiconado "f" - float
     atualizarPosicaoSprite();
 }
 
 K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
     Inimigo(),
-    altura(1),
-    directionMov(true)
+    altura(1)
 {
+    directionMovee = true;
+
     num_vidas = numVidas;
     nivel_maldade = nivelMal;
 
     x = sx;
     y = sy;
+
     velocidade.x=velx;
     velocidade.y=vely;
 
@@ -69,18 +69,15 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
     pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
 
     if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr)
-    {
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
-    }
+
     else
-    {
         k2Skin.setTexture(*pTexturaK2); 
-    }
 
     sf::FloatRect bounds = k2Skin.getLocalBounds();
     k2Skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    k2Skin.setScale(altura*0.15,altura*0.15);
+    k2Skin.setScale(altura*0.15f, altura*0.15f);
     atualizarPosicaoSprite();
 }
 
@@ -98,18 +95,21 @@ void K_2SO::executar()
     if ((k2Skin.getTexture() == pTexturaDanoK2) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
         k2Skin.setTexture(*pTexturaK2);
 
-    int chance = rand()%10;
+    int chance = rand() % 10;
 
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
     {   
         if (x - (getBounds().width/2.0f) < 10 && chance > 1)
-            directionMov = true;
+            directionMovee = true;
+
         else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
-            directionMov = false;
+            directionMovee = false;
+
         else if ((x>640 && chance > 3)||(x<640 && chance < 4))
-            directionMov=false;
+            directionMovee=false;
         else
-            directionMov=true;
+            directionMovee=true;
+
         aleatMov.restart();
 
         this->operator++();
@@ -117,8 +117,9 @@ void K_2SO::executar()
 
     if (y + (getBounds().height/2.0f) > 700)
     {
-        if (directionMov)
+        if (directionMovee)
             velocidade.x = 100.0f;
+            
         else
             velocidade.x = -100.0f;
     }

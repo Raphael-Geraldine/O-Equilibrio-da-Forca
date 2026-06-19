@@ -10,10 +10,13 @@ using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 
-Inimigo::Inimigo(): Personagem(), nivel_maldade(50), directionMov(false)
-{
+Inimigo::Inimigo(): 
+    Personagem(),
+    coolDownAtaque(0.0f),
+    directionMovee(false),
+    nivel_maldade(1)
+{}
 
-}
 Inimigo::~Inimigo()
 {
     nivel_maldade = -1;

@@ -24,7 +24,7 @@ using namespace Gerenciadores;
 Stormtrooper::Stormtrooper(): 
     Inimigo(),
     altura(1),
-    directionMov(true)
+    directionMove(true)
 {
     num_vidas = (rand()%5)+1;
     nivel_maldade = 4;
@@ -53,7 +53,7 @@ Stormtrooper::Stormtrooper():
 Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVidas, int nivelMal): 
     Inimigo(),
     altura(1),
-    directionMov(true)
+    directionMove(true)
 {
     num_vidas = numVidas;
     nivel_maldade = nivelMal;
@@ -97,20 +97,20 @@ void Stormtrooper::executar()
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
     {
         if (x - (getBounds().width/2.0f) < 10 && chance > 1)
-            directionMov = true;
+            directionMove = true;
         else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
-            directionMov = false;
+            directionMove = false;
         else if ((x>640 && chance > 3)||(x<640 && chance < 4))
-            directionMov=false;
+            directionMove=false;
         else
-            directionMov=true;
+            directionMove=true;
 
         aleatMov.restart();
     }
 
     if (y + (getBounds().height/2.0f) > 700)
     {
-        if (directionMov)
+        if (directionMove)
             velocidade.x = 100.0f;
         else
             velocidade.x = -100.0f;   

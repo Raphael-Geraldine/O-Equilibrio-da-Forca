@@ -30,7 +30,7 @@ AT_ST::AT_ST():
     Inimigo(),
     Thread(),
     altura(1),
-    directionMov(true),
+    directionMove(true),
     pProj(nullptr),
     alvo1(nullptr),
     alvo2(nullptr)
@@ -62,7 +62,7 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     Inimigo(),
     Thread(),
     altura(1),
-    directionMov(true),
+    directionMove(true),
     pProj(nullptr),
     alvo1(nullptr),
     alvo2(nullptr)
@@ -112,13 +112,13 @@ void AT_ST::executar()
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
     {   
         if (x - (getBounds().width/2.0f) < 10 && chance > 1)
-            directionMov = true;
+            directionMove = true;
         else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
-            directionMov = false;
+            directionMove = false;
         else if ((x>640 && chance > 3)||(x<640 && chance < 4))
-            directionMov=false;
+            directionMove=false;
         else
-            directionMov=true;
+            directionMove=true;
         aleatMov.restart();
 
         this->operator++();
@@ -126,7 +126,7 @@ void AT_ST::executar()
 
     if (y + (getBounds().height/2.0f) > 700)
     {
-        if (directionMov)
+        if (directionMove)
             velocidade.x = 100.0f;
         else
             velocidade.x = -100.0f;
@@ -286,19 +286,19 @@ void* AT_ST::run()
     if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
     {   
         if (x - (getBounds().width/2.0f) < 10 && chance > 1)
-            directionMov = true;
+            directionMove = true;
         else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
-            directionMov = false;
+            directionMove = false;
         else if ((x > 640 && chance > 3)||(x < 640 && chance < 4))
-            directionMov=false;
+            directionMove=false;
         else
-            directionMov=true;
+            directionMove=true;
         aleatMov.restart();
     }
 
     if (y + (getBounds().height/2.0f) > 700)
     {
-        if (directionMov)
+        if (directionMove)
             velocidade.x = 100.0f;
         else
             velocidade.x = -100.0f;
