@@ -81,6 +81,51 @@ void Gelo::obstaculizar (Jogador* pJog)
     //pJog->setNoChao(true);
     desacelerar(pJog);
 
+    bool inteiro = false;
+
+    if (((pJog->getX() + (playerBounds.width/2.0f)) < (this->getX() + (GeloBounds.width/2.0f))) 
+        && 
+        ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (GeloBounds.width/2.0f))))
+        {
+            inteiro=true;
+        }
+    
+    //danificar
+    vector<int>::iterator it;
+    vector<sf::Clock>::iterator itClock = clockDano.begin();
+    for (it=ids.begin(); it != ids.end(); ++it)
+    {
+        if(*it == pJog->getID())
+        {
+            if ((*itClock).getElapsedTime().asSeconds()<0.5f)
+            {
+                pJog->atualizarPosicaoSprite();
+                return;
+            }
+            
+            if (inteiro)
+                danificar(pJog,(int)danosidade);
+            else
+                danificar(pJog,(int)danosidade/2);
+            (*itClock).restart();
+            pJog->atualizarPosicaoSprite();
+            return;
+        }
+
+        ++itClock;
+    }
+
+    //Aqui nao achou:
+    ids.push_back(pJog->getID());
+    if (inteiro)
+        danificar(pJog,(int)danosidade);
+    else
+        danificar(pJog,(int)danosidade/2);
+    sf::Clock clockD;
+    clockDano.push_back(clockD);
+    pJog->atualizarPosicaoSprite();
+
+    /*
     if (clockDano.getElapsedTime().asSeconds()>0.5f)
     {
         //Quando jogador estiver 100% em cima
@@ -97,6 +142,7 @@ void Gelo::obstaculizar (Jogador* pJog)
     }
 
     pJog->atualizarPosicaoSprite();
+    */
 }
 void Gelo::danificar(Jogador* pJog, int dano)
 {

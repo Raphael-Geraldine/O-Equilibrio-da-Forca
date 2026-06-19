@@ -188,17 +188,15 @@ void Fase::executar()
         }
     }
 
-    if (pJogador1 != nullptr && pJogador1->getVida() <= 0)
+    if (pJogador2 != nullptr)
     {
-        nJogs--;
-        //pJogador1=nullptr;
+        if ((pJogador1 != nullptr && pJogador1->getVida() <= 0) && (pJogador2 != nullptr && pJogador2->getVida() <= 0))
+            nJogs=0;
+        else if ((pJogador1 != nullptr && pJogador1->getVida() <= 0) || (pJogador2 != nullptr && pJogador2->getVida() <= 0))
+            nJogs=1;
     }
-    
-    if (pJogador2 != nullptr && pJogador2->getVida() <= 0)
-    {
-        nJogs--;
-        //pJogador2=nullptr;
-    }
+    else if (pJogador1 != nullptr && pJogador1->getVida() <= 0)
+        nJogs=0;
 
     listaEntidades.executar();
 
@@ -262,6 +260,7 @@ void Fase::criarPlataformas()
 
 short int Fase::numJogsVivos() const
 {
+    //cout<<nJogs<<endl;
     return nJogs;
 }
 

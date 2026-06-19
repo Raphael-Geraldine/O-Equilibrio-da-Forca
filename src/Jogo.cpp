@@ -360,7 +360,7 @@ void Jogo::atualizarFase()
         }
         else
         {
-            cout << "Cabou!" << endl; //continuar caminho voltar menu
+            cout << "Cabou! Jogou bem!" << endl; //continuar caminho voltar menu
 
             delete pFase;
             pFase = nullptr;
@@ -387,7 +387,7 @@ void Jogo::atualizarFase()
     }
     else if (!(pFase->numJogsVivos()))
     {
-        cout << "Cabou!" << endl; //continuar caminho voltar menu
+        cout << "Cabou! Todos jogadores derrotados" << endl; //continuar caminho voltar menu
         
         delete pFase;
         pFase = nullptr;

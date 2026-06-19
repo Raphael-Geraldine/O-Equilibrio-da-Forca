@@ -202,7 +202,7 @@ void Jogador::colidirInimigo(Inimigo* pIn)
 {
     if (getVida()>0)
     {
-        cout<<cooldownAtaque<<endl;
+        //cout<<cooldownAtaque<<endl;
         if (!nPlayer)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && ((clockAtaque.getElapsedTime().asSeconds())>cooldownAtaque))
@@ -235,7 +235,7 @@ void Jogador::sofrerAtaque(int dano)
     num_vidas-=dano;
     playerSkin.setTexture(*pTexturaDanoJogador); 
     textureClock.restart();
-    cout<<num_vidas<<endl;
+    //cout<<num_vidas<<endl;
 }
 
 void Jogador::atualizarPosicaoSprite() 
