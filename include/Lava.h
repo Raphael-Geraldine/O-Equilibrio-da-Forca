@@ -25,7 +25,8 @@ namespace OEquilibrioDaForca
                     float largura;
                     sf::Sprite lavaSkin;
 
-                    sf::Clock clockDano;
+                    vector<sf::Clock> clockDano;
+                    vector<int> ids;
 
                 public:
                     Lava();
