@@ -791,11 +791,13 @@ void Jogo::fecharJogo (sf::RenderWindow& janela)
     janela.close();
 }
 
+/*
 void Jogo::atalhoSalvarESair(sf::RenderWindow& janela)
 {
     salvar();
     janela.close();
 }
+*/
 
 void Jogo::alternarPause()
 {

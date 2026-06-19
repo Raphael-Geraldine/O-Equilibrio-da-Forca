@@ -86,7 +86,7 @@ namespace OEquilibrioDaForca
             string& getNome(short int n);
 
             void fecharJogo(sf::RenderWindow& janela);
-            void atalhoSalvarESair(sf::RenderWindow& janela);
+            //void atalhoSalvarESair(sf::RenderWindow& janela);
             
             void alternarPause();
             void voltarMenuPeloPause();
