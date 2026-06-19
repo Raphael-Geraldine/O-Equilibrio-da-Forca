@@ -35,6 +35,7 @@ Jogo::Jogo():
     pGG(Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
     pGerEventos(nullptr),
     pObsTeclado(nullptr),
+    pObsMenu(nullptr),
     pMenu(nullptr), 
     pFase(nullptr),
     pAnakin1(nullptr),
@@ -54,6 +55,13 @@ Jogo::Jogo():
     pObsTeclado = new Observador_Teclado();
     pObsTeclado->setJogo(this);
 
+    pObsMenu = new Observador_Menu();
+    pObsMenu->setMenu(pMenu);
+    pObsMenu->setEstadoAtual(&estadoAtual);
+    pObsMenu->setTextosMenu(&textOptions);
+    pObsMenu->setAtivo(false);
+
+    pGerEventos->anexar(pObsMenu);
     pGerEventos->anexar(pObsTeclado);
 
     executar();
@@ -77,6 +85,12 @@ OEquilibrioDaForca::Jogo::~Jogo()
     if (pObi1 != nullptr) {
         delete (pObi1);
         pObi1 = nullptr;
+    }
+
+    if (pObsMenu != nullptr)
+    {
+        delete pObsMenu;
+        pObsMenu = nullptr;
     }
 
     if (pObsTeclado != nullptr)
@@ -109,6 +123,9 @@ void OEquilibrioDaForca::Jogo::executar()
     {
         pGG->atualizarTempoPercorrido();
 
+        pObsMenu->setAtivo(estadoAtual == Estado::Menu);
+        pObsMenu->setTextosMenu(&textOptions);
+        
         sf::Event evento;
         while (janela->pollEvent(evento))
         {
@@ -131,7 +148,7 @@ void OEquilibrioDaForca::Jogo::executar()
         {
             case Estado::Menu:
             {
-                estadoAtual = pMenu->manager(*janela,textOptions); // Muda o estado do observado.
+                // Agora quem muda o estadoAtual é o observador // estadoAtual = pMenu->manager(*janela,textOptions); // Muda o estado do observado.
                 pGG->desenharMenu(pMenu,textOptions);
                 break;
             }

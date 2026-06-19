@@ -105,5 +105,9 @@ namespace OEquilibrioDaForca
             sf::Sprite& getRankSprite();
             sf::Sprite& getMenuPause();
             sf::Sprite& getHowSprite();
+
+            void prepararTelaNome();
+            void alternarFase(vector<sf::Text>& text);
+            void alternarQuantidadeJogadores(vector<sf::Text>& text);
     };
 }

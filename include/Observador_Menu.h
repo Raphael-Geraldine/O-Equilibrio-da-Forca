@@ -18,8 +18,18 @@ namespace OEquilibrioDaForca
             private:
                 Menu* pMenu;
                 Estado* pEstadoAtual;
-                vector<sf::Text>* pTextosMenu;
+                vector<sf::Text>* pVetTextosMenu;
                 bool ativo;
+
+            public:
+                Observador_Menu();
+                ~Observador_Menu();
+
+                void setMenu(Menu* pM);
+                void setEstadoAtual(Estado* pEstado);
+                void setTextosMenu(vector<sf::Text>* pVTextos);
+                void setAtivo (bool ativ);
+                void atualizar (Observado* pObservado);
         };
 
     }

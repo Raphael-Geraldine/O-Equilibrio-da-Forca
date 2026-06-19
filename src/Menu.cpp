@@ -81,66 +81,49 @@ void Menu::executar()
     //jogsString= "2 Jogadores";
 }
 
-OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Text>& text)
+// Outrora foi manager.
+void Menu::prepararTelaNome()
 {
-    if (cliqueEmOpcao(janela,text[0]))
+    pTexturaNome1 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME1JOG);
+    
+    if (pTexturaNome1 == nullptr)
+        cerr << "Erro de carregamento do fundo solicitando nome 1 jogador" << endl;
+    
+    if (qntdJogs != 1)
     {
-        pTexturaNome1 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME1JOG);
-        if (pTexturaNome1 == nullptr)
-            cerr << "Erro de carregamento do fundo solicitando nome 1 jogador" << endl;
-        
-        if (qntdJogs != 1)
-        {
-            pTexturaNome2 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME2JOG);
-            if (pTexturaNome2 == nullptr)
-                cerr << "Erro de carregamento do fundo solicitando nome 2 jogador" << endl;
-        }
-        
-        fundoNome.setTexture(*pTexturaNome1);
-
-        return Estado::NomeJog1;
-    }    
-
-    if (cliqueEmOpcao(janela,text[1]))
-        return Estado::Ranking;
-
-    if (cliqueEmOpcao(janela,text[2]))
-        return Estado::Carregar;
-
-    if (cliqueEmOpcao(janela,text[3]))
-    {
-        list<string>::iterator it = menuOptions.begin();
-        for (int i = 0; i < 3; i++)
-            ++it;
-
-        faseEscolhida == 0 ? faseEscolhida = 1 : faseEscolhida = 0;
-
-        faseEscolhida == 0 ? *it = "Fase 1: Mustafar" : *it = "Fase 2: Hoth";
-        
-        loadMenu(text);
-        
-        return Estado::Menu;   
+        pTexturaNome2 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME2JOG);
+        if (pTexturaNome2 == nullptr)
+            cerr << "Erro de carregamento do fundo solicitando nome 2 jogador" << endl;
     }
+    
+    fundoNome.setTexture(*pTexturaNome1);
+}    
 
-    if (cliqueEmOpcao(janela,text[4]))
-    {
-        list<string>::iterator it = menuOptions.begin();
-        for (int i=0; i<4; i++)
-            ++it;
+void Menu::alternarFase(vector<sf::Text>& text)
+{
+    list<string>::iterator it = menuOptions.begin();
+    
+    for (int i = 0; i < 3; i++)
+        ++it;
 
-        qntdJogs == 1 ? qntdJogs = 2 : qntdJogs = 1;
-        
-        qntdJogs == 1 ? *it="1 jogador" : *it="2 Jogadores";
-        
-        loadMenu(text);
+    faseEscolhida == 0 ? faseEscolhida = 1 : faseEscolhida = 0;
 
-        return Estado::Menu;
-    }
+    faseEscolhida == 0 ? *it = "Fase 1: Mustafar" : *it = "Fase 2: Hoth";
+    
+    loadMenu(text);
+}
 
-    if (cliqueEmOpcao(janela,text[5]))
-        return Estado::ComoJogar;
+void Menu::alternarQuantidadeJogadores(vector<sf::Text>& text)
+{
+    list<string>::iterator it = menuOptions.begin();
+    for (int i=0; i<4; i++)
+        ++it;
 
-    return Estado::Menu;
+    qntdJogs == 1 ? qntdJogs = 2 : qntdJogs = 1;
+    
+    qntdJogs == 1 ? *it="1 jogador" : *it="2 Jogadores";
+    
+    loadMenu(text);
 }
 
 void Menu::loadMenu(vector<sf::Text>& text)
@@ -425,3 +408,4 @@ int Menu::ElemRank::getPontos() const
 {
     return pontos;
 }
+

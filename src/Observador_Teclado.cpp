@@ -38,6 +38,12 @@ void Observador_Teclado::atualizar(Observado* pObservado)
     const sf::Event& evento = pGerEventos->getEvento();
     sf::RenderWindow* pJanela = pGerEventos->getJanela();
 
+    if (pJanela == nullptr)
+    {
+        cerr << "Ponteiro de janela nulo no Observador_Menu." << endl;
+        return;
+    }
+
     if (evento.type == sf::Event::Closed)
     {
         pJogo->fecharJogo(*pJanela);

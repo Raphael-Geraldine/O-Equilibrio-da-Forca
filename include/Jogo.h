@@ -5,6 +5,9 @@
 using namespace std;
 
 #include "../include/ListaEntidades.h"
+#include "../include/Gerenciador_Eventos.h"
+#include "../include/Observador_Teclado.h"
+#include "../include/Observador_Menu.h"
 // #include "../include/ElemRank.h"
 
 namespace OEquilibrioDaForca 
@@ -56,7 +59,8 @@ namespace OEquilibrioDaForca
 
             Gerenciadores::Gerenciador_Eventos* pGerEventos;
             Gerenciadores::Observador_Teclado* pObsTeclado;
-
+            Gerenciadores::Observador_Menu* pObsMenu;
+            
             Gerenciadores::Gerenciador_Grafico* pGG;
             Menu* pMenu;
             OEquilibrioDaForca::Listas::ListaEntidades LEntidades;
