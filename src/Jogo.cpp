@@ -367,11 +367,11 @@ void Jogo::atualizarFase()
     else if (!(pFase->numJogsVivos()))
     {
         cout << "Cabou!" << endl; //continuar caminho voltar menu
-
+        
         delete pFase;
         pFase = nullptr;
         estadoAtual=Estado::Menu;
-
+        
         if (pAnakin1 != nullptr)
         {
             pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
