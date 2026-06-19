@@ -233,7 +233,13 @@ void Gerenciador_Grafico::atualizarTempoPercorrido()
 
 sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
 {
+    if (path == nullptr) {
+        cerr << "Erro: Caminho para textura nulo!" << endl;
+        return nullptr;
+    }
+
     map<const char*, sf::Texture*>::iterator it;
+    
     for (it = mapaTexturas.begin(); it != mapaTexturas.end(); ++it)
     {
         if (strcmp((*it).first, path) == 0)
@@ -242,7 +248,7 @@ sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
 
     sf::Texture* textura = new sf::Texture();
     
-    if ((*textura).loadFromFile(path) == false) 
+    if (!(*textura).loadFromFile(path)) 
     {
         cerr << "Erro: Nao foi possivel carregar textura!" << endl;
 

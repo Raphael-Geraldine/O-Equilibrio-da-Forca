@@ -7,13 +7,15 @@ using std::endl;
 #include "../include/Menu.h"
 #include "../include/Entidade.h"
 #include "../include/Jogador.h"
-#include "../include/Gerenciador_Grafico.h"
 #include "../include/Fase.h"
 #include "../include/Mustafar.h"
 #include "../include/Hoth.h"
 #include "../include/Lava.h"
 #include "../include/Gelo.h"
 #include "../include/Stormtrooper.h"
+#include "../include/Gerenciador_Grafico.h"
+#include "../include/Gerenciador_Eventos.h"
+#include "../include/Observador_Teclado.h"
 using namespace Listas;
 using namespace OEquilibrioDaForca;
 using namespace Entidades;
@@ -29,8 +31,10 @@ using namespace Fases;
 using namespace std;
 #include <SFML/Graphics.hpp>
 
-OEquilibrioDaForca::Jogo::Jogo(): 
-    pGG(OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
+Jogo::Jogo(): 
+    pGG(Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
+    pGerEventos(nullptr),
+    pObsTeclado(nullptr),
     pMenu(nullptr), 
     pFase(nullptr),
     pAnakin1(nullptr),
@@ -44,6 +48,11 @@ OEquilibrioDaForca::Jogo::Jogo():
     nomeJog2.clear();
 
     pMenu = new Menu();
+    pGerEventos = new Gerenciador_Eventos();
+    pObsTeclado = new Observador_Teclado();
+    pObsTeclado->setJogo(this);
+    pGerEventos->anexar(pObsTeclado);
+
     executar();
 }
 
@@ -52,17 +61,32 @@ OEquilibrioDaForca::Jogo::~Jogo()
     delete (pMenu);
     pMenu = nullptr;
 
-    if (pFase != nullptr)
+    if (pFase != nullptr) {
         delete (pFase);
-    pFase = nullptr;
+        pFase = nullptr;
+    }
 
-    if (pAnakin1 != nullptr)
+    if (pAnakin1 != nullptr) {
         delete (pAnakin1);
-    pAnakin1 = nullptr;
+        pAnakin1 = nullptr;
+    }
 
-    if (pObi1 != nullptr)
+    if (pObi1 != nullptr) {
         delete (pObi1);
-    pObi1 = nullptr;
+        pObi1 = nullptr;
+    }
+
+    if (pObsTeclado != nullptr)
+    {
+        delete pObsTeclado;
+        pObsTeclado = nullptr;
+    }
+
+    if (pGerEventos != nullptr) 
+    {
+        delete pGerEventos;
+        pGerEventos = nullptr;
+    }
 
     // Cuidado: Gerenciador_Grafico é singleton, não deleta aqui.
     pGG = nullptr;
@@ -82,14 +106,17 @@ void OEquilibrioDaForca::Jogo::executar()
     {
         pGG->atualizarTempoPercorrido();
 
-        sf::Event event;
-        while (janela->pollEvent(event))
+        sf::Event evento;
+        while (janela->pollEvent(evento))
         {
-            if (event.type == sf::Event::Closed)
+            pGerEventos->notificar(evento, *janela);
+            /*
+            if (evento.type == sf::Event::Closed)
             {
                 salvarFechamento();
                 janela->close();
             }
+            */
         }
 
         janela->clear(sf::Color::Black);
@@ -104,14 +131,16 @@ void OEquilibrioDaForca::Jogo::executar()
                 pGG->desenharMenu(pMenu,textOptions);
                 break;
             }
-            case Estado::Nomejog1:
-            {
+            
+            case Estado::NomeJog1:
+            {                       
                 short int qntd = pMenu->getJogsEscolhido();
                 if (qntd == 1)
-                    pGG->desenharSolicitar1Nome(*janela, event, pMenu->getNomeBack(1), getNome(1));
+                    pGG->desenharSolicitar1Nome(*janela, evento, pMenu->getNomeBack(1), getNome(1));
                 else
-                    pGG->desenharSolicitar1Nome(*janela, event, pMenu->getNomeBack(1), getNome(1));
+                    pGG->desenharSolicitar1Nome(*janela, evento, pMenu->getNomeBack(1), getNome(1));
 
+                /*
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                 {
                     if (qntd==1)
@@ -120,34 +149,45 @@ void OEquilibrioDaForca::Jogo::executar()
                         estadoAtual=Estado::Jogando;
                     }
                     else
-                        estadoAtual=Estado::Nomejog2;
+                        estadoAtual=Estado::NomeJog2;
 
                     typingDelay.restart();
                 }
+                */
+
                 break;
             }
-            case Estado::Nomejog2:
+            
+            case Estado::NomeJog2:
             {
-                pGG->desenharSolicitar1Nome(*janela, event, pMenu->getNomeBack(2), getNome(2));
+                pGG->desenharSolicitar1Nome(*janela, evento, pMenu->getNomeBack(2), getNome(2));
+                /*
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                 {
                     inicializarJogo();
                     estadoAtual=Estado::Jogando;
-                }    
+                } 
+                */   
                 break;
             }
             case Estado::Ranking:
             {
                 pGG->desenharRank(*janela, pMenu->getLinhasRank(), pMenu->getRankSprite());
+                
                 /*
                 if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
                       && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
                 {
                     salvar();
                     janela->close();
-                }*/
+                }
+                */
+
+                /*
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
+                */
+
                 break; 
             }
             case Estado::Carregar:
@@ -155,11 +195,13 @@ void OEquilibrioDaForca::Jogo::executar()
                 carregarSave();
                 break;
             }
-            case Estado::Comojogar:
+            case Estado::ComoJogar:
             {
                 pGG->desenharComoJogar(*janela, pMenu->getHowSprite());
+                /*
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
+                */
                 break; 
             }
             case Estado::Jogando:
@@ -168,11 +210,13 @@ void OEquilibrioDaForca::Jogo::executar()
 
                 if (getFase() != nullptr)
                 {
+                    /*
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                     {
                         estadoAtual=Estado::Pause;
                         typingDelay.restart();
                     }
+                    */
                     getFase()->executar();
                     pGG->desenharFase(getFase(), *janela);
                     pGG->desenharVida(*janela,pAnakin1,pObi1);
@@ -188,12 +232,15 @@ void OEquilibrioDaForca::Jogo::executar()
                 pGG->desenharMenuPause(*janela, pMenu->getMenuPause());
                 pGG->mostrar(*janela);
 
+                /*
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                 {
                     estadoAtual=Estado::Jogando;
                     typingDelay.restart();
                 }
+                */
 
+                /*
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                 {
                     salvar();
@@ -201,6 +248,7 @@ void OEquilibrioDaForca::Jogo::executar()
                     estadoAtual=Estado::Menu;
                     typingDelay.restart();
                 }
+                */
 
                 break;
             }
@@ -715,3 +763,90 @@ void Jogo::carregarSave()
     dataOut.close();
     estadoAtual=Estado::Jogando;
 }
+
+void Jogo::fecharJogo (sf::RenderWindow& janela) 
+{
+    salvarFechamento();
+    janela.close();
+}
+
+void Jogo::atalhoSalvarESair(sf::RenderWindow& janela)
+{
+    salvar();
+    janela.close();
+}
+
+void Jogo::alternarPause()
+{
+    if (typingDelay.getElapsedTime().asMilliseconds() < 200)
+        return;
+
+    if (estadoAtual == Estado::Jogando)
+    {
+        estadoAtual = Estado::Pause;
+        typingDelay.restart();
+    }
+    {
+        estadoAtual=Estado::Pause;
+        typingDelay.restart();
+    }
+}
+
+void Jogo::voltarMenuPeloPause()
+{
+    if (typingDelay.getElapsedTime().asMilliseconds() < 200)
+        return;
+
+    if (estadoAtual == Estado::Pause)
+    {
+        salvar();
+        limparFase();
+        estadoAtual=Estado::Menu;
+        typingDelay.restart();
+    }
+}
+
+void Jogo::confirmarEntrada() 
+{
+    if (typingDelay.getElapsedTime().asMilliseconds() < 200)
+        return;
+
+    if (estadoAtual == Estado::NomeJog1) 
+    {
+        short int qntd = pMenu->getJogsEscolhido();
+        
+        if (qntd == 1)
+        {
+            inicializarJogo();
+            estadoAtual = Estado::Jogando;
+        }
+
+        else 
+            estadoAtual = Estado::NomeJog2;
+
+        typingDelay.restart();
+        return;
+    }
+
+    if (estadoAtual == Estado::NomeJog2)
+    {
+        inicializarJogo();
+        estadoAtual = Estado::Jogando;
+        typingDelay.restart();
+        return;
+    }
+}
+
+// Voltar para Menu estando em "Ranking" ou em "Como Jogar"
+void Jogo::voltarParaMenu()
+{
+    if (typingDelay.getElapsedTime().asMilliseconds() < 200)
+        return;
+
+    if (estadoAtual == Estado::Ranking || estadoAtual == Estado::ComoJogar)
+    {
+        estadoAtual = Estado::Menu;
+        typingDelay.restart();
+    }
+}
+ 

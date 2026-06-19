@@ -14,6 +14,8 @@ namespace OEquilibrioDaForca
     namespace Gerenciadores 
     { 
         class Gerenciador_Grafico;
+        class Gerenciador_Eventos;
+        class Observador_Teclado;
     }
 
     namespace Entidades 
@@ -36,13 +38,13 @@ namespace OEquilibrioDaForca
     enum class Estado
     {
         Menu,
-        Nomejog1,
-        Nomejog2,
+        NomeJog1,
+        NomeJog2,
         Jogando,
         Ranking,
         Pause,
         Carregar,
-        Comojogar
+        ComoJogar
     };
 
     class Jogo
@@ -51,6 +53,9 @@ namespace OEquilibrioDaForca
             Estado estadoAtual;
             vector<sf::Text> textOptions;
             sf::Clock typingDelay;
+
+            Gerenciadores::Gerenciador_Eventos* pGerEventos;
+            Gerenciadores::Observador_Teclado* pObsTeclado;
 
             Gerenciadores::Gerenciador_Grafico* pGG;
             Menu* pMenu;
@@ -76,6 +81,14 @@ namespace OEquilibrioDaForca
             void limparFase();
             string& getNome(short int n);
 
+            void fecharJogo(sf::RenderWindow& janela);
+            void atalhoSalvarESair(sf::RenderWindow& janela);
+            
+            void alternarPause();
+            void voltarMenuPeloPause();
+            void confirmarEntrada();
+            void voltarParaMenu();
+            
             void salvar();
             void salvarFechamento();
             void carregarSave();

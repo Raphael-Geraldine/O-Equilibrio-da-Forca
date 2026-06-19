@@ -98,7 +98,7 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
         
         fundoNome.setTexture(*pTexturaNome1);
 
-        return Estado::Nomejog1;
+        return Estado::NomeJog1;
     }    
 
     if (cliqueEmOpcao(janela,text[1]))
@@ -138,7 +138,7 @@ OEquilibrioDaForca::Estado Menu::manager(sf::RenderWindow& janela, vector<sf::Te
     }
 
     if (cliqueEmOpcao(janela,text[5]))
-        return Estado::Comojogar;
+        return Estado::ComoJogar;
 
     return Estado::Menu;
 }
