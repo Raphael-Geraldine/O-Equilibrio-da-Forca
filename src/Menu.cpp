@@ -1,6 +1,6 @@
 #define MENUINICIALPNG "../assets/images/MenuInicial.png"
 #define RANKPNG "../assets/images/Ranking.png"
-#define HOWPNG "../assets/images/ComoJogarDEMO.png"
+#define HOWPNG "../assets/images/ComoJogar.png"
 #define ANAKINPNG "../assets/images/Anakin.png"
 #define NOME1JOG "../assets/images/EnterNameP1.png"
 #define NOME2JOG "../assets/images/EnterNameP2.png"
