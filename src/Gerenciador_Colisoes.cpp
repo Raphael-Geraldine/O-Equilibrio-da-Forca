@@ -198,7 +198,14 @@ void Gerenciador_Colisoes::tratarColisaoInimObstaculo(Inimigo* pInim, Obstaculo*
     if (pInim == nullptr || pObs == nullptr)
         return;
 
+    sf::Vector2f velAntes = pInim->getVelocidade();
+
     pObs->obstaculizarInim(pInim);
+
+    K_2SO* pK2 = dynamic_cast<K_2SO*>(pInim);
+
+    if (pK2 != nullptr && velAntes.y > 0.0f && personagemSobreObstaculo(pK2, pObs))
+        pK2->ativarImpacto();
 }
 
 void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
@@ -246,7 +253,14 @@ void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
         float chaoCima = pChao->getPosition().y;
 
         if (abs(personagemBaixo - chaoCima) < 2.0f)
+        {
             pP->setNoChao(true);
+
+            K_2SO* pK2 = dynamic_cast<K_2SO*>(pP);
+
+            if (pK2 != nullptr && vel.y > 0.0f)
+                pK2->ativarImpacto();
+        }
 
         else
             pP->setNoChao(false);
@@ -356,6 +370,8 @@ void Gerenciador_Colisoes::executar()
     tratarColisoesJogsObstaculos();
     tratarColisoesInimObstaculos();
 
+    verificarImpactoK2SO();
+
     tratarColisoesJogsInimigos();
     tratarColisoesJogsProjeteis();
 }
@@ -449,4 +465,158 @@ void Gerenciador_Colisoes::removerInimigo(Inimigo* pI)
             return;
         }
     }
+}
+
+void Gerenciador_Colisoes::verificarImpactoK2SO()
+{
+    int tamanhoInim = static_cast<int>(LIs.size());
+
+    for (int i = 0; i < tamanhoInim; i++)
+    {
+        if (LIs[i] == nullptr)
+            continue;
+
+        Inimigo* pInim = LIs[i];
+        
+        K_2SO* pK2 = dynamic_cast<K_2SO*>(pInim);
+
+        if (pK2 == nullptr)
+            continue;
+
+        if (!pK2->getImpactoAtivo())
+            continue;
+
+        bool aplicouEmPlataforma = false;
+        bool impactoReconhecido = false;
+
+        std::list<Obstaculo*>::iterator it;
+        
+        for (it = LOs.begin(); it != LOs.end(); ++it)
+        {
+            Obstaculo* pObs = *it;
+
+            if (pObs == nullptr)
+                continue;
+
+            if (personagemSobreObstaculo(pK2, pObs))
+            {
+                aplicarImpactoK2EmPlataforma(pK2, pObs);
+                aplicouEmPlataforma = true;
+                impactoReconhecido = true;
+                break;
+            }
+        }
+
+        if (!aplicouEmPlataforma && personagemSobreChao(pK2))
+        {
+            if (jogadorNoImpactoChaoK2(pJog1, pK2))
+                pJog1->sofrerAtaque(pK2->getDanoImpacto());
+
+            if (jogadorNoImpactoChaoK2(pJog2, pK2))
+                pJog2->sofrerAtaque(pK2->getDanoImpacto());
+        }
+
+        if (impactoReconhecido)
+            pK2->consumirImpacto();
+    }
+}
+
+bool Gerenciador_Colisoes::personagemSobreObstaculo (Personagem* pP, Obstaculo* pObs)
+{
+    if (pP == nullptr || pObs == nullptr)
+        return false;
+
+    sf::FloatRect pBounds = pP->getBounds();
+    sf::FloatRect oBounds = pObs->getBounds();
+
+    float baixoPersonagem = pBounds.top + pBounds.height;
+    float topoObstaculo = oBounds.top;
+
+    bool emIntervaloObs = 
+        pBounds.left + pBounds.width > oBounds.left &&
+        pBounds.left < oBounds.left + oBounds.width;
+
+    bool pertoDoTopo =
+        baixoPersonagem >= topoObstaculo - 5.0f &&
+        baixoPersonagem <= topoObstaculo + 10.0f;
+        
+    return (emIntervaloObs && pertoDoTopo);   
+}
+
+void Gerenciador_Colisoes::aplicarImpactoK2EmPlataforma(K_2SO* pK2, Obstaculo* pObs)
+{
+    if (pK2 == nullptr || pObs == nullptr)
+        return;
+
+    if (personagemSobreObstaculo(pJog1, pObs))
+        pJog1->sofrerAtaque(pK2->getDanoImpacto());
+
+    if (personagemSobreObstaculo(pJog2, pObs))
+        pJog2->sofrerAtaque(pK2->getDanoImpacto());
+}
+
+bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2 (Jogador* pJog, K_2SO* pK2)
+{
+    if (pJog == nullptr || pK2 == nullptr)
+        return false;
+
+    if (!personagemSobreChao(pJog))
+        return false;
+
+    float dx = pJog->getX() - pK2->getX();
+
+    if (dx < 0.0f)
+        dx = -dx;
+
+    return dx <= pK2->getRaioImpacto();
+}
+
+/*
+bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2(Jogador* pJog, K_2SO* pK2)
+{
+    if (pJog == nullptr || pK2 == nullptr)
+        return false;
+
+    if (!pJog->getNoChao())
+        return false;
+
+    sf::FloatRect boundsJog = pJog->getBounds();
+    float centroJogX = boundsJog.left + boundsJog.width / 2.0f;
+    float centroJogY = boundsJog.top + boundsJog.height / 2.0f;
+
+
+    sf::FloatRect boundsK2 = pK2->getBounds();
+    float centroK2X = boundsK2.left + boundsK2.width / 2.0f;
+    float centroK2Y = boundsK2.top + boundsK2.height / 2.0f;
+
+    float dx = centroJogX - centroK2X;
+    float dy = centroJogY - centroK2Y;
+
+    float distanciaQuadrada = dx * dx + dy * dy;
+    float raio = pK2->getRaioImpacto();
+
+    return distanciaQuadrada <= raio * raio; // Para evitar usar sqrt.
+}               
+*/
+
+bool Gerenciador_Colisoes::personagemSobreChao(Personagem* pP)
+{
+    if (pP == nullptr || pChao == nullptr)
+        return false;
+
+    sf::FloatRect pBounds = pP->getBounds();
+    sf::FloatRect chaoBounds = pChao->getGlobalBounds();
+
+    float baixoPersonagem = pBounds.top + pBounds.height;
+    float topoChao = chaoBounds.top;
+
+    bool emIntervaloChao =
+        pBounds.left + pBounds.width > chaoBounds.left &&
+        pBounds.left < chaoBounds.left + chaoBounds.width;
+
+    bool pertoDoTopo =
+        baixoPersonagem >= topoChao - 5.0f &&
+        baixoPersonagem <= topoChao + 10.0f;
+
+    return emIntervaloChao && pertoDoTopo;
 }

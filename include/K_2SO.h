@@ -16,6 +16,9 @@ namespace OEquilibrioDaForca
             class K_2SO : public Inimigo
             {
                 private:
+                    float raioImpacto;
+                    bool impactoAplicado;
+
                     float altura;
                     sf::Sprite k2Skin;
                     sf::Texture* pTexturaK2;
@@ -23,11 +26,19 @@ namespace OEquilibrioDaForca
 
                     // Salto e pouso pesado.
                     sf::Clock clockSalto;
+                    sf::Clock clockImpacto;
+                    sf::Clock maldadeClock;
                     float cooldownSalto;
                     float impulsaoSalto;
+                    bool estavaNoAr;
+                    bool impactoAtivo;
+                    float duracaoImpacto;
 
                 private:
+                    // Salto e pouso pesado.
                     void tentarPular();
+                    void verificarImpacto();
+                    void atualizarMaldade();
 
                 public:
                     K_2SO ();
@@ -37,6 +48,11 @@ namespace OEquilibrioDaForca
                     void sofrerAtaque(int dano);
                     void executar();
                     void danificar(Jogador* p);
+                    bool getImpactoAtivo() const;
+                    float getRaioImpacto() const;
+                    int getDanoImpacto() const;
+                    void consumirImpacto();
+
                     sf::Sprite getDrawData() const;
                     sf::FloatRect getBounds() const;
 
@@ -44,6 +60,8 @@ namespace OEquilibrioDaForca
                     void operator++(); //aumentar o dano com pouca vida
                     void atualizarPosicaoSprite();
                     void salvar();
+                    void ativarImpacto();
+                    void atualizarImpacto();
             };
         }
     }

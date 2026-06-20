@@ -8,6 +8,7 @@
 #include "../include/Obstaculo.h"
 #include "../include/Plataforma.h"
 #include "../include/Lista.h"
+#include "../include/K_2SO.h"
 
 #include <vector>
 #include <list>
@@ -72,7 +73,11 @@ namespace OEquilibrioDaForca
                                                Entidades::Projetil* pProj);
 
                 void tratarColisaoPersonagemChao(Entidades::Personagens::Personagem* pP);
-                
+                void verificarImpactoK2SO();
+                bool personagemSobreObstaculo(Entidades::Personagens::Personagem* pP, Entidades::Obstaculos::Obstaculo* pObs);
+                bool jogadorNoImpactoChaoK2(Entidades::Personagens::Jogador* pJog, Entidades::Personagens::K_2SO* pK2);
+                void aplicarImpactoK2EmPlataforma(Entidades::Personagens::K_2SO* pK2, Entidades::Obstaculos::Obstaculo* pObs);
+                bool personagemSobreChao(Entidades::Personagens::Personagem* pP);
 
             public:
                 Gerenciador_Colisoes();
@@ -81,7 +86,7 @@ namespace OEquilibrioDaForca
                  
                 void incluirInimigo(Entidades::Personagens::Inimigo* pI);
                 void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
-                void incluirProjetil(Projetil* pJ);
+                void incluirProjetil(Entidades::Projetil* pJ);
                 void incluirChao(sf::RectangleShape* pC);
 
                 void setJog1 (Entidades::Personagens::Jogador* pJ1);
@@ -89,7 +94,7 @@ namespace OEquilibrioDaForca
                 
                 void removerInimigo(Entidades::Personagens::Inimigo* pI);
                 void executar();
-                void caracterOutOfBounds(Entidades::Entidade* pE);                
+                void caracterOutOfBounds(Entidades::Entidade* pE);  
         };
     }
 }
