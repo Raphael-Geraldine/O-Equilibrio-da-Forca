@@ -21,11 +21,16 @@ using namespace Gerenciadores;
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
+short int Stormtrooper::stromVivos(0);
+
 Stormtrooper::Stormtrooper(): 
     Inimigo(),
     altura(1),
+    medo(false),
     directionMove(true)
 {
+    stromVivos++;
+
     num_vidas = (rand()%5)+1;
     nivel_maldade = 4;
 
@@ -53,8 +58,11 @@ Stormtrooper::Stormtrooper():
 Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVidas, int nivelMal): 
     Inimigo(),
     altura(1),
+    medo(false),
     directionMove(true)
 {
+    stromVivos++;
+
     num_vidas = numVidas;
     nivel_maldade = nivelMal;
 
@@ -83,6 +91,7 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
 
 Stormtrooper::~Stormtrooper()
 {
+    stromVivos--;
     num_vidas=-1;
 }
 void Stormtrooper::executar()
@@ -91,6 +100,9 @@ void Stormtrooper::executar()
 
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
+
+    if(stromVivos<3)
+        medo=true;
 
     int chance = rand()%10;
 
@@ -108,12 +120,22 @@ void Stormtrooper::executar()
         aleatMov.restart();
     }
 
-    if (y + (getBounds().height/2.0f) > 700)
+    if(medo)
     {
         if (directionMove)
-            velocidade.x = 100.0f;
+            velocidade.x = 400.0f;
         else
-            velocidade.x = -100.0f;   
+            velocidade.x = -400.0f; 
+    }
+    else
+    {
+        if (y + (getBounds().height/2.0f) > 700)
+        {
+            if (directionMove)
+                velocidade.x = 100.0f;
+            else
+                velocidade.x = -100.0f;  
+        }
     }
     
     aplicarFisica();
@@ -133,7 +155,10 @@ void Stormtrooper::danificar(Jogador* p)
     int chance = rand()%10; 
     if (num_vidas && chance>3)
     {
-        p->sofrerAtaque(nivel_maldade/4);
+        if(medo)
+            p->sofrerAtaque(nivel_maldade/2);
+        else
+            p->sofrerAtaque(nivel_maldade/4);
     }
 }
 void Stormtrooper::mover()

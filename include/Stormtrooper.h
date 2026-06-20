@@ -20,6 +20,9 @@ namespace OEquilibrioDaForca
                     sf::Sprite stormSkin;
                     bool directionMove;
 
+                    static short int stromVivos; 
+                    bool medo;
+
                 public:
                     Stormtrooper ();
                     Stormtrooper (float sx, float sy, float velx, float vely, int numVidas, int nivelMal);

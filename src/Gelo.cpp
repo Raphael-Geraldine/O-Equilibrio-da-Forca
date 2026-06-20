@@ -33,7 +33,7 @@ Gelo::Gelo():
     nGelo(cont++)
 {
     danoso=true;
-    noChao = true;
+    emSuperficie = true;
     geloSkin.setScale(0.20,0.20);
 
     sf::Texture* pTexturaGelo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(GELOPNG);

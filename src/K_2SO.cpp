@@ -188,7 +188,7 @@ void K_2SO::sofrerAtaque(int dano)
 
 void K_2SO::tentarPular()
 {
-    if (!getNoChao())
+    if (!getEmSuperficie())
         return;
 
     if (clockSalto.getElapsedTime().asSeconds() < cooldownSalto)

@@ -15,7 +15,7 @@ namespace OEquilibrioDaForca
             protected: //deve ser protected e ter get!!! está assim para testar
                 float x;
                 float y;
-                bool noChao;
+                bool emSuperficie;
                 bool derivadoThread;
                 bool semaforoAberto;
                 float dt;

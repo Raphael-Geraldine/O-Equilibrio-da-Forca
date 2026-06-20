@@ -12,7 +12,7 @@ const float Entidade::pixelsPorMetro (50.0f);
 const float Entidade::gravidadeReal (9.8f);
 const float Entidade::gravidade (gravidadeReal * pixelsPorMetro);
 
-Entidade::Entidade(): Ente(), buffer(nullptr), x(0), y(0), velocidade(0.0f, 0.0f), dt(1.0f/ 60.0f), derivadoThread(false), semaforoAberto(false),noChao(false)
+Entidade::Entidade(): Ente(), buffer(nullptr), x(0), y(0), velocidade(0.0f, 0.0f), dt(1.0f/ 60.0f), derivadoThread(false), semaforoAberto(false),emSuperficie(false)
 {}
 
 Entidade::~Entidade()
@@ -32,7 +32,7 @@ void Entidade::gravitar()
 {
     // v = v0 + gt;
     // y > 0 para baixo.
-    if (!noChao)
+    if (!emSuperficie)
         velocidade.y += gravidade * dt;
 }
 

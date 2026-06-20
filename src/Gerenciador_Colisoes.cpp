@@ -246,10 +246,10 @@ void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
         float chaoCima = pChao->getPosition().y;
 
         if (abs(personagemBaixo - chaoCima) < 2.0f)
-            pP->setNoChao(true);
+            pP->setEmSuperficie(true);
 
         else
-            pP->setNoChao(false);
+            pP->setEmSuperficie(false);
 
         pP->atualizarPosicaoSprite();
     }
@@ -324,13 +324,13 @@ void Gerenciador_Colisoes::executar()
 
     if (pJog1 != nullptr)
     {
-        pJog1->setNoChao(false);
+        pJog1->setEmSuperficie(false);
         caracterOutOfBounds(pJog1);
     }
 
     if (pJog2 != nullptr)
     {
-        pJog2->setNoChao(false);
+        pJog2->setEmSuperficie(false);
         caracterOutOfBounds(pJog2);
     }
     
@@ -345,7 +345,7 @@ void Gerenciador_Colisoes::executar()
 
         if (pInim != nullptr) 
         {
-            pInim->setNoChao(false);
+            pInim->setEmSuperficie(false);
             caracterOutOfBounds(pInim);
         }
     }
@@ -405,7 +405,7 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
                     novaVelY = 60.0f;
 
                 pJog->setVelocidadeY(novaVelY);
-                pJog->setNoChao(false);
+                pJog->setEmSuperficie(false);
             }
         }
     }
