@@ -316,10 +316,7 @@ void* AT_ST::run()
     }
 
     if((!(pProj->getAtivo())) && clockTiro.getElapsedTime().asSeconds()>=6.0f)
-    {
         atirar();
-        operator++();
-    }
 
     aplicarFisica();
     mover();
