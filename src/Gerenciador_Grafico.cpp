@@ -186,7 +186,7 @@ void Gerenciador_Grafico::desenharTextoMenu (vector<sf::Text>& textOptions)
 
         janela.draw(textOptions[i]); // Após ajuste de cores.
     }
-}
+} 
 
 void Gerenciador_Grafico::desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome)
 {
