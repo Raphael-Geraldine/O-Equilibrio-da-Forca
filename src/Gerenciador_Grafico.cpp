@@ -89,6 +89,10 @@ void Gerenciador_Grafico::desenharEnte (Ente* pE)
     //janela.draw(spriteEntidade);
     //desenharOrigem(janela, spriteEntidade);
     pE->desenhar();
+
+    Inimigo* pI = dynamic_cast<Inimigo*>(pE);
+    if (pI != nullptr)
+        janela.draw(pI->getBarraVida());
 }
 
 void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 

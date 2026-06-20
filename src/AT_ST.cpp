@@ -37,7 +37,9 @@ AT_ST::AT_ST():
 {
     derivadoThread=true;
     
-    num_vidas = (rand()%10)+10;
+    //num_vidas = (rand()%10)+10;
+    num_vidas = 20;
+    vidaMax = num_vidas;
     nivel_maldade = 15;
 
     x = (rand()%1100)+100;
@@ -70,6 +72,7 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     derivadoThread=true;
     
     num_vidas = numVidas;
+    vidaMax = 20;
     nivel_maldade = nivelMal;
 
     x = sx;
@@ -90,6 +93,7 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
 
     atSkin.setScale(altura*0.15,altura*0.15);
     atualizarPosicaoSprite();
+    atualizarBarraVida();
 }
 
 AT_ST::~AT_ST()
@@ -188,6 +192,7 @@ void AT_ST::atualizarPosicaoSprite()
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
     atSkin.setPosition(x,y);
+    atualizarPosicaoBarra();
 }
 
 sf::Vector2f AT_ST::calcularPontoAtirador() const
@@ -284,6 +289,8 @@ void* AT_ST::run()
 {
     lock();
     
+    atualizarBarraVida();
+
     salvarPosicaoAnterior();
     
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());

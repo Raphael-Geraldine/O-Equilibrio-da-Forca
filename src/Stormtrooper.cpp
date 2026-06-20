@@ -31,7 +31,9 @@ Stormtrooper::Stormtrooper():
 {
     stromVivos++;
 
-    num_vidas = (rand()%5)+1;
+    //num_vidas = (rand()%5)+1;
+    num_vidas = 5;
+    vidaMax = num_vidas;
     nivel_maldade = 4;
 
     x = (rand()%1100)+100;
@@ -64,6 +66,7 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
     stromVivos++;
 
     num_vidas = numVidas;
+    vidaMax = 5;
     nivel_maldade = nivelMal;
 
     x = sx;
@@ -87,6 +90,7 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
 
     stormSkin.setScale(altura*0.12,altura*0.12);
     atualizarPosicaoSprite();
+    atualizarBarraVida();
 }
 
 Stormtrooper::~Stormtrooper()
@@ -96,6 +100,8 @@ Stormtrooper::~Stormtrooper()
 }
 void Stormtrooper::executar()
 {
+    atualizarBarraVida();
+    
     salvarPosicaoAnterior();
 
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
@@ -183,4 +189,5 @@ void Stormtrooper::atualizarPosicaoSprite()
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
     stormSkin.setPosition(x,y);
+    atualizarPosicaoBarra();
 }

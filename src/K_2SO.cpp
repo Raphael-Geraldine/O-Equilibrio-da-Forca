@@ -36,7 +36,9 @@ K_2SO::K_2SO():
 {
     directionMove = true;
 
-    num_vidas = (rand() % 6) + 5; // 5 a 10 vidas
+    //num_vidas = (rand() % 6) + 5; // 5 a 10 vidas
+    num_vidas = 10;
+    vidaMax = num_vidas;
     nivel_maldade = 9;
 
     x = (rand() % 1101) + 100; // x: 100 a 1100 
@@ -71,6 +73,7 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
     directionMove = true;
 
     num_vidas = numVidas;
+    vidaMax = 10;
     nivel_maldade = nivelMal;
 
     x = sx;
@@ -94,6 +97,7 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
 
     k2Skin.setScale(altura*0.15f, altura*0.15f);
     atualizarPosicaoSprite();
+    atualizarBarraVida();
 }
 
 K_2SO::~K_2SO()
@@ -113,6 +117,8 @@ void K_2SO::ativarImpacto()
 
 void K_2SO::executar()
 {
+    atualizarBarraVida();
+
     salvarPosicaoAnterior();
     
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
@@ -237,6 +243,7 @@ void K_2SO::atualizarPosicaoSprite()
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
     k2Skin.setPosition(x,y);
+    atualizarPosicaoBarra();
 }
 
 void K_2SO::sofrerAtaque(int dano)

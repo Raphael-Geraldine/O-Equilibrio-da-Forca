@@ -21,6 +21,13 @@ namespace OEquilibrioDaForca
                     sf::Clock aleatMov;
                     bool directionMove; //1 direita, 0 esquerda
 
+                    int vidaMax;
+                    sf::Texture* pVida100;
+                    sf::Texture* pVida75;
+                    sf::Texture* pVida50;
+                    sf::Texture* pVida25;
+                    sf::Sprite barraVida;
+
                 public:
                     Inimigo();
                     ~Inimigo();
@@ -28,6 +35,9 @@ namespace OEquilibrioDaForca
                     void tentarDanificar(Jogador* pJ);
                     virtual void sofrerAtaque(int dano);
                     virtual void danificar(Jogador* pJ);
+                    sf::Sprite getBarraVida() const;
+                    void atualizarPosicaoBarra();
+                    void atualizarBarraVida();
                     virtual sf::Sprite getDrawData() const = 0;
                     virtual sf::FloatRect getBounds() const = 0;
                     
