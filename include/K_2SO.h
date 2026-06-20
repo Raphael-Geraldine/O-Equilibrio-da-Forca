@@ -23,6 +23,7 @@ namespace OEquilibrioDaForca
                     sf::Sprite k2Skin;
                     sf::Texture* pTexturaK2;
                     sf::Texture* pTexturaDanoK2;
+                    sf::Texture* pTexturaPoeiraK2;
 
                     // Salto e pouso pesado.
                     sf::Clock clockSalto;
@@ -30,7 +31,7 @@ namespace OEquilibrioDaForca
                     sf::Clock maldadeClock;
                     float cooldownSalto;
                     float impulsaoSalto;
-                    bool estavaNoAr;
+                    //bool estavaNoAr; não é usado pra nada
                     bool impactoAtivo;
                     float duracaoImpacto;
 

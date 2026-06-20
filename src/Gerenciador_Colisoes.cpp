@@ -514,6 +514,8 @@ void Gerenciador_Colisoes::verificarImpactoK2SO()
 
             if (jogadorNoImpactoChaoK2(pJog2, pK2))
                 pJog2->sofrerAtaque(pK2->getDanoImpacto());
+
+            impactoReconhecido=true;
         }
 
         if (impactoReconhecido)

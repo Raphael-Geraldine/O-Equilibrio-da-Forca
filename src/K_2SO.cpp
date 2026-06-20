@@ -1,5 +1,6 @@
 #define K2PNG "../assets/images/K-2SO.png"
 #define K2DANOPNG "../assets/images/K-2SODamage.png"
+#define K2DUSTPNG "../assets/images/K-2SODust.png"
 
 #include <iostream>
 using std::cout;
@@ -28,7 +29,6 @@ K_2SO::K_2SO():
     altura(1),
     cooldownSalto(3.0f),
     impulsaoSalto(320.0f),
-    estavaNoAr(false),
     impactoAtivo(false),
     duracaoImpacto(0.35f),
     raioImpacto(220.0f),
@@ -44,8 +44,9 @@ K_2SO::K_2SO():
 
     pTexturaK2 = pGG->carregarTextura(K2PNG);
     pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
+    pTexturaPoeiraK2 = pGG->carregarTextura(K2DUSTPNG);
 
-    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr)
+    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr || pTexturaPoeiraK2 == nullptr)
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
     else
         k2Skin.setTexture(*pTexturaK2); 
@@ -62,7 +63,6 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
     altura(1),
     cooldownSalto(3.0f),
     impulsaoSalto(320.0f),
-    estavaNoAr(false),
     impactoAtivo(false),
     duracaoImpacto(0.35f),
     raioImpacto(220.0f),
@@ -81,8 +81,9 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
 
     pTexturaK2 = pGG->carregarTextura(K2PNG);
     pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
+    pTexturaPoeiraK2 = pGG->carregarTextura(K2DUSTPNG);
 
-    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr)
+    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr || pTexturaPoeiraK2 == nullptr)
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
 
     else
@@ -120,8 +121,12 @@ void K_2SO::executar()
 
     velocidade.x = 0.0f;
 
-    if ((k2Skin.getTexture() == pTexturaDanoK2) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
+    if (((k2Skin.getTexture() == pTexturaDanoK2) && (textureClock.getElapsedTime().asMilliseconds() >= 150)) 
+        || 
+        ((k2Skin.getTexture() == pTexturaPoeiraK2) && (clockImpacto.getElapsedTime().asSeconds() >= 0.25f)))
+    {
         k2Skin.setTexture(*pTexturaK2);
+    }
 
     int chance = rand() % 10;
 
@@ -252,10 +257,10 @@ void K_2SO::tentarPular()
     if (clockSalto.getElapsedTime().asSeconds() < cooldownSalto)
         return;
 
-    velocidade.y = - impulsaoSalto;
-    setNoChao(false);
+    velocidade.y = -impulsaoSalto;
+    setEmSuperficie(false);
 
-    estavaNoAr = true;
+    //estavaNoAr = true; não é usado pra nada, nas construtors tinha um estavaNoAr(false)
     impactoAplicado = false;
     
     clockSalto.restart();
@@ -289,7 +294,7 @@ void K_2SO::atualizarMaldade()
     if (num_vidas <= 2)
     {
         cooldownSalto = 1.8f;
-        impulsaoSalto = 620.0f;
+        //impulsaoSalto = 620.0f;
         
         if (nivel_maldade < 15)
             nivel_maldade = 15;
@@ -307,7 +312,7 @@ void K_2SO::atualizarMaldade()
             nivel_maldade = 12;
         
         cooldownSalto = 2.4f;
-        impulsaoSalto = 560.0f;
+        //impulsaoSalto = 560.0f;
         
         if (maldadeClock.getElapsedTime().asSeconds() >= 3.0f)
         {
@@ -332,7 +337,7 @@ float K_2SO::getRaioImpacto() const
 
 int K_2SO::getDanoImpacto() const
 {
-    return nivel_maldade;
+    return nivel_maldade/4;
 }
 
 // Impedir que o dano aconteça mais vezes no mesmo pouso.
@@ -340,8 +345,10 @@ void K_2SO::consumirImpacto()
 {
     impactoAplicado = true;
     impactoAtivo = false;
-}
 
+    if(clockSalto.getElapsedTime().asMilliseconds()>100)
+        k2Skin.setTexture(*pTexturaPoeiraK2);
+}
 
 void K_2SO::atualizarImpacto()
 {
