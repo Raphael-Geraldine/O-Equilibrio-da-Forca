@@ -100,7 +100,7 @@ namespace OEquilibrioDaForca
                 ~Gerenciador_Grafico();
                 static Gerenciador_Grafico* getGerenciadorGrafico(); // static Singleton* _instance;
                 sf::RenderWindow* getJanela();
-                void desenharEnte (const Ente* pE);
+                void desenharEnte (Ente* pE);
                 void desenharTextoMenu (vector<sf::Text>& text);
                 void desenharMenu (Menu* pM, vector<sf::Text>& text);
                 void desenharRank(sf::RenderWindow& janela, const vector<string>& linhasRank, sf::Sprite& fundo);

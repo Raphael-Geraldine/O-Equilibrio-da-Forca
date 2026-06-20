@@ -77,7 +77,7 @@ Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 
     return pGrafico;
 }
-void Gerenciador_Grafico::desenharEnte (const Ente* pE)
+void Gerenciador_Grafico::desenharEnte (Ente* pE)
 {
     if (pE == NULL)
     {
@@ -85,9 +85,10 @@ void Gerenciador_Grafico::desenharEnte (const Ente* pE)
         return;
     }
 
-    sf::Sprite spriteEntidade = pE->getDrawData();
-    janela.draw(spriteEntidade);
+    //sf::Sprite spriteEntidade = pE->getDrawData();
+    //janela.draw(spriteEntidade);
     //desenharOrigem(janela, spriteEntidade);
+    pE->desenhar();
 }
 
 void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
@@ -98,7 +99,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
         return;
     }
 
-    janela.draw(pF->getDrawData());
+    pF->desenhar();
     janela.draw(pF->getChao());
     
     const Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
@@ -159,7 +160,7 @@ void Gerenciador_Grafico::posicionarEnte (Ente* pE)
 void Gerenciador_Grafico::desenharMenu (Menu* pM, vector<sf::Text>& text)
 {
     janela.draw(pM->getFundo());
-    janela.draw(pM->getDrawData());
+    pM->desenhar();
 
     desenharTextoMenu(text);
         
@@ -185,7 +186,7 @@ void Gerenciador_Grafico::desenharTextoMenu (vector<sf::Text>& textOptions)
 
         janela.draw(textOptions[i]); // Após ajuste de cores.
     }
-}
+} 
 
 void Gerenciador_Grafico::desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome)
 {

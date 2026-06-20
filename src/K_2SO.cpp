@@ -246,7 +246,7 @@ void K_2SO::tentarPular()
     if (impactoAtivo)
         return;
 
-    if (!getNoChao())
+    if (!getEmSuperficie())
         return;
 
     if (clockSalto.getElapsedTime().asSeconds() < cooldownSalto)

@@ -150,9 +150,9 @@ void Plataforma::obstaculizar(Jogador* pJog)
         float platTop = this->getY()-(obsBounds.height/2.0f);
 
         if (abs(jogBottom-platTop) < 2.0f)
-            pJog->setNoChao(true);
+            pJog->setEmSuperficie(true);
         else
-            pJog->setNoChao(false);
+            pJog->setEmSuperficie(false);
 
         /*
         if (novaVelY < 0.0f)
@@ -258,7 +258,7 @@ void Plataforma::fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, con
     if (centroPersonagem < centroPlataforma)
         direcao = -1.0f;
 
-    pP->setNoChao(false);
+    pP->setEmSuperficie(false);
 
     // Empurra o personagem para fora da plataforma.
     pP->setX(pP->getX() + direcao * deslocamentoEscorrega);
@@ -334,9 +334,9 @@ void Plataforma::obstaculizarInim(Inimigo* pInim)
         float platTop = this->getY()-(obsBounds.height/2.0f);
 
         if (abs(inimBottom-platTop) < 2.0f)
-            pInim->setNoChao(true);
+            pInim->setEmSuperficie(true);
         else
-            pInim->setNoChao(false);
+            pInim->setEmSuperficie(false);
     }
 
     // Veio de baixo, antes estava abaixo da plataforma:

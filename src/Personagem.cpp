@@ -53,14 +53,14 @@ int Personagem::getVida()
     return num_vidas;
 }
 
-void Personagem::setNoChao(const bool emChao)
+void Personagem::setEmSuperficie(const bool naSuperficie)
 {
-    noChao = emChao;
+    emSuperficie = naSuperficie;
 }
 
-bool Personagem::getNoChao() const 
+bool Personagem::getEmSuperficie() const 
 {
-    return noChao;
+    return emSuperficie;
 }
 
 void Personagem::salvarPosicaoAnterior()
@@ -80,17 +80,17 @@ void Personagem::pular()
 
     if (y + (getBounds().height/2.0f) > 705)
         plataformaFixa = true;
-    if (noChao) 
+    if (emSuperficie) 
     {
         if (plataformaFixa)
         {
             velocidade.y = velocidadePulo-110; // negativo aumenta em y
-            noChao = false;
+            emSuperficie = false;
         }
         else
         {
             velocidade.y = velocidadePulo;
-            noChao = false;
+            emSuperficie = false;
         }
     }
 }

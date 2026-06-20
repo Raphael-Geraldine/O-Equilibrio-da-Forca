@@ -236,11 +236,22 @@ void AT_ST::atirar()
 {
     Jogador* lockAlvo;
 
-    if (alvo2 != nullptr && rand()%2)
-        lockAlvo = alvo2;
-
-    else
+    if (alvo2 == nullptr)
         lockAlvo = alvo1;
+    else
+    {
+        if(alvo1->getVida()<=0)
+            lockAlvo = alvo2;
+        else if (alvo2->getVida()<=0)
+            lockAlvo = alvo1;
+        else
+        {
+            if(rand()%2)
+                lockAlvo = alvo1;
+            else
+                lockAlvo = alvo2;
+        }
+    }
 
     //cout<<"atirando"<<endl;
     pProj->perseguir(lockAlvo);

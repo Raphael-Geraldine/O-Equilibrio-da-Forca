@@ -33,7 +33,7 @@ Lava::Lava():
     nLava(cont++)
 {
     danoso=true;
-    noChao = true;
+    emSuperficie = true;
     lavaSkin.setScale(0.20,0.20);
 
     sf::Texture* pTexturaLava = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(LAVAPNG);
@@ -90,7 +90,7 @@ void Lava::obstaculizar (Jogador* pJog)
     else
     {
         pJog->setY(710-(playerBounds.height/1.9f));
-        pJog->setNoChao(true);
+        pJog->setEmSuperficie(true);
     }
     
     //danificar

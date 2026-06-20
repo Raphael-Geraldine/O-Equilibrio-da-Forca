@@ -21,7 +21,9 @@ OEquilibrioDaForca::Ente::~Ente()
 
 void OEquilibrioDaForca::Ente::desenhar()
 {
-    cout << id << endl;
+    sf::RenderWindow* janela = pGG->getJanela();
+
+    janela->draw(getDrawData());
 }
 
 void OEquilibrioDaForca::Ente::staticSetGG(

@@ -339,9 +339,9 @@ void Jogo::atualizarFase()
     //cout<<pFase->numJogsVivos()<<endl;
     if (!(pFase->getInimVivos()) && pFase->numJogsVivos()) //ou seja, quando derrotar todos inimigos
     {
-        Mustafar* pMustafar = dynamic_cast<Mustafar*>(pFase);
+        //Mustafar* pMustafar = dynamic_cast<Mustafar*>(pFase);
 
-        if (pMustafar != nullptr)
+        if (!(pMenu->getFaseEscolhida()))
         {
             delete pFase;
             pFase = new Hoth(pAnakin1, pObi1);

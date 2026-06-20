@@ -211,8 +211,9 @@ void Jogador::colidirInimigo(Inimigo* pIn)
                 if (pIn->getVida() <= 0)
                     pontos++;
                 clockAtaque.restart();
-                y-=10; //recuo pós ataque, arrumar a física aqui tbm
-                x-=20;
+                //recuo pós ataque, arrumar a física aqui tbm
+                //y-=10; 
+                //x-=20;
             }
         }
         else
@@ -223,8 +224,9 @@ void Jogador::colidirInimigo(Inimigo* pIn)
                 if (pIn->getVida() <= 0)
                     pontos++;
                 clockAtaque.restart();
-                y-=10; //recuo pós ataque, arrumar a física aqui tbm
-                x-=20;
+                //recuo pós ataque, arrumar a física aqui tbm
+                //y-=10; 
+                //x-=20;
             }
         }
     }

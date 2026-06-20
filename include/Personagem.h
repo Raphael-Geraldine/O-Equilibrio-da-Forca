@@ -27,8 +27,8 @@ namespace OEquilibrioDaForca
                     Personagem();
                     ~Personagem();
                     
-                    void setNoChao(const bool emChao);
-                    bool getNoChao() const;
+                    void setEmSuperficie(const bool naSuperficie);
+                    bool getEmSuperficie() const;
                     void salvarPosicaoAnterior();
                     sf::Vector2f getPosicaoAnterior() const;
 
