@@ -343,8 +343,10 @@ void K_2SO::atualizarMaldade()
         }
     }
 
+    /*
     else
         return; // Na construtora.
+    */
 }
 
 bool K_2SO::getImpactoAtivo() const
