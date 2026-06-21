@@ -215,10 +215,7 @@ void Projetil::salvar()
 {
     Entidade::salvarDataBuffer();
     if (buffer != NULL)
-    {
         *buffer<<dano<<' '<<ativo<<' '<< "Projetil" <<'%';
-        // *buffer<<to_string(dano)<<' '<<to_string(ativo)<<' '<< "Projetil" <<'%';
-    }
 }
 
 // funçao vazia, necessita-se existir. Pois mover() é virtual void em entidade

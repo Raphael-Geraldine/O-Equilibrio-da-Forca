@@ -312,7 +312,6 @@ vector<string> Menu::getLinhasRank() const
         int pts = rank[i]->getPontos();
         ostringstream fluxo;
         fluxo << i + 1 << "o lugar: " << rank[i]->getNome() << " - " << pts;
-        // string jogador = to_string (i + 1) + "o lugar: " + rank[i]->getNome() + " - " + to_string(pts);
         if (pts == 1)
             fluxo << " ponto";
         else

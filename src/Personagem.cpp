@@ -28,10 +28,7 @@ void Personagem::salvarDataBuffer()
 {
     Entidade::salvarDataBuffer();
     if (buffer != NULL)
-    {
         *buffer<<num_vidas<<' ';
-        //*buffer<<to_string(num_vidas)<<' ';
-    }
 }
 
 int Personagem::getVida()

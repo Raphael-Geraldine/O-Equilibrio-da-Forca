@@ -158,7 +158,6 @@ void Gerenciador_Grafico::desenharSolicitar1Nome(sf::Event& event, const sf::Spr
         {
             if (!nome.empty())
                 nome.erase(nome.size() - 1);
-                //nome.pop_back();
         }
         else if ((event.text.unicode > 64 && event.text.unicode < 91 ||
                   event.text.unicode > 96 && event.text.unicode < 123)
@@ -257,7 +256,6 @@ void Gerenciador_Grafico::desenharVida(Jogador* pJ1, Jogador* pJ2)
         fluxoJ1 << pJ1->getVida();  // Transforma valor númerico em caracteres.
 
         string vida = "VIDA JOG1: " + fluxoJ1.str() + "%"; // Cópia do texto que está armazenado no fluxo, retorna como string.
-        // string vida = "VIDA JOG1: " + to_string(pJ1->getVida()) + "%";
         sf::Text textToDisplay(vida,fonteName,16);
         textToDisplay.setFillColor(sf::Color::Yellow);
         textToDisplay.setPosition(20,20);

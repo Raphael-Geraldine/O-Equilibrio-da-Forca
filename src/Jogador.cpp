@@ -161,10 +161,7 @@ void Jogador::salvar()
     Personagem::salvarDataBuffer();
 
     if (buffer != NULL)
-    {
         *buffer << nPlayer << ' ' << pontos << ' '<< "Jogador" <<'%';
-        // *buffer << to_string(nPlayer) << ' ' << to_string(pontos) << ' '<< "Jogador" <<'%';
-    } 
 }
 
 void Jogador::mover()
@@ -191,7 +188,6 @@ void Jogador::colidirInimigo(Inimigo* pIn)
 {
     if (getVida()>0)
     {
-        //cout<<cooldownAtaque<<endl;
         if (!nPlayer)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::F) && ((clockAtaque.getElapsedTime().asSeconds())>cooldownAtaque))

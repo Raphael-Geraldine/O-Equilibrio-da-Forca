@@ -39,10 +39,7 @@ void Entidade::gravitar()
 void Entidade::salvarDataBuffer()
 {
     if (buffer != NULL)
-    {
         *buffer<< x <<' '<< y <<' '<< velocidade.x <<' '<< velocidade.y <<' ';
-        //*buffer<<to_string(x)<<' '<<to_string(y)<<' '<<to_string(velocidade.x)<<' '<<to_string(velocidade.y)<<' ';
-    }
 }
 
 void Entidade::setBuffer(ostream* arquivo) 
