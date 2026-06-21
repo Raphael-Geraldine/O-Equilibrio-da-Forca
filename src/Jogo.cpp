@@ -33,13 +33,13 @@ using namespace std;
 
 Jogo::Jogo(): 
     pGG(Gerenciadores::Gerenciador_Grafico::getGerenciadorGrafico()), 
-    pGerEventos(nullptr),
-    pObsTeclado(nullptr),
-    pObsMenu(nullptr),
-    pMenu(nullptr), 
-    pFase(nullptr),
-    pAnakin1(nullptr),
-    pObi1(nullptr),
+    pGerEventos(NULL),
+    pObsTeclado(NULL),
+    pObsMenu(NULL),
+    pMenu(NULL), 
+    pFase(NULL),
+    pAnakin1(NULL),
+    pObi1(NULL),
     estadoAtual(Estado::Menu)
 {
     pGG = Gerenciador_Grafico::getGerenciadorGrafico();
@@ -70,48 +70,64 @@ Jogo::Jogo():
 OEquilibrioDaForca::Jogo::~Jogo()
 {
     delete (pMenu);
-    pMenu = nullptr;
+    pMenu = NULL;
 
-    if (pFase != nullptr) {
+    if (pFase != NULL) {
         delete (pFase);
-        pFase = nullptr;
+        pFase = NULL;
     }
 
-    if (pAnakin1 != nullptr) {
+    if (pAnakin1 != NULL) {
         delete (pAnakin1);
-        pAnakin1 = nullptr;
+        pAnakin1 = NULL;
     }
 
-    if (pObi1 != nullptr) {
+    if (pObi1 != NULL) {
         delete (pObi1);
-        pObi1 = nullptr;
+        pObi1 = NULL;
     }
 
-    if (pObsMenu != nullptr)
+    if (pObsMenu != NULL)
     {
         delete pObsMenu;
-        pObsMenu = nullptr;
+        pObsMenu = NULL;
     }
 
-    if (pObsTeclado != nullptr)
+    if (pObsTeclado != NULL)
     {
         delete pObsTeclado;
-        pObsTeclado = nullptr;
+        pObsTeclado = NULL;
     }
 
-    if (pGerEventos != nullptr) 
+    if (pGerEventos != NULL) 
     {
         delete pGerEventos;
-        pGerEventos = nullptr;
+        pGerEventos = NULL;
     }
 
     // Cuidado: Gerenciador_Grafico é singleton, não deleta aqui.
-    pGG = nullptr;
+    pGG = NULL;
 
     LEntidades.limpar();
 
     nomeJog1.clear();
     nomeJog2.clear();
+}
+
+int paraInt(const string& texto)
+{
+    stringstream fluxo(texto);
+    int valor = 0;
+    fluxo >> valor;
+    return valor;
+}
+
+float paraFloat(const string& texto)
+{
+    stringstream fluxo(texto);
+    float valor = 0.0f;
+    fluxo >> valor;
+    return valor;
 }
 
 void OEquilibrioDaForca::Jogo::executar()
@@ -229,7 +245,7 @@ void OEquilibrioDaForca::Jogo::executar()
             {
                 atualizarFase();
 
-                if (getFase() != nullptr)
+                if (getFase() != NULL)
                 {
                     /*
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
@@ -292,7 +308,7 @@ void Jogo::inicializarJogo()
     if (qntd != 1)
         pObi1 = new Jogador();
     else
-        pObi1 = nullptr;
+        pObi1 = NULL;
 
     if (!fase)
         pFase = new Mustafar(pAnakin1, pObi1);
@@ -303,28 +319,28 @@ void Jogo::inicializarJogo()
 
 void Jogo::limparFase()
 {
-    if (pFase == nullptr)
+    if (pFase == NULL)
         return;
 
     cout << "Retorno do jogador" << endl; //continuar caminho voltar menu
 
     delete pFase;
-    pFase = nullptr;
+    pFase = NULL;
 
     //estadoAtual=Estado::Menu;
 
-    if (pAnakin1 != nullptr)
+    if (pAnakin1 != NULL)
     {
         //pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
         delete (pAnakin1);
-        pAnakin1 = nullptr;
+        pAnakin1 = NULL;
     }
 
-    if (pObi1 != nullptr)
+    if (pObi1 != NULL)
     {
         //pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
         delete (pObi1);
-        pObi1 = nullptr;
+        pObi1 = NULL;
     }
 
     nomeJog1.clear();
@@ -333,7 +349,7 @@ void Jogo::limparFase()
 
 void Jogo::atualizarFase()
 {
-    if (pFase == nullptr)
+    if (pFase == NULL)
         return;
 
     //cout<<pFase->numJogsVivos()<<endl;
@@ -347,12 +363,12 @@ void Jogo::atualizarFase()
             pFase = new Hoth(pAnakin1, pObi1);
             pMenu->setFaseEscolhida(1,textOptions);
 
-            if (pAnakin1 != nullptr)
+            if (pAnakin1 != NULL)
             {
                 pAnakin1->setX(20);
                 pAnakin1->setY(570);
             }
-            if (pObi1 != nullptr)
+            if (pObi1 != NULL)
             {
                 pObi1->setX(100);
                 pObi1->setY(570);
@@ -363,22 +379,22 @@ void Jogo::atualizarFase()
             cout << "Cabou! Jogou bem!" << endl; //continuar caminho voltar menu
 
             delete pFase;
-            pFase = nullptr;
+            pFase = NULL;
 
             estadoAtual=Estado::Menu;
 
-            if (pAnakin1 != nullptr)
+            if (pAnakin1 != NULL)
             {
                 pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
                 delete (pAnakin1);
-                pAnakin1 = nullptr;
+                pAnakin1 = NULL;
             }
 
-            if (pObi1 != nullptr)
+            if (pObi1 != NULL)
             {
                 pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
                 delete (pObi1);
-                pObi1 = nullptr;
+                pObi1 = NULL;
             }
 
             nomeJog1.clear();
@@ -390,21 +406,21 @@ void Jogo::atualizarFase()
         cout << "Cabou! Todos jogadores derrotados" << endl; //continuar caminho voltar menu
         
         delete pFase;
-        pFase = nullptr;
+        pFase = NULL;
         estadoAtual=Estado::Menu;
         
-        if (pAnakin1 != nullptr)
+        if (pAnakin1 != NULL)
         {
             pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
             delete (pAnakin1);
-            pAnakin1 = nullptr;
+            pAnakin1 = NULL;
         }
 
-        if (pObi1 != nullptr)
+        if (pObi1 != NULL)
         {
             pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
             delete (pObi1);
-            pObi1 = nullptr;
+            pObi1 = NULL;
         }
 
         nomeJog1.clear();
@@ -458,7 +474,8 @@ void Jogo::salvar()
         string nome = pMenu->getNomeRank(i);
         int pontuacao = pMenu->getPontosRank(i);
 
-        data << nome << ' ' << to_string(pontuacao);
+        data << nome << ' ' << pontuacao;
+        // data << nome << ' ' << to_string(pontuacao);
 
         i++;
 
@@ -507,16 +524,18 @@ void Jogo::salvar()
         return;
     }
 
-//================== ESTADO E RANK ================================
+/* ESTADO E RANK */
 
     //short int plat = pFase->getPlatGeradas();
     //data<<to_string(plat)<<'%';
 
     int qntdJogsSave = pMenu->getJogsEscolhido();
 
-    data<<to_string(pMenu->getFaseEscolhida())<<' '<<to_string(qntdJogsSave)<<'%';
+    data<<pMenu->getFaseEscolhida()<<' '<<qntdJogsSave<<'%';
 
-//================== FASE E JOGADORES ================================
+    // data<<to_string(pMenu->getFaseEscolhida())<<' '<<to_string(qntdJogsSave)<<'%';
+
+/* FASE E JOGADORES */
 
     if(nomeJog1.empty())
         data<<'-';
@@ -531,13 +550,13 @@ void Jogo::salvar()
     }
     data<<'%';
 
-//================== NOMES JOGADORES ================================
+/* NOMES JOGADORES */
 
     ListaEntidades* allEnts = pFase->getListaEntidades();
 
     allEnts->salvar(&data);
 
-//================== ALL DATA ================================
+/* ALL DATA */
 
     data.close();
 }
@@ -569,7 +588,7 @@ void Jogo::carregarSaveMenu()
     {
         if(nome!= "-" && pts!="-")
         {
-            pMenu->salvarRank(stoi(pts),nome);
+            pMenu->salvarRank(paraInt(pts),nome);
         }
     }
 }
@@ -607,11 +626,11 @@ void Jogo::carregarSave()
     {
         if(d1!= "-" && d2!="-")
         {
-            pMenu->salvarRank(stoi(d2),d1);
+            pMenu->salvarRank(paraInt(d2),d1);
         }
     }*/
 
-//================== ESTADO E RANK ================================
+/* ESTADO E RANK */
 
     if (estado != "jogo")
     {
@@ -627,11 +646,11 @@ void Jogo::carregarSave()
 
     read>>d1>>d2;
 
-    pMenu->setFaseEscolhida(stoi(d1),textOptions);
-    pMenu->setJogsEscolhido(stoi(d2),textOptions);
+    pMenu->setFaseEscolhida(paraInt(d1),textOptions);
+    pMenu->setJogsEscolhido(paraInt(d2),textOptions);
 
-    int fase = stoi(d1); 
-    int jogs = stoi(d2);
+    int fase = paraInt(d1); 
+    int jogs = paraInt(d2);
 
     getline(data,preRead,'%');
     read.clear(); 
@@ -651,7 +670,7 @@ void Jogo::carregarSave()
     read.clear(); 
     read.str(preRead);
     read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
-    pAnakin1 = new Jogador(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),(short)(stoi(d6)),stoi(d7));
+    pAnakin1 = new Jogador(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),(short)(paraInt(d6)),paraInt(d7));
 
     if (jogs != 1)
     {
@@ -659,7 +678,7 @@ void Jogo::carregarSave()
         read.clear(); 
         read.str(preRead);
         read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
-        pObi1 = new Jogador(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),(short)(stoi(d6)),stoi(d7));
+        pObi1 = new Jogador(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),(short)(paraInt(d6)),paraInt(d7));
     }
 
     if(!fase)
@@ -667,7 +686,7 @@ void Jogo::carregarSave()
     else
         pFase = new Hoth(pAnakin1,pObi1,'s');
 
-//================== FASE E JOGADORES ================================
+/* FASE E JOGADORES */
     
     while(getline(data,preRead,'%'))
     {
@@ -680,7 +699,7 @@ void Jogo::carregarSave()
             if (d7 == "Plataforma")
             {
                 Plataforma* pPlat = new Plataforma();
-                if (pPlat == nullptr)
+                if (pPlat == NULL)
                     cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
                 else
                 {
@@ -692,7 +711,7 @@ void Jogo::carregarSave()
             else if (d7 == "Lava")
             {
                 Lava* pLava = new Lava();
-                if (pLava == nullptr)
+                if (pLava == NULL)
                     cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
                 else
                 {
@@ -703,7 +722,7 @@ void Jogo::carregarSave()
             else if (d7 == "Gelo")
             {
                 Gelo* pGelo = new Gelo();
-                if (pGelo == nullptr)
+                if (pGelo == NULL)
                     cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
                 else
                 {
@@ -720,8 +739,8 @@ void Jogo::carregarSave()
         {
             if (d7 == "Stormtrooper")
             {
-                Stormtrooper* pStorm = new Stormtrooper(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),stoi(d6));
-                if (pStorm == nullptr)
+                Stormtrooper* pStorm = new Stormtrooper(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),paraInt(d6));
+                if (pStorm == NULL)
                     cerr << "Tentativa de incluir Stormtrooper nula na lista de entidades." << endl;
                 else
                 {
@@ -732,8 +751,8 @@ void Jogo::carregarSave()
             }
             else if (d7 == "K_2SO")
             {
-                K_2SO* pK2 = new K_2SO(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),stoi(d6));
-                if (pK2 == nullptr)
+                K_2SO* pK2 = new K_2SO(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),paraInt(d6));
+                if (pK2 == NULL)
                     cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
                 else
                 {
@@ -744,8 +763,8 @@ void Jogo::carregarSave()
             }
             else if (d7 == "AT_ST")
             {
-                AT_ST* pAT = new AT_ST(stof(d1),stof(d2),stof(d3),stof(d4),stoi(d5),stoi(d6));
-                if (pAT == nullptr)
+                AT_ST* pAT = new AT_ST(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),paraInt(d6));
+                if (pAT == NULL)
                     cerr << "Tentativa de incluir AT-ST nula na lista de entidades." << endl;
                 else
                 {
@@ -759,8 +778,8 @@ void Jogo::carregarSave()
                     read.str(preRead);
                     read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
 
-                    Projetil* pProj = new Projetil(stof(d1),stof(d2),stof(d3),stof(d4),(short int)(stoi(d5)),(bool)(stoi(d6)));
-                    if (pProj == nullptr)
+                    Projetil* pProj = new Projetil(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),(short int)(paraInt(d5)),(bool)(paraInt(d6)));
+                    if (pProj == NULL)
                         cerr << "Tentativa de incluir projetil nulo na lista de entidades." << endl;
                     else
                     {
@@ -778,7 +797,7 @@ void Jogo::carregarSave()
         }
     }
 
-//================== ALL DATA ================================
+/* ALL DATA */
 
     ofstream dataOut("../assets/data.txt", ios::out); 
     dataOut.close();

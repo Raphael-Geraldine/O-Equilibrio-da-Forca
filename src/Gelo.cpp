@@ -41,7 +41,7 @@ Gelo::Gelo():
 
     sf::Texture* pTexturaGelo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(GELOPNG);
     
-    if (pTexturaGelo == nullptr)
+    if (pTexturaGelo == NULL)
         cerr << "Erro de carregamento do PNG do Gelo" << endl;
         
     else
@@ -67,14 +67,14 @@ void Gelo::executar()
 void Gelo::salvar()
 {
     Obstaculo::salvarDataBuffer();
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
         *buffer<<cont<<' '<< ' '<< 'O' <<' '<< "Gelo" <<'%';
     }
 }
 void Gelo::obstaculizar (Jogador* pJog)
 {
-    if (pJog == nullptr)
+    if (pJog == NULL)
         return;
     
     sf::FloatRect playerBounds = pJog->getBounds();
@@ -149,7 +149,7 @@ void Gelo::obstaculizar (Jogador* pJog)
 }
 void Gelo::danificar(Jogador* pJog, int dano)
 {
-    if (pJog == nullptr)
+    if (pJog == NULL)
         return;
 
     pJog->sofrerAtaque(dano);

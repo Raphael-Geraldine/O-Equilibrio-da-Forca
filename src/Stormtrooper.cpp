@@ -41,7 +41,7 @@ Stormtrooper::Stormtrooper():
 
     sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
 
-    if (pTexturaStormtrooper == nullptr)
+    if (pTexturaStormtrooper == NULL)
     {
         cerr << "Erro de carregamento do PNG do Stormtrooper" << endl;
     }
@@ -76,7 +76,7 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
 
     sf::Texture* pTexturaStormtrooper = pGG->carregarTextura(STORMPNG);
 
-    if (pTexturaStormtrooper == nullptr)
+    if (pTexturaStormtrooper == NULL)
     {
         cerr << "Erro de carregamento do PNG do Stormtrooper" << endl;
     }
@@ -151,7 +151,7 @@ void Stormtrooper::salvar()
 {
     Inimigo::salvarDataBuffer();
 
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
         *buffer << "Stormtrooper" << '%';
     }

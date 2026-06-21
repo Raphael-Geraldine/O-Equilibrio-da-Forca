@@ -34,8 +34,8 @@ namespace OEquilibrioDaForca
                 void criarProjeteis(int qntd, AT_ST* pAT);
 
             public:
-                Hoth(Entidades::Personagens::Jogador* pJ1 = nullptr, 
-                     Entidades::Personagens::Jogador* pJ2 = nullptr);
+                Hoth(Entidades::Personagens::Jogador* pJ1 = NULL, 
+                     Entidades::Personagens::Jogador* pJ2 = NULL);
                 Hoth(Entidades::Personagens::Jogador* pJ1, 
                      Entidades::Personagens::Jogador* pJ2,
                      char c);

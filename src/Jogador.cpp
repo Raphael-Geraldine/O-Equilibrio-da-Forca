@@ -35,7 +35,7 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
         pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
         pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINDAMAGEPNG);
 
-        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
+        if (pTexturaJogador == NULL || pTexturaDanoJogador == NULL)
             cerr << "Erro de carregamento do PNG do Jogador 1 (Anakin)" << endl;
 
         else
@@ -48,7 +48,7 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
         pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(OBIWANPNG);
         pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(OBIWANDAMAGEPNG);
 
-        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
+        if (pTexturaJogador == NULL || pTexturaDanoJogador == NULL)
             cerr << "Erro de carregamento do PNG do Jogador 2 (Obi Wan)" << endl;
 
         else
@@ -78,7 +78,7 @@ Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int 
         pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINPNG);
         pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(ANAKINDAMAGEPNG);
 
-        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
+        if (pTexturaJogador == NULL || pTexturaDanoJogador == NULL)
             cerr << "Erro de carregamento do PNG do Jogador 1 (Anakin)" << endl;
 
         else
@@ -89,7 +89,7 @@ Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int 
         pTexturaJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(OBIWANPNG);
         pTexturaDanoJogador = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(OBIWANDAMAGEPNG);
 
-        if (pTexturaJogador == nullptr || pTexturaDanoJogador == nullptr)
+        if (pTexturaJogador == NULL || pTexturaDanoJogador == NULL)
             cerr << "Erro de carregamento do PNG do Jogador 2 (Obi Wan)" << endl;
 
         else
@@ -172,9 +172,10 @@ void Jogador::salvar()
 {
     Personagem::salvarDataBuffer();
 
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
-        *buffer << to_string(nPlayer) << ' ' << to_string(pontos) << ' '<< "Jogador" <<'%';
+        *buffer << nPlayer << ' ' << pontos << ' '<< "Jogador" <<'%';
+        // *buffer << to_string(nPlayer) << ' ' << to_string(pontos) << ' '<< "Jogador" <<'%';
     } 
 }
 

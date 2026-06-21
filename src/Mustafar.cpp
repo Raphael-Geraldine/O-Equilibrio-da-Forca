@@ -51,19 +51,19 @@ Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2, char c):
     else
         fundo.setTexture(*pTexturaFundo); 
     
-    if (pJ1 != nullptr)
+    if (pJ1 != NULL)
     {
         incluirEntidade(pJ1);
-        if (gC != nullptr)
+        if (gC != NULL)
             gC->setJog1(pJ1);
         pJogador1=pJ1;
         nJogs++;
     }
 
-    if (pJ2 != nullptr)
+    if (pJ2 != NULL)
     {
         incluirEntidade(pJ2);
-        if (gC != nullptr)
+        if (gC != NULL)
             gC->setJog2(pJ2);
         pJogador2=pJ2;
         nJogs++;
@@ -94,7 +94,7 @@ void Mustafar::criarInimigos()
     for (int i = 0; i < qntd; i++)
     {
         K_2SO* pK2 = new K_2SO();
-        if (pK2 == nullptr)
+        if (pK2 == NULL)
             cerr << "Tentativa de incluir K-2SO nula na lista de entidades." << endl;
         else
         {
@@ -111,7 +111,7 @@ void Mustafar::criarObstaculos()
     for (int i = 0; i < qntd; i++)
     {
         Lava* pLava = new Lava();
-        if (pLava == nullptr)
+        if (pLava == NULL)
             cerr << "Tentativa de incluir lava nula na lista de entidades." << endl;
         else   
         {
@@ -129,7 +129,7 @@ sf::Sprite Mustafar::getDrawData() const
 /*
 void Mustafar::incluirEntidade(Entidade* pE) 
 {
-    if (pE == nullptr)
+    if (pE == NULL)
     {
         std::cerr << "Erro: tentativa de incluir entidade nula na fase." << std::endl;
         return;
@@ -168,7 +168,7 @@ void Mustafar::incluirEntidade(Entidade* pE)
 
 void Mustafar::incluirJogador(Jogador* pJ)
 {
-    if (pJ == nullptr)
+    if (pJ == NULL)
     {
         cerr << "Erro: tentativa de incluir jogador nulo na fase." << endl;
         return;
@@ -186,7 +186,7 @@ void Mustafar::incluirJogador(Jogador* pJ)
 
 void Mustafar::incluirInimigo(Inimigo* pI)
 {
-    if (pI == nullptr)
+    if (pI == NULL)
     {
         cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
         return;
@@ -204,7 +204,7 @@ void Mustafar::incluirInimigo(Inimigo* pI)
 
 void Mustafar::incluirObstaculo(Obstaculo* pO)
 {
-    if (pO == nullptr)
+    if (pO == NULL)
     {
         cerr << "Erro: tentativa de incluir obstaculo nulo na fase." << endl;
         return;

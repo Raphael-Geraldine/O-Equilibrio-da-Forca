@@ -12,6 +12,7 @@
 #include <string>
 using namespace std;
 
+#include <sstream>
 #include <iostream>
 using std::cout;
 using std::cerr;
@@ -91,13 +92,13 @@ void Menu::prepararTelaNome()
 {
     pTexturaNome1 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME1JOG);
     
-    if (pTexturaNome1 == nullptr)
+    if (pTexturaNome1 == NULL)
         cerr << "Erro de carregamento do fundo solicitando nome 1 jogador" << endl;
     
     if (qntdJogs != 1)
     {
         pTexturaNome2 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME2JOG);
-        if (pTexturaNome2 == nullptr)
+        if (pTexturaNome2 == NULL)
             cerr << "Erro de carregamento do fundo solicitando nome 2 jogador" << endl;
     }
     
@@ -358,11 +359,15 @@ vector<string> Menu::getLinhasRank() const
     for (int i = 0; i < tamanhoRank; i++)
     {
         int pts = rank[i]->getPontos();
-        string jogador = to_string (i + 1) + "o lugar: " + rank[i]->getNome() + " - " + to_string(pts);
+        ostringstream fluxo;
+        fluxo << i + 1 << "o lugar: " << rank[i]->getNome() << " - " << pts;
+        // string jogador = to_string (i + 1) + "o lugar: " + rank[i]->getNome() + " - " + to_string(pts);
         if (pts == 1)
-            jogador += " ponto";
+            fluxo << " ponto";
         else
-            jogador += " pontos";
+            fluxo << " pontos";
+
+        string jogador = fluxo.str();
         linhasRank.push_back(jogador);
     }
 

@@ -31,9 +31,9 @@ AT_ST::AT_ST():
     Thread(),
     altura(1),
     directionMove(true),
-    pProj(nullptr),
-    alvo1(nullptr),
-    alvo2(nullptr)
+    pProj(NULL),
+    alvo1(NULL),
+    alvo2(NULL)
 {
     derivadoThread=true;
     
@@ -48,7 +48,7 @@ AT_ST::AT_ST():
     pTexturaAT = pGG->carregarTextura(ATPNG);
     pTexturaDanoAT = pGG->carregarTextura(ATDANOPNG);
 
-    if (pTexturaAT == nullptr || pTexturaDanoAT == nullptr)
+    if (pTexturaAT == NULL || pTexturaDanoAT == NULL)
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
     else
         atSkin.setTexture(*pTexturaAT); 
@@ -65,9 +65,9 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     Thread(),
     altura(1),
     directionMove(true),
-    pProj(nullptr),
-    alvo1(nullptr),
-    alvo2(nullptr)
+    pProj(NULL),
+    alvo1(NULL),
+    alvo2(NULL)
 {
     derivadoThread=true;
     
@@ -83,7 +83,7 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     pTexturaAT = pGG->carregarTextura(ATPNG);
     pTexturaDanoAT = pGG->carregarTextura(ATDANOPNG);
 
-    if (pTexturaAT == nullptr || pTexturaDanoAT == nullptr)
+    if (pTexturaAT == NULL || pTexturaDanoAT == NULL)
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
     else
         atSkin.setTexture(*pTexturaAT); 
@@ -167,7 +167,7 @@ void AT_ST::salvar()
 {
     Inimigo::salvarDataBuffer();
 
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
         *buffer << "AT_ST" << '%';
     }
@@ -204,7 +204,7 @@ sf::Vector2f AT_ST::calcularPontoAtirador() const
 
 sf::Vector2f AT_ST::calcularPontoAlvo (const Jogador* pJog) const
 {
-    if (pJog == nullptr)
+    if (pJog == NULL)
         return calcularPontoAtirador();
 
     const sf::FloatRect boundsJog = pJog->getBounds();
@@ -217,7 +217,7 @@ sf::Vector2f AT_ST::calcularPontoAlvo (const Jogador* pJog) const
 
 sf::Vector2f AT_ST::calcularLancamento(const Jogador* pJog, float velocidadeLancamento) const
 {
-    if (pJog == nullptr || velocidadeLancamento <= 0.0f)
+    if (pJog == NULL || velocidadeLancamento <= 0.0f)
         return calcularPontoAtirador();
 
     const sf::Vector2f origem = calcularPontoAtirador();
@@ -241,7 +241,7 @@ void AT_ST::atirar()
 {
     Jogador* lockAlvo;
 
-    if (alvo2 == nullptr)
+    if (alvo2 == NULL)
         lockAlvo = alvo1;
     else
     {
@@ -265,7 +265,7 @@ void AT_ST::atirar()
 
 void AT_ST::setProjetil(Projetil* pP)
 {
-    if(pP != nullptr)
+    if(pP != NULL)
     {
         pP->setAT(this);
         pProj = pP;

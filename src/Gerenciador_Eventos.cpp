@@ -6,12 +6,12 @@ using namespace Gerenciadores;
 
 Gerenciador_Eventos::Gerenciador_Eventos():
     Observado(),
-    pJanela(nullptr)
+    pJanela(NULL)
 {}
 
 Gerenciador_Eventos::~Gerenciador_Eventos()
 {
-    pJanela = nullptr;
+    pJanela = NULL;
 }
 
 void Gerenciador_Eventos::setEvento(const sf::Event& evento, sf::RenderWindow* pJ)

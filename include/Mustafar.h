@@ -34,8 +34,8 @@ namespace OEquilibrioDaForca
                 void criarObstaculos(); //Médios
 
             public:
-                Mustafar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
-                         Entidades::Personagens::Jogador* pJ2 = nullptr);
+                Mustafar(Entidades::Personagens::Jogador* pJ1 = NULL, 
+                         Entidades::Personagens::Jogador* pJ2 = NULL);
                 Mustafar(Entidades::Personagens::Jogador* pJ1, 
                          Entidades::Personagens::Jogador* pJ2,
                          char c);

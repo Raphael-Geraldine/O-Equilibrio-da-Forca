@@ -53,7 +53,7 @@ Projetil::Projetil(short int d):
 
     sf::Texture* pTexturaP = pGG->carregarTextura(PROJETILPNG);
 
-    if (pTexturaP == nullptr)
+    if (pTexturaP == NULL)
         cerr << "Erro de carregamento do PNG do Projetil" << endl;
 
     else
@@ -88,7 +88,7 @@ Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool 
 
     sf::Texture* pTexturaP = pGG->carregarTextura(PROJETILPNG);
 
-    if (pTexturaP == nullptr)
+    if (pTexturaP == NULL)
         cerr << "Erro de carregamento do PNG do Projetil" << endl;
 
     else
@@ -224,9 +224,10 @@ void Projetil::executar()
 void Projetil::salvar()
 {
     Entidade::salvarDataBuffer();
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
-        *buffer<<to_string(dano)<<' '<<to_string(ativo)<<' '<< "Projetil" <<'%';
+        *buffer<<dano<<' '<<ativo<<' '<< "Projetil" <<'%';
+        // *buffer<<to_string(dano)<<' '<<to_string(ativo)<<' '<< "Projetil" <<'%';
     }
 }
 
@@ -262,7 +263,7 @@ void* Projetil::execThread(void *p)
 {
     Projetil* pProj = static_cast<Projetil*>(p);
     
-    if (pProj == nullptr)
+    if (pProj == NULL)
         cout<<"thread falhou!"<<endl;
     
     return pProj->moverComThread();
@@ -270,7 +271,7 @@ void* Projetil::execThread(void *p)
 
 void Projetil::danificar(Jogador* p)
 {
-    if (ativo && p != nullptr)
+    if (ativo && p != NULL)
     {
         p->sofrerAtaque(dano);
         pAT->operator++();
@@ -280,7 +281,7 @@ void Projetil::danificar(Jogador* p)
 
 void Projetil::perseguir(Jogador* pJog)
 {
-    if (pJog == nullptr || pAT == nullptr)
+    if (pJog == NULL || pAT == NULL)
         return;
 
     ativo = true;
@@ -345,6 +346,6 @@ bool Projetil::getAtivo() const
 
 void Projetil::setAT(AT_ST* pA)
 {
-    if (pA != nullptr)
+    if (pA != NULL)
         pAT = pA;
 }

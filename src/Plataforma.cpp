@@ -64,7 +64,7 @@ OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l):
 
     sf::Texture* pTexturaPlataforma = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(PLATPNG);
     
-    if (pTexturaPlataforma == nullptr)
+    if (pTexturaPlataforma == NULL)
         cerr << "Erro de carregamento do PNG da Plataforms" << endl;
         
     else
@@ -91,7 +91,7 @@ void Plataforma::executar()
 void Plataforma::salvar()
 {
     Obstaculo::salvarDataBuffer();
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
         *buffer<<cont<<' '<< 'O' <<' '<< "Plataforma" <<'%';
     }
@@ -107,7 +107,7 @@ void Plataforma::propulsao()
 }
 void Plataforma::obstaculizar(Jogador* pJog)
 {
-    if (pJog == nullptr) 
+    if (pJog == NULL) 
         return;    
 
     sf::FloatRect jogBounds = pJog->getBounds();
@@ -258,7 +258,7 @@ void Plataforma::obstaculizar(Jogador* pJog)
 
 void Plataforma::fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, const sf::FloatRect& obsBounds) 
 {
-    if (pP == nullptr)
+    if (pP == NULL)
         return;
 
     float centroPersonagem = pBounds.left + pBounds.width / 2.0f;
@@ -292,7 +292,7 @@ sf::FloatRect Plataforma::getBounds() const
 
 void Plataforma::obstaculizarInim(Inimigo* pInim)
 {
-    if (pInim == nullptr) 
+    if (pInim == NULL) 
         return;    
 
     sf::FloatRect inimBounds = pInim->getBounds();
@@ -387,7 +387,7 @@ void Plataforma::obstaculizarInim(Inimigo* pInim)
 }
 
 /*
-if (pInim == nullptr || pObs == nullptr)
+if (pInim == NULL || pObs == NULL)
         return;
     
     sf::FloatRect inimBounds = pInim->getBounds();

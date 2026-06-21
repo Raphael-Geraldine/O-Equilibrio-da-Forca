@@ -8,7 +8,7 @@ using std::endl;
 // Inicializacao de atributos estaticos:
 int OEquilibrioDaForca::Ente::cont = 0;
 
-OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico* OEquilibrioDaForca::Ente::pGG = nullptr;
+OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico* OEquilibrioDaForca::Ente::pGG = NULL;
 
 OEquilibrioDaForca::Ente::Ente(): 
     id(cont++)

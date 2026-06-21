@@ -29,9 +29,9 @@ const float Gerenciador_Colisoes::coefRestTeto = 0.15f;
 Gerenciador_Colisoes::Gerenciador_Colisoes():
     LIs(),
     LOs(),
-    pJog1(nullptr),
-    pJog2(nullptr),
-    pChao(nullptr)
+    pJog1(NULL),
+    pJog2(NULL),
+    pChao(NULL)
 {}
 
 Gerenciador_Colisoes::~Gerenciador_Colisoes()
@@ -39,14 +39,14 @@ Gerenciador_Colisoes::~Gerenciador_Colisoes()
     LIs.clear();
     LOs.clear();
 
-    pJog1 = nullptr;
-    pJog2 = nullptr;
-    pChao = nullptr;
+    pJog1 = NULL;
+    pJog2 = NULL;
+    pChao = NULL;
 }
 
 bool Gerenciador_Colisoes::verificarColisao(Entidade* pe1, Entidade* pe2) const
 {
-    if (pe1 == nullptr || pe2 == nullptr)
+    if (pe1 == NULL || pe2 == NULL)
         return false;
 
     return (pe1->getBounds()).intersects(pe2->getBounds());
@@ -58,15 +58,15 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
     
     for (it = LOs.begin(); it != LOs.end(); ++it)
     {
-        if ((*it) == nullptr)
+        if ((*it) == NULL)
             continue; // Deve ser tolerado de fato?
 
         Obstaculo* pObs = (*it);
 
-        if (pJog1 != nullptr && verificarColisao (pJog1, pObs))
+        if (pJog1 != NULL && verificarColisao (pJog1, pObs))
             tratarColisaoJogObstaculo(pJog1, pObs);
 
-        if (pJog2 != nullptr && verificarColisao (pJog2, pObs))
+        if (pJog2 != NULL && verificarColisao (pJog2, pObs))
             tratarColisaoJogObstaculo(pJog2, pObs);
     }
 }
@@ -79,13 +79,13 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue; // Deve-se tolerar de fato?
     
-        if (pJog1 != nullptr && verificarColisao(pJog1, pInim))
+        if (pJog1 != NULL && verificarColisao(pJog1, pInim))
             tratarColisaoJogInimigo(pJog1, pInim);
 
-        if (pJog2 != nullptr && verificarColisao(pJog2, pInim))
+        if (pJog2 != NULL && verificarColisao(pJog2, pInim))
             tratarColisaoJogInimigo(pJog2, pInim);
     }
 }
@@ -102,14 +102,14 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
         //Projetil* pProj = LPjs[i];
         Projetil* pProj = *it;
 
-        //if (LPjs[i] == nullptr)
-        if (pProj == nullptr)
+        //if (LPjs[i] == NULL)
+        if (pProj == NULL)
             continue; // Deve-se tolerar de fato?
     
-        if (pJog1 != nullptr && verificarColisao(pJog1, pProj))
+        if (pJog1 != NULL && verificarColisao(pJog1, pProj))
             tratarColisaoJogProjetil(pJog1, pProj);
 
-        if (pJog2 != nullptr && verificarColisao(pJog2, pProj))
+        if (pJog2 != NULL && verificarColisao(pJog2, pProj))
             tratarColisaoJogProjetil(pJog2, pProj);
     }
 }
@@ -121,13 +121,13 @@ void Gerenciador_Colisoes::tratarColisaoJogProjetil(Jogador* pJog, Projetil* pPr
 
 void Gerenciador_Colisoes::tratarColisoesChaoJogadores()
 {
-    if (pChao == nullptr)
+    if (pChao == NULL)
         return;
 
-    if (pJog1 != nullptr)
+    if (pJog1 != NULL)
         tratarColisaoPersonagemChao(pJog1);
 
-    if (pJog2 != nullptr)
+    if (pJog2 != NULL)
         tratarColisaoPersonagemChao(pJog2);
 }
 
@@ -139,14 +139,14 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue; // Deve-se tolerar de fato?
     
         std::list<Obstaculo*>::iterator it; 
 
         for (it = LOs.begin(); it != LOs.end(); ++it)
         {
-            if ((*it) == nullptr)
+            if ((*it) == NULL)
                 continue; // Deve ser tolerado de fato?
 
             Obstaculo* pObs = (*it);
@@ -159,7 +159,7 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos()
 
 void Gerenciador_Colisoes::tratarColisoesChaoInimigos()
 {
-    if (pChao == nullptr)
+    if (pChao == NULL)
         return;
 
     int tamanhoInim = static_cast<int>(LIs.size());
@@ -168,17 +168,17 @@ void Gerenciador_Colisoes::tratarColisoesChaoInimigos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue; // Deve-se tolerar de fato?
 
-        if (pInim != nullptr) 
+        if (pInim != NULL) 
             tratarColisaoPersonagemChao(pInim);
     }
 }
 
 void Gerenciador_Colisoes::tratarColisaoJogObstaculo(Jogador* pJog, Obstaculo* pObs)
 {
-    if (pJog == nullptr || pObs == nullptr)
+    if (pJog == NULL || pObs == NULL)
         return;
 
     pObs->obstaculizar(pJog);
@@ -186,7 +186,7 @@ void Gerenciador_Colisoes::tratarColisaoJogObstaculo(Jogador* pJog, Obstaculo* p
 
 void Gerenciador_Colisoes::tratarColisaoJogInimigo(Jogador* pJog, Inimigo* pInim)
 {
-    if (pJog == nullptr || pInim == nullptr)
+    if (pJog == NULL || pInim == NULL)
         return;
 
     pInim->tentarDanificar(pJog);
@@ -195,7 +195,7 @@ void Gerenciador_Colisoes::tratarColisaoJogInimigo(Jogador* pJog, Inimigo* pInim
 
 void Gerenciador_Colisoes::tratarColisaoInimObstaculo(Inimigo* pInim, Obstaculo* pObs)
 {
-    if (pInim == nullptr || pObs == nullptr)
+    if (pInim == NULL || pObs == NULL)
         return;
 
     sf::Vector2f velAntes = pInim->getVelocidade();
@@ -204,13 +204,13 @@ void Gerenciador_Colisoes::tratarColisaoInimObstaculo(Inimigo* pInim, Obstaculo*
 
     K_2SO* pK2 = dynamic_cast<K_2SO*>(pInim);
 
-    if (pK2 != nullptr && velAntes.y > 0.0f && personagemSobreObstaculo(pK2, pObs))
+    if (pK2 != NULL && velAntes.y > 0.0f && personagemSobreObstaculo(pK2, pObs))
         pK2->ativarImpacto();
 }
 
 void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
 {
-    if (pP == nullptr || pChao == nullptr)
+    if (pP == NULL || pChao == NULL)
         return;
 
     sf::FloatRect pBounds = pP->getBounds();
@@ -258,7 +258,7 @@ void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
 
             K_2SO* pK2 = dynamic_cast<K_2SO*>(pP);
 
-            if (pK2 != nullptr && vel.y > 0.0f)
+            if (pK2 != NULL && vel.y > 0.0f)
                 pK2->ativarImpacto();
         }
 
@@ -271,7 +271,7 @@ void Gerenciador_Colisoes::tratarColisaoPersonagemChao(Personagem* pP)
 
 void Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)
 {
-    if (pI == nullptr) 
+    if (pI == NULL) 
         cerr << "Erro: Tentativa de incluir inimigo com ponteiro nulo." << endl;
     else
         LIs.push_back(pI);
@@ -279,7 +279,7 @@ void Gerenciador_Colisoes::incluirInimigo(Inimigo* pI)
 
 void Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
 {
-    if (pO == nullptr) 
+    if (pO == NULL) 
         cerr << "Erro: Tentativa de incluir obstáculo com ponteiro nulo." << endl;
     else
         LOs.push_back(pO);
@@ -287,7 +287,7 @@ void Gerenciador_Colisoes::incluirObstaculo(Obstaculo* pO)
 
 void Gerenciador_Colisoes::incluirProjetil(Projetil* pJ)
 {
-    if (pJ == nullptr) 
+    if (pJ == NULL) 
         cerr << "Erro: Tentativa de incluir projétil com ponteiro nulo." << endl;
     else
         LPjs.insert(pJ);
@@ -295,7 +295,7 @@ void Gerenciador_Colisoes::incluirProjetil(Projetil* pJ)
 
 void Gerenciador_Colisoes::incluirChao(sf::RectangleShape* pC)
 {
-    if (pC == nullptr) 
+    if (pC == NULL) 
         cerr << "Erro: Tentativa de incluir chão com ponteiro nulo." << endl;
     else
         pChao=pC;
@@ -303,7 +303,7 @@ void Gerenciador_Colisoes::incluirChao(sf::RectangleShape* pC)
 
 void Gerenciador_Colisoes::setJog1(Jogador* pJ1)
 {
-    if (pJ1 == nullptr) 
+    if (pJ1 == NULL) 
     {
         cerr << "Erro: Tentativa de incluir Jogador1 com ponteiro nulo." << endl;
         return;
@@ -315,7 +315,7 @@ void Gerenciador_Colisoes::setJog1(Jogador* pJ1)
 
 void Gerenciador_Colisoes::setJog2(Jogador* pJ2)
 {
-    if (pJ2 == nullptr) 
+    if (pJ2 == NULL) 
     {
         cerr << "Erro: Tentativa de incluir Jogador2 com ponteiro nulo." << endl;
         return;
@@ -330,19 +330,19 @@ void Gerenciador_Colisoes::executar()
     // Para cada jogador e inimigo, resetar estado com relação ao chão
     // antes de recalcular colisões no frame e ver se está dentro dos limites.
 
-    if (pJog1 == nullptr && pJog2 == nullptr)
+    if (pJog1 == NULL && pJog2 == NULL)
     {
         cerr << "Erro: nenhum jogador cadastrado no Gerenciador de Colisoes." << endl;
         return;
     }
 
-    if (pJog1 != nullptr)
+    if (pJog1 != NULL)
     {
         pJog1->setEmSuperficie(false);
         caracterOutOfBounds(pJog1);
     }
 
-    if (pJog2 != nullptr)
+    if (pJog2 != NULL)
     {
         pJog2->setEmSuperficie(false);
         caracterOutOfBounds(pJog2);
@@ -354,10 +354,10 @@ void Gerenciador_Colisoes::executar()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue; // Deve-se tolerar de fato?
 
-        if (pInim != nullptr) 
+        if (pInim != NULL) 
         {
             pInim->setEmSuperficie(false);
             caracterOutOfBounds(pInim);
@@ -378,7 +378,7 @@ void Gerenciador_Colisoes::executar()
 
 void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 {
-    if (pe == nullptr) 
+    if (pe == NULL) 
         return;
 
     sf::FloatRect bounds = pe->getBounds();
@@ -408,7 +408,7 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
         pe->setY(pe->getY() + (lim_cima - bounds.top));
         corrigiu = true;
 
-        if (pJog != nullptr)
+        if (pJog != NULL)
         {
             sf::Vector2f vel = pJog->getVelocidade();
 
@@ -433,7 +433,7 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
         corrigiu = true;
     }
 
-    if (corrigiu && pJog != nullptr)
+    if (corrigiu && pJog != NULL)
     {
         pJog->atualizarPosicaoSprite();
 
@@ -452,7 +452,7 @@ void Gerenciador_Colisoes::caracterOutOfBounds(Entidade* pe)
 
 void Gerenciador_Colisoes::removerInimigo(Inimigo* pI)
 {
-    if (pI == nullptr)
+    if (pI == NULL)
         return;
 
     int tamanhoInim = static_cast<int>(LIs.size());
@@ -473,14 +473,14 @@ void Gerenciador_Colisoes::verificarImpactoK2SO()
 
     for (int i = 0; i < tamanhoInim; i++)
     {
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue;
 
         Inimigo* pInim = LIs[i];
         
         K_2SO* pK2 = dynamic_cast<K_2SO*>(pInim);
 
-        if (pK2 == nullptr)
+        if (pK2 == NULL)
             continue;
 
         if (!pK2->getImpactoAtivo())
@@ -495,7 +495,7 @@ void Gerenciador_Colisoes::verificarImpactoK2SO()
         {
             Obstaculo* pObs = *it;
 
-            if (pObs == nullptr)
+            if (pObs == NULL)
                 continue;
 
             if (personagemSobreObstaculo(pK2, pObs))
@@ -525,7 +525,7 @@ void Gerenciador_Colisoes::verificarImpactoK2SO()
 
 bool Gerenciador_Colisoes::personagemSobreObstaculo (Personagem* pP, Obstaculo* pObs)
 {
-    if (pP == nullptr || pObs == nullptr)
+    if (pP == NULL || pObs == NULL)
         return false;
 
     sf::FloatRect pBounds = pP->getBounds();
@@ -547,7 +547,7 @@ bool Gerenciador_Colisoes::personagemSobreObstaculo (Personagem* pP, Obstaculo* 
 
 void Gerenciador_Colisoes::aplicarImpactoK2EmPlataforma(K_2SO* pK2, Obstaculo* pObs)
 {
-    if (pK2 == nullptr || pObs == nullptr)
+    if (pK2 == NULL || pObs == NULL)
         return;
 
     if (personagemSobreObstaculo(pJog1, pObs))
@@ -559,7 +559,7 @@ void Gerenciador_Colisoes::aplicarImpactoK2EmPlataforma(K_2SO* pK2, Obstaculo* p
 
 bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2 (Jogador* pJog, K_2SO* pK2)
 {
-    if (pJog == nullptr || pK2 == nullptr)
+    if (pJog == NULL || pK2 == NULL)
         return false;
 
     if (!personagemSobreChao(pJog))
@@ -576,7 +576,7 @@ bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2 (Jogador* pJog, K_2SO* pK2)
 /*
 bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2(Jogador* pJog, K_2SO* pK2)
 {
-    if (pJog == nullptr || pK2 == nullptr)
+    if (pJog == NULL || pK2 == NULL)
         return false;
 
     if (!pJog->getNoChao())
@@ -603,7 +603,7 @@ bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2(Jogador* pJog, K_2SO* pK2)
 
 bool Gerenciador_Colisoes::personagemSobreChao(Personagem* pP)
 {
-    if (pP == nullptr || pChao == nullptr)
+    if (pP == NULL || pChao == NULL)
         return false;
 
     sf::FloatRect pBounds = pP->getBounds();

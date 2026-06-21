@@ -5,13 +5,13 @@ using namespace OEquilibrioDaForca;
 using namespace Gerenciadores;
 
 Observador_Teclado::Observador_Teclado():
-    pJogo(nullptr)
+    pJogo(NULL)
 {
 }
 
 Observador_Teclado::~Observador_Teclado()
 {
-    pJogo = nullptr;
+    pJogo = NULL;
 }
 
 void Observador_Teclado::setJogo(Jogo* pJ) 
@@ -21,13 +21,13 @@ void Observador_Teclado::setJogo(Jogo* pJ)
 
 void Observador_Teclado::atualizar(Observado* pObservado) 
 {
-    if (pJogo == nullptr)
+    if (pJogo == NULL)
     {
         cerr << "Ponteiro de jogo nulo. " << endl;
         return;
     }
 
-    if (pObservado == nullptr) 
+    if (pObservado == NULL) 
     {
         cerr << "Ponteiro de observado nulo. " << endl;
         return;
@@ -38,7 +38,7 @@ void Observador_Teclado::atualizar(Observado* pObservado)
     const sf::Event& evento = pGerEventos->getEvento();
     sf::RenderWindow* pJanela = pGerEventos->getJanela();
 
-    if (pJanela == nullptr)
+    if (pJanela == NULL)
     {
         cerr << "Ponteiro de janela nulo no Observador_Menu." << endl;
         return;

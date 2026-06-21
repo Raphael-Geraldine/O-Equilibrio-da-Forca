@@ -39,8 +39,8 @@ namespace OEquilibrioDaForca
                 sf::RectangleShape chao;
 
             protected:   
-                void inicializar(Entidades::Personagens::Jogador* pJ1 = nullptr, 
-                                 Entidades::Personagens::Jogador* pJ2 = nullptr);
+                void inicializar(Entidades::Personagens::Jogador* pJ1 = NULL, 
+                                 Entidades::Personagens::Jogador* pJ2 = NULL);
                 void criarInimigosFaceis();
                 void criarPlataformas(); //Obstáculo fácil
                 void criarCenario();

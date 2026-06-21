@@ -10,24 +10,25 @@ using namespace Gerenciadores;
 using namespace std;
 #include <stdlib.h>
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 float Gerenciador_Grafico::dt = 0;
 
-Gerenciador_Grafico* Gerenciador_Grafico::pGrafico = nullptr;
+Gerenciador_Grafico* Gerenciador_Grafico::pGrafico = NULL;
 
 void Gerenciador_Grafico::destruirGGrafico() 
 {
-    if (pGrafico != nullptr) 
+    if (pGrafico != NULL) 
     {
         delete pGrafico;
-        pGrafico = nullptr;
+        pGrafico = NULL;
     }
 }
 
 /*
 void Gerenciador_Grafico::destruirGGrafico() 
 {
-    if (Gerenciador_Grafico::getGerenciadorGrafico() != nullptr) 
+    if (Gerenciador_Grafico::getGerenciadorGrafico() != NULL) 
     {
         delete (Gerenciador_Grafico::getGerenciadorGrafico());
     }
@@ -55,7 +56,7 @@ Gerenciador_Grafico::~Gerenciador_Grafico()
         if((*it).second)    
             delete ((*it).second);
 
-        ((*it).second) = nullptr;
+        ((*it).second) = NULL;
     }
 
     mapaTexturas.clear();
@@ -69,7 +70,7 @@ sf::RenderWindow* Gerenciador_Grafico::getJanela()
 
 Gerenciador_Grafico* Gerenciador_Grafico::getGerenciadorGrafico()
 {
-    if (pGrafico == nullptr) 
+    if (pGrafico == NULL) 
     {
         pGrafico = new Gerenciador_Grafico();
         std::atexit(destruirGGrafico);
@@ -91,7 +92,7 @@ void Gerenciador_Grafico::desenharEnte (Ente* pE)
     pE->desenhar();
 
     Inimigo* pI = dynamic_cast<Inimigo*>(pE);
-    if (pI != nullptr)
+    if (pI != NULL)
         janela.draw(pI->getBarraVida());
 }
 
@@ -126,7 +127,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF)
         
         Ente* pE = (*lEntidades)[i];
         Personagem* pP = dynamic_cast<Personagem*>(pE);
-        if ((pP != nullptr && pP->getVida() > 0) || pP==nullptr)
+        if ((pP != NULL && pP->getVida() > 0) || pP==NULL)
         {
             desenharEnte (pE);
             //desenharOrigem(janela,pE->getDrawData());
@@ -202,7 +203,8 @@ void Gerenciador_Grafico::desenharSolicitar1Nome(sf::Event& event, const sf::Spr
         if (event.text.unicode == '\b') 
         {
             if (!nome.empty())
-                nome.pop_back();
+                nome.erase(nome.size() - 1);
+                //nome.pop_back();
         }
         else if ((event.text.unicode > 64 && event.text.unicode < 91 ||
                   event.text.unicode > 96 && event.text.unicode < 123)
@@ -238,9 +240,9 @@ void Gerenciador_Grafico::atualizarTempoPercorrido()
 
 sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
 {
-    if (path == nullptr) {
+    if (path == NULL) {
         cerr << "Erro: Caminho para textura nulo!" << endl;
-        return nullptr;
+        return NULL;
     }
 
     map<const char*, sf::Texture*>::iterator it;
@@ -258,9 +260,9 @@ sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
         cerr << "Erro: Nao foi possivel carregar textura!" << endl;
 
         delete (textura);
-        textura = nullptr;
+        textura = NULL;
 
-        return nullptr;
+        return NULL;
     }
 
 
@@ -312,17 +314,24 @@ void Gerenciador_Grafico::desenharRank(const vector<string>& linhasRank, sf::Spr
 
 void Gerenciador_Grafico::desenharVida(Jogador* pJ1, Jogador* pJ2)
 {
-    if(pJ1 != nullptr)
+    if(pJ1 != NULL)
     {
-        string vida = "VIDA JOG1: " + to_string(pJ1->getVida()) + "%";
+        ostringstream fluxoJ1;
+        fluxoJ1 << pJ1->getVida();  // Transforma valor númerico em caracteres.
+
+        string vida = "VIDA JOG1: " + fluxoJ1.str() + "%"; // Cópia do texto que está armazenado no fluxo, retorna como string.
+        // string vida = "VIDA JOG1: " + to_string(pJ1->getVida()) + "%";
         sf::Text textToDisplay(vida,fonteName,16);
         textToDisplay.setFillColor(sf::Color::Yellow);
         textToDisplay.setPosition(20,20);
         janela.draw(textToDisplay);
     }
-    if(pJ2 != nullptr)
+    if(pJ2 != NULL)
     {
-        string vida = "VIDA JOG2: " + to_string(pJ2->getVida()) + "%";
+        ostringstream fluxoJ2;
+        fluxoJ2 << pJ2->getVida(); // Transforma valor númerico em caracteres.
+
+        string vida = "VIDA JOG2: " + fluxoJ2.str() + "%"; // Cópia do texto que está armazenado no fluxo, retorna como string.
         sf::Text textToDisplay(vida,fonteName,16);
         textToDisplay.setFillColor(sf::Color::Yellow);
         sf::FloatRect bounds = textToDisplay.getLocalBounds();

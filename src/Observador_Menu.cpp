@@ -11,17 +11,17 @@ using namespace Gerenciadores;
 
 Observador_Menu::Observador_Menu():
     Observador_Eventos(),
-    pMenu(nullptr),
-    pEstadoAtual(nullptr),
-    pVetTextosMenu(nullptr),
+    pMenu(NULL),
+    pEstadoAtual(NULL),
+    pVetTextosMenu(NULL),
     ativo(false)
 {}
 
 Observador_Menu::~Observador_Menu() 
 {
-    pMenu = nullptr;
-    pEstadoAtual = nullptr;
-    pVetTextosMenu = nullptr;
+    pMenu = NULL;
+    pEstadoAtual = NULL;
+    pVetTextosMenu = NULL;
 }
 
 void Observador_Menu::setMenu(Menu* pM)
@@ -49,25 +49,25 @@ void Observador_Menu::atualizar(Observado* pObservado)
     if (!ativo)
         return;
 
-    if (pMenu == nullptr)
+    if (pMenu == NULL)
     {
         cerr << "Erro: Ponteiro de Menu nulo no Observador_Menu." << endl;
         return;
     }
 
-    if (pEstadoAtual == nullptr)
+    if (pEstadoAtual == NULL)
     {
         cerr << "Erro: Ponteiro de Estado nulo no Observador_Menu." << endl;
         return;
     }
 
-    if (pVetTextosMenu == nullptr)
+    if (pVetTextosMenu == NULL)
     {
         cerr << "Erro: Ponteiro de textos do Menu nulo no Observador_Menu." << endl;
         return;
     }
     
-    if (pObservado == nullptr)
+    if (pObservado == NULL)
     {
         cerr << "Erro: Ponteiro de Observado nulo no Observador_Menu." << endl;
         return;
@@ -78,7 +78,7 @@ void Observador_Menu::atualizar(Observado* pObservado)
     const sf::Event& evento = pGerEventos->getEvento();
     sf::RenderWindow* pJanela = pGerEventos->getJanela();
 
-    if (pJanela == nullptr)
+    if (pJanela == NULL)
     {
         cerr << "Ponteiro de janela nulo no Observador_Menu." << endl;
         return;

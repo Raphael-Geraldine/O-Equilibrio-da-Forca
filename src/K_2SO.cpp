@@ -48,7 +48,7 @@ K_2SO::K_2SO():
     pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
     pTexturaPoeiraK2 = pGG->carregarTextura(K2DUSTPNG);
 
-    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr || pTexturaPoeiraK2 == nullptr)
+    if (pTexturaK2 == NULL || pTexturaDanoK2 == NULL || pTexturaPoeiraK2 == NULL)
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
     else
         k2Skin.setTexture(*pTexturaK2); 
@@ -86,7 +86,7 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
     pTexturaDanoK2 = pGG->carregarTextura(K2DANOPNG);
     pTexturaPoeiraK2 = pGG->carregarTextura(K2DUSTPNG);
 
-    if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr || pTexturaPoeiraK2 == nullptr)
+    if (pTexturaK2 == NULL || pTexturaDanoK2 == NULL || pTexturaPoeiraK2 == NULL)
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
 
     else
@@ -181,7 +181,7 @@ void K_2SO::executar()
 
 void K_2SO::danificar(Jogador* p)
 {
-    if (p == nullptr)
+    if (p == NULL)
         return;
 
     if (num_vidas <= 0)
@@ -217,7 +217,7 @@ void K_2SO::salvar()
 {
     Inimigo::salvarDataBuffer();
 
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
         *buffer << "K_2SO" << '%';
     }

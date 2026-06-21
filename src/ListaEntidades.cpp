@@ -80,6 +80,6 @@ void ListaEntidades::salvar(ostream* arquivo)
     {
         LEs[i]->setBuffer(arquivo);
         LEs[i]->salvar();
-        LEs[i]->setBuffer(nullptr);
+        LEs[i]->setBuffer(NULL);
     }
 }

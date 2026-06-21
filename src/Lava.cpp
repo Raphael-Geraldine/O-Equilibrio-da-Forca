@@ -42,7 +42,7 @@ Lava::Lava():
 
     sf::Texture* pTexturaLava = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(LAVAPNG);
     
-    if (pTexturaLava == nullptr)
+    if (pTexturaLava == NULL)
         cerr << "Erro de carregamento do PNG da Lava" << endl;
         
     else
@@ -68,14 +68,14 @@ void Lava::executar()
 void Lava::salvar()
 {
     Obstaculo::salvarDataBuffer();
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
         *buffer<<cont<<' '<< 'O' <<' '<<"Lava"<<'%';
     }
 }
 void Lava::obstaculizar (Jogador* pJog)
 {
-    if (pJog == nullptr)
+    if (pJog == NULL)
         return;
 
     sf::FloatRect playerBounds = pJog->getBounds();
@@ -165,7 +165,7 @@ void Lava::obstaculizar (Jogador* pJog)
 }
 void Lava::danificar(Jogador* pJog, int dano)
 {
-    if (pJog == nullptr)
+    if (pJog == NULL)
         return;
 
     pJog->sofrerAtaque(dano);

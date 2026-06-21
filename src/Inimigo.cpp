@@ -29,7 +29,7 @@ Inimigo::Inimigo():
     pVida50 = pGG->carregarTextura(VIDA50PNG);
     pVida25 = pGG->carregarTextura(VIDA25PNG);
 
-    if (pVida100 == nullptr || pVida75 == nullptr || pVida50 == nullptr || pVida25 == nullptr)
+    if (pVida100 == NULL || pVida75 == NULL || pVida50 == NULL || pVida25 == NULL)
     {
         cerr << "Erro de carregamento da barra de vida dos Inimigos" << endl;
     }
@@ -53,9 +53,10 @@ void Inimigo::salvarDataBuffer()
 {
     Personagem::salvarDataBuffer();
     
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
-        *buffer << to_string(nivel_maldade) << ' ';
+        *buffer << nivel_maldade << ' ';
+        // *buffer << to_string(nivel_maldade) << ' ';
     }
 }
 

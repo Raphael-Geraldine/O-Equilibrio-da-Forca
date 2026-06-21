@@ -40,9 +40,10 @@ void Personagem::atualizarPosicao()
 void Personagem::salvarDataBuffer()
 {
     Entidade::salvarDataBuffer();
-    if (buffer != nullptr)
+    if (buffer != NULL)
     {
-        *buffer<<to_string(num_vidas)<<' ';
+        *buffer<<num_vidas<<' ';
+        //*buffer<<to_string(num_vidas)<<' ';
     }
 }
 

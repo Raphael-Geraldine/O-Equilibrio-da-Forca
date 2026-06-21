@@ -17,7 +17,7 @@ Observado::~Observado()
 
 void Observado::anexar(Observador_Eventos* pObs)
 {
-    if (pObs == nullptr) 
+    if (pObs == NULL) 
         return;
 
     observadores.push_back(pObs);
@@ -25,7 +25,7 @@ void Observado::anexar(Observador_Eventos* pObs)
 
 void Observado::desanexar(Observador_Eventos* pObs)
 {
-    if (pObs == nullptr) 
+    if (pObs == NULL) 
         return;
 
     observadores.remove(pObs);
@@ -38,7 +38,7 @@ void Observado::notificar()
 
     for (it = observadores.begin(); it != observadores.end(); ++it)
     {
-        if (*it != nullptr) 
+        if (*it != NULL) 
             (*it)->atualizar(this); 
     }
 }

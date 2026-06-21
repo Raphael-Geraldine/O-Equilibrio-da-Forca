@@ -36,29 +36,29 @@ Fase::Fase():
     nJogs(0),
     Ente(),
     //nFase(cont++), 
-    pJogador1(nullptr),
-    pJogador2(nullptr),
-    gC(nullptr)
+    pJogador1(NULL),
+    pJogador2(NULL),
+    gC(NULL)
 {
     gC = new Gerenciador_Colisoes();
     
-    if (gC != nullptr)
+    if (gC != NULL)
         gC->incluirChao(&chao); 
 }
 
 Fase::~Fase()
 {
-    if (gC != nullptr)
+    if (gC != NULL)
     {
         delete gC;
-        gC = nullptr;
+        gC = NULL;
     }
 
     // Ver se não é entidade.
-    //if (pPlat != nullptr)
+    //if (pPlat != NULL)
     //{
     //    delete pPlat;
-    //    pPlat = nullptr;
+    //    pPlat = NULL;
     //}
 
     int tamanhoEnt = listaEntidades.getTamanho();
@@ -67,11 +67,11 @@ Fase::~Fase()
     {
         Entidade* pEnt = listaEntidades[i];
 
-        if (pEnt != nullptr)
+        if (pEnt != NULL)
         {   
-            if (pJogador1 != nullptr && (pEnt->getID() != pJogador1->getID()))
+            if (pJogador1 != NULL && (pEnt->getID() != pJogador1->getID()))
             {   
-                if (pJogador2 == nullptr)
+                if (pJogador2 == NULL)
                 {
                     delete pEnt;
                 }
@@ -83,25 +83,25 @@ Fase::~Fase()
 
     listaEntidades.limpar();
 
-    pJogador1 = nullptr;
-    pJogador2 = nullptr;
+    pJogador1 = NULL;
+    pJogador2 = NULL;
 }
 
 void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
 {
-    if (pJ1 != nullptr)
+    if (pJ1 != NULL)
     {
         incluirEntidade(pJ1);
-        if (gC != nullptr)
+        if (gC != NULL)
             gC->setJog1(pJ1);
         pJogador1=pJ1;
         nJogs++;
     }
 
-    if (pJ2 != nullptr)
+    if (pJ2 != NULL)
     {
         incluirEntidade(pJ2);
-        if (gC != nullptr)
+        if (gC != NULL)
             gC->setJog2(pJ2);
         pJogador2=pJ2;
         nJogs++;
@@ -115,7 +115,7 @@ void Fase::inicializar(Jogador* pJ1, Jogador* pJ2)
 
 void Fase::incluirEntidade(Entidade* pE)
 {
-    if (pE == nullptr)
+    if (pE == NULL)
         cerr << "Erro: Tentativa de incluir entidade nula em fase." << endl;
     else
         listaEntidades.incluir(pE);
@@ -123,25 +123,25 @@ void Fase::incluirEntidade(Entidade* pE)
 
 void Fase::incluirGCInimigo(Inimigo* pInim)
 {
-    if (pInim == nullptr)
+    if (pInim == NULL)
         cerr << "Erro: Tentativa de incluir inimigo nulo em GC." << endl;
-    else if (gC != nullptr)
+    else if (gC != NULL)
         gC->incluirInimigo(pInim); 
 }
 
 void Fase::incluirGCObstaculo(Obstaculo* pObs)
 {
-    if (pObs == nullptr)
+    if (pObs == NULL)
         cerr << "Erro: Tentativa de incluir obstaculo nulo em GC." << endl;
-    else if (gC != nullptr)
+    else if (gC != NULL)
         gC->incluirObstaculo(pObs);
 }
 
 void Fase::incluirGCProjetil(Projetil* pProj)
 {
-    if (pProj == nullptr)
+    if (pProj == NULL)
         cerr << "Erro: Tentativa de incluir projétil nulo em GC." << endl;
-    else if (gC != nullptr)
+    else if (gC != NULL)
         gC->incluirProjetil(pProj);
 }
 
@@ -166,56 +166,56 @@ void Fase::executar()
 
     for (int i = 0; i < tamEnt; i++)
     {
-        if (listaEntidades[i] == nullptr) 
+        if (listaEntidades[i] == NULL) 
             continue;
         
         Entidade* pEnt = listaEntidades[i];
         
         Inimigo* pInim = dynamic_cast<Inimigo*>(pEnt);
 
-        if (pInim != nullptr && pInim->getVida() <= 0)
+        if (pInim != NULL && pInim->getVida() <= 0)
         {
-            if (gC != nullptr)
+            if (gC != NULL)
                 gC->removerInimigo(pInim);
 
             listaEntidades.remover(pInim);
 
             delete(pInim);
-            pInim = nullptr;
+            pInim = NULL;
 
             i--; // pois não pode ser acrescido na prox. iteração
             entsAlive--;
         }
     }
 
-    if (pJogador2 != nullptr)
+    if (pJogador2 != NULL)
     {
-        if ((pJogador1 != nullptr && pJogador1->getVida() <= 0) && (pJogador2 != nullptr && pJogador2->getVida() <= 0))
+        if ((pJogador1 != NULL && pJogador1->getVida() <= 0) && (pJogador2 != NULL && pJogador2->getVida() <= 0))
             nJogs=0;
-        else if ((pJogador1 != nullptr && pJogador1->getVida() <= 0) || (pJogador2 != nullptr && pJogador2->getVida() <= 0))
+        else if ((pJogador1 != NULL && pJogador1->getVida() <= 0) || (pJogador2 != NULL && pJogador2->getVida() <= 0))
             nJogs=1;
     }
-    else if (pJogador1 != nullptr && pJogador1->getVida() <= 0)
+    else if (pJogador1 != NULL && pJogador1->getVida() <= 0)
         nJogs=0;
 
     listaEntidades.executar();
 
-    if (gC != nullptr)
+    if (gC != NULL)
         gC->executar();
 
     /*
     NÃO FUNCIONOU:
     bool aplicarGravidade = true;
 
-    if (gC != nullptr)
+    if (gC != NULL)
         aplicarGravidade = gC->executar();
 
     if(aplicarGravidade)
     {
-        if (pJogador1 != nullptr)
+        if (pJogador1 != NULL)
         pJogador1->gravity();
 
-        if (pJogador2 != nullptr)
+        if (pJogador2 != NULL)
         pJogador2->gravity();
     }
         
@@ -230,7 +230,7 @@ void Fase::criarInimigosFaceis()
     for (int i = 0; i < qntd; i++)
     {
         Stormtrooper* pStorm = new Stormtrooper();
-        if (pStorm == nullptr)
+        if (pStorm == NULL)
             cerr << "Tentativa de incluir Stormtrooper nula na lista de entidades." << endl;
         else
         {
@@ -248,7 +248,7 @@ void Fase::criarPlataformas()
     for (int i = 0; i < qntd; i++)
     {
         Plataforma* pPlat = new Plataforma();
-        if (pPlat == nullptr)
+        if (pPlat == NULL)
             cerr << "Tentativa de incluir plataforma nula na lista de entidades." << endl;
         else
         {

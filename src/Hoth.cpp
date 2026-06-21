@@ -69,19 +69,19 @@ Hoth::Hoth(Jogador* pJ1, Jogador* pJ2, char c):
         delete (pClearList);
     }
     
-    if (pJ1 != nullptr)
+    if (pJ1 != NULL)
     {
         incluirEntidade(pJ1);
-        if (gC != nullptr)
+        if (gC != NULL)
             gC->setJog1(pJ1);
         pJogador1=pJ1;
         nJogs++;
     }
 
-    if (pJ2 != nullptr)
+    if (pJ2 != NULL)
     {
         incluirEntidade(pJ2);
-        if (gC != nullptr)
+        if (gC != NULL)
             gC->setJog2(pJ2);
         pJogador2=pJ2;
         nJogs++;
@@ -109,7 +109,7 @@ void Hoth::criarInimigos()
     for (int i = 0; i < qntd; i++)
     {
         AT_ST* pAT = new AT_ST();
-        if (pAT == nullptr)
+        if (pAT == NULL)
             cerr << "Tentativa de incluir AT-ST nula na lista de entidades." << endl;
         else
         {
@@ -128,7 +128,7 @@ void Hoth::criarObstaculos()
     for (int i = 0; i < qntd; i++)
     {
         Gelo* pGelo = new Gelo();
-        if (pGelo == nullptr)
+        if (pGelo == NULL)
             cerr << "Tentativa de incluir gelo nula na lista de entidades." << endl;
         else   
         {
@@ -142,7 +142,7 @@ void Hoth::criarProjeteis(int qntd, AT_ST* pAT)
 {
     int random = rand()%11;
     Projetil* pProj = new Projetil(5+random);
-    if (pProj == nullptr)
+    if (pProj == NULL)
         cerr << "Tentativa de incluir projetil nulo na lista de entidades." << endl;
     else
     {
@@ -160,7 +160,7 @@ sf::Sprite Hoth::getDrawData() const
 /*
 void Hoth::incluirEntidade(Entidade* pE) 
 {
-    if (pE == nullptr)
+    if (pE == NULL)
     {
         std::cerr << "Erro: tentativa de incluir entidade nula na fase." << std::endl;
         return;
@@ -199,7 +199,7 @@ void Hoth::incluirEntidade(Entidade* pE)
 
 void Hoth::incluirJogador(Jogador* pJ)
 {
-    if (pJ == nullptr)
+    if (pJ == NULL)
     {
         cerr << "Erro: tentativa de incluir jogador nulo na fase." << endl;
         return;
@@ -217,7 +217,7 @@ void Hoth::incluirJogador(Jogador* pJ)
 
 void Hoth::incluirInimigo(Inimigo* pI)
 {
-    if (pI == nullptr)
+    if (pI == NULL)
     {
         cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
         return;
@@ -235,7 +235,7 @@ void Hoth::incluirInimigo(Inimigo* pI)
 
 void Hoth::incluirObstaculo(Obstaculo* pO)
 {
-    if (pO == nullptr)
+    if (pO == NULL)
     {
         cerr << "Erro: tentativa de incluir obstaculo nulo na fase." << endl;
         return;
