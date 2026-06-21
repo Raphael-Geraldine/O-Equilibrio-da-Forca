@@ -298,7 +298,7 @@ void K_2SO::verificarImpacto()
 
 void K_2SO::atualizarMaldade()
 {   
-    if (num_vidas <= 2)
+    /*if (num_vidas <= 2)
     {
         cooldownSalto = 1.8f;
         //impulsaoSalto = 620.0f;
@@ -326,6 +326,21 @@ void K_2SO::atualizarMaldade()
             this->operator++();
             maldadeClock.restart();
         }    
+    }*/
+
+    if (num_vidas <= 5)
+    {
+        cooldownSalto = 1.8f;
+        //impulsaoSalto = 620.0f;
+        
+        if (nivel_maldade < 15)
+            nivel_maldade = 15;
+        
+        if (maldadeClock.getElapsedTime().asSeconds() >= 1.0f)
+        {
+            this->operator++();
+            maldadeClock.restart();
+        }
     }
 
     else
