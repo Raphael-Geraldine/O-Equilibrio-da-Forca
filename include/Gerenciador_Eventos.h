@@ -1,11 +1,8 @@
 #pragma once
 
-#include <list>
-using namespace std;
-
 #include <SFML/Graphics.hpp>
 
-#include "../include/Observador_Eventos.h"
+#include "../include/Observado.h"
 
 // Implementado segundo a referência bibliográfica 
 // "Gang of Four Design Patterns", na seção que
@@ -19,23 +16,16 @@ namespace OEquilibrioDaForca
         class Gerenciador_Eventos: public Observado
         {
             private:
-                list<Observador_Eventos*> observadores;
                 sf::Event eventoAtual;
                 sf::RenderWindow* pJanela;
 
             public:
                 Gerenciador_Eventos();
-                ~Gerenciador_Eventos();
-
-                void anexar(Observador_Eventos* pObs); // Attach (Observer)
-                void desanexar(Observador_Eventos* pObs); // Detach (Observer)
-                void notificar(); // Notify()
+                virtual ~Gerenciador_Eventos();
 
                 void setEvento (const sf::Event& evento, sf::RenderWindow* pJan);
                 const sf::Event& getEvento() const;
                 sf::RenderWindow* getJanela() const;
-
-                void limpar();
         };
     }
 }

@@ -1,6 +1,9 @@
 // Subject
 #pragma once
 
+#include <list>
+using namespace std;
+
 namespace OEquilibrioDaForca 
 {
     namespace Gerenciadores 
@@ -9,14 +12,18 @@ namespace OEquilibrioDaForca
 
         class Observado 
         {
+            private:
+                list<Observador_Eventos*> observadores;
+           
             protected:
                 Observado();
 
             public:
                 virtual ~Observado();
-                virtual void anexar(Observador_Eventos* pObs) = 0;
-                virtual void desanexar(Observador_Eventos* pObs) = 0;
-                virtual void notificar() = 0;
+
+                virtual void anexar(Observador_Eventos* pObs);
+                virtual void desanexar(Observador_Eventos* pObs);
+                virtual void notificar();
         };
     }
 }
