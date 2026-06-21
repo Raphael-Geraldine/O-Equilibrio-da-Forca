@@ -17,7 +17,9 @@ namespace OEquilibrioDaForca
                 protected:
 
                     int nivel_maldade;
+                    float altura;
                     float coolDownAtaque;
+
                     sf::Clock aleatMov;
                     bool directionMove; //1 direita, 0 esquerda
 

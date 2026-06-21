@@ -26,7 +26,6 @@ vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Gelo::geloPositi
 
 Gelo::Gelo(): 
     Obstaculo(), 
-    largura(1), 
     danosidade(6),
     nGelo(cont++)
 {
@@ -37,7 +36,7 @@ Gelo::Gelo():
 
     danoso=true;
     emSuperficie = true;
-    geloSkin.setScale(0.20,0.20);
+    skin.setScale(0.20,0.20);
 
     sf::Texture* pTexturaGelo = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(GELOPNG);
     
@@ -45,15 +44,15 @@ Gelo::Gelo():
         cerr << "Erro de carregamento do PNG do Gelo" << endl;
         
     else
-        geloSkin.setTexture(*pTexturaGelo); 
+        skin.setTexture(*pTexturaGelo); 
 
-    sf::FloatRect bounds = geloSkin.getLocalBounds();
-    geloSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     x=(geloPositions[nGelo]).x;
     y=(geloPositions[nGelo]).y;
 
-    geloSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 Gelo::~Gelo()
 {
@@ -164,15 +163,15 @@ void Gelo::desacelerar(Jogador* pJog)
 void Gelo::mover()
 {
     y+=velocidade.y * dt;
-    geloSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 sf::Sprite Gelo::getDrawData() const 
 {
-    return geloSkin;
+    return skin;
 }
 sf::FloatRect Gelo::getBounds() const
 {
-    return geloSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 void Gelo::obstaculizarInim(Inimigo* pInim)

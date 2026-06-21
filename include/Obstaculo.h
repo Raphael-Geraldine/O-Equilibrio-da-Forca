@@ -6,6 +6,8 @@ using namespace OEquilibrioDaForca;
 using namespace Entidades;
 using namespace Personagens;
 
+#include "SFML/Graphics.hpp"
+
 namespace OEquilibrioDaForca
 {
     namespace Entidades
@@ -17,6 +19,7 @@ namespace OEquilibrioDaForca
                 protected:
                     bool danoso;
                     bool aplicarGravidade;
+                    float largura;
 
                 public:
                     Obstaculo();

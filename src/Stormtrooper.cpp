@@ -25,11 +25,10 @@ short int Stormtrooper::stromVivos(0);
 
 Stormtrooper::Stormtrooper(): 
     Inimigo(),
-    altura(1),
-    medo(false),
-    directionMove(true)
+    medo(false)
 {
     stromVivos++;
+    directionMove = true;
 
     //num_vidas = (rand()%5)+1;
     num_vidas = 5;
@@ -47,23 +46,22 @@ Stormtrooper::Stormtrooper():
     }
     else
     {
-        stormSkin.setTexture(*pTexturaStormtrooper); 
+        skin.setTexture(*pTexturaStormtrooper); 
     }
 
-    sf::FloatRect bounds = stormSkin.getLocalBounds();
-    stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    stormSkin.setScale(altura*0.12,altura*0.12);
+    skin.setScale(altura*0.12,altura*0.12);
     atualizarPosicaoSprite();
 }
 
 Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVidas, int nivelMal): 
     Inimigo(),
-    altura(1),
-    medo(false),
-    directionMove(true)
+    medo(false)
 {
     stromVivos++;
+    directionMove = true;
 
     num_vidas = numVidas;
     vidaMax = 5;
@@ -82,13 +80,13 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
     }
     else
     {
-        stormSkin.setTexture(*pTexturaStormtrooper); 
+        skin.setTexture(*pTexturaStormtrooper); 
     }
 
-    sf::FloatRect bounds = stormSkin.getLocalBounds();
-    stormSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    stormSkin.setScale(altura*0.12,altura*0.12);
+    skin.setScale(altura*0.12,altura*0.12);
     atualizarPosicaoSprite();
     atualizarBarraVida();
 }
@@ -178,16 +176,16 @@ void Stormtrooper::mover()
 }
 sf::FloatRect Stormtrooper::getBounds() const
 {
-    return stormSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 sf::Sprite Stormtrooper::getDrawData() const
 {   
-    return stormSkin;
+    return skin;
 }
 
 void Stormtrooper::atualizarPosicaoSprite() 
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
-    stormSkin.setPosition(x,y);
+    skin.setPosition(x,y);
     atualizarPosicaoBarra();
 }

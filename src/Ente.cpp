@@ -5,7 +5,6 @@
 using std::cout;
 using std::endl;
 
-// Inicializacao de atributos estaticos:
 int OEquilibrioDaForca::Ente::cont = 0;
 
 OEquilibrioDaForca::Gerenciadores::Gerenciador_Grafico* OEquilibrioDaForca::Ente::pGG = NULL;

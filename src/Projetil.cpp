@@ -37,7 +37,6 @@ using namespace Gerenciadores;
 
 Projetil::Projetil(short int d):
     Entidade(),
-    projetilSkin(),
     massa(0.12f),
     coefArrasto(0.25f),
     densidadeAr(1.225f),
@@ -57,12 +56,12 @@ Projetil::Projetil(short int d):
         cerr << "Erro de carregamento do PNG do Projetil" << endl;
 
     else
-        projetilSkin.setTexture(*pTexturaP); 
+        skin.setTexture(*pTexturaP); 
 
-    sf::FloatRect bounds = projetilSkin.getLocalBounds();
-    projetilSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    projetilSkin.setScale(0.15,0.15);
+    skin.setScale(0.15,0.15);
 
     atualizarPosicaoSprite();
 
@@ -71,7 +70,6 @@ Projetil::Projetil(short int d):
 
 Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool a):
     Entidade(),
-    projetilSkin(),
     massa(0.12f),
     coefArrasto(0.25f),
     densidadeAr(1.225f),
@@ -92,12 +90,12 @@ Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool 
         cerr << "Erro de carregamento do PNG do Projetil" << endl;
 
     else
-        projetilSkin.setTexture(*pTexturaP); 
+        skin.setTexture(*pTexturaP); 
 
-    sf::FloatRect bounds = projetilSkin.getLocalBounds();
-    projetilSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    projetilSkin.setScale(0.15,0.15);
+    skin.setScale(0.15,0.15);
 
     atualizarPosicaoSprite();
 
@@ -203,7 +201,7 @@ void Projetil::atualizarRotacaoSprite()
     const float anguloRad = atan2(velocidade.y, velocidade.x);   
     const float anguloGraus = anguloRad * 180.0f / 3.14159265f; // Aproximadamente 180.0f / PI
 
-    projetilSkin.setRotation(anguloGraus);
+    skin.setRotation(anguloGraus);
 }
 
 void Projetil::executar()
@@ -326,17 +324,17 @@ void Projetil::perseguir(Jogador* pJog)
 void Projetil::atualizarPosicaoSprite() 
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
-    projetilSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 
 sf::Sprite Projetil::getDrawData() const 
 {
-    return projetilSkin;
+    return skin;
 }
 
 sf::FloatRect Projetil::getBounds() const
 {
-    return projetilSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 bool Projetil::getAtivo() const

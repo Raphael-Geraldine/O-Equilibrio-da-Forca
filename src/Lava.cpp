@@ -25,8 +25,7 @@ short int OEquilibrioDaForca::Entidades::Obstaculos::Lava::cont(0);
 vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Lava::lavaPositions;
 
 Lava::Lava(): 
-    Obstaculo(), 
-    largura(1), 
+    Obstaculo(),  
     danosidade(4),
     nLava(cont++)
 {
@@ -38,7 +37,7 @@ Lava::Lava():
 
     danoso=true;
     emSuperficie = true;
-    lavaSkin.setScale(0.20,0.20);
+    skin.setScale(0.20,0.20);
 
     sf::Texture* pTexturaLava = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(LAVAPNG);
     
@@ -46,15 +45,15 @@ Lava::Lava():
         cerr << "Erro de carregamento do PNG da Lava" << endl;
         
     else
-        lavaSkin.setTexture(*pTexturaLava); 
+        skin.setTexture(*pTexturaLava); 
 
-    sf::FloatRect bounds = lavaSkin.getLocalBounds();
-    lavaSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     x=(lavaPositions[nLava]).x;
     y=(lavaPositions[nLava]).y;
 
-    lavaSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 Lava::~Lava()
 {
@@ -173,16 +172,16 @@ void Lava::danificar(Jogador* pJog, int dano)
 void Lava::mover()
 {
     y+=velocidade.y * dt;
-    lavaSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 sf::Sprite Lava::getDrawData() const 
 {
-    return lavaSkin;
+    return skin;
 }
 
 sf::FloatRect Lava::getBounds() const
 {
-    return lavaSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 void Lava::obstaculizarInim(Inimigo* pInim)

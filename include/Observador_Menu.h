@@ -5,7 +5,6 @@ using std::vector;
 
 #include <SFML/Graphics.hpp>
 #include "../include/Observador_Eventos.h"
-//#include "Observador_Eventos.h"
 
 #include "../include/Estado.h"
 using namespace OEquilibrioDaForca;

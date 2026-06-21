@@ -21,6 +21,7 @@ Inimigo::Inimigo():
     Personagem(),
     coolDownAtaque(0.0f),
     directionMove(false),
+    altura(1),
     nivel_maldade(1),
     vidaMax(0)
 {

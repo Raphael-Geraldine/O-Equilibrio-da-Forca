@@ -12,14 +12,19 @@ namespace OEquilibrioDaForca
     {
         class Entidade : public Ente
         {
-            protected: //deve ser protected e ter get!!! está assim para testar
+            protected:
                 float x;
                 float y;
                 bool emSuperficie;
+
+                //lógica da Thread para AT_ST
                 bool derivadoThread;
                 bool semaforoAberto;
+
                 float dt;
                 sf::Vector2f velocidade;
+
+                sf::Sprite skin;
 
                 static const float velocidadeMaxQueda;
                 static const float gravidade;
@@ -39,10 +44,10 @@ namespace OEquilibrioDaForca
                 virtual ~Entidade();
                 // Parâmetros remetem a vetores unitários.
                 // Para evitar uso de "this" nesse caso.
-                void setX(float i); // Estava int
+                void setX(float i);
                 float getX() const;
                 void setY(float j); 
-                float getY() const; // Estava int
+                float getY() const;
 
                 void setDeltaTempo (const float tempo);
                 
@@ -55,6 +60,7 @@ namespace OEquilibrioDaForca
 
                 void setBuffer(ostream* arquivo);
 
+                //Os chefões são derivados da classe Thhread, portanto esse bool indica isso
                 const bool getDerivadoThread() const;
                 bool getSemaforo();
                 void setSemaforo(bool b);
@@ -62,7 +68,6 @@ namespace OEquilibrioDaForca
                 virtual void aplicarFisica();
 
                 virtual void* run();
-                //virtual void execThreadMutex();
 
                 virtual void executar() = 0;
                 virtual void salvar() = 0;

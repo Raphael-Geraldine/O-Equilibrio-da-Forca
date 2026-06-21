@@ -15,9 +15,8 @@ namespace OEquilibrioDaForca
         protected:
             static int cont;
             int id;
-
+            
             static Gerenciadores::Gerenciador_Grafico* pGG;
-            //Figura* pFig;
 
         public:
             Ente();

@@ -17,7 +17,6 @@ namespace OEquilibrioDaForca
 #include "../include/Ente.h"
 #include "../include/Jogador.h"
 #include "../include/Jogo.h"
-// #include "../include/ElemRank.h"
 using namespace OEquilibrioDaForca;
 
 namespace OEquilibrioDaForca
@@ -46,8 +45,6 @@ namespace OEquilibrioDaForca
         private:
             Jogo* pJogo;
 
-            //string faseString;
-            //string jogsString;
             short int faseEscolhida;
             short int qntdJogs;
 
@@ -94,7 +91,6 @@ namespace OEquilibrioDaForca
             void setJogsEscolhido(short int j, vector<sf::Text>& text);
 
             void salvarRank(int pontos, string nome);
-            //vector<ElemRank*> getRank();
             void limparRank();
 
             size_t getTamanhoRank() const;

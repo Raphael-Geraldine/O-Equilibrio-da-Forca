@@ -20,7 +20,6 @@ namespace OEquilibrioDaForca
 
                     sf::Clock textureClock;
 
-                    // Pensar em usar: constexpr é valor constante, conhecido em tempo de compilação.
                     static const float velocidadePulo;
 
                 public:

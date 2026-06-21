@@ -1,3 +1,13 @@
+/*
+Classe Thread:
+
+O desenvolvimento desta classe foi 
+baseado nos slides dados em aula da
+disciplina de Técnicas de Programação, 
+pelo prof. Dr. Jean Simão, em 2026/1.
+
+*/
+
 #include <iostream>
 using namespace std;
 

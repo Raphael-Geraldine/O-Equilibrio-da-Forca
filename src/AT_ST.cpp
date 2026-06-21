@@ -36,8 +36,8 @@ AT_ST::AT_ST():
     alvo2(NULL)
 {
     derivadoThread=true;
+    directionMove = true;
     
-    //num_vidas = (rand()%10)+10;
     num_vidas = 20;
     vidaMax = num_vidas;
     nivel_maldade = 15;
@@ -51,12 +51,12 @@ AT_ST::AT_ST():
     if (pTexturaAT == NULL || pTexturaDanoAT == NULL)
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
     else
-        atSkin.setTexture(*pTexturaAT); 
+        skin.setTexture(*pTexturaAT); 
 
-    sf::FloatRect bounds = atSkin.getLocalBounds();
-    atSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    atSkin.setScale(altura*0.15,altura*0.15);
+    skin.setScale(altura*0.15,altura*0.15);
     atualizarPosicaoSprite();
 }
 
@@ -70,6 +70,7 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     alvo2(NULL)
 {
     derivadoThread=true;
+    directionMove = true;
     
     num_vidas = numVidas;
     vidaMax = 20;
@@ -86,12 +87,12 @@ AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivel
     if (pTexturaAT == NULL || pTexturaDanoAT == NULL)
         cerr << "Erro de carregamento do PNG do AT-ST" << endl;
     else
-        atSkin.setTexture(*pTexturaAT); 
+        skin.setTexture(*pTexturaAT); 
 
-    sf::FloatRect bounds = atSkin.getLocalBounds();
-    atSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    atSkin.setScale(altura*0.15,altura*0.15);
+    skin.setScale(altura*0.15,altura*0.15);
     atualizarPosicaoSprite();
     atualizarBarraVida();
 }
@@ -103,45 +104,8 @@ AT_ST::~AT_ST()
 
 void AT_ST::executar()
 {
-    start();
+    start(); //realizado com Threads
     join();
-    /*
-    salvarPosicaoAnterior();
-    
-    setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
-    velocidade.x = 0.0f;
-
-    int chance = rand()%10;
-
-    if (aleatMov.getElapsedTime().asSeconds() >= 2.0f)
-    {   
-        if (x - (getBounds().width/2.0f) < 10 && chance > 1)
-            directionMove = true;
-        else if (x + (getBounds().width/2.0f) > 1270 && chance > 1)
-            directionMove = false;
-        else if ((x>640 && chance > 3)||(x<640 && chance < 4))
-            directionMove=false;
-        else
-            directionMove=true;
-        aleatMov.restart();
-
-        this->operator++();
-    }
-
-    if (y + (getBounds().height/2.0f) > 700)
-    {
-        if (directionMove)
-            velocidade.x = 100.0f;
-        else
-            velocidade.x = -100.0f;
-    }
-
-    if((!(pProj->getAtivo())) && clockTiro.getElapsedTime().asSeconds()>=6.0f)
-        atirar();
-
-    aplicarFisica();
-    mover();
-    */
 }
 
 void AT_ST::danificar(Jogador* p)
@@ -155,12 +119,12 @@ void AT_ST::danificar(Jogador* p)
 
 sf::Sprite AT_ST::getDrawData() const
 {
-    return atSkin;
+    return skin;
 }
 
 sf::FloatRect AT_ST::getBounds() const
 {
-    return atSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 void AT_ST::salvar()
@@ -190,8 +154,7 @@ void AT_ST::operator++()
 
 void AT_ST::atualizarPosicaoSprite() 
 {
-    //void sf::Transformable::setPosition(const Vector2f &position)	
-    atSkin.setPosition(x,y);
+    skin.setPosition(x,y);
     atualizarPosicaoBarra();
 }
 
@@ -258,7 +221,6 @@ void AT_ST::atirar()
         }
     }
 
-    //cout<<"atirando"<<endl;
     pProj->perseguir(lockAlvo);
     clockTiro.restart();
 }
@@ -278,13 +240,6 @@ void AT_ST::setAlvos(Jogador* pJog1, Jogador* pJog2)
     alvo2 = pJog2;
 }
 
-/*
-void AT_ST::execThreadMutex()
-{
-    start();
-    join();
-}*/
-
 void* AT_ST::run()
 {
     lock();
@@ -296,8 +251,8 @@ void* AT_ST::run()
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
 
-    if ((atSkin.getTexture() == pTexturaDanoAT) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
-        atSkin.setTexture(*pTexturaAT);
+    if ((skin.getTexture() == pTexturaDanoAT) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
+        skin.setTexture(*pTexturaAT);
 
     int chance = rand()%10;
 
@@ -337,6 +292,6 @@ void* AT_ST::run()
 void AT_ST::sofrerAtaque(int dano)
 {
     num_vidas-=dano;
-    atSkin.setTexture(*pTexturaDanoAT); 
+    skin.setTexture(*pTexturaDanoAT); 
     textureClock.restart();
 }

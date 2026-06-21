@@ -16,8 +16,6 @@ namespace OEquilibrioDaForca
             private:
                 bool executando;
 
-                sf::Sprite projetilSkin;
-
                 float massa;
                 float coefArrasto;
                 float densidadeAr;

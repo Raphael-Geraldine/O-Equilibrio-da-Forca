@@ -171,6 +171,7 @@ void OEquilibrioDaForca::Jogo::executar()
             
             case Estado::NomeJog1:
             {                       
+                salvar();
                 short int qntd = pMenu->getJogsEscolhido();
                 if (qntd == 1)
                     pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(1), getNome(1));
@@ -322,7 +323,7 @@ void Jogo::limparFase()
     if (pFase == NULL)
         return;
 
-    cout << "Retorno do jogador" << endl; //continuar caminho voltar menu
+    //cout << "Retorno do jogador" << endl; //continuar caminho voltar menu
 
     delete pFase;
     pFase = NULL;
@@ -376,7 +377,7 @@ void Jogo::atualizarFase()
         }
         else
         {
-            cout << "Cabou! Jogou bem!" << endl; //continuar caminho voltar menu
+            //cout << "Cabou! Jogou bem!" << endl; //continuar caminho voltar menu
 
             delete pFase;
             pFase = NULL;
@@ -403,7 +404,7 @@ void Jogo::atualizarFase()
     }
     else if (!(pFase->numJogsVivos()))
     {
-        cout << "Cabou! Todos jogadores derrotados" << endl; //continuar caminho voltar menu
+        //cout << "Cabou! Todos jogadores derrotados" << endl; //continuar caminho voltar menu
         
         delete pFase;
         pFase = NULL;
@@ -444,7 +445,7 @@ void Jogo::salvarFechamento()
 
     if (estado == "jogo")
     {
-        cout<<"Tudo necessario ja foi salvo"<<endl;
+        //cout<<"Tudo necessario ja foi salvo"<<endl;
         return;
     }
 
@@ -635,7 +636,7 @@ void Jogo::carregarSave()
     if (estado != "jogo")
     {
         estadoAtual=Estado::Menu;
-        cerr<<"Nada a ser lido!"<<endl;
+        //cerr<<"Nada a ser lido!"<<endl;
         return;
     }
 

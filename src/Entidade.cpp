@@ -24,7 +24,7 @@ Entidade::~Entidade()
 void Entidade::aplicarFisica()
 {
     gravitar();
-    // Aqui usa o método sem parâmetro, pois o ajuste é manual.
+    //Aqui se usa o método sem parâmetro, pois o ajuste é manual.
     limitarVelTerminal();
 }
 
@@ -144,8 +144,3 @@ void* Entidade::run()
 {
     return NULL;
 }
-
-/*
-void Entidade::execThreadMutex()
-{}
-*/

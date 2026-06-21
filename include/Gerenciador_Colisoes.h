@@ -20,11 +20,6 @@ namespace OEquilibrioDaForca
 {
     namespace Gerenciadores
     {
-        //using Entidades::Entidade;
-        //using Entidades::Personagens::Jogador;
-        //using Entidades::Obstaculos::Plataforma;
-        //using Entidades::Obstaculos::Obstaculo;
-
         class Gerenciador_Colisoes
         {
             private:

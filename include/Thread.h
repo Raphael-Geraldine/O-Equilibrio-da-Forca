@@ -1,5 +1,15 @@
 #pragma once
 
+/*
+Classe Thread:
+
+O desenvolvimento desta classe foi 
+baseado nos slides dados em aula da
+disciplina de Técnicas de Programação, 
+pelo prof. Dr. Jean Simão, em 2026/1.
+
+*/
+
 #include <pthread.h>
 
 namespace OEquilibrioDaForca
@@ -13,16 +23,15 @@ namespace OEquilibrioDaForca
 
         private:
             static void* runThread(void* pThread);
-            virtual void* run() = 0;
+            virtual void* run() = 0; //vitual pura, método implementado na classe filha AT_ST (chefão)
 
         public:
             Thread();
             virtual ~Thread();
-            void start(); // cria a thread;
-            void join(); // espera a thread acabar;
-            void yield(); // libera o processador;
+            void start(); //Cria a thread
+            void join(); //Espera a thread acabar
+            void yield(); //Libera o processador
             void lock();
             void unlock();
-
     };
 }

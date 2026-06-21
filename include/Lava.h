@@ -22,8 +22,6 @@ namespace OEquilibrioDaForca
                     static short int cont;
                     static vector<sf::Vector2i> lavaPositions;
                     short int nLava;
-                    float largura;
-                    sf::Sprite lavaSkin;
 
                     vector<sf::Clock> clockDano;
                     vector<int> ids;

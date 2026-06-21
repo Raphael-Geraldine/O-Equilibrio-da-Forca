@@ -17,8 +17,6 @@ namespace OEquilibrioDaForca
                     int pontos;
                     sf::Texture* pTexturaJogador;
                     sf::Texture* pTexturaDanoJogador;
-                    sf::Sprite playerSkin;
-                    sf::Clock textureClock;
 
                 public:
                     Jogador();
@@ -26,7 +24,6 @@ namespace OEquilibrioDaForca
                     ~Jogador();
                     void colidirInimigo(Inimigo* pIn);
                     int getPontos() const;
-                    //void colidirObstaculo(Obstaculo* pOb);
                     sf::FloatRect getBounds() const;
                     sf::Sprite getDrawData() const;
                     void sofrerAtaque(int dano);

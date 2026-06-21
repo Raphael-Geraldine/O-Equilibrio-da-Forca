@@ -31,9 +31,8 @@ const float Plataforma::velocidadeEscorrega = 80.0f;
 short int OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::cont(0);
 vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::platPositions;
 
-OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
+OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(): 
     Obstaculo(),
-    largura(l), 
     nPlat(cont++)
 {
     if (nPlat > 11)
@@ -60,7 +59,7 @@ OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l):
 
     danoso=false;
     
-    platSkin.setScale(0.15,0.15);
+    skin.setScale(0.15,0.15);
 
     sf::Texture* pTexturaPlataforma = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(PLATPNG);
     
@@ -68,19 +67,19 @@ OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l):
         cerr << "Erro de carregamento do PNG da Plataforms" << endl;
         
     else
-        platSkin.setTexture(*pTexturaPlataforma); 
+        skin.setTexture(*pTexturaPlataforma); 
 
-    sf::FloatRect bounds = platSkin.getLocalBounds();
-    platSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
     x=(platPositions[nPlat]).x;
     y=(platPositions[nPlat]).y;
 
-    platSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 Plataforma::~Plataforma()
 {
-    // TIRAR SEG FAULT: delete(platSkin.getTexture());
+    // TIRAR SEG FAULT: delete(skin.getTexture());
 }
 void Plataforma::executar()
 {
@@ -99,7 +98,7 @@ void Plataforma::salvar()
 void Plataforma::mover()
 {
     y+=velocidade.y * dt;
-    platSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 void Plataforma::propulsao()
 {
@@ -282,12 +281,12 @@ void Plataforma::fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, con
 
 sf::Sprite Plataforma::getDrawData() const 
 {   
-    return platSkin;
+    return skin;
 }
 
 sf::FloatRect Plataforma::getBounds() const
 {
-    return platSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 void Plataforma::obstaculizarInim(Inimigo* pInim)
