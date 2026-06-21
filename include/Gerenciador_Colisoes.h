@@ -51,7 +51,6 @@ namespace OEquilibrioDaForca
 
                 // Colisões Inimigos:
                 void tratarColisoesInimObstaculos();
-                // void tratarColisoesInimProjeteis();
                 void tratarColisoesChaoInimigos();
 
                 // Colisão entre cada par:tratarColisao
