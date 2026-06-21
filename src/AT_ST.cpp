@@ -29,8 +29,6 @@ using namespace Gerenciadores;
 AT_ST::AT_ST():
     Inimigo(),
     Thread(),
-    altura(1),
-    directionMove(true),
     pProj(NULL),
     alvo1(NULL),
     alvo2(NULL)
@@ -63,8 +61,6 @@ AT_ST::AT_ST():
 AT_ST::AT_ST(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
     Inimigo(),
     Thread(),
-    altura(1),
-    directionMove(true),
     pProj(NULL),
     alvo1(NULL),
     alvo2(NULL)
