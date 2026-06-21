@@ -13,7 +13,6 @@ using std::endl;
 using std::pair;
 using std::map;
 
-//#include "../include/ElemRank.h"
 #include "../include/Menu.h"
 #include "../include/Ente.h"
 #include "../include/Fase.h"
@@ -28,9 +27,6 @@ using namespace Obstaculos;
 using namespace Gerenciadores;
 
 #include <SFML/Graphics.hpp>
-
-
-//Dá pra usar um tal de drawable, mais simples q o Sprite (assim tá ok, mas o outro é perfeccionismo)
 
 namespace OEquilibrioDaForca
 {
@@ -71,22 +67,8 @@ namespace OEquilibrioDaForca
 
                 static Gerenciador_Grafico* pGrafico; // static Singleton* Instance();
 
-                // sf::Texture texturaFundo; 
-                //sf::Sprite fundo;
-
-                //sf::Font fonteMenu;
                 sf::Font fonteName;
                 sf::Text nameType;
-
-                // sf::Texture texturaAnakin;
-                //sf::Sprite anakin;
-
-                //sf::Text textIniciar;
-                //sf::Text textRank;
-                //sf::Text textLoad;
-                //sf::Text textFase;
-                //sf::Text textPlayers;
-                //sf::Text textRules;
 
                 static void destruirGGrafico();
 
@@ -109,14 +91,9 @@ namespace OEquilibrioDaForca
                 void desenharComoJogar(sf::Sprite& fundo);
                 void desenharMenuPause(sf::Sprite& pause);
                 void mostrar();
-                void desenharOrigem(const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
 
                 void desenharSolicitar1Nome(sf::Event& event, const sf::Sprite& fundo, string& nome);
-
-                //void window(Menu* pM, Jogo* pP);
-                //void loadMenu(Menu* pM); //out
-                //void menuTextPlacement(); //out
                 
                 static float getDeltaTempo();
                 void atualizarTempoPercorrido();

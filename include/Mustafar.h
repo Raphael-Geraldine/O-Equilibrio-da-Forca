@@ -22,14 +22,8 @@ namespace OEquilibrioDaForca
                 const int maxInimigosMedios;
                 const int minObstMedios;
                 const int maxObstMedios;
-                sf::Texture texturaFundo; 
-                sf::Sprite fundo;
 
             private:
-                //void incluirEntidade(Entidades::Entidade* pE);
-                //void incluirJogador(Entidades::Personagens::Jogador* pJ);
-                //void incluirInimigo(Entidades::Personagens::Inimigo* pI);
-                //void incluirObstaculo(OEquilibrioDaForca::Entidades::Obstaculos::Obstaculo* pO);
                 void criarInimigos(); //Médios
                 void criarObstaculos(); //Médios
 

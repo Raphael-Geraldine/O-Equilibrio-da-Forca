@@ -19,8 +19,6 @@ namespace OEquilibrioDaForca
                     float raioImpacto;
                     bool impactoAplicado;
 
-                    float altura;
-                    sf::Sprite k2Skin;
                     sf::Texture* pTexturaK2;
                     sf::Texture* pTexturaDanoK2;
                     sf::Texture* pTexturaPoeiraK2;
@@ -31,7 +29,7 @@ namespace OEquilibrioDaForca
                     sf::Clock maldadeClock;
                     float cooldownSalto;
                     float impulsaoSalto;
-                    //bool estavaNoAr; não é usado pra nada
+
                     bool impactoAtivo;
                     float duracaoImpacto;
 
@@ -58,7 +56,7 @@ namespace OEquilibrioDaForca
                     sf::FloatRect getBounds() const;
 
                     void mover();
-                    void operator++(); //aumentar o dano com pouca vida
+                    void operator++(); //aumentar o nível de maldade e frequência de pulo com pouca vida
                     void atualizarPosicaoSprite();
                     void salvar();
                     void ativarImpacto();

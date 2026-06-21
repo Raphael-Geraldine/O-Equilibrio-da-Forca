@@ -11,7 +11,6 @@ using namespace OEquilibrioDaForca;
 #include "../include/Gerenciador_Eventos.h"
 #include "../include/Observador_Teclado.h"
 #include "../include/Observador_Menu.h"
-// #include "../include/ElemRank.h"
 
 namespace OEquilibrioDaForca 
 { 
@@ -35,7 +34,6 @@ namespace OEquilibrioDaForca
     namespace Fases 
     { 
         class Fase;
-        //class Hoth;
     }
 }
 
@@ -55,10 +53,7 @@ namespace OEquilibrioDaForca
             Gerenciadores::Gerenciador_Grafico* pGG;
             Menu* pMenu;
             OEquilibrioDaForca::Listas::ListaEntidades LEntidades;
-            // OEquilibrioDaForca::Entidades::Personagens::Jogador* pAnakin;
-            // OEquilibrioDaForca::Entidades::Personagens::Jogador* pObiWan;
             Fases::Fase* pFase;
-            //OEquilibrioDaForca::Fases::Hoth* hoth;
 
             Entidades::Personagens::Jogador* pAnakin1;
             Entidades::Personagens::Jogador* pObi1;
@@ -77,7 +72,6 @@ namespace OEquilibrioDaForca
             string& getNome(short int n);
 
             void fecharJogo(sf::RenderWindow& janela);
-            //void atalhoSalvarESair(sf::RenderWindow& janela);
             
             void alternarPause();
             void voltarMenuPeloPause();

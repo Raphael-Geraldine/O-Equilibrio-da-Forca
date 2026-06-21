@@ -16,10 +16,6 @@ namespace OEquilibrioDaForca
             class Stormtrooper : public Inimigo
             {
                 private:
-                    float altura;
-                    sf::Sprite stormSkin;
-                    bool directionMove;
-
                     static short int stromVivos; 
                     bool medo;
 

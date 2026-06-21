@@ -187,10 +187,7 @@ namespace OEquilibrioDaForca
         TL* Lista<TL>::operator[] (int indice) const 
         {
             if (indice < 0 || indice >= tamanhoLista) 
-            {
-                cerr << "Indice fora dos limites da lista. " << endl;
                 return NULL;
-            }
 
             Elemento<TL>* pAux = pPrimeiro;
             int i = 0;
@@ -215,10 +212,7 @@ namespace OEquilibrioDaForca
         void Lista<TL>::remover(int indice) 
         {
             if (indice < 0 || indice >= tamanhoLista)
-            {
-                cerr << "Indice fora dos limites da lista. " << endl;
                 return;
-            }
 
             Elemento<TL>* pAnte = NULL;
             Elemento<TL>* pAtual = pPrimeiro;
@@ -251,8 +245,6 @@ namespace OEquilibrioDaForca
 
             tamanhoLista--;
             delete pAtual;
-
-            cout << "Elemento " << info << "removido da lista." << endl;
         }
 
         template <class TL>
@@ -274,10 +266,7 @@ namespace OEquilibrioDaForca
             }
 
             if (pAtual == NULL) 
-            {
-                cout << "Elemento nao existe na lista" << endl;
                 return;
-            }
 
             if (pAtual == pPrimeiro) 
             {
@@ -297,8 +286,6 @@ namespace OEquilibrioDaForca
 
             tamanhoLista--;
             delete pAtual;
-
-            cout << "Elemento " << pAtual->getInfo() << "removido da lista." << endl;
         }
 
         template <class TL>
@@ -308,7 +295,6 @@ namespace OEquilibrioDaForca
 
             while(pPrimeiro != NULL) 
             {
-                cout << "Elemento " << pAux->getInfo() << "na lista." << endl;
                 pAux = pPrimeiro->getElProx();
             }
         }

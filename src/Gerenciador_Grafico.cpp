@@ -137,25 +137,6 @@ void Gerenciador_Grafico::desenharFase(Fase* pF)
     //janela.display(); o display é dado após desenhar a vida
 }
 
-void Gerenciador_Grafico::desenharOrigem(const sf::Sprite& sprite) {
-    sf::FloatRect bounds = sprite.getGlobalBounds();
-    sf::RectangleShape hitbox(sf::Vector2f(bounds.width, bounds.height));
-    
-    hitbox.setPosition(bounds.left, bounds.top);
-    hitbox.setFillColor(sf::Color::Transparent);
-    hitbox.setOutlineColor(sf::Color::Red);
-    hitbox.setOutlineThickness(1.f);
-    
-    float raio = 4.f;
-    sf::CircleShape ponto(raio);
-    ponto.setFillColor(sf::Color::Red);
-    ponto.setOrigin(raio, raio);
-    ponto.setPosition(sprite.getPosition());
-    
-    janela.draw(hitbox);
-    janela.draw(ponto);
-}
-
 void Gerenciador_Grafico::posicionarEnte (Ente* pE)
 {
 

@@ -18,7 +18,7 @@ namespace OEquilibrioDaForca
             {
                 private:
                     // Para evitar que o jogador fique exatamente encostado ou
-                    // sobreposto após correçao de colisão (fonte de bugs).
+                    // sobreposto após correçao de colisão, evitar erros de arredondamento de ponto flutuante.
                     static const float epsilonColisao;
 
                     // Coeficientes de restituição (de 0.0f a 1.0f):
@@ -34,13 +34,12 @@ namespace OEquilibrioDaForca
                     static short int cont;
                     static vector<sf::Vector2i> platPositions;
                     short int nPlat;
-                    float largura;
-                    sf::Sprite platSkin;
 
+                private:
                     void fazEscorregar(Personagem* pP, const sf::FloatRect& pBounds, const sf::FloatRect& obsBounds); 
 
                 public:
-                    Plataforma(float l=0.0f);
+                    Plataforma();
                     ~Plataforma();
                     void executar();
                     void salvar();

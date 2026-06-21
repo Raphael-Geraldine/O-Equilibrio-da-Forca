@@ -173,7 +173,7 @@ bool Menu::cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text)
     {
         sf::Time timer = sf::milliseconds(300);
         sf::sleep(timer);
-        cout<<"Redirecionando para: "<<static_cast<string>(text.getString())<<endl;
+        //cout<<"Redirecionando para: "<<static_cast<string>(text.getString())<<endl;
         return 1;
     }
     return 0;

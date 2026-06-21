@@ -26,7 +26,6 @@ using namespace Gerenciadores;
 // Construtora sem saving:
 K_2SO::K_2SO():
     Inimigo(),
-    altura(1),
     cooldownSalto(3.0f),
     impulsaoSalto(320.0f),
     impactoAtivo(false),
@@ -51,18 +50,17 @@ K_2SO::K_2SO():
     if (pTexturaK2 == nullptr || pTexturaDanoK2 == nullptr || pTexturaPoeiraK2 == nullptr)
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
     else
-        k2Skin.setTexture(*pTexturaK2); 
+        skin.setTexture(*pTexturaK2); 
 
-    sf::FloatRect bounds = k2Skin.getLocalBounds();
-    k2Skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    k2Skin.setScale(altura*0.15f, altura*0.15f); // Adiconado "f" - float
+    skin.setScale(altura*0.15f, altura*0.15f); // Adiconado "f" - float
     atualizarPosicaoSprite();
 }
 
 K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivelMal):
     Inimigo(),
-    altura(1),
     cooldownSalto(3.0f),
     impulsaoSalto(320.0f),
     impactoAtivo(false),
@@ -90,12 +88,12 @@ K_2SO::K_2SO(float sx, float sy, float velx, float vely, int numVidas, int nivel
         cerr << "Erro de carregamento do PNG do K-2SO" << endl;
 
     else
-        k2Skin.setTexture(*pTexturaK2); 
+        skin.setTexture(*pTexturaK2); 
 
-    sf::FloatRect bounds = k2Skin.getLocalBounds();
-    k2Skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    k2Skin.setScale(altura*0.15f, altura*0.15f);
+    skin.setScale(altura*0.15f, altura*0.15f);
     atualizarPosicaoSprite();
     atualizarBarraVida();
 }
@@ -127,11 +125,11 @@ void K_2SO::executar()
 
     velocidade.x = 0.0f;
 
-    if (((k2Skin.getTexture() == pTexturaDanoK2) && (textureClock.getElapsedTime().asMilliseconds() >= 150)) 
+    if (((skin.getTexture() == pTexturaDanoK2) && (textureClock.getElapsedTime().asMilliseconds() >= 150)) 
         || 
-        ((k2Skin.getTexture() == pTexturaPoeiraK2) && (clockImpacto.getElapsedTime().asSeconds() >= 0.25f)))
+        ((skin.getTexture() == pTexturaPoeiraK2) && (clockImpacto.getElapsedTime().asSeconds() >= 0.25f)))
     {
-        k2Skin.setTexture(*pTexturaK2);
+        skin.setTexture(*pTexturaK2);
     }
 
     int chance = rand() % 10;
@@ -205,12 +203,12 @@ void K_2SO::danificar(Jogador* p)
 
 sf::Sprite K_2SO::getDrawData() const
 {
-    return k2Skin;
+    return skin;
 }
 
 sf::FloatRect K_2SO::getBounds() const
 {
-    return k2Skin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 void K_2SO::salvar()
@@ -242,14 +240,14 @@ void K_2SO::operator++()
 void K_2SO::atualizarPosicaoSprite() 
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
-    k2Skin.setPosition(x,y);
+    skin.setPosition(x,y);
     atualizarPosicaoBarra();
 }
 
 void K_2SO::sofrerAtaque(int dano)
 {
     num_vidas -= dano;
-    k2Skin.setTexture(*pTexturaDanoK2); 
+    skin.setTexture(*pTexturaDanoK2); 
     textureClock.restart();
 }
 
@@ -371,7 +369,7 @@ void K_2SO::consumirImpacto()
     impactoAtivo = false;
 
     if(clockSalto.getElapsedTime().asMilliseconds()>100)
-        k2Skin.setTexture(*pTexturaPoeiraK2);
+        skin.setTexture(*pTexturaPoeiraK2);
 }
 
 void K_2SO::atualizarImpacto()

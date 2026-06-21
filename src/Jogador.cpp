@@ -24,7 +24,7 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
     num_vidas = 100;
     cooldownAtaque = 0.3f;
     
-    playerSkin.setScale(0.125f,0.125f);
+    skin.setScale(0.125f,0.125f);
 
     y=570;
 
@@ -39,7 +39,7 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
             cerr << "Erro de carregamento do PNG do Jogador 1 (Anakin)" << endl;
 
         else
-            playerSkin.setTexture(*pTexturaJogador); 
+            skin.setTexture(*pTexturaJogador); 
     }
     else
     {
@@ -52,11 +52,11 @@ Jogador::Jogador(): Personagem(), nPlayer(cont++), pontos(0)
             cerr << "Erro de carregamento do PNG do Jogador 2 (Obi Wan)" << endl;
 
         else
-            playerSkin.setTexture(*pTexturaJogador); 
+            skin.setTexture(*pTexturaJogador); 
     }
 
-    sf::FloatRect bounds = playerSkin.getLocalBounds();
-    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     
     atualizarPosicaoSprite();
 }
@@ -71,7 +71,7 @@ Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int 
     velocidade.x = velx;
     velocidade.y = vely;
     
-    playerSkin.setScale(0.125f,0.125f);
+    skin.setScale(0.125f,0.125f);
 
     if (!nPlayer)
     {
@@ -82,7 +82,7 @@ Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int 
             cerr << "Erro de carregamento do PNG do Jogador 1 (Anakin)" << endl;
 
         else
-            playerSkin.setTexture(*pTexturaJogador); 
+            skin.setTexture(*pTexturaJogador); 
     }
     else
     {
@@ -93,11 +93,11 @@ Jogador::Jogador(float sx,float sy,float velx,float vely,int numVidas,short int 
             cerr << "Erro de carregamento do PNG do Jogador 2 (Obi Wan)" << endl;
 
         else
-            playerSkin.setTexture(*pTexturaJogador); 
+            skin.setTexture(*pTexturaJogador); 
     }
 
-    sf::FloatRect bounds = playerSkin.getLocalBounds();
-    playerSkin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    sf::FloatRect bounds = skin.getLocalBounds();
+    skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     
     atualizarPosicaoSprite(); 
 }
@@ -110,7 +110,7 @@ Jogador::~Jogador()
 
 sf::Sprite Jogador::getDrawData() const
 {
-    return playerSkin;
+    return skin;
 }
 
 void Jogador::executar()
@@ -120,8 +120,8 @@ void Jogador::executar()
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
     
-    if ((playerSkin.getTexture() == pTexturaDanoJogador) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
-        playerSkin.setTexture(*pTexturaJogador);
+    if ((skin.getTexture() == pTexturaDanoJogador) && (textureClock.getElapsedTime().asMilliseconds() >= 150))
+        skin.setTexture(*pTexturaJogador);
 
     if (!nPlayer)
     {
@@ -195,7 +195,7 @@ void Jogador::deslocar(float velx, float vely)
 
 sf::FloatRect Jogador::getBounds() const
 {
-    return playerSkin.getGlobalBounds();
+    return skin.getGlobalBounds();
 }
 
 void Jogador::colidirInimigo(Inimigo* pIn)
@@ -235,7 +235,7 @@ void Jogador::colidirInimigo(Inimigo* pIn)
 void Jogador::sofrerAtaque(int dano)
 {
     num_vidas-=dano;
-    playerSkin.setTexture(*pTexturaDanoJogador); 
+    skin.setTexture(*pTexturaDanoJogador); 
     textureClock.restart();
     //cout<<num_vidas<<endl;
 }
@@ -243,7 +243,7 @@ void Jogador::sofrerAtaque(int dano)
 void Jogador::atualizarPosicaoSprite() 
 {
     //void sf::Transformable::setPosition(const Vector2f &position)	
-    playerSkin.setPosition(x,y);
+    skin.setPosition(x,y);
 }
 
 int Jogador::getPontos() const

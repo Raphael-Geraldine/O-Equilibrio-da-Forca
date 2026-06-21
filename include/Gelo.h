@@ -22,8 +22,6 @@ namespace OEquilibrioDaForca
                     static short int cont;
                     static vector<sf::Vector2i> geloPositions;
                     short int nGelo;
-                    float largura;
-                    sf::Sprite geloSkin;
 
                     vector<sf::Clock> clockDano;
                     vector<int> ids;

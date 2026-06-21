@@ -21,16 +21,10 @@ namespace OEquilibrioDaForca
                 const int maxChefoes;
                 const int minObstDificil;
                 const int maxObstDificil;
-                sf::Texture texturaFundo; 
-                sf::Sprite fundo;
 
             private:
-                //void incluirEntidade(Entidades::Entidade* pE);
-                //void incluirJogador(Entidades::Personagens::Jogador* pJ);
-                //void incluirInimigo(Entidades::Personagens::Inimigo* pI);
-                //void incluirObstaculo(OEquilibrioDaForca::Entidades::Obstaculos::Obstaculo* pO);
                 void criarInimigos(); //Chefoes: Dificil
-                void criarObstaculos(); //Dificil
+                void criarObstaculos(); //Obstáculo dificil
                 void criarProjeteis(int qntd, AT_ST* pAT);
 
             public:

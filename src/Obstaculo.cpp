@@ -2,7 +2,7 @@
 using namespace OEquilibrioDaForca;
 using namespace Obstaculos;
 
-Obstaculo::Obstaculo():Entidade(), danoso(false)
+Obstaculo::Obstaculo():Entidade(), largura(1), danoso(false)
 {}
 
 Obstaculo::~Obstaculo()

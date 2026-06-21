@@ -19,8 +19,6 @@ namespace OEquilibrioDaForca
         class Fase : public Ente
         {
             protected:
-                //static short int cont; //acho que essa lógica não vá funcionar, mas por enquanto tá assim para testes
-                //short int nFase;
                 short int entsAlive;
                 short int nJogs;
                 static short int platGeradas;
@@ -36,6 +34,7 @@ namespace OEquilibrioDaForca
                 const int minPlat;
                 const int maxPlat;
                 
+                sf::Sprite fundo;
                 sf::RectangleShape chao;
 
             protected:   

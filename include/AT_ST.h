@@ -20,11 +20,8 @@ namespace OEquilibrioDaForca
             class AT_ST : public Inimigo, Thread
             {
                 private:
-                    float altura;
-                    sf::Sprite atSkin;
                     sf::Texture* pTexturaAT;
                     sf::Texture* pTexturaDanoAT;
-                    bool directionMove;
                     Projetil* pProj;
                     Jogador* alvo1;
                     Jogador* alvo2;
@@ -41,7 +38,7 @@ namespace OEquilibrioDaForca
                     sf::FloatRect getBounds() const;
                     void salvar();
                     void mover();
-                    void operator++(); //aumentar o dano com pouca vida
+                    void operator++(); //aumentar o nível de maldade quando acerta projétil
                     void atualizarPosicaoSprite();
                     sf::Vector2f calcularPontoAlvo (const Jogador* pJog) const;
                     sf::Vector2f calcularPontoAtirador() const;
@@ -50,7 +47,6 @@ namespace OEquilibrioDaForca
                     void setProjetil(Projetil* pP);
                     void setAlvos(Jogador* pJog1, Jogador* pJog2);
                     void* run();
-                    //void execThreadMutex();
             };
         }
     }
