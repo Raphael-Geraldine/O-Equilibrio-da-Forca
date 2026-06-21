@@ -4,12 +4,15 @@
 using std::vector;
 
 #include <SFML/Graphics.hpp>
-#include "Observador_Eventos.h"
+#include "../include/Observador_Eventos.h"
+//#include "Observador_Eventos.h"
+
+#include "../include/Estado.h"
+using namespace OEquilibrioDaForca;
 
 namespace OEquilibrioDaForca
 {
     class Menu;
-    enum class Estado;
 
     namespace Gerenciadores
     {
@@ -17,7 +20,7 @@ namespace OEquilibrioDaForca
         {
             private:
                 Menu* pMenu;
-                Estado* pEstadoAtual;
+                Estado::Tipo* pEstadoAtual;
                 vector<sf::Text>* pVetTextosMenu;
                 bool ativo;
 
@@ -26,7 +29,7 @@ namespace OEquilibrioDaForca
                 ~Observador_Menu();
 
                 void setMenu(Menu* pM);
-                void setEstadoAtual(Estado* pEstado);
+                void setEstadoAtual(Estado::Tipo* pEstado);
                 void setTextosMenu(vector<sf::Text>* pVTextos);
                 void setAtivo (bool ativ);
                 void atualizar (Observado* pObservado);

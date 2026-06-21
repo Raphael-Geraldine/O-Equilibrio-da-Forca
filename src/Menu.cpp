@@ -75,7 +75,12 @@ Menu::~Menu()
 
 void Menu::executar()
 {
-    menuOptions = {"Iniciar novo jogo", "Ver o ranking", "Retomar jogo anterior", "Fase 1: Mustafar", "1 jogador", "Como jogar?"};
+    menuOptions.push_back("Iniciar novo jogo");
+    menuOptions.push_back("Ver o ranking");
+    menuOptions.push_back("Retomar jogo anterior");
+    menuOptions.push_back("Fase 1: Mustafar");
+    menuOptions.push_back("1 jogador");
+    menuOptions.push_back("Como jogar?");
     
     //faseString= "Fase 2: Hoth";
     //jogsString= "2 Jogadores";

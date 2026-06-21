@@ -77,7 +77,7 @@ namespace OEquilibrioDaForca
 
             void executar();
 
-            OEquilibrioDaForca::Estado manager(sf::RenderWindow& janela, vector<sf::Text>& text);
+            OEquilibrioDaForca::Estado::Tipo manager(sf::RenderWindow& janela, vector<sf::Text>& text);
             bool cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text);
 
             void loadMenu(vector<sf::Text>& text);

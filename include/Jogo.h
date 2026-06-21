@@ -4,6 +4,9 @@
 #include <string>
 using namespace std;
 
+#include "../include/Estado.h"
+using namespace OEquilibrioDaForca;
+
 #include "../include/ListaEntidades.h"
 #include "../include/Gerenciador_Eventos.h"
 #include "../include/Observador_Teclado.h"
@@ -38,22 +41,10 @@ namespace OEquilibrioDaForca
 
 namespace OEquilibrioDaForca
 {
-    enum class Estado
-    {
-        Menu,
-        NomeJog1,
-        NomeJog2,
-        Jogando,
-        Ranking,
-        Pause,
-        Carregar,
-        ComoJogar
-    };
-
     class Jogo
     {
         private:
-            Estado estadoAtual;
+            Estado::Tipo estadoAtual;
             vector<sf::Text> textOptions;
             sf::Clock typingDelay;
 

@@ -29,7 +29,7 @@ void Observador_Menu::setMenu(Menu* pM)
     pMenu = pM;
 }
 
-void Observador_Menu::setEstadoAtual(Estado* pEstado)
+void Observador_Menu::setEstadoAtual(Estado::Tipo* pEstado)
 {
     pEstadoAtual = pEstado;
 }

@@ -29,10 +29,7 @@ const float Plataforma::deslocamentoEscorrega = 2.0f;
 const float Plataforma::velocidadeEscorrega = 80.0f;
 
 short int OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::cont(0);
-vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::platPositions={
-    {250, 520}, {1030, 520}, {640, 400}, {100, 280}, {1180, 280}, {860, 320},
-    {430, 520}, {980, 480}, {150, 400}, {1130, 360}, {440, 280}, {640, 170}
-};
+vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::platPositions;
 
 OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l): 
     Obstaculo(),
@@ -44,6 +41,20 @@ OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma(float l):
         nPlat=0;
         cont=1;
     }
+
+    platPositions.push_back(sf::Vector2i(250, 520));
+    platPositions.push_back(sf::Vector2i(1030, 520));
+    platPositions.push_back(sf::Vector2i(640, 400));
+    platPositions.push_back(sf::Vector2i(100, 280));
+    platPositions.push_back(sf::Vector2i(1180, 280));
+    platPositions.push_back(sf::Vector2i(860, 320));
+
+    platPositions.push_back(sf::Vector2i(430, 520));
+    platPositions.push_back(sf::Vector2i(980, 480));
+    platPositions.push_back(sf::Vector2i(150, 400));
+    platPositions.push_back(sf::Vector2i(1130, 360));
+    platPositions.push_back(sf::Vector2i(440, 280));
+    platPositions.push_back(sf::Vector2i(640, 170));
     
     aplicarGravidade = false;
 

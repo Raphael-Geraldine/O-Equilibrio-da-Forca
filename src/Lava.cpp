@@ -22,9 +22,7 @@ using namespace Gerenciadores;
 #include "SFML/Graphics.hpp"
 
 short int OEquilibrioDaForca::Entidades::Obstaculos::Lava::cont(0);
-vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Lava::lavaPositions={
-    {250, 720}, {500, 720}, {750, 720}, {1180, 720}, {950, 720}
-};
+vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Lava::lavaPositions;
 
 Lava::Lava(): 
     Obstaculo(), 
@@ -32,6 +30,12 @@ Lava::Lava():
     danosidade(4),
     nLava(cont++)
 {
+    lavaPositions.push_back(sf::Vector2i(250, 720));
+    lavaPositions.push_back(sf::Vector2i(500, 720));
+    lavaPositions.push_back(sf::Vector2i(750, 720));
+    lavaPositions.push_back(sf::Vector2i(1180, 720));
+    lavaPositions.push_back(sf::Vector2i(950, 720));
+
     danoso=true;
     emSuperficie = true;
     lavaSkin.setScale(0.20,0.20);

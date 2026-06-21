@@ -22,9 +22,7 @@ using namespace Gerenciadores;
 #include "SFML/Graphics.hpp"
 
 short int OEquilibrioDaForca::Entidades::Obstaculos::Gelo::cont(0);
-vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Gelo::geloPositions={
-    {270 /*300*/, 720}, /*{480, 720},*/ {650, 720}, {1080, 720}, {850, 720}
-};
+vector<sf::Vector2i> OEquilibrioDaForca::Entidades::Obstaculos::Gelo::geloPositions;
 
 Gelo::Gelo(): 
     Obstaculo(), 
@@ -32,6 +30,11 @@ Gelo::Gelo():
     danosidade(6),
     nGelo(cont++)
 {
+    geloPositions.push_back(sf::Vector2i(270, 720));
+    geloPositions.push_back(sf::Vector2i(650, 720));
+    geloPositions.push_back(sf::Vector2i(1080, 720));
+    geloPositions.push_back(sf::Vector2i(850, 720));
+
     danoso=true;
     emSuperficie = true;
     geloSkin.setScale(0.20,0.20);
