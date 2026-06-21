@@ -95,7 +95,7 @@ void Gerenciador_Grafico::desenharEnte (Ente* pE)
         janela.draw(pI->getBarraVida());
 }
 
-void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela) 
+void Gerenciador_Grafico::desenharFase(Fase* pF) 
 {
     if (pF == NULL) 
     {
@@ -137,7 +137,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF, sf::RenderWindow& janela)
     //janela.display(); o display é dado após desenhar a vida
 }
 
-void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite) {
+void Gerenciador_Grafico::desenharOrigem(const sf::Sprite& sprite) {
     sf::FloatRect bounds = sprite.getGlobalBounds();
     sf::RectangleShape hitbox(sf::Vector2f(bounds.width, bounds.height));
     
@@ -152,8 +152,8 @@ void Gerenciador_Grafico::desenharOrigem(sf::RenderWindow& window, const sf::Spr
     ponto.setOrigin(raio, raio);
     ponto.setPosition(sprite.getPosition());
     
-    window.draw(hitbox);
-    window.draw(ponto);
+    janela.draw(hitbox);
+    janela.draw(ponto);
 }
 
 void Gerenciador_Grafico::posicionarEnte (Ente* pE)
@@ -192,7 +192,7 @@ void Gerenciador_Grafico::desenharTextoMenu (vector<sf::Text>& textOptions)
     }
 } 
 
-void Gerenciador_Grafico::desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome)
+void Gerenciador_Grafico::desenharSolicitar1Nome(sf::Event& event, const sf::Sprite& fundo, string& nome)
 {
     janela.draw(fundo);
     nameType.setString(nome);
@@ -269,7 +269,7 @@ sf::Texture* Gerenciador_Grafico::carregarTextura (const char* path)
     return textura;
 }
 
-void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, const vector<string>& linhasRank, sf::Sprite& fundo)
+void Gerenciador_Grafico::desenharRank(const vector<string>& linhasRank, sf::Sprite& fundo)
 {
     janela.draw(fundo);
 
@@ -310,7 +310,7 @@ void Gerenciador_Grafico::desenharRank(sf::RenderWindow& janela, const vector<st
     janela.display();
 }
 
-void Gerenciador_Grafico::desenharVida(sf::RenderWindow& janela, Jogador* pJ1, Jogador* pJ2)
+void Gerenciador_Grafico::desenharVida(Jogador* pJ1, Jogador* pJ2)
 {
     if(pJ1 != nullptr)
     {
@@ -333,18 +333,18 @@ void Gerenciador_Grafico::desenharVida(sf::RenderWindow& janela, Jogador* pJ1, J
     //janela.display();
 }
 
-void Gerenciador_Grafico::mostrar(sf::RenderWindow& janela)
+void Gerenciador_Grafico::mostrar()
 {
     janela.display();
 }
 
-void Gerenciador_Grafico::desenharComoJogar(sf::RenderWindow& janela, sf::Sprite& fundo)
+void Gerenciador_Grafico::desenharComoJogar(sf::Sprite& fundo)
 {
     janela.draw(fundo);
     janela.display();
 }
 
-void Gerenciador_Grafico::desenharMenuPause(sf::RenderWindow& janela, sf::Sprite& pause)
+void Gerenciador_Grafico::desenharMenuPause(sf::Sprite& pause)
 {
     sf::RectangleShape fundo(sf::Vector2f(1280, 720));
     sf::Color cor(160,160,160,100);
@@ -360,7 +360,7 @@ void Gerenciador_Grafico::desenharMenuPause(sf::RenderWindow& janela, sf::Sprite
 
 
 /*
-void Gerenciador_Grafico::desenharFase (Fase* pF, sf::RenderWindow& janela)
+void Gerenciador_Grafico::desenharFase (Fase* pF)
 {
     //janela.setMouseCursorVisible(false);
 

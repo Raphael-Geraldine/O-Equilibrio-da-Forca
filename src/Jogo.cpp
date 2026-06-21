@@ -148,7 +148,7 @@ void OEquilibrioDaForca::Jogo::executar()
         {
             case Estado::Menu:
             {
-                // Agora quem muda o estadoAtual é o observador // estadoAtual = pMenu->manager(*janela,textOptions); // Muda o estado do observado.
+                // Agora quem muda o estadoAtual é o observador // estadoAtual = pMenu->manager(textOptions); // Muda o estado do observado.
                 pGG->desenharMenu(pMenu,textOptions);
                 break;
             }
@@ -157,9 +157,9 @@ void OEquilibrioDaForca::Jogo::executar()
             {                       
                 short int qntd = pMenu->getJogsEscolhido();
                 if (qntd == 1)
-                    pGG->desenharSolicitar1Nome(*janela, evento, pMenu->getNomeBack(1), getNome(1));
+                    pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(1), getNome(1));
                 else
-                    pGG->desenharSolicitar1Nome(*janela, evento, pMenu->getNomeBack(1), getNome(1));
+                    pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(1), getNome(1));
 
                 /*
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
@@ -181,7 +181,7 @@ void OEquilibrioDaForca::Jogo::executar()
             
             case Estado::NomeJog2:
             {
-                pGG->desenharSolicitar1Nome(*janela, evento, pMenu->getNomeBack(2), getNome(2));
+                pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(2), getNome(2));
                 /*
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
                 {
@@ -193,7 +193,7 @@ void OEquilibrioDaForca::Jogo::executar()
             }
             case Estado::Ranking:
             {
-                pGG->desenharRank(*janela, pMenu->getLinhasRank(), pMenu->getRankSprite());
+                pGG->desenharRank(pMenu->getLinhasRank(), pMenu->getRankSprite());
                 
                 /*
                 if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
@@ -218,7 +218,7 @@ void OEquilibrioDaForca::Jogo::executar()
             }
             case Estado::ComoJogar:
             {
-                pGG->desenharComoJogar(*janela, pMenu->getHowSprite());
+                pGG->desenharComoJogar(pMenu->getHowSprite());
                 /*
                 if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
                     estadoAtual=Estado::Menu;
@@ -239,19 +239,19 @@ void OEquilibrioDaForca::Jogo::executar()
                     }
                     */
                     getFase()->executar();
-                    pGG->desenharFase(getFase(), *janela);
-                    pGG->desenharVida(*janela,pAnakin1,pObi1);
-                    pGG->mostrar(*janela);
+                    pGG->desenharFase(getFase());
+                    pGG->desenharVida(pAnakin1,pObi1);
+                    pGG->mostrar();
                 }
 
                 break;
             }
             case Estado::Pause:
             {
-                pGG->desenharFase(getFase(), *janela);
-                pGG->desenharVida(*janela,pAnakin1,pObi1);
-                pGG->desenharMenuPause(*janela, pMenu->getMenuPause());
-                pGG->mostrar(*janela);
+                pGG->desenharFase(getFase());
+                pGG->desenharVida(pAnakin1,pObi1);
+                pGG->desenharMenuPause(pMenu->getMenuPause());
+                pGG->mostrar();
 
                 /*
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)

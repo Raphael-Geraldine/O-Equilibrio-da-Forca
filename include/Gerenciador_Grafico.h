@@ -103,16 +103,16 @@ namespace OEquilibrioDaForca
                 void desenharEnte (Ente* pE);
                 void desenharTextoMenu (vector<sf::Text>& text);
                 void desenharMenu (Menu* pM, vector<sf::Text>& text);
-                void desenharRank(sf::RenderWindow& janela, const vector<string>& linhasRank, sf::Sprite& fundo);
-                void desenharFase(Fase* pF, sf::RenderWindow & janela);
-                void desenharVida(sf::RenderWindow& janela, Jogador* pJ1, Jogador* pJ2);
-                void desenharComoJogar(sf::RenderWindow& janela, sf::Sprite& fundo);
-                void desenharMenuPause(sf::RenderWindow& janela, sf::Sprite& pause);
-                void mostrar(sf::RenderWindow& janela);
-                void desenharOrigem(sf::RenderWindow& window, const sf::Sprite& sprite); //Apenas para debugar colisão
+                void desenharRank(const vector<string>& linhasRank, sf::Sprite& fundo);
+                void desenharFase(Fase* pF);
+                void desenharVida(Jogador* pJ1, Jogador* pJ2);
+                void desenharComoJogar(sf::Sprite& fundo);
+                void desenharMenuPause(sf::Sprite& pause);
+                void mostrar();
+                void desenharOrigem(const sf::Sprite& sprite); //Apenas para debugar colisão
                 void posicionarEnte(Ente* pE);
 
-                void desenharSolicitar1Nome(sf::RenderWindow& janela, sf::Event& event, const sf::Sprite& fundo, string& nome);
+                void desenharSolicitar1Nome(sf::Event& event, const sf::Sprite& fundo, string& nome);
 
                 //void window(Menu* pM, Jogo* pP);
                 //void loadMenu(Menu* pM); //out
