@@ -8,7 +8,7 @@ using namespace Personagens;
 #include <string>
 using namespace std;
 
-const float Personagem::velocidadePulo = -370.0f; //alterei de -420.0f para 370.0f, com "bônus de altura no chão"
+const float Personagem::velocidadePulo = -370.0f; //isso + um "bônus de altura" caso esteja no chão
 
 Personagem::Personagem(): 
     Entidade(), 
@@ -23,19 +23,6 @@ Personagem::~Personagem()
 {
     
 }
-
-/*
-void Personagem::atualizarPosicao() 
-{
-    dt = relogio.getElapsedTime().asSeconds();
-    float ds = velFinal.x * dt;
-    if (paraEsquerda) {
-        ds *= -1;
-    }
-
-    corpo.move(ds, 0.0f);
-}
-*/
 
 void Personagem::salvarDataBuffer()
 {
@@ -80,7 +67,7 @@ void Personagem::pular()
     bool plataformaFixa = false;
 
     if (y + (getBounds().height/2.0f) > 705)
-        plataformaFixa = true;
+        plataformaFixa = true; //Significa que está no chão e terá um bônus de altura, o jogador tem mais confiança pra pular
     if (emSuperficie) 
     {
         if (plataformaFixa)

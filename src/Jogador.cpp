@@ -155,18 +155,6 @@ void Jogador::executar()
     aplicarFisica();
     
     mover();
-
-    /*
-    if (!nPlayer)
-    {
-        if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::F)))
-        clockAtaque.restart();
-    }
-    else
-    {
-        if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::L)))
-        clockAtaque.restart();
-    }*/
 }
 void Jogador::salvar()
 {
@@ -212,9 +200,6 @@ void Jogador::colidirInimigo(Inimigo* pIn)
                 if (pIn->getVida() <= 0)
                     pontos++;
                 clockAtaque.restart();
-                //recuo pós ataque, arrumar a física aqui tbm
-                //y-=10; 
-                //x-=20;
             }
         }
         else
@@ -225,9 +210,6 @@ void Jogador::colidirInimigo(Inimigo* pIn)
                 if (pIn->getVida() <= 0)
                     pontos++;
                 clockAtaque.restart();
-                //recuo pós ataque, arrumar a física aqui tbm
-                //y-=10; 
-                //x-=20;
             }
         }
     }
@@ -238,12 +220,10 @@ void Jogador::sofrerAtaque(int dano)
     num_vidas-=dano;
     skin.setTexture(*pTexturaDanoJogador); 
     textureClock.restart();
-    //cout<<num_vidas<<endl;
 }
 
 void Jogador::atualizarPosicaoSprite() 
 {
-    //void sf::Transformable::setPosition(const Vector2f &position)	
     skin.setPosition(x,y);
 }
 
@@ -251,9 +231,3 @@ int Jogador::getPontos() const
 {
     return pontos;
 }
-
-/*
-void Jogador::colidirObstaculo(Obstaculo* pOb)
-{
-
-}*/

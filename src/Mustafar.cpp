@@ -32,8 +32,6 @@ Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2):
         fundo.setTexture(*pTexturaFundo); 
     
     inicializar(pJ1,pJ2);
-    //criarObstaculos();
-    //criarInimigos();
 }
 
 Mustafar::Mustafar(Jogador* pJ1, Jogador* pJ2, char c): 
@@ -83,9 +81,6 @@ Mustafar::~Mustafar()
         delete (pClearList);
     }
     platGeradas=0;
-    
-    //fixing memory leaks
-    //delete(fundo.getTexture());
 }
 
 void Mustafar::criarInimigos()
@@ -125,98 +120,3 @@ sf::Sprite Mustafar::getDrawData() const
 {
     return fundo;
 }
-
-/*
-void Mustafar::incluirEntidade(Entidade* pE) 
-{
-    if (pE == NULL)
-    {
-        std::cerr << "Erro: tentativa de incluir entidade nula na fase." << std::endl;
-        return;
-    }
-
-    // Inspiração no menu do Sistema Acadêmico, visto em sala,
-    // durante aula do Prof. Dr. Jean Simão.
-    switch (pE->getID())
-    {
-        // Depois restringir ao usar inimigos e afins.
-        case jogador:
-        {
-            incluirJogador(static_cast<Jogador*>(pE));
-            break;
-        }
-
-        case inimigo:
-        {
-            incluirInimigo(static_cast<Inimigo*>(pE));
-            break;
-        }
-
-        case obstaculo:
-        {
-            incluirObstaculo(static_cast<Obstaculo*>(pE));
-            break;
-        }
-
-        default:
-        {
-            listaEntidades.incluir(pE);
-            break;
-        }
-    }
-}
-
-void Mustafar::incluirJogador(Jogador* pJ)
-{
-    if (pJ == NULL)
-    {
-        cerr << "Erro: tentativa de incluir jogador nulo na fase." << endl;
-        return;
-    }
-
-    if (listaJogadores.getTamanho() >= 2)
-    {
-        cerr << "Erro: a fase suporta no maximo 2 jogadores." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(pJ);
-    listaJogadores.incluir(pJ);
-}
-
-void Mustafar::incluirInimigo(Inimigo* pI)
-{
-    if (pI == NULL)
-    {
-        cerr << "Erro: tentativa de incluir inimigo nulo na fase." << endl;
-        return;
-    }
-
-    if (listaInimigos.getTamanho() >= 45)
-    {
-        cerr << "Erro: a fase suporta no maximo 45 inimigos." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(static_cast<Entidade*>(pI));
-    listaInimigos.incluir(pI);
-}
-
-void Mustafar::incluirObstaculo(Obstaculo* pO)
-{
-    if (pO == NULL)
-    {
-        cerr << "Erro: tentativa de incluir obstaculo nulo na fase." << endl;
-        return;
-    }
-
-    if (listaObstaculos.getTamanho() >= 45)
-    {
-        cerr << "Erro: a fase suporta no maximo 45 obstaculos." << endl;
-        return;
-    }
-
-    listaEntidades.incluir(static_cast<Entidade*>(pO));
-    listaObstaculos.incluir(pO);
-}
-*/

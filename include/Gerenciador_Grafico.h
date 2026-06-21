@@ -91,7 +91,6 @@ namespace OEquilibrioDaForca
                 void desenharComoJogar(sf::Sprite& fundo);
                 void desenharMenuPause(sf::Sprite& pause);
                 void mostrar();
-                void posicionarEnte(Ente* pE);
 
                 void desenharSolicitar1Nome(sf::Event& event, const sf::Sprite& fundo, string& nome);
                 

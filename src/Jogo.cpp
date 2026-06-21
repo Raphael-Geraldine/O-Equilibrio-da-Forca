@@ -147,24 +147,14 @@ void OEquilibrioDaForca::Jogo::executar()
         {
             pGerEventos->setEvento(evento, janela);
             pGerEventos->notificar();
-            /*
-            if (evento.type == sf::Event::Closed)
-            {
-                salvarFechamento();
-                janela->close();
-            }
-            */
         }
 
         janela->clear(sf::Color::Black);
-
-        //cout<<pMenu->getFaseEscolhida()<<endl;
         
         switch(estadoAtual)
         {
             case Estado::Menu:
             {
-                // Agora quem muda o estadoAtual é o observador // estadoAtual = pMenu->manager(textOptions); // Muda o estado do observado.
                 pGG->desenharMenu(pMenu,textOptions);
                 break;
             }
@@ -177,55 +167,17 @@ void OEquilibrioDaForca::Jogo::executar()
                     pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(1), getNome(1));
                 else
                     pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(1), getNome(1));
-
-                /*
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
-                {
-                    if (qntd==1)
-                    {
-                        inicializarJogo();
-                        estadoAtual=Estado::Jogando;
-                    }
-                    else
-                        estadoAtual=Estado::NomeJog2;
-
-                    typingDelay.restart();
-                }
-                */
-
                 break;
             }
             
             case Estado::NomeJog2:
             {
-                pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(2), getNome(2));
-                /*
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && typingDelay.getElapsedTime().asMilliseconds()>=200)
-                {
-                    inicializarJogo();
-                    estadoAtual=Estado::Jogando;
-                } 
-                */   
+                pGG->desenharSolicitar1Nome(evento, pMenu->getNomeBack(2), getNome(2)); 
                 break;
             }
             case Estado::Ranking:
             {
                 pGG->desenharRank(pMenu->getLinhasRank(), pMenu->getRankSprite());
-                
-                /*
-                if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))||(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))) 
-                      && (sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
-                {
-                    salvar();
-                    janela->close();
-                }
-                */
-
-                /*
-                if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
-                    estadoAtual=Estado::Menu;
-                */
-
                 break; 
             }
             case Estado::Carregar:
@@ -236,10 +188,6 @@ void OEquilibrioDaForca::Jogo::executar()
             case Estado::ComoJogar:
             {
                 pGG->desenharComoJogar(pMenu->getHowSprite());
-                /*
-                if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
-                    estadoAtual=Estado::Menu;
-                */
                 break; 
             }
             case Estado::Jogando:
@@ -248,13 +196,6 @@ void OEquilibrioDaForca::Jogo::executar()
 
                 if (getFase() != NULL)
                 {
-                    /*
-                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
-                    {
-                        estadoAtual=Estado::Pause;
-                        typingDelay.restart();
-                    }
-                    */
                     getFase()->executar();
                     pGG->desenharFase(getFase());
                     pGG->desenharVida(pAnakin1,pObi1);
@@ -269,25 +210,6 @@ void OEquilibrioDaForca::Jogo::executar()
                 pGG->desenharVida(pAnakin1,pObi1);
                 pGG->desenharMenuPause(pMenu->getMenuPause());
                 pGG->mostrar();
-
-                /*
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::P) && typingDelay.getElapsedTime().asMilliseconds()>=200)
-                {
-                    estadoAtual=Estado::Jogando;
-                    typingDelay.restart();
-                }
-                */
-
-                /*
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && typingDelay.getElapsedTime().asMilliseconds()>=200)
-                {
-                    salvar();
-                    limparFase();
-                    estadoAtual=Estado::Menu;
-                    typingDelay.restart();
-                }
-                */
-
                 break;
             }
         }
@@ -323,23 +245,17 @@ void Jogo::limparFase()
     if (pFase == NULL)
         return;
 
-    //cout << "Retorno do jogador" << endl; //continuar caminho voltar menu
-
     delete pFase;
     pFase = NULL;
 
-    //estadoAtual=Estado::Menu;
-
-    if (pAnakin1 != NULL)
+    if (pAnakin1 != nullptr)
     {
-        //pMenu->salvarRank(pAnakin1->getPontos(),nomeJog1);
         delete (pAnakin1);
         pAnakin1 = NULL;
     }
 
     if (pObi1 != NULL)
     {
-        //pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
         delete (pObi1);
         pObi1 = NULL;
     }
@@ -353,11 +269,8 @@ void Jogo::atualizarFase()
     if (pFase == NULL)
         return;
 
-    //cout<<pFase->numJogsVivos()<<endl;
     if (!(pFase->getInimVivos()) && pFase->numJogsVivos()) //ou seja, quando derrotar todos inimigos
     {
-        //Mustafar* pMustafar = dynamic_cast<Mustafar*>(pFase);
-
         if (!(pMenu->getFaseEscolhida()))
         {
             delete pFase;
@@ -377,8 +290,6 @@ void Jogo::atualizarFase()
         }
         else
         {
-            //cout << "Cabou! Jogou bem!" << endl; //continuar caminho voltar menu
-
             delete pFase;
             pFase = NULL;
 
@@ -402,10 +313,8 @@ void Jogo::atualizarFase()
             nomeJog2.clear();
         }
     }
-    else if (!(pFase->numJogsVivos()))
-    {
-        //cout << "Cabou! Todos jogadores derrotados" << endl; //continuar caminho voltar menu
-        
+    else if (!(pFase->numJogsVivos())) //Todos jogadores derrotados
+    {   
         delete pFase;
         pFase = NULL;
         estadoAtual=Estado::Menu;
@@ -444,10 +353,7 @@ void Jogo::salvarFechamento()
     getline(dataIn,estado,'%');
 
     if (estado == "jogo")
-    {
-        //cout<<"Tudo necessario ja foi salvo"<<endl;
         return;
-    }
 
     salvar();
 }
@@ -476,38 +382,16 @@ void Jogo::salvar()
         int pontuacao = pMenu->getPontosRank(i);
 
         data << nome << ' ' << pontuacao;
-        // data << nome << ' ' << to_string(pontuacao);
 
         i++;
 
-        // i == tamanhoRank - 1 e menos 1 porque começa em zero
+        // i == tamanhoRank - 1, sendo menos 1 porque começa em zero
         if (i == 5)
             data << '%';
 
         else
             data << ' ';
     }
-
-    /*
-    vector<ElemRank*> rankSave = pMenu->getRank();
-    vector<ElemRank*>::iterator it = rankSave.begin();
-    int i = 0;
-
-    while(it != rankSave.end())
-    {
-        data << (*it)->getNome() << ' '
-             << to_string((*it)->getPontos());
-
-        i++;
-
-        if(i==5)
-            data<<'%';
-        else
-            data<<' ';
-
-        ++it;
-    }
-    */
 
     while (i < 5)
     {
@@ -525,18 +409,13 @@ void Jogo::salvar()
         return;
     }
 
-/* ESTADO E RANK */
-
-    //short int plat = pFase->getPlatGeradas();
-    //data<<to_string(plat)<<'%';
+    //ESTADO E RANK
 
     int qntdJogsSave = pMenu->getJogsEscolhido();
 
     data<<pMenu->getFaseEscolhida()<<' '<<qntdJogsSave<<'%';
 
-    // data<<to_string(pMenu->getFaseEscolhida())<<' '<<to_string(qntdJogsSave)<<'%';
-
-/* FASE E JOGADORES */
+    //FASE E JOGADORES
 
     if(nomeJog1.empty())
         data<<'-';
@@ -551,13 +430,13 @@ void Jogo::salvar()
     }
     data<<'%';
 
-/* NOMES JOGADORES */
+    //NOMES JOGADORES
 
     ListaEntidades* allEnts = pFase->getListaEntidades();
 
     allEnts->salvar(&data);
 
-/* ALL DATA */
+    //ALL DATA
 
     data.close();
 }
@@ -597,8 +476,6 @@ void Jogo::carregarSaveMenu()
 void Jogo::carregarSave()
 {
     ifstream data("../assets/data.txt", ios::in);
-
-    //pMenu->limparRank();
     
     if (!data) 
     {
@@ -613,7 +490,6 @@ void Jogo::carregarSave()
 
     string preRead;
     getline(data,preRead,'%');
-    //stringstream read(preRead);
 
     string d1;
     string d2;
@@ -623,26 +499,15 @@ void Jogo::carregarSave()
     string d6;
     string d7;
 
-    /*while(read>>d1>>d2)
-    {
-        if(d1!= "-" && d2!="-")
-        {
-            pMenu->salvarRank(paraInt(d2),d1);
-        }
-    }*/
-
-/* ESTADO E RANK */
+    //ESTADO E RANK
 
     if (estado != "jogo")
     {
         estadoAtual=Estado::Menu;
-        //cerr<<"Nada a ser lido!"<<endl;
         return;
     }
 
     getline(data,preRead,'%');
-    //read.clear(); 
-    //read.str(preRead);
     stringstream read(preRead);
 
     read>>d1>>d2;
@@ -687,7 +552,7 @@ void Jogo::carregarSave()
     else
         pFase = new Hoth(pAnakin1,pObi1,'s');
 
-/* FASE E JOGADORES */
+    //FASE E JOGADORES
     
     while(getline(data,preRead,'%'))
     {
@@ -798,7 +663,7 @@ void Jogo::carregarSave()
         }
     }
 
-/* ALL DATA */
+    //ALL DATA
 
     ofstream dataOut("../assets/data.txt", ios::out); 
     dataOut.close();
@@ -810,14 +675,6 @@ void Jogo::fecharJogo (sf::RenderWindow& janela)
     salvarFechamento();
     janela.close();
 }
-
-/*
-void Jogo::atalhoSalvarESair(sf::RenderWindow& janela)
-{
-    salvar();
-    janela.close();
-}
-*/
 
 void Jogo::alternarPause()
 {

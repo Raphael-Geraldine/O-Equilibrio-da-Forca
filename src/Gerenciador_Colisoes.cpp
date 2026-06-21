@@ -58,8 +58,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
     
     for (it = LOs.begin(); it != LOs.end(); ++it)
     {
-        if ((*it) == NULL)
-            continue; // Deve ser tolerado de fato?
+        if ((*it) == nullptr)
+            continue;
 
         Obstaculo* pObs = (*it);
 
@@ -79,8 +79,8 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == NULL)
-            continue; // Deve-se tolerar de fato?
+        if (LIs[i] == nullptr)
+            continue;
     
         if (pJog1 != NULL && verificarColisao(pJog1, pInim))
             tratarColisaoJogInimigo(pJog1, pInim);
@@ -92,19 +92,14 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
 
 void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
 {
-    //int tamanhoProj = static_cast<int>(LPjs.size());
-
     set<Projetil*>::iterator it;
 
-    //for (int i = 0; i < tamanhoProj; i++)
     for (it = LPjs.begin(); it != LPjs.end(); ++it)
     {
-        //Projetil* pProj = LPjs[i];
         Projetil* pProj = *it;
 
-        //if (LPjs[i] == NULL)
-        if (pProj == NULL)
-            continue; // Deve-se tolerar de fato?
+        if (pProj == nullptr)
+            continue;
     
         if (pJog1 != NULL && verificarColisao(pJog1, pProj))
             tratarColisaoJogProjetil(pJog1, pProj);
@@ -139,15 +134,15 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == NULL)
-            continue; // Deve-se tolerar de fato?
+        if (LIs[i] == nullptr)
+            continue;
     
         std::list<Obstaculo*>::iterator it; 
 
         for (it = LOs.begin(); it != LOs.end(); ++it)
         {
-            if ((*it) == NULL)
-                continue; // Deve ser tolerado de fato?
+            if ((*it) == nullptr)
+                continue;
 
             Obstaculo* pObs = (*it);
 
@@ -168,8 +163,8 @@ void Gerenciador_Colisoes::tratarColisoesChaoInimigos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == NULL)
-            continue; // Deve-se tolerar de fato?
+        if (LIs[i] == nullptr)
+            continue;
 
         if (pInim != NULL) 
             tratarColisaoPersonagemChao(pInim);
@@ -354,8 +349,8 @@ void Gerenciador_Colisoes::executar()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == NULL)
-            continue; // Deve-se tolerar de fato?
+        if (LIs[i] == nullptr)
+            continue;
 
         if (pInim != NULL) 
         {
@@ -572,38 +567,9 @@ bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2 (Jogador* pJog, K_2SO* pK2)
 
     return dx <= pK2->getRaioImpacto();
 }
-
-/*
-bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2(Jogador* pJog, K_2SO* pK2)
-{
-    if (pJog == NULL || pK2 == NULL)
-        return false;
-
-    if (!pJog->getNoChao())
-        return false;
-
-    sf::FloatRect boundsJog = pJog->getBounds();
-    float centroJogX = boundsJog.left + boundsJog.width / 2.0f;
-    float centroJogY = boundsJog.top + boundsJog.height / 2.0f;
-
-
-    sf::FloatRect boundsK2 = pK2->getBounds();
-    float centroK2X = boundsK2.left + boundsK2.width / 2.0f;
-    float centroK2Y = boundsK2.top + boundsK2.height / 2.0f;
-
-    float dx = centroJogX - centroK2X;
-    float dy = centroJogY - centroK2Y;
-
-    float distanciaQuadrada = dx * dx + dy * dy;
-    float raio = pK2->getRaioImpacto();
-
-    return distanciaQuadrada <= raio * raio; // Para evitar usar sqrt.
-}               
-*/
-
 bool Gerenciador_Colisoes::personagemSobreChao(Personagem* pP)
 {
-    if (pP == NULL || pChao == NULL)
+    if (pP == nullptr || pChao == nullptr)
         return false;
 
     sf::FloatRect pBounds = pP->getBounds();

@@ -82,10 +82,7 @@ void Inimigo::sofrerAtaque(int dano)
 
 void Inimigo::atualizarBarraVida()
 {
-    //cout<<getID()<<": "<<(float)num_vidas<<endl;
-    //cout<<getID()<<": "<<(float)vidaMax<<endl;
     float vidaAtual = ((float)num_vidas)/((float)vidaMax);
-    //cout<<getID()<<": "<<vidaAtual<<endl;
     if(vidaAtual <= 0.25f)
         barraVida.setTexture(*pVida25);
     else if(vidaAtual <= 0.5f)

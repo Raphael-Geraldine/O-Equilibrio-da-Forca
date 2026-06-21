@@ -79,8 +79,6 @@ void Gelo::obstaculizar (Jogador* pJog)
     sf::FloatRect playerBounds = pJog->getBounds();
     sf::FloatRect GeloBounds = this->getBounds();
     
-    //pJog->setY(710-(playerBounds.height/1.9f));
-    //pJog->setNoChao(true);
     desacelerar(pJog);
 
     bool inteiro = false;
@@ -126,25 +124,6 @@ void Gelo::obstaculizar (Jogador* pJog)
     sf::Clock clockD;
     clockDano.push_back(clockD);
     pJog->atualizarPosicaoSprite();
-
-    /*
-    if (clockDano.getElapsedTime().asSeconds()>0.5f)
-    {
-        //Quando jogador estiver 100% em cima
-        if (((pJog->getX() + (playerBounds.width/2.0f)) < (this->getX() + (GeloBounds.width/2.0f))) 
-            && 
-            ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (GeloBounds.width/2.0f))))
-        {
-            danificar(pJog,(int)danosidade);
-        }
-        else
-            danificar(pJog,(int)danosidade/2);
-    
-        clockDano.restart();
-    }
-
-    pJog->atualizarPosicaoSprite();
-    */
 }
 void Gelo::danificar(Jogador* pJog, int dano)
 {
@@ -173,8 +152,5 @@ sf::FloatRect Gelo::getBounds() const
 {
     return skin.getGlobalBounds();
 }
-
 void Gelo::obstaculizarInim(Inimigo* pInim)
-{
-    
-}
+{}

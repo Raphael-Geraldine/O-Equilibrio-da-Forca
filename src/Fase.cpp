@@ -23,8 +23,6 @@ using std::endl;
 
 #include <stdlib.h>
 
-//short int Fase::cont(0);
-
 short int Fase::platGeradas(0);
 
 Fase::Fase(): 
@@ -35,10 +33,9 @@ Fase::Fase():
     entsAlive(0),
     nJogs(0),
     Ente(),
-    //nFase(cont++), 
-    pJogador1(NULL),
-    pJogador2(NULL),
-    gC(NULL)
+    pJogador1(nullptr),
+    pJogador2(nullptr),
+    gC(nullptr)
 {
     gC = new Gerenciador_Colisoes();
     
@@ -53,13 +50,6 @@ Fase::~Fase()
         delete gC;
         gC = NULL;
     }
-
-    // Ver se não é entidade.
-    //if (pPlat != NULL)
-    //{
-    //    delete pPlat;
-    //    pPlat = NULL;
-    //}
 
     int tamanhoEnt = listaEntidades.getTamanho();
     
@@ -202,26 +192,6 @@ void Fase::executar()
 
     if (gC != NULL)
         gC->executar();
-
-    /*
-    NÃO FUNCIONOU:
-    bool aplicarGravidade = true;
-
-    if (gC != NULL)
-        aplicarGravidade = gC->executar();
-
-    if(aplicarGravidade)
-    {
-        if (pJogador1 != NULL)
-        pJogador1->gravity();
-
-        if (pJogador2 != NULL)
-        pJogador2->gravity();
-    }
-        
-    listaEntidades.executar();
-    
-    */
 }
 
 void Fase::criarInimigosFaceis()
@@ -260,7 +230,6 @@ void Fase::criarPlataformas()
 
 short int Fase::numJogsVivos() const
 {
-    //cout<<nJogs<<endl;
     return nJogs;
 }
 

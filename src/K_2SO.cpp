@@ -23,7 +23,6 @@ using namespace Gerenciadores;
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
-// Construtora sem saving:
 K_2SO::K_2SO():
     Inimigo(),
     cooldownSalto(3.0f),
@@ -34,8 +33,6 @@ K_2SO::K_2SO():
     impactoAplicado(false)
 {
     directionMove = true;
-
-    //num_vidas = (rand() % 6) + 5; // 5 a 10 vidas
     num_vidas = 10;
     vidaMax = num_vidas;
     nivel_maldade = 9;
@@ -55,7 +52,7 @@ K_2SO::K_2SO():
     sf::FloatRect bounds = skin.getLocalBounds();
     skin.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
 
-    skin.setScale(altura*0.15f, altura*0.15f); // Adiconado "f" - float
+    skin.setScale(altura*0.15f, altura*0.15f);
     atualizarPosicaoSprite();
 }
 
@@ -149,11 +146,8 @@ void K_2SO::executar()
             directionMove=true; // Dir
 
         aleatMov.restart();
-
-        // this->operator++();
     }
 
-    // VER SE NÃO DÁ PARA USAR DE PERSONAGEM
     if (y + (getBounds().height/2.0f) > 700)
     {
         float velBase = 100.0f;
@@ -185,20 +179,10 @@ void K_2SO::danificar(Jogador* p)
     if (num_vidas <= 0)
         return;
         
-    /* Via Gerenciador_Colisoes
-    if (impactoAtivo)
-    {
-        p->sofrerAtaque(nivel_maldade);
-        impactoAtivo = false;
-        return;
-    }
-    */
     int chance = rand() % 10; 
 
     if (chance >3)
-    {
         p->sofrerAtaque(nivel_maldade/3);
-    }
 }
 
 sf::Sprite K_2SO::getDrawData() const
@@ -239,7 +223,6 @@ void K_2SO::operator++()
 
 void K_2SO::atualizarPosicaoSprite() 
 {
-    //void sf::Transformable::setPosition(const Vector2f &position)	
     skin.setPosition(x,y);
     atualizarPosicaoBarra();
 }
@@ -265,71 +248,16 @@ void K_2SO::tentarPular()
     velocidade.y = -impulsaoSalto;
     setEmSuperficie(false);
 
-    //estavaNoAr = true; não é usado pra nada, nas construtors tinha um estavaNoAr(false)
     impactoAplicado = false;
     
     clockSalto.restart();
 }
 
-/*
-void K_2SO::verificarImpacto()
-{
-    bool estaNoChao = getNoChao();
-
-    if (estavaNoAr && estaNoChao
-        && !impactoAtivo && 
-        !impactoAplicado)
-    {
-        impactoAtivo = true;
-        clockImpacto.restart();
-        estavaNoAr = false;
-        return;
-    }
-
-    if (!estaNoChao)
-        estavaNoAr = true;
-
-    if (impactoAtivo && clockImpacto.getElapsedTime().asSeconds() >= duracaoImpacto)
-        impactoAtivo = false;
-}
-*/
-
 void K_2SO::atualizarMaldade()
 {   
-    /*if (num_vidas <= 2)
-    {
-        cooldownSalto = 1.8f;
-        //impulsaoSalto = 620.0f;
-        
-        if (nivel_maldade < 15)
-            nivel_maldade = 15;
-        
-        if (maldadeClock.getElapsedTime().asSeconds() >= 1.0f)
-        {
-            this->operator++();
-            maldadeClock.restart();
-        }
-    }
-
-    else if (num_vidas <= 4)
-    {
-        if (nivel_maldade < 12)
-            nivel_maldade = 12;
-        
-        cooldownSalto = 2.4f;
-        //impulsaoSalto = 560.0f;
-        
-        if (maldadeClock.getElapsedTime().asSeconds() >= 3.0f)
-        {
-            this->operator++();
-            maldadeClock.restart();
-        }    
-    }*/
-
     if (num_vidas <= 5)
     {
         cooldownSalto = 1.8f;
-        //impulsaoSalto = 620.0f;
         
         if (nivel_maldade < 15)
             nivel_maldade = 15;
@@ -340,11 +268,6 @@ void K_2SO::atualizarMaldade()
             maldadeClock.restart();
         }
     }
-
-    /*
-    else
-        return; // Na construtora.
-    */
 }
 
 bool K_2SO::getImpactoAtivo() const

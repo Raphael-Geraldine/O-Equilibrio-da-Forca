@@ -25,16 +25,6 @@ void Gerenciador_Grafico::destruirGGrafico()
     }
 }
 
-/*
-void Gerenciador_Grafico::destruirGGrafico() 
-{
-    if (Gerenciador_Grafico::getGerenciadorGrafico() != NULL) 
-    {
-        delete (Gerenciador_Grafico::getGerenciadorGrafico());
-    }
-}
-*/
-
 Gerenciador_Grafico::Gerenciador_Grafico()
 {
     janela.create (sf::VideoMode(1280,720),"O Equilibrio da Forca");
@@ -43,8 +33,6 @@ Gerenciador_Grafico::Gerenciador_Grafico()
     if (!fonteName.loadFromFile(FONTE))
         cerr << "Erro de carregamento da Fonte no Menu" << endl;
     nameType.setFont(fonteName);
-
-    //textOptions.clear();
 }
 
 Gerenciador_Grafico::~Gerenciador_Grafico()
@@ -60,7 +48,6 @@ Gerenciador_Grafico::~Gerenciador_Grafico()
     }
 
     mapaTexturas.clear();
-    //textOptions.clear();
 }
 
 sf::RenderWindow* Gerenciador_Grafico::getJanela()
@@ -86,9 +73,6 @@ void Gerenciador_Grafico::desenharEnte (Ente* pE)
         return;
     }
 
-    //sf::Sprite spriteEntidade = pE->getDrawData();
-    //janela.draw(spriteEntidade);
-    //desenharOrigem(janela, spriteEntidade);
     pE->desenhar();
 
     Inimigo* pI = dynamic_cast<Inimigo*>(pE);
@@ -127,20 +111,10 @@ void Gerenciador_Grafico::desenharFase(Fase* pF)
         
         Ente* pE = (*lEntidades)[i];
         Personagem* pP = dynamic_cast<Personagem*>(pE);
-        if ((pP != NULL && pP->getVida() > 0) || pP==NULL)
-        {
+        if ((pP != nullptr && pP->getVida() > 0) || pP==nullptr)
             desenharEnte (pE);
-            //desenharOrigem(janela,pE->getDrawData());
-        }
             
     }
-
-    //janela.display(); o display é dado após desenhar a vida
-}
-
-void Gerenciador_Grafico::posicionarEnte (Ente* pE)
-{
-
 }
 
 void Gerenciador_Grafico::desenharMenu (Menu* pM, vector<sf::Text>& text)
@@ -155,7 +129,6 @@ void Gerenciador_Grafico::desenharMenu (Menu* pM, vector<sf::Text>& text)
 
 void Gerenciador_Grafico::desenharTextoMenu (vector<sf::Text>& textOptions)
 {
-    // Chamada fora do loop.
     sf::Vector2f mousePosition = janela.mapPixelToCoords(sf::Mouse::getPosition(janela)); 
 
     for (int i=0; i<textOptions.size();i++)
@@ -170,7 +143,7 @@ void Gerenciador_Grafico::desenharTextoMenu (vector<sf::Text>& textOptions)
             textOptions[i].setFillColor(sf::Color::White);
         }
 
-        janela.draw(textOptions[i]); // Após ajuste de cores.
+        janela.draw(textOptions[i]);
     }
 } 
 
@@ -202,8 +175,6 @@ void Gerenciador_Grafico::desenharSolicitar1Nome(sf::Event& event, const sf::Spr
     }
 
     janela.draw(nameType);
-
-    //cout<<nome<<endl;
 
     janela.display();
 }
@@ -256,7 +227,6 @@ void Gerenciador_Grafico::desenharRank(const vector<string>& linhasRank, sf::Spr
 {
     janela.draw(fundo);
 
-    // vector<ElemRank*>::iterator it;
     vector<string>::const_iterator it;
     int i=1;
 
@@ -275,20 +245,6 @@ void Gerenciador_Grafico::desenharRank(const vector<string>& linhasRank, sf::Spr
         
         janela.draw(textToDisplay);
     }
-    /*
-    for(it=jogsRank.begin();it!=jogsRank.end();++it)
-    {
-        string jogador = to_string(i) + "o lugar: " + (*it)->getNome() + " - " + to_string((*it)->getPontos()) + " pontos";
-        sf::Text textToDisplay(jogador,fonteName);
-        textToDisplay.setFillColor(sf::Color::White);
-        sf::FloatRect bounds = textToDisplay.getLocalBounds();
-        textToDisplay.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f); 
-        float y = 130 + (70*i);
-        textToDisplay.setPosition(640,y);
-        i++;
-        janela.draw(textToDisplay);
-    }
-    */
 
     janela.display();
 }
@@ -320,7 +276,6 @@ void Gerenciador_Grafico::desenharVida(Jogador* pJ1, Jogador* pJ2)
         textToDisplay.setPosition(1260,20);
         janela.draw(textToDisplay);
     }
-    //janela.display();
 }
 
 void Gerenciador_Grafico::mostrar()
@@ -342,39 +297,3 @@ void Gerenciador_Grafico::desenharMenuPause(sf::Sprite& pause)
     janela.draw(fundo);
     janela.draw(pause);
 }
-
-
-
-
-
-
-
-/*
-void Gerenciador_Grafico::desenharFase (Fase* pF)
-{
-    //janela.setMouseCursorVisible(false);
-
-    janela.draw(pF->getFundo());
-    janela.draw(pF->getGround());
-    janela.draw(pF->getPlataforma());
-
-    desenharOrigem(janela, pF->getPlataforma());
-    
-    OEquilibrioDaForca::Listas::ListaEntidades* lEntidades = pF->getListaEntidades();
-    int tamanho = static_cast<int>(lEntidades->getTamanho());
-    for (int i = 0; i < tamanho; i++) 
-    {
-        Entidade* pEnt = (*lEntidades)[i];
-
-        if (pEnt == NULL) 
-            cerr << "Ponteiro nulo em lista de Entidades." << endl;
-        
-        else 
-            janela.draw(pEnt->getDrawData());
-            desenharOrigem(janela, pEnt->getDrawData());
-    }
-
-    janela.display();
-}
-*/
-

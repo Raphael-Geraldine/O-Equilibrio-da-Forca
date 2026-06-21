@@ -82,12 +82,8 @@ void Menu::executar()
     menuOptions.push_back("Fase 1: Mustafar");
     menuOptions.push_back("1 jogador");
     menuOptions.push_back("Como jogar?");
-    
-    //faseString= "Fase 2: Hoth";
-    //jogsString= "2 Jogadores";
 }
 
-// Outrora foi manager.
 void Menu::prepararTelaNome()
 {
     pTexturaNome1 = Gerenciador_Grafico::getGerenciadorGrafico()->carregarTextura(NOME1JOG);
@@ -174,7 +170,6 @@ bool Menu::cliqueEmOpcao(sf::RenderWindow& janela, sf::Text& text)
     {
         sf::Time timer = sf::milliseconds(300);
         sf::sleep(timer);
-        //cout<<"Redirecionando para: "<<static_cast<string>(text.getString())<<endl;
         return 1;
     }
     return 0;
@@ -234,10 +229,6 @@ sf::Sprite Menu::getNomeBack(short int n)
     fundoNome.setTexture(*pTexturaNome2);
     return fundoNome;
 }
-// vector<ElemRank*> Menu::getRank()
-// {
-//     return rank;
-// }
 
 void Menu::salvarRank(int pontos, string nome)
 {
@@ -273,46 +264,6 @@ void Menu::salvarRank(int pontos, string nome)
         rank.pop_back();
     }
 }
-
-/*
-void Menu::salvarRank(int pontos, string nome)
-{
-    if (nome.empty())
-        return;
-
-    rank.push_back(new ElemRank(nome,pontos));
-    if(!(rank.empty()))
-    {
-        vector<ElemRank*>::iterator it;
-
-        for (it=rank.begin(); *it != rank.back(); ++it)
-        {
-            if(pontos > (*it)->getPontos())
-            {
-                delete(rank.back());
-                rank.pop_back();
-                rank.insert(it,new ElemRank(nome,pontos));
-                break;
-            }
-        }
-
-        if (rank.size()>5)
-        {
-            delete(rank.back());
-            rank.pop_back();
-        }
-    }
-
-    for (int i = 0; i < rank.size(); ++i) 
-    {
-        if (rank[i] != NULL) 
-        {
-            cout << i + 1 << "o Lugar: " << rank[i]->getNome() << " - " << rank[i]->getPontos() << " pts"<<endl;
-        }
-    }
-}
-
-*/
 
 void Menu::limparRank()
 {

@@ -79,7 +79,6 @@ OEquilibrioDaForca::Entidades::Obstaculos::Plataforma::Plataforma():
 }
 Plataforma::~Plataforma()
 {
-    // TIRAR SEG FAULT: delete(skin.getTexture());
 }
 void Plataforma::executar()
 {
@@ -133,20 +132,11 @@ void Plataforma::obstaculizar(Jogador* pJog)
     float obsEsquerda = obsBounds.left;
     float obsDireita = obsBounds.left + obsBounds.width;
 
-    //bool colisaoResolvida = false;
     bool colidiuLateral = false;
 
     // Veio de cima, antes estava acima da plataforma.
-    if ((anteriorBaixo - (2*epsilonColisao)) <= obsCima)  //acrescentei o epsilon
+    if ((anteriorBaixo - (2*epsilonColisao)) <= obsCima)
     {
-        //float porcentagemApoio = intersecao.width / (jogBounds.width/4.0f);
-
-        //if (porcentagemApoio < apoioMinimo)
-        //{
-            //fazEscorregar(pJog, jogBounds, obsBounds);  //isso era fonte de erros
-            //return;
-        //}
-
         pJog->setY(pJog->getY() - intersecao.height - epsilonColisao);
         float novaVelY = (-1.0f) * vel.y * coefRestPiso;
 
@@ -163,36 +153,25 @@ void Plataforma::obstaculizar(Jogador* pJog)
             pJog->setEmSuperficie(true);
         else
             pJog->setEmSuperficie(false);
-
-        /*
-        if (novaVelY < 0.0f)
-            pJog->setNoChao(false);
-
-        else
-            pJog->setNoChao(true);
-        */
-
-        //colisaoResolvida = true;
     }
 
     // Veio de baixo, antes estava abaixo da plataforma:
-    if ((anteriorCima + (2*epsilonColisao)) >= obsBaixo)  //acrescentei o epsilon e tirei o if else
+    if ((anteriorCima + (2*epsilonColisao)) >= obsBaixo) 
     {
         pJog->setY(pJog->getY() + intersecao.height + epsilonColisao);
         float novaVelY = (-1.0f) * vel.y * coefRestPiso;
         pJog->setVelocidadeY(novaVelY);
-        //colisaoResolvida = true;
     }
 
     // Veio da esquerda:
-    if ((anteriorDireita - (2*epsilonColisao)) <= obsEsquerda)  //acrescentei o epsilon e tirei o if else
+    if ((anteriorDireita - (2*epsilonColisao)) <= obsEsquerda)
     {
         pJog->setX(pJog->getX() - intersecao.width - epsilonColisao);
         colidiuLateral = true; 
     }
  
     // Veio da direita:
-    if ((anteriorEsquerda + (2*epsilonColisao)) >= obsDireita) //acrescentei o epsilon e tirei o if else
+    if ((anteriorEsquerda + (2*epsilonColisao)) >= obsDireita)
     {
         pJog->setX(pJog->getX() + intersecao.width + epsilonColisao);
         colidiuLateral = true;  
@@ -207,50 +186,7 @@ void Plataforma::obstaculizar(Jogador* pJog)
             novaVelX = 0.0f;
 
         pJog->setVelocidadeX(novaVelX);
-        //colisaoResolvida = true;
     }        
-
-    /*
-    // Para colisões usando W + A (diagonal), a posição anterior e final. ps: a princípio já está resolvido
-    // não resolvia (atravessava o objeto).
-    if (!colisaoResolvida)
-    {
-        cout<<"1"<<endl;
-        
-        if (intersecao.height < intersecao.width)
-        {
-            if (vel.y < 0.0f)
-            {
-                cout<<"2"<<endl;
-                pJog->setY(pJog->getY() + intersecao.height + epsilonColisao);
-                pJog->setVelocidadeY(0.0f);
-                pJog->setNoChao(false);
-            }
-            else
-            {
-                cout<<"3"<<endl;
-                pJog->setY(pJog->getY() - intersecao.height - epsilonColisao);
-                pJog->setVelocidadeY(0.0f);
-                pJog->setNoChao(true);
-            }
-        }
-        else
-        {
-            if (vel.x < 0.0f)
-            {
-                cout<<"4"<<endl;
-                pJog->setX(pJog->getX() + intersecao.width + epsilonColisao);
-            }
-            else
-            {
-                cout<<"5"<<endl;
-                pJog->setX(pJog->getX() - intersecao.width - epsilonColisao);
-            }
-
-            pJog->setVelocidadeX(0.0f);
-        }
-    }
-    */
 
     pJog->atualizarPosicaoSprite();  
 }
@@ -327,7 +263,7 @@ void Plataforma::obstaculizarInim(Inimigo* pInim)
 
         if (porcentagemApoio < apoioMinimo)
         {
-            fazEscorregar(pInim, inimBounds, obsBounds);  //Como inim não tem movimentação brusca, está funcionando legal aqui
+            fazEscorregar(pInim, inimBounds, obsBounds);  
             return;
         }
 
@@ -384,42 +320,3 @@ void Plataforma::obstaculizarInim(Inimigo* pInim)
 
     pInim->atualizarPosicaoSprite();
 }
-
-/*
-if (pInim == NULL || pObs == NULL)
-        return;
-    
-    sf::FloatRect inimBounds = pInim->getBounds();
-    sf::FloatRect obsBounds = pObs->getBounds();
-    
-    const int RECUO_COLISAO = 2;
-
-    if (((pInim->getX() - inimBounds.width) > (pObs->getX() - obsBounds.width)) 
-       && ((pInim->getX() + inimBounds.width) < (pObs->getX() + obsBounds.width)))
-    {
-        bool upDown = false;
-
-        if ((pInim->getY() - inimBounds.height) < (pObs->getY() - obsBounds.height))
-            upDown=true;
-
-        if (upDown)
-            pInim->setY(pInim->getY() - RECUO_COLISAO);
-        
-        else
-            pInim->setY(pInim->getY() + RECUO_COLISAO);        
-    }
-   
-    else     
-    {
-        bool rightLeft = false;
-        
-        if ((pInim->getX() + inimBounds.width) > (pObs->getX() + obsBounds.width / 2.0f))
-            rightLeft = true;
-
-        if (rightLeft)
-            pInim->setX(pInim->getX() + RECUO_COLISAO);
-
-        else
-            pInim->setX(pInim->getX() - RECUO_COLISAO);
-    }
-*/

@@ -30,7 +30,6 @@ Stormtrooper::Stormtrooper():
     stromVivos++;
     directionMove = true;
 
-    //num_vidas = (rand()%5)+1;
     num_vidas = 5;
     vidaMax = num_vidas;
     nivel_maldade = 4;
@@ -185,7 +184,6 @@ sf::Sprite Stormtrooper::getDrawData() const
 
 void Stormtrooper::atualizarPosicaoSprite() 
 {
-    //void sf::Transformable::setPosition(const Vector2f &position)	
     skin.setPosition(x,y);
     atualizarPosicaoBarra();
 }

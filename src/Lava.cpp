@@ -87,7 +87,7 @@ void Lava::obstaculizar (Jogador* pJog)
         && 
         ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (lavaBounds.width/2.0f))))
     {
-        pJog->setY(710); //pode exagerar no valor, pois em Colisões não deixa sair da tela
+        pJog->setY(710); //pode "exagerar" no valor, pois em Colisões não deixa sair da tela
         mergulhado=true;
     }
     else
@@ -130,37 +130,6 @@ void Lava::obstaculizar (Jogador* pJog)
     sf::Clock clockD;
     clockDano.push_back(clockD);
     pJog->atualizarPosicaoSprite();
-
-    /*
-    sf::FloatRect playerBounds = pJog->getBounds();
-    sf::FloatRect lavaBounds = this->getBounds();
-    
-    //Quando jogador estiver 100% em cima
-    if (((pJog->getX() + (playerBounds.width/2.0f)) < (this->getX() + (lavaBounds.width/2.0f))) 
-        && 
-        ((pJog->getX() - (playerBounds.width/2.0f)) > (this->getX() - (lavaBounds.width/2.0f))))
-    {
-        pJog->setY(710); //pode exagerar no valor, pois em Colisões não deixa sair da tela
-        if (clockDano.getElapsedTime().asSeconds()>0.5f)
-        {
-            danificar(pJog,(int)danosidade);
-            clockDano.restart();
-        }
-        //não tem o pJog->setNoChao(true), para ele não poder pular
-    }
-    else
-    {
-        pJog->setY(710-(playerBounds.height/1.9f));
-        if (clockDano.getElapsedTime().asSeconds()>0.5f)
-        {
-            danificar(pJog,(int)danosidade/2);
-            clockDano.restart();
-        }
-        pJog->setNoChao(true);
-    }
-
-    pJog->atualizarPosicaoSprite();
-    */
 }
 void Lava::danificar(Jogador* pJog, int dano)
 {

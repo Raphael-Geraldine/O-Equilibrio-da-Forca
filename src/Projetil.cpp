@@ -64,8 +64,6 @@ Projetil::Projetil(short int d):
     skin.setScale(0.15,0.15);
 
     atualizarPosicaoSprite();
-
-    //pthread_create(&thread, NULL, Projetil::execThread, this);
 }
 
 Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool a):
@@ -98,13 +96,10 @@ Projetil::Projetil(float sx, float sy, float velx, float vely,short int d, bool 
     skin.setScale(0.15,0.15);
 
     atualizarPosicaoSprite();
-
-    //pthread_create(&thread, NULL, Projetil::execThread, this);
 }
 
 Projetil::~Projetil()
 {
-    //pthread_exit(&thread);
     ativo=false;
 }
 
@@ -206,14 +201,11 @@ void Projetil::atualizarRotacaoSprite()
 
 void Projetil::executar()
 {
+    //Threads! Cada projétil cria uma thread para se executar quando necessário.
+    //O funcionamento aqui é um pouco mais simples que o implementado em AT_ST, este com mutex
     if (ativo && (!executando))
     {
-        //aplicarFisica();
-        //atualizarRotacaoSprite();
-        //mover();
-        //atualizarPosicaoSprite();
-
-        pthread_create(&thread, NULL, Projetil::execThread, this); //Threads!
+        pthread_create(&thread, NULL, Projetil::execThread, (void*)this);
         pthread_detach(thread);
         executando=true;
     }
@@ -230,6 +222,7 @@ void Projetil::salvar()
 }
 
 // funçao vazia, necessita-se existir. Pois mover() é virtual void em entidade
+// aqui a thread cuida disso
 void Projetil::mover()
 {}
 
@@ -272,7 +265,7 @@ void Projetil::danificar(Jogador* p)
     if (ativo && p != NULL)
     {
         p->sofrerAtaque(dano);
-        pAT->operator++();
+        pAT->operator++(); //incrementa o nível de maldade do AT_ST quando acerta
         desativar();
     }
 }
@@ -292,16 +285,6 @@ void Projetil::perseguir(Jogador* pJog)
 
     const sf::Vector2f direcao (alvo.x - x, alvo.y - y);
 
-    /*
-    sf::Vector2f posJog = pJog->getPosicaoAnterior();
-    sf::Vector2f posAT = pAT->getPosicaoAnterior();
-
-    x = posAT.x;
-    y = posAT.y;
-
-    const sf::Vector2f direcao (posJog.x - x, posJog.y - y);
-    */
-
     const sf::Vector2f direcaoNormalizada = normalizar(direcao);
 
     // Evitar novamente divisão por zero no cálculo do ângulo.
@@ -313,8 +296,6 @@ void Projetil::perseguir(Jogador* pJog)
 
     velocidade.x = direcaoNormalizada.x * moduloVelLancamento;
     velocidade.y = direcaoNormalizada.y * moduloVelLancamento;
-    
-
 
     ativo = true;
 
@@ -323,7 +304,6 @@ void Projetil::perseguir(Jogador* pJog)
 
 void Projetil::atualizarPosicaoSprite() 
 {
-    //void sf::Transformable::setPosition(const Vector2f &position)	
     skin.setPosition(x,y);
 }
 

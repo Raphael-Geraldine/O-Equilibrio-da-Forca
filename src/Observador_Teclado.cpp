@@ -52,15 +52,6 @@ void Observador_Teclado::atualizar(Observado* pObservado)
 
     else if (evento.type == sf::Event::KeyPressed) 
     {   
-        /*
-        if (((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) 
-            || sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
-            && (evento.key.code == sf::Keyboard::S))
-        {
-            pJogo->atalhoSalvarESair(*pJanela);
-            return;
-        }*/
-
         if (evento.key.code == sf::Keyboard::Enter)
         {
             pJogo->confirmarEntrada();
