@@ -21,13 +21,13 @@ using namespace Gerenciadores;
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 
-short int Stormtrooper::stromVivos(0);
+short int Stormtrooper::stormVivos(0);
 
 Stormtrooper::Stormtrooper(): 
     Inimigo(),
     medo(false)
 {
-    stromVivos++;
+    stormVivos++;
     directionMove = true;
 
     num_vidas = 5;
@@ -59,7 +59,7 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
     Inimigo(),
     medo(false)
 {
-    stromVivos++;
+    stormVivos++;
     directionMove = true;
 
     num_vidas = numVidas;
@@ -92,7 +92,7 @@ Stormtrooper::Stormtrooper(float sx, float sy, float velx, float vely, int numVi
 
 Stormtrooper::~Stormtrooper()
 {
-    stromVivos--;
+    stormVivos--;
     num_vidas=-1;
 }
 void Stormtrooper::executar()
@@ -104,7 +104,7 @@ void Stormtrooper::executar()
     setDeltaTempo(Gerenciador_Grafico::getDeltaTempo());
     velocidade.x = 0.0f;
 
-    if(stromVivos<3)
+    if(stormVivos<3)
         medo=true;
 
     int chance = rand()%10;

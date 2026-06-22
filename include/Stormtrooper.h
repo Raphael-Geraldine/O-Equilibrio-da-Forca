@@ -16,7 +16,7 @@ namespace OEquilibrioDaForca
             class Stormtrooper : public Inimigo
             {
                 private:
-                    static short int stromVivos; 
+                    static short int stormVivos; 
                     bool medo;
 
                 public:
