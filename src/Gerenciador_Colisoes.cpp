@@ -58,7 +58,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsObstaculos()
     
     for (it = LOs.begin(); it != LOs.end(); ++it)
     {
-        if ((*it) == nullptr)
+        if ((*it) == NULL)
             continue;
 
         Obstaculo* pObs = (*it);
@@ -79,7 +79,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsInimigos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue;
     
         if (pJog1 != NULL && verificarColisao(pJog1, pInim))
@@ -98,7 +98,7 @@ void Gerenciador_Colisoes::tratarColisoesJogsProjeteis()
     {
         Projetil* pProj = *it;
 
-        if (pProj == nullptr)
+        if (pProj == NULL)
             continue;
     
         if (pJog1 != NULL && verificarColisao(pJog1, pProj))
@@ -134,14 +134,14 @@ void Gerenciador_Colisoes::tratarColisoesInimObstaculos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue;
     
         std::list<Obstaculo*>::iterator it; 
 
         for (it = LOs.begin(); it != LOs.end(); ++it)
         {
-            if ((*it) == nullptr)
+            if ((*it) == NULL)
                 continue;
 
             Obstaculo* pObs = (*it);
@@ -163,7 +163,7 @@ void Gerenciador_Colisoes::tratarColisoesChaoInimigos()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue;
 
         if (pInim != NULL) 
@@ -349,7 +349,7 @@ void Gerenciador_Colisoes::executar()
     {
         Inimigo* pInim = LIs[i];
 
-        if (LIs[i] == nullptr)
+        if (LIs[i] == NULL)
             continue;
 
         if (pInim != NULL) 
@@ -569,7 +569,7 @@ bool Gerenciador_Colisoes::jogadorNoImpactoChaoK2 (Jogador* pJog, K_2SO* pK2)
 }
 bool Gerenciador_Colisoes::personagemSobreChao(Personagem* pP)
 {
-    if (pP == nullptr || pChao == nullptr)
+    if (pP == NULL || pChao == NULL)
         return false;
 
     sf::FloatRect pBounds = pP->getBounds();

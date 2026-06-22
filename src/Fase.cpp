@@ -33,9 +33,9 @@ Fase::Fase():
     entsAlive(0),
     nJogs(0),
     Ente(),
-    pJogador1(nullptr),
-    pJogador2(nullptr),
-    gC(nullptr)
+    pJogador1(NULL),
+    pJogador2(NULL),
+    gC(NULL)
 {
     gC = new Gerenciador_Colisoes();
     

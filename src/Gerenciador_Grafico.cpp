@@ -111,7 +111,7 @@ void Gerenciador_Grafico::desenharFase(Fase* pF)
         
         Ente* pE = (*lEntidades)[i];
         Personagem* pP = dynamic_cast<Personagem*>(pE);
-        if ((pP != nullptr && pP->getVida() > 0) || pP==nullptr)
+        if ((pP != NULL && pP->getVida() > 0) || pP==NULL)
             desenharEnte (pE);
             
     }

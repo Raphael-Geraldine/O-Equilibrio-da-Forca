@@ -248,7 +248,7 @@ void Jogo::limparFase()
     delete pFase;
     pFase = NULL;
 
-    if (pAnakin1 != nullptr)
+    if (pAnakin1 != NULL)
     {
         delete (pAnakin1);
         pAnakin1 = NULL;
