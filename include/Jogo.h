@@ -56,7 +56,7 @@ namespace OEquilibrioDaForca
             Fases::Fase* pFase;
 
             Entidades::Personagens::Jogador* pAnakin1;
-            Entidades::Personagens::Jogador* pObi1;
+            Entidades::Personagens::Jogador* pObi2;
             string nomeJog1;
             string nomeJog2;
 

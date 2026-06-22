@@ -39,7 +39,7 @@ Jogo::Jogo():
     pMenu(NULL), 
     pFase(NULL),
     pAnakin1(NULL),
-    pObi1(NULL),
+    pObi2(NULL),
     estadoAtual(Estado::Menu)
 {
     pGG = Gerenciador_Grafico::getGerenciadorGrafico();
@@ -82,9 +82,9 @@ OEquilibrioDaForca::Jogo::~Jogo()
         pAnakin1 = NULL;
     }
 
-    if (pObi1 != NULL) {
-        delete (pObi1);
-        pObi1 = NULL;
+    if (pObi2 != NULL) {
+        delete (pObi2);
+        pObi2 = NULL;
     }
 
     if (pObsMenu != NULL)
@@ -198,7 +198,7 @@ void OEquilibrioDaForca::Jogo::executar()
                 {
                     getFase()->executar();
                     pGG->desenharFase(getFase());
-                    pGG->desenharVida(pAnakin1,pObi1);
+                    pGG->desenharVida(pAnakin1,pObi2);
                     pGG->mostrar();
                 }
 
@@ -207,7 +207,7 @@ void OEquilibrioDaForca::Jogo::executar()
             case Estado::Pause:
             {
                 pGG->desenharFase(getFase());
-                pGG->desenharVida(pAnakin1,pObi1);
+                pGG->desenharVida(pAnakin1,pObi2);
                 pGG->desenharMenuPause(pMenu->getMenuPause());
                 pGG->mostrar();
                 break;
@@ -229,15 +229,15 @@ void Jogo::inicializarJogo()
     pAnakin1 = new Jogador();
 
     if (qntd != 1)
-        pObi1 = new Jogador();
+        pObi2 = new Jogador();
     else
-        pObi1 = NULL;
+        pObi2 = NULL;
 
     if (!fase)
-        pFase = new Mustafar(pAnakin1, pObi1);
+        pFase = new Mustafar(pAnakin1, pObi2);
 
     else
-        pFase = new Hoth(pAnakin1, pObi1);
+        pFase = new Hoth(pAnakin1, pObi2);
 }
 
 void Jogo::limparFase()
@@ -254,10 +254,10 @@ void Jogo::limparFase()
         pAnakin1 = NULL;
     }
 
-    if (pObi1 != NULL)
+    if (pObi2 != NULL)
     {
-        delete (pObi1);
-        pObi1 = NULL;
+        delete (pObi2);
+        pObi2 = NULL;
     }
 
     nomeJog1.clear();
@@ -274,7 +274,7 @@ void Jogo::atualizarFase()
         if (!(pMenu->getFaseEscolhida()))
         {
             delete pFase;
-            pFase = new Hoth(pAnakin1, pObi1);
+            pFase = new Hoth(pAnakin1, pObi2);
             pMenu->setFaseEscolhida(1,textOptions);
 
             if (pAnakin1 != NULL)
@@ -282,10 +282,10 @@ void Jogo::atualizarFase()
                 pAnakin1->setX(20);
                 pAnakin1->setY(570);
             }
-            if (pObi1 != NULL)
+            if (pObi2 != NULL)
             {
-                pObi1->setX(100);
-                pObi1->setY(570);
+                pObi2->setX(100);
+                pObi2->setY(570);
             }
         }
         else
@@ -302,11 +302,11 @@ void Jogo::atualizarFase()
                 pAnakin1 = NULL;
             }
 
-            if (pObi1 != NULL)
+            if (pObi2 != NULL)
             {
-                pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
-                delete (pObi1);
-                pObi1 = NULL;
+                pMenu->salvarRank(pObi2->getPontos(),nomeJog2);
+                delete (pObi2);
+                pObi2 = NULL;
             }
 
             nomeJog1.clear();
@@ -326,11 +326,11 @@ void Jogo::atualizarFase()
             pAnakin1 = NULL;
         }
 
-        if (pObi1 != NULL)
+        if (pObi2 != NULL)
         {
-            pMenu->salvarRank(pObi1->getPontos(),nomeJog2);
-            delete (pObi1);
-            pObi1 = NULL;
+            pMenu->salvarRank(pObi2->getPontos(),nomeJog2);
+            delete (pObi2);
+            pObi2 = NULL;
         }
 
         nomeJog1.clear();
@@ -544,13 +544,13 @@ void Jogo::carregarSave()
         read.clear(); 
         read.str(preRead);
         read>>d1>>d2>>d3>>d4>>d5>>d6>>d7;
-        pObi1 = new Jogador(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),(short)(paraInt(d6)),paraInt(d7));
+        pObi2 = new Jogador(paraFloat(d1),paraFloat(d2),paraFloat(d3),paraFloat(d4),paraInt(d5),(short)(paraInt(d6)),paraInt(d7));
     }
 
     if(!fase)
-        pFase = new Mustafar(pAnakin1,pObi1,'s');
+        pFase = new Mustafar(pAnakin1,pObi2,'s');
     else
-        pFase = new Hoth(pAnakin1,pObi1,'s');
+        pFase = new Hoth(pAnakin1,pObi2,'s');
 
     //FASE E JOGADORES
     
@@ -636,7 +636,7 @@ void Jogo::carregarSave()
                 {
                     pFase->incluirEntidade(static_cast<Inimigo*>(pAT));
                     pFase->incluirGCInimigo(static_cast<Inimigo*>(pAT)); 
-                    pAT->setAlvos(pAnakin1, pObi1);
+                    pAT->setAlvos(pAnakin1, pObi2);
                     pFase->increaseInimVivos();
                     
                     getline(data,preRead,'%');
