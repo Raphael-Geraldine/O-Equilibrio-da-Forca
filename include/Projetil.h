@@ -26,6 +26,9 @@ namespace OEquilibrioDaForca
 
                 pthread_t thread;
 
+                bool ativo;
+                short int dano;
+
             private:
                 float calcularModulo (const sf::Vector2f& vetor) const;
                 sf::Vector2f normalizar (const sf::Vector2f& vetor) const;
@@ -36,10 +39,6 @@ namespace OEquilibrioDaForca
                 void aplicarFisica();
                 void desativar();
                 void atualizarRotacaoSprite();
-
-            protected:
-                bool ativo;
-                short int dano;
 
             public:
                 Projetil(short int d = 20);
