@@ -7,6 +7,17 @@
 
 Esta branch contém o aplicativo pré-compilado e empacotado como um **Bundle Nativo do macOS (`.app`)**, configurado especificamente para a arquitetura **Apple Silicon**.
 
+<table border="0" style="width: 100%;">
+  <tr>
+    <td width="50%" align="center">
+      <img src="https://github.com/user-attachments/assets/19fd3fa7-1bf5-41b8-91b1-ef3d5466fa11" width="100%" alt="Fase 2" />
+    </td>
+    <td width="50%" align="center">
+      <img src="https://github.com/user-attachments/assets/c9d7a13e-1f61-4d91-984b-b8b06e35ec4c" width="100%" alt="Menu Principal" />
+    </td>
+  </tr>
+</table>
+
 ## Estrutura do Pacote Aplicativo (`.app`)
 
 A estrutura interna do diretório nesta branch segue rigorosamente o padrão de pacotes de aplicativos do **macOS**:
