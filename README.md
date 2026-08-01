@@ -3,7 +3,7 @@
 > **Nota:** Este projeto foi desenvolvido exclusivamente para **fins educacionais e sem fins lucrativos**.
 > 
 > 🔍 **Procurando o código-fonte em C++?**  
-> Todo o desenvolvimento, **feito em dupla**, do jogo, diagramas UML e código em C++/SFML/pthreads estão mantidos na **[branch master (código-fonte principal)](https://github.com/Raphael-Geraldine/O-Equilibrio-da-Forca/tree/master)**.
+> Todo o desenvolvimento do jogo, diagramas UML e código em C++/SFML/pthreads estão mantidos na **[branch master (código-fonte principal)](https://github.com/Raphael-Geraldine/O-Equilibrio-da-Forca/tree/master)** e **foram feitos em dupla**.
 
 Esta branch contém o aplicativo pré-compilado e empacotado como um **Bundle Nativo do macOS (`.app`)**, configurado especificamente para a arquitetura **Apple Silicon**.
 
