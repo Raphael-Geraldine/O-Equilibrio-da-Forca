@@ -11,7 +11,7 @@ Este projeto foi um trabalho prático, em **dupla**, desenvolvido por **Marco Ve
 Como **iniciativa própria**, eu, Raphael Geraldine, resolvi ir além das exigências da disciplina e criar uma distribuição nativa, autônoma e polida para macOS (ARM64). Essa experiência reforçou algo fundamental: engenharia de software de baixo nível e atenção à **experiência do usuário** precisam andar juntas. Cuidar de todo o ciclo, do código C++ até a entrega final, é o que transforma um trabalho acadêmico em uma **aplicação completa** e agradável de usar.
 
 Neste sentido, esta branch contém o aplicativo pré-compilado e empacotado como um **Bundle Nativo do macOS (`.app`)**, configurado especificamente para a arquitetura **Apple Silicon**.
-> **Nota:** O executável empacotado está disponível diretamente na aba [**Releases**](https://github.com/Raphael-Geraldine/O-Equilibrio-da-Forca/releases) da página do repositório no GitHub na forma de um arquivo de imagem de disco (**`.dmg`**).
+> **Nota:** O jogo empacotado para _Download_ está disponível diretamente na aba [**Releases**](https://github.com/Raphael-Geraldine/O-Equilibrio-da-Forca/releases) da página do repositório no GitHub na forma de um arquivo de imagem de disco (**`.dmg`**).
 >
 > 🔍 **Procurando o código-fonte em C++?**  
 > Todo o desenvolvimento do jogo, diagramas UML e código em C++/SFML/pthreads estão mantidos na **[branch master (código-fonte principal)](https://github.com/Raphael-Geraldine/O-Equilibrio-da-Forca/tree/master)** e **foram feitos em dupla**.
@@ -40,7 +40,7 @@ Durante a partida, os personagens podem se movimentar, saltar e atacar. Cada jog
 
 O jogo possui duas fases: **_Mustafar_ (Fase 1) e _Hoth_ (Fase 2)**, que apresentam cenários distintos. Cada qual tem um inimigo exclusivo, além do inimigo fácil presente nas duas. Em _Hoth_, o inimigo exclusivo realiza ataques com projéteis. 
 
-Por meio do menu principal do jogo, o usuário pode selecionar a fase do jogo, escolher a quantidade de jogadores, consultar as instruções de como jogar e visualizar o **_ranking_**. Todos os botões contam com efeitos de _hover_ implementados em SFML para garantir uma melhor **experiência de usuário (UX)**. Além disso, o progresso e o estado atual daa fase pode ser salvo pelo jogador, o que permite o jogador retomar sua jogada posteriormente. O **salvamento** ocorre com arquivo “.txt”.
+Por meio do menu principal do jogo, o usuário pode selecionar a fase do jogo, escolher a quantidade de jogadores, consultar as instruções de como jogar e visualizar o **_ranking_**. Todos os botões contam com efeitos de _hover_ implementados em SFML para garantir uma melhor **experiência de usuário (UX)**. Além disso, o progresso e o estado atual da fase pode ser salvo pelo jogador, o que permite o jogador retomar sua jogada posteriormente. O **salvamento** ocorre com arquivo “.txt”.
 
 <img src="https://github.com/user-attachments/assets/6643850e-9392-4ae4-b45c-77cfdd3b9ade" width="100%" alt="fase1" />
 
