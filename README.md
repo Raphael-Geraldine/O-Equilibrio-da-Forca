@@ -1,6 +1,6 @@
 # O Equilíbrio da Força — macOS Build (Apple Silicon)
 
-> **Nota:** Este projeto foi desenvolvido exclusivamente para **fins educacionais e sem fins lucrativos**. Todos os direitos de propriedade intelectual, nomes, marcas e elementos visuais inspirados no universo de Star Wars pertencem à Lucasfilm Ltd. e/ou The Walt Disney Company.
+> **Nota:** Este projeto foi desenvolvido exclusivamente para **fins educacionais e sem fins lucrativos**. Todos os direitos de propriedade intelectual, nomes, marcas e elementos visuais inspirados no universo de _Star Wars_ pertencem à Lucasfilm Ltd. e/ou The Walt Disney Company.
 
 Este projeto foi um trabalho prático, em **dupla**, desenvolvido por **Marco Vendramin** [(@marcokvendramin)](https://github.com/marcokvendramin) e **Raphael Geraldine** [(@Raphael-Geraldine)](https://github.com/raphael-geraldine). O objetivo principal desta atividade é consolidar o aprendizado teórico obtido na disciplina de Técnicas de Programação, do prof. Jean Marcelo Simão, por meio da aplicação de conceitos de engenharia de software e desenvolvimento orientado a objetos.
 
