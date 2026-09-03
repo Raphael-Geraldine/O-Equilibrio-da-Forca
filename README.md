@@ -42,6 +42,8 @@ O jogo possui duas fases: **_Mustafar_ (Fase 1) e _Hoth_ (Fase 2)**, que apresen
 
 Por meio do menu principal do jogo, o usuário pode selecionar a fase do jogo, escolher a quantidade de jogadores, consultar as instruções de como jogar e visualizar o **_ranking_**. Todos os botões contam com efeitos de _hover_ implementados em SFML para garantir uma melhor **experiência de usuário (UX)**. Além disso, o progresso e o estado atual da fase pode ser salvo pelo jogador, o que permite o jogador retomar sua jogada posteriormente. O **salvamento** ocorre com arquivo “.txt”.
 
+> A elaboração de parte dos ativos gráficos (sprites) do jogo utilizou recursos de inteligência artificial generativa (Gemini).
+
 <img src="https://github.com/user-attachments/assets/6643850e-9392-4ae4-b45c-77cfdd3b9ade" width="100%" alt="fase1" />
 
 ## Download
